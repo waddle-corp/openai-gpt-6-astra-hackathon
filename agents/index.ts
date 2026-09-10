@@ -19,3 +19,13 @@ export type {
   Prioritization,
   TriageDecision,
 } from './feedback-agent/index.ts';
+export {
+  CONTRIBUTION_ROLES,
+  rewardContributors,
+  rewardPolicy,
+} from './reward-agent/index.ts';
+export type {
+  Contribution,
+  ContributionRole,
+  RewardLedger,
+} from './reward-agent/index.ts';
