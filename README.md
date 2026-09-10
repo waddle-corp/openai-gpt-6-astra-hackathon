@@ -139,3 +139,7 @@ The application code, imported store content, and product/brand images have dist
 Lint covers the application code; generated Shadcn primitives retain their upstream implementation. The app deliberately uses native links and local images without a Next.js image-optimization service.
 
 No credentials, customer records, orders, or private account information are included in the bundled data.
+
+### Admin comparison previews
+
+Section 03 of `/admin` opens As-is and To-be product previews in a modal, with tabs to switch versions. As-is loads the `3b1620f` worktree on `http://localhost:3002`; To-be loads the current origin and jumps to `#compatible-parts-heading`. Both use `/store/products/gtr-series-2-bamboo-at`. Keep both development servers above running for the comparison; the modal also provides an Open store link. The thumbnail frames are non-interactive; open the modal to explore the actual store and 3D compatibility section.

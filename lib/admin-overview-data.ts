@@ -10,6 +10,12 @@ export type AdminOverviewRecord = {
   replayUrl: string | null;
   shortId: string;
   strategyMatch?: string;
+  analysis?: {
+    title: string;
+    problem: string;
+    source: 'cached';
+    generatedAt: string;
+  };
 };
 
 // Recorded fixture replays present in public/media/journeys, not live agent runs.
@@ -83,8 +89,22 @@ export function getStrategyOverview() {
   return {
     totalSignals: allRecords.length,
     records: allRecords.map((record) => ({
-        ...record,
-        strategyMatch: matches.get(record.feedback.id),
-      })),
+      ...record,
+      strategyMatch: matches.get(record.feedback.id),
+      analysis: (() => {
+        const finding = collective.prioritization.opportunities.find(
+          (item) =>
+            item.feedbackIds.includes(record.feedback.id) && aovFocus[item.id],
+        );
+        return finding
+          ? {
+              title: finding.title,
+              problem: finding.problem,
+              source: 'cached' as const,
+              generatedAt: collective.generatedAt,
+            }
+          : undefined;
+      })(),
+    })),
   };
 }
