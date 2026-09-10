@@ -33,7 +33,7 @@ export const demoPhases = {
   beforeGeneration: 500,
   generation: 2000,
   rewards: 2000,
-  focus: 1000,
+  focus: 2000,
 } as const;
 
 const ANALYSIS_AT = demoPhases.signals + demoPhases.beforeAnalysis;

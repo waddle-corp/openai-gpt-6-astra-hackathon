@@ -170,9 +170,9 @@ for (const [start, field] of [
   [11000, 'rewardFocus'],
 ]) {
   assert.equal(demoFlowAt(start, 33)[field], true);
-  assert.equal(demoFlowAt(start + 999, 33)[field], true);
-  assert.equal(demoFlowAt(start + 1000, 33)[field], false);
+  assert.equal(demoFlowAt(start + 1999, 33)[field], true);
+  assert.equal(demoFlowAt(start + 2000, 33)[field], false);
 }
 console.log(
-  'OK page demo: sequential 2s improvement and reward loading, reveals 2s apart, 1s stage focus',
+  'OK page demo: sequential 2s improvement and reward loading, reveals 2s apart, 2s stage focus',
 );
