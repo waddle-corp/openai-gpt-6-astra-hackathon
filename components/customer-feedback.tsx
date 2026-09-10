@@ -5,7 +5,6 @@ import {
   ArrowRight,
   Check,
   Clock3,
-  Gift,
   MessageSquare,
   ShieldCheck,
   Sparkles,
@@ -356,12 +355,10 @@ export function FeedbackCheckout({
       >
         <Dialog open={open} onOpenChange={close}>
           <DialogTrigger className="pf-checkout-toggle">
-            <span className="pf-checkout-toggle-icon">
-              {receipt ? <Check size={18} /> : <Gift size={18} />}
-            </span>
+            {receipt && <Check size={18} />}
             <span className="pf-checkout-toggle-label">
               <strong>
-                {receipt ? 'Feedback added' : 'Pay with your feedback'}
+                {receipt ? 'Feedback added' : 'Pay with feedback'}
               </strong>
               <small>
                 {receipt

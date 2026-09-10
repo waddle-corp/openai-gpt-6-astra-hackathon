@@ -917,3 +917,59 @@
 .checkout-layout .cart-summary {
   border-radius: 12px;
 }
+
+.checkout-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.checkout-fields label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  color: #555;
+}
+.checkout-field-wide {
+  grid-column: 1 / -1;
+}
+.checkout-fields input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  background: white;
+  color: #222;
+  font: inherit;
+  font-size: 14px;
+}
+.checkout-fields input::placeholder {
+  color: #8a8a8a;
+  opacity: 1;
+}
+.checkout-fields input:focus-visible {
+  outline: 2px solid #e83d26;
+  outline-offset: 2px;
+}
+.checkout-delivery-method,
+.checkout-payment-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  font-size: 13px;
+}
+.checkout-delivery-method {
+  border: 1px solid #ccc;
+  background: #fafafa;
+  border-radius: 6px;
+  padding: 14px;
+  margin-top: 16px;
+}
+.checkout-payment-heading {
+  margin-bottom: 16px;
+}
+.checkout-payment-heading span {
+  color: #666;
+  font-size: 11px;
+}

@@ -575,18 +575,72 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
               <div className="checkout-details">
                 <section>
                   <h2>2. Delivery</h2>
-                  <strong>Standard delivery</strong>
-                  <p>
-                    This demo skips address entry. No shipment will be created.
-                  </p>
+                  <div className="checkout-fields">
+                    <label className="checkout-field-wide">
+                      Email
+                      <input
+                        type="email"
+                        placeholder="alex@example.com"
+                        autoComplete="off"
+                      />
+                    </label>
+                    <label>
+                      First name
+                      <input placeholder="Alex" autoComplete="off" />
+                    </label>
+                    <label>
+                      Last name
+                      <input placeholder="Morgan" autoComplete="off" />
+                    </label>
+                    <label className="checkout-field-wide">
+                      Address
+                      <input
+                        placeholder="123 Example Street"
+                        autoComplete="off"
+                      />
+                    </label>
+                    <label>
+                      City
+                      <input placeholder="New York" autoComplete="off" />
+                    </label>
+                    <label>
+                      ZIP code
+                      <input placeholder="10001" autoComplete="off" />
+                    </label>
+                  </div>
+                  <div className="checkout-delivery-method">
+                    <span>Standard delivery</span>
+                    <strong>Free</strong>
+                  </div>
                 </section>
                 <section>
                   <h2>3. Payment</h2>
-                  <strong>Demo payment</strong>
-                  <p>
-                    No card details needed. Place your order to complete the
-                    simulated checkout.
-                  </p>
+                  <div className="checkout-payment-heading">
+                    <strong>Credit or debit card</strong>
+                    <span>VISA · Mastercard</span>
+                  </div>
+                  <div className="checkout-fields">
+                    <label className="checkout-field-wide">
+                      Card number
+                      <input
+                        placeholder="4242 4242 4242 4242"
+                        readOnly
+                      />
+                    </label>
+                    <label>
+                      Expiration date
+                      <input placeholder="MM / YY" readOnly />
+                    </label>
+                    <label>
+                      Security code
+                      <input placeholder="CVC" readOnly />
+                    </label>
+                    <label className="checkout-field-wide">
+                      Name on card
+                      <input placeholder="Alex Morgan" readOnly />
+                    </label>
+                  </div>
+                  <p>Test payment mode — no charge will be made.</p>
                 </section>
               </div>
             )}

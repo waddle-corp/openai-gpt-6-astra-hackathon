@@ -169,7 +169,8 @@
 }
 .pf-checkout-toggle-label strong {
   display: block;
-  font-size: 18px;
+  white-space: nowrap;
+  font-size: 16px;
   font-weight: 700;
 }
 .pf-checkout-toggle-icon {
