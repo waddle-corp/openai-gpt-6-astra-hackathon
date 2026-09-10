@@ -1,6 +1,10 @@
 # OpenAI GPT-6 Astra Hackathon
 
-Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.myshopify.com`. The feedback agent lives in `agents/` and is exposed through API routes.
+Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.myshopify.com`, with a customer **Pay with your feedback** flow. The merchant feedback agent lives in `agents/` and is exposed through API routes; its temporary UI is at `/tmp/feedback`.
+
+**Shared customer/merchant contract:** [docs/feedback-contract.md](docs/feedback-contract.md), with authoritative types and validation in `contracts/feedback.ts`. Both feedback fixture files and persisted customer submissions use `FeedbackRecord` v1.0.
+
+Customer demo setup, real/simulated behavior, optional Astra credentials, and the merchant handoff contract are documented in [docs/customer-feedback.md](docs/customer-feedback.md).
 
 ## Run locally
 
@@ -38,7 +42,7 @@ Exported September 10, 2026 through read-only Shopify CLI queries:
 - 4 navigation menus, 18 pages, and 4 published articles across 2 blogs.
 - 15 enabled homepage sections, matching the source order and copy.
 
-`data/catalog.json` is the complete editable product/collection source. `data/content.json`, `data/blogs.json`, and `data/storefront-config.json` hold the other content. `data/asset-map.json` resolves source URLs to files under `public/media/`. The original source URLs and Shopify IDs are provenance only; the running storefront does not call Shopify.
+`data/catalog.json` is the complete editable product/collection source. `data/content.json`, `data/blogs.json`, and `data/storefront-config.json` hold the other content. `data/shopper-feedback.json` contains synthetic shopper feedback for demo and triage flows. `data/asset-map.json` resolves source URLs to files under `public/media/`. The original source URLs and Shopify IDs are provenance only; the running storefront does not call Shopify.
 
 Edit the JSON files to update the demo and commit those edits like application code. There is no database migration or import step for contributors. Optional `scripts/export-products.mjs` refreshes the catalog through an explicitly authenticated local Shopify CLI session; running the app never invokes it. Downloaded-image manifests in `data/provenance/` record original URLs, sizes, and hashes. Refreshing source URLs also requires refreshing the local image map/files before `npm test` will pass.
 

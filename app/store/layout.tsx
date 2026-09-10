@@ -3,6 +3,8 @@ import { StoreHeader, StoreFooter } from '@/lib/source';
 import { CartProvider } from '@/components/shop-client';
 import { cartVariants } from '@/lib/catalog';
 import './store.css';
+import './feedback.css';
+import { FeedbackRecorder } from '@/components/customer-feedback';
 export const metadata: Metadata = {
   title: { default: 'Boosted USA — Demo Store', template: '%s | Boosted USA' },
   icons: {
@@ -21,6 +23,7 @@ export default function StoreLayout({
         <StoreHeader />
         {children}
         <StoreFooter />
+        <FeedbackRecorder />
       </CartProvider>
     </div>
   );
