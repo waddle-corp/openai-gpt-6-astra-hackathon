@@ -1231,10 +1231,12 @@
 }
 
 /* Compact question choices while preserving comfortable touch targets. */
-.pf-agent-question .pf-conversation-options {
+.pf-agent-question .pf-conversation-options,
+.pf-conversation-review .pf-conversation-options {
   gap: 6px;
 }
-.pf-agent-question .pf-conversation-options button {
+.pf-agent-question .pf-conversation-options button,
+.pf-conversation-review .pf-conversation-options button {
   min-height: 44px;
   padding: 10px 13px;
   font-size: 14px;
@@ -1264,4 +1266,10 @@
   display: flex;
   width: fit-content;
   margin-left: auto;
+}
+
+.pf-active-conversation .pf-conversation-review h3 {
+  font-size: 18px;
+  line-height: 1.45;
+  margin: 18px 0 12px;
 }

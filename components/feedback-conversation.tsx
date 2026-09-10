@@ -573,7 +573,7 @@ export function FeedbackCheckout({
                                 disabled={!session.draft.reward}
                                 onClick={apply}
                               >
-                                Apply feedback <ArrowRight size={17} />
+                                Submit feedback <ArrowRight size={17} />
                               </button>
                             </>
                           )}
