@@ -1,23 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import {
-  ArrowDownRight,
-  ArrowRight,
-  ArrowUpRight,
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  CircleDollarSign,
-  ExternalLink,
-  MessageSquare,
-  Monitor,
-  Pause,
-  Play,
-  ScanSearch,
-  Sparkles,
-  X,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play, X } from 'lucide-react';
 import type { AdminOverviewRecord } from '@/lib/admin-overview-data';
 import '@/app/admin/overview.css';
 
@@ -87,7 +71,6 @@ function Replay({
   if (!record.replayUrl || failed)
     return (
       <span className="mo-video-unavailable">
-        <Monitor size={22} />
         <span>Replay unavailable</span>
       </span>
     );
@@ -179,7 +162,7 @@ function Inspection({
               target="_blank"
               rel="noreferrer"
             >
-              Open product page <ExternalLink size={14} />
+              Open product page
             </a>
           )}
         </aside>
@@ -230,7 +213,7 @@ export function MerchantOverview({
             target="_blank"
             rel="noreferrer"
           >
-            View store <ArrowUpRight size={15} />
+            View store
           </a>
         </div>
       </header>
@@ -241,9 +224,7 @@ export function MerchantOverview({
         </div>
         <div className="mo-goal">
           <span className="mo-kicker">STORE GOAL</span>
-          <span>
-            Increase average order value <ArrowUpRight size={15} />
-          </span>
+          <span>Increase average order value</span>
         </div>
       </div>
       <div className="mo-workspace">
@@ -258,7 +239,6 @@ export function MerchantOverview({
                 Shopper signals <span>{records.length}</span>
               </h2>
             </div>
-            <MessageSquare size={19} />
           </div>
           <div className="mo-signals-list">
             {records
@@ -280,7 +260,6 @@ export function MerchantOverview({
                         record.feedback.source.channel || 'feedback',
                       )}
                     </span>
-                    {record.feedback.id === selectedId && <Check size={13} />}
                   </span>
                   <p className="mo-signal-copy">
                     {record.feedback.feedback.message ||
@@ -325,9 +304,7 @@ export function MerchantOverview({
             <span>
               <i /> Recorded browser replays
             </span>
-            <small>
-              Select a session to look closer <ArrowDownRight size={13} />
-            </small>
+            <small>Select a session to look closer</small>
           </div>
           <div className="mo-replay-grid">
             {replays
@@ -354,14 +331,10 @@ export function MerchantOverview({
                 >
                   <span className="mo-replay-screen">
                     <Replay record={record} playing={playing && !inspecting} />
-                    <span className="mo-replay-play">
-                      <Play size={17} fill="currentColor" />
-                    </span>
                   </span>
                   <span className="mo-replay-caption">
                     <strong>{record.shortId}</strong>
                     <span>{record.feedback.journey.viewport}</span>
-                    <ArrowUpRight size={12} />
                   </span>
                 </button>
               ))}
@@ -384,12 +357,8 @@ export function MerchantOverview({
                 <span className="mo-kicker">03 / IMPROVE</span>
                 <h2 id="diagnosis-title">Diagnosis & improvement</h2>
               </div>
-              <Sparkles size={19} />
             </div>
             <div className="mo-outcome-body">
-              <div className="mo-wait-icon">
-                <ScanSearch size={27} strokeWidth={1.4} />
-              </div>
               <span className="mo-wait-label">AWAITING AGENT OUTPUT</span>
               <h3>
                 The next step starts
@@ -416,7 +385,6 @@ export function MerchantOverview({
               </div>
             </div>
             <div className="mo-outcome-foot">
-              <span className="mo-selection-dot" />
               {selected ? `${selected.shortId} selected` : 'No signal selected'}
               <span>Analysis pending</span>
             </div>
@@ -430,21 +398,18 @@ export function MerchantOverview({
                 <span className="mo-kicker">04 / SHARE</span>
                 <h2 id="value-title">Value shared back</h2>
               </div>
-              <CircleDollarSign size={19} />
             </div>
             <div className="mo-value-track">
               <span>Improvement</span>
-              <ArrowRight size={13} />
+              <span aria-hidden="true">→</span>
               <span>Value</span>
-              <ArrowRight size={13} />
+              <span aria-hidden="true">→</span>
               <span>Shopper</span>
             </div>
             <p>
               Share the value with the shoppers whose feedback helped create it.
             </p>
-            <div className="mo-value-pending">
-              <span className="mo-selection-dot" /> Pending validated impact
-            </div>
+            <div className="mo-value-pending">Pending validated impact</div>
           </section>
         </aside>
       </div>
