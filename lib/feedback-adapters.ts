@@ -39,7 +39,7 @@ export function customerFeedbackRecord(
     sessionId: receipt.sessionId,
     feedback: {
       message: receipt.note,
-      category: receipt.category,
+      category: receipt.conversational ? null : receipt.category,
       responses: receipt.questions.map((question) => ({
         id: question.id,
         question: question.prompt,

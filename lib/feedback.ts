@@ -48,6 +48,8 @@ export function validFeedbackCart(value: unknown): value is FeedbackCartItem[] {
   );
 }
 export type FeedbackDraft = {
+  conversational?: boolean;
+  approvedSummary?: string;
   step: 'journey' | 'pain' | 'questions' | 'review';
   selected?: JourneyEvent;
   focus?: 'specific_moments' | 'overall';
@@ -60,6 +62,7 @@ export type FeedbackDraft = {
   reward?: Reward;
 };
 export type FeedbackSubmission = {
+  conversational?: boolean;
   schemaVersion: 1 | 2;
   id: string;
   sessionId: string;

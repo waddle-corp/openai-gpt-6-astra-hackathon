@@ -11,7 +11,7 @@
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
     "format": "oxfmt",
-    "test": "node --experimental-strip-types scripts/check-catalog.mjs && node scripts/check-feedback.mjs && node --experimental-strip-types scripts/check-feedback-contract.mjs && node --experimental-strip-types scripts/check-feedback-fixtures.mjs",
+    "test": "node --experimental-strip-types scripts/check-catalog.mjs && node scripts/check-feedback.mjs && node --experimental-strip-types scripts/check-feedback-contract.mjs && node --experimental-strip-types scripts/check-feedback-fixtures.mjs && node scripts/check-feedback-conversation.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

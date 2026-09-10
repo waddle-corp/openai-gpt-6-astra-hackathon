@@ -163,6 +163,7 @@ export function submitFeedback(
   const now = new Date();
   const receipt: FeedbackSubmission = {
     schemaVersion: 2,
+    conversational: draft.conversational,
     id: `FB-${crypto.randomUUID()}`,
     sessionId: session.id,
     submittedAt: now.toISOString(),
@@ -188,7 +189,8 @@ export function submitFeedback(
     summary: '',
     demo: true,
   };
-  receipt.summary = feedbackSummary(draft, session.events);
+  receipt.summary =
+    draft.approvedSummary?.trim() || feedbackSummary(draft, session.events);
   // Write before confirming receipt. Storage failure must not look like success.
   const records = readFeedbackSubmissions();
   localStorage.setItem(
