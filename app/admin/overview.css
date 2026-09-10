@@ -1374,3 +1374,25 @@
   align-content: start;
   overflow-y: auto;
 }
+
+.mo-fleet-previews .mo-replay-grid {
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  grid-auto-rows: max-content;
+  overflow: auto;
+}
+.mo-fleet-previews .mo-replay {
+  align-self: start;
+  flex-shrink: 0;
+}
+.mo-fleet-previews .mo-replay-screen {
+  flex: none;
+  aspect-ratio: 16 / 10;
+}
+.mo-fleet-previews .mo-replay video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
