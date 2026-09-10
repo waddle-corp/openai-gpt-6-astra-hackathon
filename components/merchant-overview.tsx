@@ -474,7 +474,7 @@ export function MerchantOverview({
   };
   return (
     <main
-      className={`mo-app ${playing && view === 'merchant' ? 'is-demo-playing' : ''}`}
+      className={`mo-app ${playing && view === 'merchant' && (flow.signalFocus || flow.analysisFocus || flow.resultFocus) ? 'is-demo-playing' : ''}`}
     >
       <header className="mo-header">
         <a className="mo-brand" href="/admin">
@@ -501,7 +501,7 @@ export function MerchantOverview({
           </button>
           <button
             onClick={() => {
-              if (!run.id || flow.rewardsReady) restart();
+              if (!run.id || flowTime >= DEMO_FLOW_MS) restart();
               else setPlaying((value) => !value);
             }}
             aria-label={playing ? 'Pause demo' : 'Play demo'}
@@ -515,7 +515,7 @@ export function MerchantOverview({
         <MerchantDirection />
         <div className="mo-workspace">
           <section
-            className={`mo-panel mo-signals ${playing && flowTime < 2000 ? 'is-demo-active' : ''}`}
+            className={`mo-panel mo-signals ${playing && flow.signalFocus ? 'is-demo-active' : ''}`}
             aria-labelledby="signals-title"
           >
             <div className="mo-panel-head">
@@ -556,7 +556,7 @@ export function MerchantOverview({
             </div>
           </section>
           <section
-            className={`mo-panel mo-fleet ${playing && flowTime >= 2500 && flowTime < 8500 ? 'is-demo-active' : ''}`}
+            className={`mo-panel mo-fleet ${playing && flow.analysisFocus ? 'is-demo-active' : ''}`}
             aria-labelledby="fleet-title"
           >
             <div className="mo-panel-head">
@@ -690,7 +690,7 @@ export function MerchantOverview({
           </section>
           <aside className="mo-outcomes">
             <section
-              className={`mo-panel mo-outcome-card ${playing && flow.generating ? 'is-demo-active' : ''}`}
+              className={`mo-panel mo-outcome-card ${playing && flow.resultFocus ? 'is-demo-active' : ''}`}
               aria-labelledby="diagnosis-title"
             >
               <div className="mo-panel-head">
@@ -710,7 +710,7 @@ export function MerchantOverview({
                         className={playing ? 'mo-generation-spin' : ''}
                       />
                       <h3>
-                        {flowTime < 10500
+                        {flowTime < 9500
                           ? 'Connecting the findings'
                           : 'Preparing improvements'}
                       </h3>
@@ -761,7 +761,7 @@ export function MerchantOverview({
               )}
             </section>
             <section
-              className={`mo-panel mo-value-card ${playing && flow.rewarding ? 'is-demo-active' : ''}`}
+              className={`mo-panel mo-value-card ${playing && flow.resultFocus ? 'is-demo-active' : ''}`}
               aria-labelledby="value-title"
             >
               <div className="mo-panel-head">

@@ -152,14 +152,27 @@ assert.equal(demoFlowAt(2500, 33).analysisStarted, true);
 assert.equal(demoFlowAt(8500, 33).analysisElapsed, 6000);
 assert.equal(demoFlowAt(8999, 33).generating, false);
 assert.equal(demoFlowAt(9000, 33).generating, true);
-assert.equal(demoFlowAt(11999, 33).previewsReady, false);
+assert.equal(demoFlowAt(9999, 33).previewsReady, false);
 assert.equal(demoFlowAt(DEMO_PREVIEWS_MS, 33).previewsReady, true);
 assert.equal(demoFlowAt(DEMO_PREVIEWS_MS, 33).generating, false);
-assert.equal(demoFlowAt(DEMO_PREVIEWS_MS, 33).rewarding, true);
-assert.equal(demoFlowAt(DEMO_FLOW_MS - 1, 33).rewardsReady, false);
+assert.equal(demoFlowAt(DEMO_PREVIEWS_MS, 33).rewarding, false);
+assert.equal(demoFlowAt(DEMO_PREVIEWS_MS - 1, 33).rewardsReady, false);
 assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).rewarding, false);
 assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).rewardsReady, true);
 assert.equal(demoFlowAt(0, 5).signalCount, 5);
 console.log(
-  'OK page demo phase boundaries: 2s signals, 0.5s wait, 6s analysis, 0.5s wait, 3s generation, 5s rewards',
+  'OK page demo phase boundaries: 2s signals, 0.5s wait, 6s analysis, 0.5s wait, 1s simultaneous generation and rewards, 2s focus',
 );
+
+assert.equal(demoFlowAt(9000, 33).rewarding, true);
+assert.equal(demoFlowAt(10000, 33).previewsReady, true);
+assert.equal(demoFlowAt(10000, 33).rewardsReady, true);
+for (const [start, field] of [
+  [0, 'signalFocus'],
+  [2500, 'analysisFocus'],
+  [9000, 'resultFocus'],
+]) {
+  assert.equal(demoFlowAt(start, 33)[field], true);
+  assert.equal(demoFlowAt(start + 1999, 33)[field], true);
+  assert.equal(demoFlowAt(start + 2000, 33)[field], false);
+}
