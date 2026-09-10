@@ -714,14 +714,14 @@ export function FeedbackCheckout({
                       <Choices
                         label="Preferred reward"
                         options={[
-                          'A coupon for my next purchase',
-                          'Cashback to my payment card',
+                          'A coupon for up to 10% off my next purchase',
+                          'Up to 5% of this purchase back to my payment card',
                         ]}
                         value={
                           draft.reward === 'coupon'
-                            ? 'A coupon for my next purchase'
+                            ? 'A coupon for up to 10% off my next purchase'
                             : draft.reward === 'card_cashback'
-                              ? 'Cashback to my payment card'
+                              ? 'Up to 5% of this purchase back to my payment card'
                               : undefined
                         }
                         onChange={(value) =>
