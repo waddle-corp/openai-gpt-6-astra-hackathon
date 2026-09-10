@@ -313,7 +313,6 @@ export function MerchantOverview({
             <span>
               <i /> Computer-use analysis
             </span>
-            <small>Demo simulation · 8-second session</small>
           </div>
           <div className="mo-replay-grid">
             {replays
