@@ -1245,3 +1245,23 @@
   font-size: 18px;
   margin: 14px 0 16px;
 }
+
+.pf-conversation-review textarea {
+  min-height: 100px;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.pf-conversation-review > label {
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.pf-conversation-review > .pf-footnote {
+  margin: 8px 0 12px;
+  font-size: 12px;
+}
+.pf-conversation-review > .pf-primary {
+  display: flex;
+  width: fit-content;
+  margin-left: auto;
+}
