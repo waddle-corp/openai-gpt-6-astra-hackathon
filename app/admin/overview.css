@@ -323,7 +323,15 @@
   background: #f5f7f9;
   transition:
     border-color 0.15s,
-    box-shadow 0.15s;
+    box-shadow 0.15s,
+    opacity 0.15s;
+}
+.mo-replay:not(.is-selected) {
+  opacity: 0.55;
+}
+.mo-replay:not(.is-selected):hover,
+.mo-replay:not(.is-selected):focus-visible {
+  opacity: 0.85;
 }
 .mo-replay:hover {
   border-color: #9fb7f5;
