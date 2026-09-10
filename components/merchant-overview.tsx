@@ -208,6 +208,20 @@ function ImprovementComparison({
   onClose: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const viewport = useRef<HTMLDivElement>(null);
+  const [frameSize, setFrameSize] = useState({ scale: 1, height: 900 });
+  useEffect(() => {
+    const container = viewport.current;
+    if (!container) return;
+    const resize = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      if (!width || !height) return;
+      const scale = Math.min(1, width / 1440);
+      setFrameSize({ scale, height: height / scale });
+    });
+    resize.observe(container);
+    return () => resize.disconnect();
+  }, []);
   useEffect(() => {
     dialog.current?.showModal();
   }, []);
@@ -243,11 +257,18 @@ function ImprovementComparison({
           <X size={20} />
         </button>
       </header>
-      <iframe
-        key={version}
-        src={comparisonUrl(version)}
-        title={`${version === 'before' ? 'As-is' : 'To-be'} storefront comparison`}
-      />
+      <div className="mo-comparison-viewport" ref={viewport}>
+        <iframe
+          key={version}
+          src={comparisonUrl(version)}
+          title={`${version === 'before' ? 'As-is' : 'To-be'} storefront comparison`}
+          style={{
+            width: 1440,
+            height: frameSize.height,
+            transform: `scale(${frameSize.scale})`,
+          }}
+        />
+      </div>
     </dialog>
   );
 }
@@ -576,7 +597,8 @@ export function MerchantOverview({
               ) : (
                 <div className="mo-improvement-previews">
                   <p className="mo-improvement-recommendation">
-                    Add interactive 3D parts discovery with clear compatibility guidance.
+                    Add interactive 3D parts discovery with clear compatibility
+                    guidance.
                   </p>
                   {(['before', 'after'] as const).map((version) => (
                     <section className="mo-improvement-preview" key={version}>

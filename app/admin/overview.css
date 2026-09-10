@@ -1688,3 +1688,22 @@
 
 .mo-outcomes > .mo-outcome-card { flex: 7 1 0; }
 .mo-outcomes > .mo-value-card { flex: 3 1 0; min-height: 160px; }
+
+.mo-comparison-viewport {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: white;
+}
+.mo-comparison-viewport > iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  max-width: none;
+  border: 0;
+  transform-origin: top left;
+  background: white;
+}
