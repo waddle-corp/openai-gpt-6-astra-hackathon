@@ -45,6 +45,38 @@ for (const id of [
 ])
   assert.ok(records.some((record) => record.feedback.id === id && !record.strategyMatch));
 assert.ok(!records.some((record) => record.feedback.id === 'SYN-FB-01'));
+// The payout modal shows the ledger as money, so it must add up and name known shoppers.
+const { getRewardLedger } = await import('../lib/admin-overview-data.ts');
+const { allocate } = await import('../lib/allocate.ts');
+const ledger = getRewardLedger();
+const known = new Set(records.map((record) => record.feedback.id));
+assert.equal(
+  ledger.contributions.reduce((sum, payout) => sum + payout.bountyCents, 0),
+  ledger.poolCents,
+  'reward payouts do not add up to the bounty budget',
+);
+for (const payout of ledger.contributions) {
+  assert.ok(known.has(payout.feedbackId), `payout cites unknown ${payout.feedbackId}`);
+  assert.ok(/^SIG-\d{4}$/.test(payout.shortId), `payout ${payout.feedbackId} lost its signal id`);
+  assert.ok(payout.shopper && payout.rationale, `payout ${payout.feedbackId} is missing display fields`);
+}
+const amounts = ledger.contributions.map((payout) => payout.bountyCents);
+assert.equal(
+  new Set(ledger.contributions.map((payout) => payout.shopper)).size,
+  ledger.contributions.length,
+  'two payouts share a shopper name',
+);
+// The merchant can move the budget in the modal; the same weights must still spend it exactly.
+for (const pool of [50000, 12345, 101]) {
+  const cents = allocate(ledger.contributions.map((payout) => payout.weight), pool);
+  assert.equal(cents.reduce((sum, value) => sum + value, 0), pool, `budget ${pool} did not add up`);
+}
+assert.deepEqual(
+  amounts,
+  ledger.contributions.map((payout) => payout.bountyCents).sort((a, b) => b - a),
+  'the payout list is not ordered by amount',
+);
+
 console.log(
-  'OK AOV scope: 14 of 33 signals, original evidence preserved, linked replays, all signals retained with unrelated and set-aside records unselected',
+  `OK AOV scope: 14 of 33 signals, original evidence preserved, linked replays, all signals retained with unrelated and set-aside records unselected; ${ledger.contributions.length} payouts totalling ${ledger.poolCents} cents`,
 );

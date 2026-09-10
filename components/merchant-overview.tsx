@@ -2,12 +2,25 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play, X } from 'lucide-react';
-import type { AdminOverviewRecord } from '@/lib/admin-overview-data';
+import { allocate } from '@/lib/allocate';
+import {
+  getRewardLedger,
+  type AdminOverviewRecord,
+  type RewardPayout,
+} from '@/lib/admin-overview-data';
 import '@/app/admin/overview.css';
 import { MerchantDirection } from './merchant-direction';
 import { AudienceTab } from './audience-tab';
 
 const REPLAYS_PER_PAGE = 12;
+const ledger = getRewardLedger();
+const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
+const rewardChannel = (payout: RewardPayout) =>
+  payout.rewardPreference === 'card_cashback'
+    ? 'Card cashback'
+    : payout.rewardPreference === 'coupon'
+      ? 'Store coupon'
+      : 'No preference chosen';
 function Pagination({
   page,
   size,
@@ -171,6 +184,111 @@ function Inspection({
   );
 }
 
+function Payouts({ onClose }: { onClose: () => void }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [budget, setBudget] = useState(String(ledger.poolCents / 100));
+  useEffect(() => {
+    dialog.current?.showModal();
+  }, []);
+  const poolCents = Math.round(Number(budget) * 100);
+  const validBudget = Number.isFinite(poolCents) && poolCents > 0;
+  // Reweighting is arithmetic on the roles Astra already judged, so the budget can move without a new run.
+  const cents = validBudget
+    ? allocate(
+        ledger.contributions.map((payout) => payout.weight),
+        poolCents,
+      )
+    : ledger.contributions.map((payout) => payout.bountyCents);
+  return (
+    <dialog
+      ref={dialog}
+      className="mo-dialog mo-payout-dialog"
+      aria-labelledby="payout-dialog-title"
+      onCancel={onClose}
+      closedby="any"
+      onClose={onClose}
+    >
+      <div className="mo-dialog-head">
+        <div>
+          <span className="mo-kicker">
+            REWARD LEDGER · {ledger.contributions.length} SHOPPERS
+          </span>
+          <h2 id="payout-dialog-title">{ledger.opportunityTitle}</h2>
+        </div>
+        <button aria-label="Close rewards" onClick={onClose}>
+          <X size={20} />
+        </button>
+      </div>
+      <div className="mo-payout-summary">
+        <div>
+          <label htmlFor="payout-budget">Bounty budget</label>
+          <div className="mo-budget-field">
+            <span>$</span>
+            <input
+              id="payout-budget"
+              inputMode="decimal"
+              onChange={(event) => setBudget(event.target.value)}
+              value={budget}
+            />
+          </div>
+          {validBudget ? null : (
+            <small className="mo-budget-error">Enter an amount above $0</small>
+          )}
+        </div>
+        <div>
+          <span>Basket value behind it</span>
+          <strong>{dollars(ledger.basket.cartValueCents)}</strong>
+        </div>
+        <div>
+          <span>Did not complete</span>
+          <strong>
+            {ledger.basket.notCompleted} of {ledger.contributions.length}
+          </strong>
+        </div>
+      </div>
+      <div className="mo-payout-list">
+        {ledger.contributions.map((payout, index) => (
+          <article className="mo-payout" key={payout.feedbackId}>
+            <div className="mo-payout-top">
+              <strong>{payout.shopper}</strong>
+              <span>
+                {payout.shortId} · {payout.roles.join(' · ')}
+              </span>
+              <b>{dollars(cents[index])}</b>
+            </div>
+            <div className="mo-payout-bar">
+              <span style={{ width: `${payout.share * 100}%` }} />
+            </div>
+            <p>{payout.rationale}</p>
+            <div className="mo-payout-meta">
+              <span>{rewardChannel(payout)}</span>
+              <span>
+                {payout.cartCents === null
+                  ? 'No cart recorded'
+                  : `${dollars(payout.cartCents)} cart · ${payout.purchased ? 'purchased' : 'not completed'}`}
+              </span>
+              <span>Astra rank {payout.rank}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="mo-payout-foot">
+        <span>
+          Changing the budget re-splits the same contributions. It does not run
+          Astra again.
+        </span>
+        <strong>
+          {dollars(cents.reduce((sum, value) => sum + value, 0))} total
+        </strong>
+      </div>
+      <p className="mo-payout-note">
+        Nothing is paid from this screen. Names are demo personas, and coupons
+        and cashback are the shoppers&rsquo; stated preferences.
+      </p>
+    </dialog>
+  );
+}
+
 export function MerchantOverview({
   records,
   totalSignals,
@@ -186,8 +304,11 @@ export function MerchantOverview({
   const [inspecting, setInspecting] = useState<AdminOverviewRecord | null>(
     null,
   );
+  const [showPayouts, setShowPayouts] = useState(false);
   const selected = records.find((record) => record.feedback.id === selectedId);
-  const replays = records.filter((record) => record.strategyMatch && record.replayUrl);
+  const replays = records.filter(
+    (record) => record.strategyMatch && record.replayUrl,
+  );
   const selectSignal = (record: AdminOverviewRecord) => {
     if (!record.strategyMatch) {
       setInspecting(record);
@@ -206,27 +327,43 @@ export function MerchantOverview({
           <span className="mo-brand-text">Gentoo</span>
         </a>
         <nav className="mo-view-tabs" aria-label="Workspace view">
-          <AudienceTab audience="merchant" active={view === 'merchant'} onSelect={() => setView('merchant')} />
-          <AudienceTab audience="user" active={view === 'user'} onSelect={() => { setStoreOpened(true); setView('user'); }} />
+          <AudienceTab
+            audience="merchant"
+            active={view === 'merchant'}
+            onSelect={() => setView('merchant')}
+          />
+          <AudienceTab
+            audience="user"
+            active={view === 'user'}
+            onSelect={() => {
+              setStoreOpened(true);
+              setView('user');
+            }}
+          />
         </nav>
       </header>
       <div className="mo-merchant-view" hidden={view !== 'merchant'}>
-      <MerchantDirection />
-      <div className="mo-workspace">
-        <section
-          className="mo-panel mo-signals"
-          aria-labelledby="signals-title"
-        >
-          <div className="mo-panel-head">
-            <div>
-              <h2 id="signals-title"><small className="mo-step-number">01</small>Shopper signals</h2>
+        <MerchantDirection />
+        <div className="mo-workspace">
+          <section
+            className="mo-panel mo-signals"
+            aria-labelledby="signals-title"
+          >
+            <div className="mo-panel-head">
+              <div>
+                <h2 id="signals-title">
+                  <small className="mo-step-number">01</small>Shopper signals
+                </h2>
+              </div>
             </div>
-          </div>
-          <div className="mo-scope-note">
-            <span>{records.filter((record) => record.strategyMatch).length} of {totalSignals} match your strategy</span>
-          </div>
-          <div className="mo-signals-list">
-            {records.map((record) => (
+            <div className="mo-scope-note">
+              <span>
+                {records.filter((record) => record.strategyMatch).length} of{' '}
+                {totalSignals} match your strategy
+              </span>
+            </div>
+            <div className="mo-signals-list">
+              {records.map((record) => (
                 <button
                   className={`mo-signal ${record.strategyMatch ? 'is-matched' : 'is-out-of-scope'} ${record.feedback.id === selectedId ? 'is-selected' : ''}`}
                   key={record.feedback.id}
@@ -235,7 +372,12 @@ export function MerchantOverview({
                   aria-pressed={record.feedback.id === selectedId}
                 >
                   <span className="mo-signal-top">
-                    <strong>{record.shortId}{record.feedback.id === selectedId && <span className="mo-selection-label">Selected</span>}</strong>
+                    <strong>
+                      {record.shortId}
+                      {record.feedback.id === selectedId && (
+                        <span className="mo-selection-label">Selected</span>
+                      )}
+                    </strong>
                     <span>{record.strategyMatch || 'Outside strategy'}</span>
                   </span>
                   <p className="mo-signal-copy">
@@ -247,118 +389,160 @@ export function MerchantOverview({
                   </p>
                 </button>
               ))}
-          </div>
-        </section>
-        <section className="mo-panel mo-fleet" aria-labelledby="fleet-title">
-          <div className="mo-panel-head">
-            <div>
-              <h2 id="fleet-title"><small className="mo-step-number">02</small>Computer-use fleet</h2>
             </div>
-            <button
-              className="mo-play-control"
-              aria-label={
-                playing ? 'Pause replay previews' : 'Play replay previews'
-              }
-              onClick={() => setPlaying((value) => !value)}
+          </section>
+          <section className="mo-panel mo-fleet" aria-labelledby="fleet-title">
+            <div className="mo-panel-head">
+              <div>
+                <h2 id="fleet-title">
+                  <small className="mo-step-number">02</small>Computer-use fleet
+                </h2>
+              </div>
+              <button
+                className="mo-play-control"
+                aria-label={
+                  playing ? 'Pause replay previews' : 'Play replay previews'
+                }
+                onClick={() => setPlaying((value) => !value)}
+              >
+                {playing ? <Pause size={14} /> : <Play size={14} />}
+                {playing ? 'Pause' : 'Play'}
+              </button>
+            </div>
+            <div className="mo-fleet-intro">
+              <span>
+                <i /> Recorded browser replays
+              </span>
+              <small>Select a session to look closer</small>
+            </div>
+            <div className="mo-replay-grid">
+              {replays
+                .slice(
+                  replayPage * REPLAYS_PER_PAGE,
+                  (replayPage + 1) * REPLAYS_PER_PAGE,
+                )
+                .map((record) => (
+                  <button
+                    className={`mo-replay ${selectedId === record.feedback.id ? 'is-selected' : ''}`}
+                    key={record.feedback.id}
+                    onClick={() => {
+                      setSelectedId(record.feedback.id);
+                      setInspecting(record);
+                    }}
+                    aria-label={`Open replay ${record.shortId}`}
+                  >
+                    <span className="mo-replay-screen">
+                      <Replay
+                        record={record}
+                        playing={playing && view === 'merchant' && !inspecting}
+                      />
+                    </span>
+                    <span className="mo-replay-caption">
+                      <strong>{record.shortId}</strong>
+                      <span>{record.feedback.journey.viewport}</span>
+                    </span>
+                  </button>
+                ))}
+            </div>
+            <Pagination
+              page={replayPage}
+              size={REPLAYS_PER_PAGE}
+              count={replays.length}
+              onChange={setReplayPage}
+              label="replays"
+            />
+          </section>
+          <aside className="mo-outcomes">
+            <section
+              className="mo-panel mo-outcome-card"
+              aria-labelledby="diagnosis-title"
             >
-              {playing ? <Pause size={14} /> : <Play size={14} />}
-              {playing ? 'Pause' : 'Play'}
-            </button>
-          </div>
-          <div className="mo-fleet-intro">
-            <span>
-              <i /> Recorded browser replays
-            </span>
-            <small>Select a session to look closer</small>
-          </div>
-          <div className="mo-replay-grid">
-            {replays
-              .slice(
-                replayPage * REPLAYS_PER_PAGE,
-                (replayPage + 1) * REPLAYS_PER_PAGE,
-              )
-              .map((record) => (
+              <div className="mo-panel-head">
+                <div>
+                  <h2 id="diagnosis-title">
+                    <small className="mo-step-number">03</small>Diagnosis &
+                    improvement
+                  </h2>
+                </div>
+              </div>
+              <div className="mo-outcome-body">
+                <h3>Analysis pending</h3>
+                <p>No diagnosis or proposal has been generated yet.</p>
+                <div className="mo-result-fields">
+                  <div>
+                    <span>Diagnosis</span>
+                    <small>—</small>
+                  </div>
+                  <div>
+                    <span>Proposed improvement</span>
+                    <small>—</small>
+                  </div>
+                  <div>
+                    <span>Expected impact</span>
+                    <small>—</small>
+                  </div>
+                </div>
+              </div>
+              <div className="mo-outcome-foot">
+                {selected
+                  ? `${selected.shortId} selected`
+                  : 'No signal selected'}
+                <span>Analysis pending</span>
+              </div>
+            </section>
+            <section
+              className="mo-panel mo-value-card"
+              aria-labelledby="value-title"
+            >
+              <div className="mo-panel-head">
+                <div>
+                  <h2 id="value-title">
+                    <small className="mo-step-number">04</small>Value shared
+                    back
+                  </h2>
+                </div>
+              </div>
+              <h3>
+                {dollars(ledger.poolCents)} across {ledger.contributions.length}{' '}
+                shoppers
+              </h3>
+              <p>
+                Allocation follows each shopper’s contribution to the published
+                improvement, not how often the problem was mentioned.
+              </p>
+              <div className="mo-value-track">
+                <span>
+                  {dollars(ledger.contributions[0].bountyCents)} highest ·{' '}
+                  {dollars(
+                    ledger.contributions[ledger.contributions.length - 1]
+                      .bountyCents,
+                  )}{' '}
+                  lowest
+                </span>
                 <button
-                  className={`mo-replay ${selectedId === record.feedback.id ? 'is-selected' : ''}`}
-                  key={record.feedback.id}
-                  onClick={() => {
-                    setSelectedId(record.feedback.id);
-                    setInspecting(record);
-                  }}
-                  aria-label={`Open replay ${record.shortId}`}
+                  className="mo-payout-open"
+                  onClick={() => setShowPayouts(true)}
+                  type="button"
                 >
-                  <span className="mo-replay-screen">
-                    <Replay record={record} playing={playing && view === 'merchant' && !inspecting} />
-                  </span>
-                  <span className="mo-replay-caption">
-                    <strong>{record.shortId}</strong>
-                    <span>{record.feedback.journey.viewport}</span>
-                  </span>
+                  Review payouts
                 </button>
-              ))}
-          </div>
-          <Pagination
-            page={replayPage}
-            size={REPLAYS_PER_PAGE}
-            count={replays.length}
-            onChange={setReplayPage}
-            label="replays"
-          />
-        </section>
-        <aside className="mo-outcomes">
-          <section
-            className="mo-panel mo-outcome-card"
-            aria-labelledby="diagnosis-title"
-          >
-            <div className="mo-panel-head">
-              <div>
-                <h2 id="diagnosis-title"><small className="mo-step-number">03</small>Diagnosis & improvement</h2>
               </div>
-            </div>
-            <div className="mo-outcome-body">
-              <h3>Analysis pending</h3>
-              <p>No diagnosis or proposal has been generated yet.</p>
-              <div className="mo-result-fields">
-                <div>
-                  <span>Diagnosis</span>
-                  <small>—</small>
-                </div>
-                <div>
-                  <span>Proposed improvement</span>
-                  <small>—</small>
-                </div>
-                <div>
-                  <span>Expected impact</span>
-                  <small>—</small>
-                </div>
-              </div>
-            </div>
-            <div className="mo-outcome-foot">
-              {selected ? `${selected.shortId} selected` : 'No signal selected'}
-              <span>Analysis pending</span>
-            </div>
-          </section>
-          <section
-            className="mo-panel mo-value-card"
-            aria-labelledby="value-title"
-          >
-            <div className="mo-panel-head">
-              <div>
-                <h2 id="value-title"><small className="mo-step-number">04</small>Value shared back</h2>
-              </div>
-            </div>
-            <h3>Rewards pending</h3>
-            <p>Allocation follows the improvement’s validated impact.</p>
-          </section>
-        </aside>
-      </div>
+            </section>
+          </aside>
+        </div>
       </div>
       {storeOpened && (
-        <iframe className="mo-user-store" src="/store" title="User storefront" hidden={view !== 'user'} />
+        <iframe
+          className="mo-user-store"
+          src="/store"
+          title="User storefront"
+          hidden={view !== 'user'}
+        />
       )}
       {inspecting && (
         <Inspection record={inspecting} onClose={() => setInspecting(null)} />
       )}
+      {showPayouts && <Payouts onClose={() => setShowPayouts(false)} />}
     </main>
   );
 }

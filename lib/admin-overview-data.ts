@@ -4,6 +4,8 @@ import {
 } from '@/contracts/feedback';
 import { readFeedbackFixtures } from '@/lib/feedback-datasets';
 import collective from '@/data/collective-cache.json';
+import type { RewardLedger } from '@/agents/reward-agent/index.ts';
+import shopperNames from '@/data/shopper-names.json';
 
 export type AdminOverviewRecord = {
   feedback: FeedbackRecord;
@@ -83,8 +85,50 @@ export function getStrategyOverview() {
   return {
     totalSignals: allRecords.length,
     records: allRecords.map((record) => ({
-        ...record,
-        strategyMatch: matches.get(record.feedback.id),
-      })),
+      ...record,
+      strategyMatch: matches.get(record.feedback.id),
+    })),
+  };
+}
+
+export type RewardPayout = RewardLedger['contributions'][number] & {
+  shortId: string;
+  shopper: string;
+};
+
+/** Demo personas, not real customers. Stable per record so a shopper keeps one name across the session. */
+function nameByRecord(records: AdminOverviewRecord[]) {
+  const names = shopperNames as string[];
+  const assigned = new Map<string, string>();
+  const taken = new Set<string>();
+  for (const { feedback } of records) {
+    let hash = 0;
+    for (const char of feedback.id)
+      hash = (hash * 31 + char.charCodeAt(0)) % 100003;
+    let index = hash % names.length;
+    while (taken.has(names[index]) && taken.size < names.length)
+      index = (index + 1) % names.length;
+    taken.add(names[index]);
+    assigned.set(feedback.id, names[index]);
+  }
+  return assigned;
+}
+
+/** The ledger the reward agent produced for the published improvement, as the merchant would pay it. */
+export function getRewardLedger() {
+  const ledger = collective.reward as unknown as RewardLedger;
+  const records = getAdminOverviewRecords();
+  const names = nameByRecord(records);
+  // The signal id the rest of the admin shows, so a payout traces back to the row it came from.
+  const shortIds = new Map(
+    records.map((record) => [record.feedback.id, record.shortId]),
+  );
+  return {
+    ...ledger,
+    contributions: ledger.contributions.map((item) => ({
+      ...item,
+      shortId: shortIds.get(item.feedbackId) ?? item.feedbackId,
+      shopper: names.get(item.feedbackId) ?? item.feedbackId,
+    })),
   };
 }
