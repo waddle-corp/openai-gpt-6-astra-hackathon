@@ -1,5 +1,6 @@
 import { responseText, responsesCreate } from '../shared/openai.ts';
 import { strategyContext } from '../shared/strategy.ts';
+import { recordContext, type FeedbackRecord } from './fixtures.ts';
 
 type ComputerCall = {
   type: 'computer_call';
@@ -37,14 +38,18 @@ function computerCall(response: Record<string, unknown>) {
 }
 
 export async function startComputerUse(
-  feedback: string,
+  record: FeedbackRecord,
   targetUrl?: string,
 ): Promise<ComputerUseResult> {
   const response = await responsesCreate({
     model: 'gpt-6-astra',
     reasoning: { effort: 'low' },
     instructions: computerInstructions,
-    input: `Open ${targetUrl || 'the current storefront'} and investigate this accepted feedback:\n${feedback}`,
+    input: [
+      `Open ${targetUrl || 'the current storefront'} and investigate this accepted feedback.`,
+      ...recordContext(record),
+      `User feedback:\n${record.message}`,
+    ].join('\n'),
     tools: [{ type: 'computer' }],
   });
   return computerResult(response);

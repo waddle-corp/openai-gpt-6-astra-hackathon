@@ -1,4 +1,5 @@
 import { continueComputerUse } from '@/agents';
+import { agentErrorResponse } from '@/lib/agent-response';
 
 export async function POST(request: Request) {
   try {
@@ -21,8 +22,6 @@ export async function POST(request: Request) {
       await continueComputerUse(body.responseId, body.callId, body.screenshot),
     );
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unexpected agent error.';
-    const status = message.includes('OPENAI_API_KEY') ? 503 : 502;
-    return Response.json({ error: message }, { status });
+    return agentErrorResponse(error);
   }
 }

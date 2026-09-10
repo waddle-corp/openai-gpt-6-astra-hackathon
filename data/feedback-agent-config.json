@@ -1,10 +1,14 @@
 {
   "name": "boosted-feedback-improvement-agent",
   "model": "gpt-6-astra",
-  "goal": "Help more shoppers discover, understand, and confidently buy the right Boosted USA product.",
+  "goal": "Increase average order value by helping shoppers confidently buy the right Boosted USA product and the parts that go with it.",
   "gating": {
     "requiredBeforeComputerUse": true,
-    "decisions": ["fit", "review", "reject"],
+    "decisions": [
+      "fit",
+      "review",
+      "reject"
+    ],
     "fitThreshold": 70
   },
   "computerUsePolicy": {

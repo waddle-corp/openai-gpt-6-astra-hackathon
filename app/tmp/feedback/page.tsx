@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import type { FormEvent } from 'react';
+import type { SyntheticEvent } from 'react';
+import { feedbackFixtures, feedbackTargetPath } from '@/agents/feedback-agent/fixtures.ts';
 import './feedback.css';
 
 type Triage = {
@@ -26,6 +27,7 @@ type AgentResult = {
 
 export default function FeedbackLab() {
   const [feedback, setFeedback] = useState('');
+  const [feedbackId, setFeedbackId] = useState('');
   const [targetUrl, setTargetUrl] = useState(() =>
     typeof window === 'undefined' ? 'http://localhost:3000/store' : `${window.location.origin}/store`,
   );
@@ -33,7 +35,15 @@ export default function FeedbackLab() {
   const [result, setResult] = useState<AgentResult>();
   const [isLoading, setIsLoading] = useState(false);
 
-  async function evaluate(event: FormEvent<HTMLFormElement>) {
+  function loadFixture(id: string) {
+    setFeedbackId(id);
+    const record = feedbackFixtures.find((item) => item.id === id);
+    if (!record) return;
+    setFeedback(record.message);
+    setTargetUrl(`${window.location.origin}${feedbackTargetPath(record)}`);
+  }
+
+  async function evaluate(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
     setResult(undefined);
@@ -41,7 +51,7 @@ export default function FeedbackLab() {
       const response = await fetch('/api/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ feedback, targetUrl, inspect }),
+        body: JSON.stringify({ feedback, targetUrl, inspect, feedbackId: feedbackId || undefined }),
       });
       setResult((await response.json()) as AgentResult);
     } catch {
@@ -56,6 +66,7 @@ export default function FeedbackLab() {
       <div className="feedback-frame">
         <header className="feedback-header">
           <a className="back-link" href="/store">← Storefront</a>
+          <a className="back-link" href="/tmp/feedback/collective">Collective lab →</a>
           <span className="lab-mark">Astra / feedback lab</span>
         </header>
 
@@ -85,6 +96,15 @@ export default function FeedbackLab() {
             </div>
             <span className="character-count">{feedback.length} / 4,000</span>
           </div>
+          <label className="url-label" htmlFor="fixture">Synthetic shopper feedback (optional)</label>
+          <select id="fixture" value={feedbackId} onChange={(event) => loadFixture(event.target.value)}>
+            <option value="">Write your own</option>
+            {feedbackFixtures.map((record) => (
+              <option key={record.id} value={record.id}>
+                {record.id} · {record.topic} · {record.message.slice(0, 70)}
+              </option>
+            ))}
+          </select>
           <textarea
             aria-label="Shopper feedback"
             value={feedback}

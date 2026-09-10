@@ -1,0 +1,480 @@
+{
+  "generatedAt": "2026-09-10T17:38:33.809Z",
+  "goal": "Increase average order value by helping shoppers confidently buy the right Boosted USA product and the parts that go with it.",
+  "points": [
+    {
+      "id": "shopper-feedback-001",
+      "x": -0.9006269429742025,
+      "y": 0.2879434485638152,
+      "z": 0.18039592640136934
+    },
+    {
+      "id": "shopper-feedback-002",
+      "x": -0.13174083075640083,
+      "y": 0.5327298981305727,
+      "z": -0.9690550267853878
+    },
+    {
+      "id": "shopper-feedback-003",
+      "x": -0.4768894417277289,
+      "y": -1,
+      "z": -0.1331193253246384
+    },
+    {
+      "id": "shopper-feedback-004",
+      "x": 0.9443273436887986,
+      "y": 0.0272921635170622,
+      "z": -0.06620286924876437
+    },
+    {
+      "id": "shopper-feedback-005",
+      "x": -0.19061318116303688,
+      "y": 0.021278264421798358,
+      "z": 0.5433934950352758
+    },
+    {
+      "id": "shopper-feedback-006",
+      "x": -0.5177190715867559,
+      "y": -0.8615789932631508,
+      "z": 0.07204278663821113
+    },
+    {
+      "id": "shopper-feedback-007",
+      "x": 0.26782150186529924,
+      "y": 0.1319699559337004,
+      "z": 0.4969510832220839
+    },
+    {
+      "id": "shopper-feedback-008",
+      "x": 0.36404058398483563,
+      "y": 0.06987477693654366,
+      "z": 0.0007479791500920254
+    },
+    {
+      "id": "shopper-feedback-009",
+      "x": -0.16747990344331454,
+      "y": 0.630955612526854,
+      "z": -0.7977961469729046
+    },
+    {
+      "id": "shopper-feedback-010",
+      "x": 0.5724734738724291,
+      "y": 0.3265383155065148,
+      "z": 1
+    },
+    {
+      "id": "shopper-feedback-011",
+      "x": 0.21648511824885672,
+      "y": -0.1875323623001393,
+      "z": 0.12558856290161574
+    },
+    {
+      "id": "shopper-feedback-012",
+      "x": 0.14824348329063652,
+      "y": -0.2375582060449995,
+      "z": 0.8134738736504331
+    },
+    {
+      "id": "shopper-feedback-013",
+      "x": -0.8584220066156735,
+      "y": 0.3902735908459062,
+      "z": 0.606180409433383
+    },
+    {
+      "id": "shopper-feedback-014",
+      "x": 0.32485035042952176,
+      "y": -0.01678641940282584,
+      "z": -0.24982464317785102
+    },
+    {
+      "id": "shopper-feedback-015",
+      "x": 0.5537503003583942,
+      "y": 0.04762803782099187,
+      "z": -0.5549699925324232
+    },
+    {
+      "id": "shopper-feedback-016",
+      "x": -0.6687352368111683,
+      "y": 0.5676042983400436,
+      "z": 0.2513475357204991
+    },
+    {
+      "id": "shopper-feedback-017",
+      "x": 0.0599267212034363,
+      "y": -0.7622080997064946,
+      "z": -0.36022142745628294
+    },
+    {
+      "id": "shopper-feedback-018",
+      "x": -0.479842483782492,
+      "y": 0.25875897080041904,
+      "z": -0.47388040513119567
+    },
+    {
+      "id": "shopper-feedback-019",
+      "x": -0.0598497780814351,
+      "y": -0.3861146728990479,
+      "z": -0.5129485373294734
+    },
+    {
+      "id": "shopper-feedback-020",
+      "x": 1,
+      "y": 0.1589314202724358,
+      "z": 0.027896721805960464
+    }
+  ],
+  "prioritization": {
+    "opportunities": [
+      {
+        "id": "explicit-model-compatibility",
+        "title": "Make product and replacement compatibility explicit",
+        "problem": "Shoppers cannot confirm whether batteries and chargers fit their specific board, including which replacement variant to select from a discontinued product page.",
+        "journeyStage": "product-page",
+        "feedbackIds": [
+          "shopper-feedback-001",
+          "shopper-feedback-013",
+          "shopper-feedback-016"
+        ],
+        "goalAlignment": [
+          "Priority 1: Explicit model and replacement compatibility",
+          "Reduce fit uncertainty and help shoppers buy the right product"
+        ],
+        "constraintRisks": [
+          "Preserve the current Boosted USA brand identity and visual system when adding compatibility guidance."
+        ],
+        "priority": 98,
+        "rationale": "Directly addresses the highest merchant priority. Show supported models and variant-specific replacement guidance using verifiable product information; do not infer compatibility from broad titles."
+      },
+      {
+        "id": "complete-install-parts",
+        "title": "Clarify included parts and required extras",
+        "problem": "Shoppers cannot distinguish what comes with wheels or upgrade kits from the pulleys, belts, and tools they must purchase separately.",
+        "journeyStage": "product-page",
+        "feedbackIds": [
+          "shopper-feedback-003",
+          "shopper-feedback-006"
+        ],
+        "goalAlignment": [
+          "Priority 1: Help shoppers buy every compatible part needed",
+          "Priority 2: Increase product-page conversion and accessory attach rate",
+          "Increase average order value through necessary complementary products"
+        ],
+        "constraintRisks": [
+          "No aggressive discounting or price changes: present required extras at existing prices.",
+          "Preserve the current Boosted USA brand identity and visual system."
+        ],
+        "priority": 96,
+        "rationale": "Combines strong compatibility and attach-rate value. Separate included, required, and optional items, with model-qualified links to existing products."
+      },
+      {
+        "id": "replacement-stock-path",
+        "title": "Give sold-out replacement shoppers a clear next step",
+        "problem": "Sold-out remotes and Rev batteries leave shoppers without a verified compatible alternative or clear public restock guidance.",
+        "journeyStage": "product-page",
+        "feedbackIds": [
+          "shopper-feedback-002",
+          "shopper-feedback-009"
+        ],
+        "goalAlignment": [
+          "Priority 1: Clarify compatible replacements",
+          "Priority 2: Recover purchase paths from sold-out product pages",
+          "Reduce availability uncertainty"
+        ],
+        "constraintRisks": [
+          "No changes to customer accounts or private data: do not introduce notification signup or subscriber-data handling.",
+          "Ideas must be checkable against the current storefront UI; do not invent restock dates or compatible alternatives."
+        ],
+        "priority": 92,
+        "rationale": "Replacement intent is explicit, making compatibility-led recovery more valuable than generic availability messaging. Surface verified alternatives and existing public restock information; clearly state when no alternative or date is confirmed."
+      },
+      {
+        "id": "compatible-maintenance-addons",
+        "title": "Offer compatible maintenance parts together",
+        "problem": "A shopper buying a skate tool must independently discover the belts and bearings needed for a maintenance purchase.",
+        "journeyStage": "cart",
+        "feedbackIds": [
+          "shopper-feedback-019"
+        ],
+        "goalAlignment": [
+          "Priority 1: Make accessory compatibility explicit",
+          "Priority 2: Increase cart attach rate",
+          "Increase average order value with relevant maintenance items"
+        ],
+        "constraintRisks": [
+          "No aggressive discounting or price changes: recommend existing products at their current prices.",
+          "No changes to orders or payments: keep the scope to pre-purchase recommendations.",
+          "Preserve the current Boosted USA brand identity and visual system."
+        ],
+        "priority": 89,
+        "rationale": "A single record directly supports the average-order-value goal. Recommend model-qualified maintenance items rather than an unverified universal bundle, and distinguish optional maintenance purchases from required parts."
+      },
+      {
+        "id": "helmet-size-confidence",
+        "title": "Provide measurement-based helmet sizing",
+        "problem": "The helmet page does not give the shopper enough head-measurement guidance to confidently select a size.",
+        "journeyStage": "product-page",
+        "feedbackIds": [
+          "shopper-feedback-007"
+        ],
+        "goalAlignment": [
+          "Help shoppers confidently buy the right accessory",
+          "Priority 2: Increase product-page conversion",
+          "Reduce fit uncertainty"
+        ],
+        "constraintRisks": [
+          "Preserve the current Boosted USA brand identity and visual system when presenting sizing guidance."
+        ],
+        "priority": 85,
+        "rationale": "Sizing is a direct purchase blocker for a complementary product. Present verified size ranges and measurement instructions near size selection, in a mobile-readable format."
+      },
+      {
+        "id": "clear-pack-quantities",
+        "title": "Make pack size and cart quantities unambiguous",
+        "problem": "The cart does not clearly distinguish individual motor guards, pairs, and the number of sets ordered, leaving the shopper uncertain about the displayed price.",
+        "journeyStage": "cart",
+        "feedbackIds": [
+          "shopper-feedback-012"
+        ],
+        "goalAlignment": [
+          "Help shoppers purchase the correct number of parts",
+          "Priority 2: Increase cart conversion",
+          "Reduce quantity and price uncertainty"
+        ],
+        "constraintRisks": [
+          "No price changes: clarify existing pack pricing without changing it.",
+          "No changes to orders or payments: limit changes to product and cart presentation."
+        ],
+        "priority": 82,
+        "rationale": "The recorded quantity entry and cart visit expose a concrete purchase ambiguity. Consistent pack-size labels should distinguish sets ordered from total individual pieces."
+      },
+      {
+        "id": "board-selection-comparison",
+        "title": "Clarify differences between board models",
+        "problem": "A shopper repeatedly switches between Carbon Street and Bamboo All Terrain pages to compare range, weight, and intended use.",
+        "journeyStage": "product-page",
+        "feedbackIds": [
+          "shopper-feedback-005"
+        ],
+        "goalAlignment": [
+          "Help shoppers confidently choose the right product",
+          "Priority 2: Increase product-page conversion",
+          "Improve the path from discovery to purchase"
+        ],
+        "constraintRisks": [
+          "Preserve the current Boosted USA brand identity and visual system.",
+          "Ideas must be checkable against the current storefront UI; comparisons must use verified specifications rather than assumed performance."
+        ],
+        "priority": 79,
+        "rationale": "Repeated page switching provides direct evidence of selection friction. A concise, mobile-readable comparison can resolve the requested differences without replacing the existing visual system."
+      },
+      {
+        "id": "early-shipping-cost",
+        "title": "Explain shipping costs before personal information entry",
+        "problem": "A Canadian shopper reaches checkout but cannot assess shipping cost before entering their information.",
+        "journeyStage": "checkout",
+        "feedbackIds": [
+          "shopper-feedback-004"
+        ],
+        "goalAlignment": [
+          "Priority 2: Increase checkout conversion",
+          "Reduce price and delivery uncertainty",
+          "Keep the purchase experience trustworthy"
+        ],
+        "constraintRisks": [
+          "No changes to orders, payments, or private data: use public shipping information without modifying checkout processing or collecting personal details.",
+          "No price changes: disclose existing shipping charges or supported estimates rather than changing rates."
+        ],
+        "priority": 76,
+        "rationale": "This is a late-stage purchase blocker. Surface existing Canada shipping guidance earlier and label any supported estimate clearly; do not promise a cost that current public information cannot substantiate."
+      },
+      {
+        "id": "replacement-search-relevance",
+        "title": "Prioritize relevant replacement products in search",
+        "problem": "A specific Boosted Mini replacement-deck search shows accessories before the intended deck, slowing discovery.",
+        "journeyStage": "search",
+        "feedbackIds": [
+          "shopper-feedback-018"
+        ],
+        "goalAlignment": [
+          "Improve discovery of the right replacement product",
+          "Reduce availability uncertainty",
+          "Improve the path from search to purchase"
+        ],
+        "constraintRisks": [
+          "Preserve the current Boosted USA brand identity and visual system when changing result presentation."
+        ],
+        "priority": 73,
+        "rationale": "The recorded query and result selection provide a concrete relevance test. Favor exact product and model relevance, then availability among relevant matches; unrelated in-stock accessories should not outrank the requested replacement."
+      },
+      {
+        "id": "used-frame-condition",
+        "title": "Show verifiable used-frame condition",
+        "problem": "The used Rev frame page does not give the shopper sufficient evidence of the actual item's wear or damage.",
+        "journeyStage": "product-page",
+        "feedbackIds": [
+          "shopper-feedback-011"
+        ],
+        "goalAlignment": [
+          "Priority 2: Increase product-page conversion",
+          "Reduce product-condition uncertainty",
+          "Keep replacement purchases trustworthy"
+        ],
+        "constraintRisks": [
+          "Ideas must be checkable against the current storefront UI; actual-item photos and condition claims require verified source material."
+        ],
+        "priority": 71,
+        "rationale": "Condition uncertainty can block a replacement purchase. Improve visible condition disclosure with verified photos and descriptions, without presenting generic imagery as the actual frame."
+      },
+      {
+        "id": "bike-setup-readiness",
+        "title": "Explain bike assembly and setup requirements",
+        "problem": "The shopper cannot tell whether the Super73 arrives ready to ride or requires assembly, tools, and setup time.",
+        "journeyStage": "product-page",
+        "feedbackIds": [
+          "shopper-feedback-017"
+        ],
+        "goalAlignment": [
+          "Help shoppers understand what a complete purchase requires",
+          "Priority 2: Increase product-page conversion",
+          "Reduce setup uncertainty"
+        ],
+        "constraintRisks": [
+          "Ideas must be checkable against the current storefront UI; assembly and setup-time claims must be supported rather than assumed."
+        ],
+        "priority": 70,
+        "rationale": "Clear delivery state, required tools, and supported setup guidance address a specific buying hesitation. This is distinct from model compatibility and should not imply unsupported accessory requirements."
+      },
+      {
+        "id": "gift-card-terms",
+        "title": "Explain gift-card delivery and redemption before payment",
+        "problem": "The gift-card purchase path does not clearly explain recipient delivery timing or whether the card can be used on sale items.",
+        "journeyStage": "checkout",
+        "feedbackIds": [
+          "shopper-feedback-020"
+        ],
+        "goalAlignment": [
+          "Priority 2: Increase checkout conversion",
+          "Reduce delivery and purchase-term uncertainty",
+          "Keep the experience clear and trustworthy"
+        ],
+        "constraintRisks": [
+          "No changes to orders, payments, customer accounts, or private data: clarify existing terms without changing gift-card issuance, recipient handling, or redemption processing.",
+          "No price changes: explain existing sale-item eligibility without changing discount rules."
+        ],
+        "priority": 68,
+        "rationale": "The request is for pre-payment information, not payment changes, so it remains in scope. Make verified delivery and redemption terms visible on the product page and purchase path."
+      },
+      {
+        "id": "clear-return-terms",
+        "title": "Make pre-purchase return terms easy to find",
+        "problem": "The shopper visits returns, shipping, and contact pages without finding a clear return window or responsibility for return shipping.",
+        "journeyStage": "support",
+        "feedbackIds": [
+          "shopper-feedback-008"
+        ],
+        "goalAlignment": [
+          "Reduce pre-purchase uncertainty",
+          "Improve the path to a completed purchase",
+          "Keep the experience trustworthy"
+        ],
+        "constraintRisks": [
+          "No changes to orders or payments: explain existing return policies without implementing returns, refunds, or policy changes."
+        ],
+        "priority": 67,
+        "rationale": "The multi-page journey demonstrates information-finding friction before a board purchase. Summarize verified terms consistently and link them from purchase surfaces."
+      },
+      {
+        "id": "mobile-gallery-clarity",
+        "title": "Make mobile product views easy to identify",
+        "problem": "A mobile shopper struggles to distinguish front and rear product images while interacting with gallery thumbnails.",
+        "journeyStage": "product-page",
+        "feedbackIds": [
+          "shopper-feedback-010"
+        ],
+        "goalAlignment": [
+          "Priority 3: Prioritize the mobile shopping experience",
+          "Priority 2: Support product-page conversion",
+          "Keep product inspection clear and accessible"
+        ],
+        "constraintRisks": [
+          "Preserve the current Boosted USA brand identity and visual system; improve the existing gallery rather than redesigning the storefront."
+        ],
+        "priority": 65,
+        "rationale": "This is functional mobile inspection friction, not merely a cosmetic request. Clear image labels and accessible navigation address the observed issue, but its connection to compatibility and attach rate is weaker than higher-ranked opportunities."
+      },
+      {
+        "id": "quick-prepurchase-help",
+        "title": "Reduce friction in getting pre-purchase answers",
+        "problem": "After browsing buying guidance and products, the shopper still finds the full-email contact path too burdensome for a quick question.",
+        "journeyStage": "support",
+        "feedbackIds": [
+          "shopper-feedback-014"
+        ],
+        "goalAlignment": [
+          "Help shoppers resolve uncertainty before buying",
+          "Improve the path from discovery to purchase"
+        ],
+        "constraintRisks": [
+          "No changes to customer accounts or private data: do not add messaging integrations, contact-data storage, or account requirements.",
+          "Ideas must be checkable against the current storefront UI; do not assume live staffing or new support infrastructure exists."
+        ],
+        "priority": 55,
+        "rationale": "The pre-purchase need is relevant, but the feedback identifies no specific unanswered product question. First improve access to existing buying guidance, concise answers, and available contact options within the current UI."
+      }
+    ],
+    "setAside": [
+      {
+        "feedbackId": "shopper-feedback-015",
+        "reason": "Shipment tracking after purchase is not evidenced by the recorded storefront UI and would require order-specific or private fulfillment data. It is outside the permitted scope."
+      }
+    ]
+  },
+  "lead": "explicit-model-compatibility",
+  "opportunities": {
+    "explicit-model-compatibility": {
+      "title": "Make model and replacement compatibility clear at the purchase decision",
+      "underlyingProblem": "Shoppers cannot confidently connect their board or battery model to the correct product or replacement version. Across all three journeys, they reached compatibility or replacement information but still lacked a clear model-to-product answer. Broad product names and an insufficiently explained replacement link leave the purchase decision unresolved.",
+      "opportunity": "Add a compact, consistent compatibility summary beside the purchase controls on the three affected product pages. State which models and versions fit, and make the discontinued charger's replacement link explain which replacement version to choose. This is the smallest shared change that addresses the uncertainty without introducing a new selection flow or unrelated upsells.",
+      "designDirection": [
+        "Use one reusable 'Check compatibility' summary near the variant selector and purchase button, or beside the replacement action on the discontinued product. Keep essential fit information visible rather than buried in the description.",
+        "Explicitly address Boosted Mini X compatibility on the Standard Range Battery Pack page and Evolve GTR Series 2 battery compatibility on the Evolve Battery Chargers page, using only relationships verified in the current public storefront. Do not infer compatibility from product names or brand.",
+        "On the discontinued Boosted Charger page, retain the discontinued notice and clarify the replacement link with a verified board-model-to-replacement-version mapping. Where a supported variant-specific URL exists, link to it; otherwise state the exact option to select on the destination page.",
+        "If current storefront information does not establish compatibility, identify it as unconfirmed rather than implying a fit. Treat a definitive compatibility claim as blocked until it can be verified.",
+        "Reuse existing typography, colors, spacing, and link styling. On mobile, use a short, single-column layout with readable model names and accessible links; avoid wide tables, extra modals, or additional required steps."
+      ],
+      "tensions": [],
+      "constraintsHonored": [
+        "Preserves Boosted USA's current brand identity and visual system.",
+        "Makes no price changes and introduces no discounts.",
+        "Does not change orders, payments, customer accounts, or private data.",
+        "Limits the proposal to public product information and replacement navigation that can be checked against the current storefront UI.",
+        "Prioritizes compatibility clarity before adding broader conversion or accessory-selling features.",
+        "Does not infer mobile shopper behavior from the recorded desktop journeys; mobile receives implementation and usability priority."
+      ],
+      "evidence": [
+        {
+          "feedbackId": "shopper-feedback-001",
+          "role": "problem",
+          "quote": "Will this battery fit a Boosted Mini X, or is it only for the larger boards? I do not want to order the wrong pack."
+        },
+        {
+          "feedbackId": "shopper-feedback-013",
+          "role": "problem",
+          "quote": "Which Evolve models does this charger work with? The product title is broad, and I need to confirm it matches my GTR Series 2 battery."
+        },
+        {
+          "feedbackId": "shopper-feedback-016",
+          "role": "problem",
+          "quote": "The page says this charger is discontinued and points to a newer one, but I cannot tell which version I should select for my board."
+        },
+        {
+          "feedbackId": "shopper-feedback-016",
+          "role": "solution",
+          "quote": "The replacement link needs clearer compatibility details."
+        }
+      ],
+      "successMetric": "Primary: in desktop and mobile usability checks, shoppers can correctly determine the documented fit or explicitly unconfirmed status for Mini X and GTR Series 2, and identify the documented replacement charger version without searching through long descriptions. After any separately approved implementation, use existing aggregate reporting to compare affected-page add-to-cart conversion and replacement-link-to-add-to-cart progression; monitor accessory attach rate and average order value as downstream outcomes, not assumed gains.",
+      "buildBrief": "Proposal only; nothing is deployed. Inspect the current public UI and compatibility descriptions on /store/products/standard-range-battery-pack, /store/products/evolve-skateboards-battery-charger-400013-ss20, /store/products/boosted-charger, and the replacement destination linked from the discontinued charger page. Implement one reusable compatibility-summary component on the three named product pages. Populate model and version mappings only where supported by current public storefront information; flag unsupported mappings rather than inventing answers. Place the summary beside existing purchase controls on active products and beside the discontinued notice/replacement action on the Boosted Charger page. Clarify that replacement link's visible label and nearby version guidance; use an existing supported variant URL only if verified. No destination-page redesign is required. On desktop, keep the summary within the product information column. On mobile, keep it in the main reading flow adjacent to the relevant action, with wrapping text, accessible link names, and no horizontal scrolling. Verify that displayed compatibility agrees with any selected variant and that replacement links reach the intended product or supported variant. Preserve existing product descriptions, discontinued status, prices, availability, delivery information, variant-selection behavior, cart behavior, and brand styling. Do not change collection, search, cart, checkout, order, payment, account, or private-data functionality."
+    }
+  }
+}
