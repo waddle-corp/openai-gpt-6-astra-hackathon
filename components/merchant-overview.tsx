@@ -26,6 +26,7 @@ import {
   analysisProgress,
   DEMO_FLOW_MS,
   demoFlowAt,
+  demoSpeed,
 } from '@/lib/demo-analysis';
 
 const REPLAYS_PER_PAGE = 12;
@@ -389,12 +390,19 @@ export function MerchantOverview({
   const [flowTime, setFlowTime] = useState(0);
   const [playing, setPlaying] = useState(false);
   const clock = useRef(0);
+  const speed = useRef(1);
+  useEffect(() => {
+    speed.current = demoSpeed(window.location.search);
+  }, []);
   useEffect(() => {
     if (!playing) return;
     let last = performance.now();
     const timer = window.setInterval(() => {
       const now = performance.now();
-      clock.current = Math.min(DEMO_FLOW_MS, clock.current + now - last);
+      clock.current = Math.min(
+        DEMO_FLOW_MS,
+        clock.current + (now - last) * speed.current,
+      );
       last = now;
       setFlowTime(clock.current);
       if (clock.current >= DEMO_FLOW_MS) setPlaying(false);
@@ -470,7 +478,7 @@ export function MerchantOverview({
           </button>
           <button
             onClick={() => {
-              if (!run.id || flow.previewsReady) restart();
+              if (!run.id || flow.rewardsReady) restart();
               else setPlaying((value) => !value);
             }}
             aria-label={playing ? 'Pause demo' : 'Play demo'}
@@ -725,7 +733,7 @@ export function MerchantOverview({
               )}
             </section>
             <section
-              className="mo-panel mo-value-card"
+              className={`mo-panel mo-value-card ${playing && flow.rewarding ? 'is-demo-active' : ''}`}
               aria-labelledby="value-title"
             >
               <div className="mo-panel-head">
@@ -736,31 +744,59 @@ export function MerchantOverview({
                   </h2>
                 </div>
               </div>
-              <h3>
-                {dollars(ledger.poolCents)} across {ledger.contributions.length}{' '}
-                shoppers
-              </h3>
-              <p>
-                Allocation follows each shopper’s contribution to the published
-                improvement, not how often the problem was mentioned.
-              </p>
-              <div className="mo-value-track">
-                <span>
-                  {dollars(ledger.contributions[0].bountyCents)} highest ·{' '}
-                  {dollars(
-                    ledger.contributions[ledger.contributions.length - 1]
-                      .bountyCents,
-                  )}{' '}
-                  lowest
-                </span>
-                <button
-                  className="mo-payout-open"
-                  onClick={() => setShowPayouts(true)}
-                  type="button"
-                >
-                  Review payouts
-                </button>
-              </div>
+              {flow.rewardsReady ? (
+                <>
+                  <h3>
+                    {dollars(ledger.poolCents)} across{' '}
+                    {ledger.contributions.length} shoppers
+                  </h3>
+                  <p>
+                    Allocation follows each shopper’s contribution to the
+                    published improvement, not how often the problem was
+                    mentioned.
+                  </p>
+                  <div className="mo-value-track">
+                    <span>
+                      {dollars(ledger.contributions[0].bountyCents)} highest ·{' '}
+                      {dollars(
+                        ledger.contributions[ledger.contributions.length - 1]
+                          .bountyCents,
+                      )}{' '}
+                      lowest
+                    </span>
+                    <button
+                      className="mo-payout-open"
+                      onClick={() => setShowPayouts(true)}
+                      type="button"
+                    >
+                      Review payouts
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="mo-improvement-wait" aria-live="polite">
+                  {flow.rewarding ? (
+                    <>
+                      <LoaderCircle
+                        size={24}
+                        className={playing ? 'mo-generation-spin' : ''}
+                      />
+                      <h3>Crediting the shoppers behind it</h3>
+                      <p>
+                        Weighing each contribution against the merchant bounty
+                        budget.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <h3>Rewards pending</h3>
+                      <p>
+                        Allocation follows the improvement’s validated impact.
+                      </p>
+                    </>
+                  )}
+                </div>
+              )}
             </section>
           </aside>
         </div>

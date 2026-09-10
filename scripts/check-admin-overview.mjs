@@ -124,7 +124,9 @@ console.log(
   'OK completed journey feed uses saved findings with explicit provenance',
 );
 
-const { demoFlowAt, DEMO_FLOW_MS } = await import('../lib/demo-analysis.ts');
+const { demoFlowAt, DEMO_FLOW_MS, DEMO_PREVIEWS_MS } = await import(
+  '../lib/demo-analysis.ts',
+);
 assert.equal(demoFlowAt(0, 33).signalCount, 25);
 assert.equal(demoFlowAt(1000, 33).signalCount, 29);
 assert.equal(demoFlowAt(2000, 33).signalCount, 33);
@@ -134,8 +136,13 @@ assert.equal(demoFlowAt(10000, 33).analysisElapsed, 7000);
 assert.equal(demoFlowAt(10999, 33).generating, false);
 assert.equal(demoFlowAt(11000, 33).generating, true);
 assert.equal(demoFlowAt(15999, 33).previewsReady, false);
-assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).previewsReady, true);
+assert.equal(demoFlowAt(DEMO_PREVIEWS_MS, 33).previewsReady, true);
+assert.equal(demoFlowAt(DEMO_PREVIEWS_MS, 33).generating, false);
+assert.equal(demoFlowAt(DEMO_PREVIEWS_MS, 33).rewarding, true);
+assert.equal(demoFlowAt(DEMO_FLOW_MS - 1, 33).rewardsReady, false);
+assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).rewarding, false);
+assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).rewardsReady, true);
 assert.equal(demoFlowAt(0, 5).signalCount, 5);
 console.log(
-  'OK page demo phase boundaries: 2s signals, 1s wait, 7s analysis, 1s wait, 5s generation',
+  'OK page demo phase boundaries: 2s signals, 1s wait, 7s analysis, 1s wait, 5s generation, 5s rewards',
 );
