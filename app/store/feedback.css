@@ -683,3 +683,209 @@
 .pf-review-context li + li {
   margin-top: 4px;
 }
+
+.pf-conversation-dialog {
+  max-width: 820px;
+}
+.pf-conversation-body {
+  padding: 32px 40px 36px;
+  overflow-y: auto;
+}
+.pf-agent-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #a52b1b;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 26px 0 14px;
+}
+.pf-context-cards {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.pf-context-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 12px;
+  flex: 1 0 220px;
+}
+.pf-context-card img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  background: white;
+  border-radius: 8px;
+}
+.pf-context-card strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.pf-context-card small {
+  display: block;
+  color: #666;
+  margin-top: 5px;
+  font-size: 12px;
+}
+.pf-agent-observation {
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+.pf-agent-question h3,
+.pf-conversation-review h3 {
+  font-size: 22px;
+  line-height: 1.4;
+  margin: 22px 0 16px;
+}
+.pf-conversation-options {
+  display: grid;
+  gap: 10px;
+}
+.pf-conversation-options button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid #d6d6d6;
+  background: white;
+  padding: 16px 18px;
+  border-radius: 10px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.pf-conversation-options button:hover,
+.pf-conversation-options button[aria-pressed='true'] {
+  border-color: #e83d26;
+  background: #fff3ef;
+}
+.pf-conversation-options button > span + span {
+  color: #888;
+  font-size: 13px;
+}
+.pf-conversation-options button:focus-visible,
+.pf-manual-moments button:focus-visible {
+  outline: 3px solid #e83d26;
+  outline-offset: 3px;
+}
+.pf-conversation-history {
+  margin: 18px 0;
+  padding: 14px 18px;
+  background: #242424;
+  color: white;
+  border-radius: 14px 14px 3px 14px;
+  font-size: 15px;
+}
+.pf-conversation-history summary,
+.pf-evidence summary {
+  cursor: pointer;
+}
+.pf-conversation-history small {
+  color: #ccc;
+}
+.pf-conversation-history p {
+  margin: 6px 0 12px;
+}
+.pf-agent-working {
+  display: flex;
+  gap: 14px;
+  padding: 24px 0;
+  min-height: 130px;
+  align-items: flex-start;
+}
+.pf-agent-working p {
+  color: #666;
+  line-height: 1.5;
+}
+.pf-spin {
+  animation: pf-rotate 1.4s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes pf-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.pf-evidence {
+  background: #f7f7f7;
+  border-left: 3px solid #d7d7d7;
+  padding: 14px;
+  margin: 18px 0;
+  font-size: 14px;
+}
+.pf-evidence strong {
+  display: block;
+  margin-top: 16px;
+}
+.pf-evidence blockquote {
+  color: #555;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+.pf-conversation-review label,
+.pf-manual-context label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+.pf-conversation-review textarea,
+.pf-manual-context textarea {
+  display: block;
+  width: 100%;
+  min-height: 130px;
+  resize: vertical;
+  padding: 16px;
+  font: inherit;
+  font-size: 17px;
+  line-height: 1.6;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+.pf-change-topic {
+  margin-top: 24px;
+  font-size: 14px;
+}
+.pf-manual-moments {
+  display: grid;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.pf-manual-moments button {
+  text-align: left;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+}
+.pf-manual-moments button[aria-pressed='true'] {
+  background: #fff3ef;
+  border-color: #e83d26;
+}
+.pf-manual-moments small {
+  display: block;
+  margin-top: 4px;
+}
+@media (max-width: 600px) {
+  .pf-conversation-body {
+    padding: 22px 20px;
+  }
+  .pf-context-card {
+    flex-basis: 200px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-spin {
+    animation: none;
+  }
+}

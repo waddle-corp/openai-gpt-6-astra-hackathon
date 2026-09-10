@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { FeedbackCheckout } from '@/components/customer-feedback';
+import { FeedbackCheckout } from '@/components/feedback-conversation';
 import { recordJourney, linkFeedbackOrder } from '@/lib/feedback-storage';
 import {
   cents,

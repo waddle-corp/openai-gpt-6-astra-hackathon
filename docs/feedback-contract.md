@@ -112,3 +112,7 @@ Same-window listeners can use `pay-feedback-submitted`; other tabs can listen to
 - `scripts/migrate-feedback-fixtures.mjs` is an idempotent conversion utility for old fixture formats. It preserves IDs and isolates old author annotations. It is not imported by the running app.
 
 The main-branch contract is the team's shared reference. The merchant branch can keep its strategy and computer-use implementation; update the input loader/API to this shape rather than introducing another feedback schema.
+
+### Conversation producer
+
+The conversation-first checkout preserves v1.1. It emits `feedback.category: null` (no customer category selector), the actual question/answer pairs, original free text in `message`, and customer-confirmed/edited text in `summary`. Catalog lookup excerpts are displayed separately and do not replace journey evidence or become claimed browser execution results.
