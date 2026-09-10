@@ -22,25 +22,26 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find a replacement battery for an existing Boosted board"
           },
           {
             "step": 2,
             "path": "/store/collections/boosted-accessories",
-            "action": "Open the Boosted Accessories collection",
+            "action": "click",
             "target": "Browse batteries and replacement parts"
           },
           {
             "step": 3,
             "path": "/store/search?q=standard+range+battery",
-            "action": "Search for a standard range battery",
-            "target": "Battery product result"
+            "action": "type",
+            "target": "Battery product result",
+            "value": "standard range battery"
           },
           {
             "step": 4,
             "path": "/store/products/standard-range-battery-pack",
-            "action": "Inspect the product description and availability",
+            "action": "observe",
             "target": "Mini X compatibility and variant availability"
           }
         ]
@@ -64,25 +65,26 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find a replacement remote"
           },
           {
             "step": 2,
             "path": "/store/collections/boosted-accessories",
-            "action": "Open the Boosted Accessories collection",
+            "action": "click",
             "target": "Remote and controller parts"
           },
           {
             "step": 3,
             "path": "/store/search?q=Boosted+Remote",
-            "action": "Search for a Boosted Remote",
-            "target": "Remote product result"
+            "action": "type",
+            "target": "Remote product result",
+            "value": "Boosted Remote"
           },
           {
             "step": 4,
             "path": "/store/products/boosted-remote",
-            "action": "Open the remote product page",
+            "action": "click",
             "target": "Purchase availability and replacement options"
           }
         ]
@@ -106,25 +108,26 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find a pulley and belt upgrade"
           },
           {
             "step": 2,
             "path": "/store/collections/boosted-accessories",
-            "action": "Open the Boosted Accessories collection",
+            "action": "click",
             "target": "Browse drivetrain parts"
           },
           {
             "step": 3,
             "path": "/store/search?q=pulley+belt",
-            "action": "Search for a pulley and belt kit",
-            "target": "Upgrade kit"
+            "action": "type",
+            "target": "Upgrade kit",
+            "value": "pulley and belt kit"
           },
           {
             "step": 4,
             "path": "/store/products/boosted-pulley-belt-upgrade-kit",
-            "action": "Open the upgrade kit product page",
+            "action": "click",
             "target": "Included parts and installation requirements"
           }
         ]
@@ -148,37 +151,37 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find an all-terrain electric skateboard"
           },
           {
             "step": 2,
             "path": "/store/collections/evolve-skateboards",
-            "action": "Open the Electric Skateboards collection",
+            "action": "click",
             "target": "Evolve boards"
           },
           {
             "step": 3,
             "path": "/store/products/gtr-series-2-bamboo-at",
-            "action": "Open the GTR Series 2 Bamboo All Terrain product page",
+            "action": "click",
             "target": "Choose a board and check out"
           },
           {
             "step": 4,
             "path": "/store/products/gtr-series-2-bamboo-at",
-            "action": "Add the board to the demo cart",
+            "action": "click",
             "target": "Add to cart control"
           },
           {
             "step": 5,
             "path": "/store/cart",
-            "action": "Open the cart",
+            "action": "click",
             "target": "Shipping cost before checkout"
           },
           {
             "step": 6,
             "path": "/store/checkout",
-            "action": "Continue to demo checkout",
+            "action": "click",
             "target": "Canada shipping estimate"
           }
         ]
@@ -202,31 +205,31 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Compare electric skateboard options"
           },
           {
             "step": 2,
             "path": "/store/collections/evolve-skateboards",
-            "action": "Open the Electric Skateboards collection",
+            "action": "click",
             "target": "Carbon Street and Bamboo All Terrain boards"
           },
           {
             "step": 3,
             "path": "/store/products/evolve-gtr-series-2-carbon-street",
-            "action": "Open the Carbon Street product page",
+            "action": "click",
             "target": "Range, weight, and use case"
           },
           {
             "step": 4,
             "path": "/store/products/gtr-series-2-bamboo-at",
-            "action": "Open the Bamboo All Terrain product page",
+            "action": "click",
             "target": "Compare the second board"
           },
           {
             "step": 5,
             "path": "/store/products/evolve-gtr-series-2-carbon-street",
-            "action": "Return to the Carbon Street product page",
+            "action": "click",
             "target": "Side-by-side comparison information"
           }
         ]
@@ -250,19 +253,19 @@
           {
             "step": 1,
             "path": "/store/search?q=Boosted+2nd+Gen+Wheels",
-            "action": "Search for Boosted 2nd Gen Wheels",
+            "action": "navigate",
             "target": "Wheel product result"
           },
           {
             "step": 2,
             "path": "/store/products/2nd-gen-wheels",
-            "action": "Open the wheel product page",
+            "action": "click",
             "target": "Compatibility with a V2 board"
           },
           {
             "step": 3,
             "path": "/store/products/2nd-gen-wheels",
-            "action": "Read the product details",
+            "action": "observe",
             "target": "Included pulleys and required belt kit"
           }
         ]
@@ -286,25 +289,25 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find protective gear"
           },
           {
             "step": 2,
             "path": "/store/collections/protective-gear",
-            "action": "Open the Protective Gear collection",
+            "action": "click",
             "target": "Helmet options"
           },
           {
             "step": 3,
             "path": "/store/products/boosted-helmets",
-            "action": "Open the Triple 8 Mips helmet product page",
+            "action": "click",
             "target": "Head measurements and sizing"
           },
           {
             "step": 4,
             "path": "/store/products/boosted-helmets",
-            "action": "Scroll through the product information",
+            "action": "scroll",
             "target": "Sizing guidance before adding to cart"
           }
         ]
@@ -328,25 +331,25 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find return and shipping policies"
           },
           {
             "step": 2,
             "path": "/store/pages/returns",
-            "action": "Open the Returns page",
+            "action": "click",
             "target": "Return window and return shipping responsibility"
           },
           {
             "step": 3,
             "path": "/store/pages/shipping",
-            "action": "Open the Shipping page",
+            "action": "click",
             "target": "Shipping rules and costs"
           },
           {
             "step": 4,
             "path": "/store/pages/contact-us",
-            "action": "Open the Contact Us page",
+            "action": "click",
             "target": "Ask for clarification before buying"
           }
         ]
@@ -370,19 +373,20 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find a replacement Rev battery"
           },
           {
             "step": 2,
             "path": "/store/search?q=Boosted+Rev+battery",
-            "action": "Search for a Boosted Rev battery",
-            "target": "Rev battery product result"
+            "action": "type",
+            "target": "Rev battery product result",
+            "value": "Boosted Rev battery"
           },
           {
             "step": 3,
             "path": "/store/products/boosted-rev-battery-pack",
-            "action": "Open the replacement battery product page",
+            "action": "click",
             "target": "Stock status and restock timing"
           }
         ]
@@ -406,25 +410,25 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage on a mobile viewport",
+            "action": "navigate",
             "target": "Find an electric scooter"
           },
           {
             "step": 2,
             "path": "/store/collections/electric-scooters",
-            "action": "Open the Electric Scooters collection",
+            "action": "click",
             "target": "Scooter product options"
           },
           {
             "step": 3,
             "path": "/store/products/dualtron-thunder-3-electric-scooter",
-            "action": "Open the Dualtron Thunder 3 product page",
+            "action": "click",
             "target": "Identify the front and rear views"
           },
           {
             "step": 4,
             "path": "/store/products/dualtron-thunder-3-electric-scooter",
-            "action": "Swipe through the product gallery thumbnails",
+            "action": "swipe",
             "target": "Image orientation and view labels"
           }
         ]
@@ -448,19 +452,19 @@
           {
             "step": 1,
             "path": "/store/search?q=Boosted+Rev+frame",
-            "action": "Search for a Boosted Rev frame",
+            "action": "navigate",
             "target": "Used replacement frame"
           },
           {
             "step": 2,
             "path": "/store/products/boosted-rev-frame",
-            "action": "Open the used frame product page",
+            "action": "click",
             "target": "Actual condition and damage"
           },
           {
             "step": 3,
             "path": "/store/products/boosted-rev-frame",
-            "action": "Inspect the product images and description",
+            "action": "observe",
             "target": "Photos of the actual frame and condition notes"
           }
         ]
@@ -484,31 +488,32 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find motor guards"
           },
           {
             "step": 2,
             "path": "/store/collections/boosted-accessories",
-            "action": "Open the Boosted Accessories collection",
+            "action": "click",
             "target": "Motor protection parts"
           },
           {
             "step": 3,
             "path": "/store/products/boosted-motor-guards",
-            "action": "Open the Motor Guards product page",
+            "action": "click",
             "target": "Quantity and pack size"
           },
           {
             "step": 4,
             "path": "/store/products/boosted-motor-guards",
-            "action": "Set the quantity to two and add the item to the cart",
-            "target": "Quantity input and Add to cart control"
+            "action": "type",
+            "target": "Quantity input",
+            "value": "2"
           },
           {
             "step": 5,
             "path": "/store/cart",
-            "action": "Open the cart",
+            "action": "click",
             "target": "Confirm whether the price is per guard or per pair"
           }
         ]
@@ -532,25 +537,25 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find an Evolve battery charger"
           },
           {
             "step": 2,
             "path": "/store/collections/evolve-skateboard-accessories",
-            "action": "Open the Evolve Skateboard Accessories collection",
+            "action": "click",
             "target": "Chargers and replacement parts"
           },
           {
             "step": 3,
             "path": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
-            "action": "Open the Evolve Battery Chargers product page",
+            "action": "click",
             "target": "Compatibility with a GTR Series 2 battery"
           },
           {
             "step": 4,
             "path": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
-            "action": "Read the charger description",
+            "action": "observe",
             "target": "Supported Evolve models"
           }
         ]
@@ -574,25 +579,25 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Get help choosing a product"
           },
           {
             "step": 2,
             "path": "/store/pages/what-should-i-buy",
-            "action": "Open the What should I buy? page",
+            "action": "click",
             "target": "Product selection guidance"
           },
           {
             "step": 3,
             "path": "/store/collections/all",
-            "action": "Browse all products",
+            "action": "click",
             "target": "Compare the available categories"
           },
           {
             "step": 4,
             "path": "/store/pages/contact-us",
-            "action": "Open the Contact Us page",
+            "action": "click",
             "target": "Ask a quick pre-purchase question"
           }
         ]
@@ -616,25 +621,25 @@
           {
             "step": 1,
             "path": "/store/products/boosted-daypack",
-            "action": "Open the Daypack product page from a product link",
+            "action": "navigate",
             "target": "Buy the waterproof backpack"
           },
           {
             "step": 2,
             "path": "/store/products/boosted-daypack",
-            "action": "Add the backpack to the demo cart",
+            "action": "click",
             "target": "Add to cart control"
           },
           {
             "step": 3,
             "path": "/store/cart",
-            "action": "Open the cart",
+            "action": "click",
             "target": "Review the item before checkout"
           },
           {
             "step": 4,
             "path": "/store/checkout",
-            "action": "Complete the demo checkout",
+            "action": "click",
             "target": "Order confirmation and delivery follow-up"
           }
         ]
@@ -658,19 +663,19 @@
           {
             "step": 1,
             "path": "/store/products/boosted-charger",
-            "action": "Open the Boosted Charger product page",
+            "action": "navigate",
             "target": "Find a current replacement charger"
           },
           {
             "step": 2,
             "path": "/store/products/boosted-charger",
-            "action": "Read the discontinued notice",
+            "action": "observe",
             "target": "Replacement charger link"
           },
           {
             "step": 3,
             "path": "/store/products/boosted-charger",
-            "action": "Follow the replacement charger link in the description",
+            "action": "click",
             "target": "Compatible version for the shopper's board"
           }
         ]
@@ -694,25 +699,25 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find an electric bike"
           },
           {
             "step": 2,
             "path": "/store/collections/electric-bikes",
-            "action": "Open the Electric Bikes collection",
+            "action": "click",
             "target": "Super73 R Adventure Series"
           },
           {
             "step": 3,
             "path": "/store/products/super73-rx",
-            "action": "Open the Super73 R Adventure Series product page",
+            "action": "click",
             "target": "Assembly requirements"
           },
           {
             "step": 4,
             "path": "/store/products/super73-rx",
-            "action": "Read the product details",
+            "action": "observe",
             "target": "Tools and setup time"
           }
         ]
@@ -736,25 +741,26 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find a Boosted Mini replacement deck"
           },
           {
             "step": 2,
             "path": "/store/search?q=Boosted+Mini+replacement+deck",
-            "action": "Search for a Boosted Mini replacement deck",
-            "target": "Exact deck match"
+            "action": "type",
+            "target": "Exact deck match",
+            "value": "Boosted Mini replacement deck"
           },
           {
             "step": 3,
             "path": "/store/search?q=Boosted+Mini+replacement+deck",
-            "action": "Review the search results",
+            "action": "observe",
             "target": "Exact matches and in-stock items first"
           },
           {
             "step": 4,
             "path": "/store/products/mini-x-deck",
-            "action": "Open the Boosted Mini-X Deck Only product page",
+            "action": "click",
             "target": "Confirm the replacement deck"
           }
         ]
@@ -778,31 +784,31 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Find maintenance tools and parts"
           },
           {
             "step": 2,
             "path": "/store/collections/boosted-accessories",
-            "action": "Open the Boosted Accessories collection",
+            "action": "click",
             "target": "Belts, bearings, and skate tools"
           },
           {
             "step": 3,
             "path": "/store/products/boosted-skate-tool",
-            "action": "Open the Boosted Skate Tool product page",
+            "action": "click",
             "target": "Build a maintenance bundle"
           },
           {
             "step": 4,
             "path": "/store/products/boosted-skate-tool",
-            "action": "Add the skate tool to the demo cart",
+            "action": "click",
             "target": "Add to cart control"
           },
           {
             "step": 5,
             "path": "/store/cart",
-            "action": "Open the cart",
+            "action": "click",
             "target": "Recommended maintenance bundle"
           }
         ]
@@ -826,37 +832,38 @@
           {
             "step": 1,
             "path": "/store",
-            "action": "Open the storefront homepage",
+            "action": "navigate",
             "target": "Buy a gift card"
           },
           {
             "step": 2,
             "path": "/store/search?q=Boosted+USA+Gift+Card",
-            "action": "Search for a Boosted USA Gift Card",
-            "target": "Gift card product result"
+            "action": "type",
+            "target": "Gift card product result",
+            "value": "Boosted USA Gift Card"
           },
           {
             "step": 3,
             "path": "/store/products/boosted-usa-gift-card",
-            "action": "Open the gift card product page",
+            "action": "click",
             "target": "Delivery timing and sale-item restrictions"
           },
           {
             "step": 4,
             "path": "/store/products/boosted-usa-gift-card",
-            "action": "Add the gift card to the demo cart",
+            "action": "click",
             "target": "Add to cart control"
           },
           {
             "step": 5,
             "path": "/store/cart",
-            "action": "Open the cart",
+            "action": "click",
             "target": "Gift card terms before payment"
           },
           {
             "step": 6,
             "path": "/store/checkout",
-            "action": "Continue to demo checkout",
+            "action": "click",
             "target": "Read gift card terms before payment"
           }
         ]
@@ -867,11 +874,21 @@
     "pathsAreRelative": true,
     "requiresFreshBrowserContext": true,
     "cartState": "empty",
+    "actionSemantics": "Use an atomic browser action. target is a human-readable locator or page region. value is only present for input actions. Replay observes the actual result instead of assuming one.",
+    "actionTypes": [
+      "navigate",
+      "click",
+      "type",
+      "scroll",
+      "swipe",
+      "observe"
+    ],
     "stepFields": [
       "step",
       "path",
       "action",
-      "target"
+      "target",
+      "value"
     ]
   }
 }
