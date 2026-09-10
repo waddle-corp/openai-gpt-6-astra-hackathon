@@ -1674,7 +1674,7 @@
 }
 
 .mo-improvement-previews {
-  grid-template-rows: auto repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto minmax(0, 1fr) minmax(0, 3fr);
 }
 .mo-improvement-recommendation {
   margin: 0;
@@ -1682,3 +1682,6 @@
   line-height: 1.5;
   color: #526075;
 }
+
+.mo-improvement-previews > .mo-improvement-preview:first-of-type { min-height: 0; }
+.mo-improvement-previews > .mo-improvement-preview:first-of-type .mo-comparison-card { min-height: 45px; }
