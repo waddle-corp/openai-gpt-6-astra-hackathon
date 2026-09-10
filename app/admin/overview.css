@@ -1707,3 +1707,27 @@
   transform-origin: top left;
   background: white;
 }
+
+/* Keep the running stage above the page dim without blocking demo controls. */
+.mo-app::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgb(17 24 39 / 38%);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 150ms, visibility 150ms;
+}
+.mo-app:has(.mo-merchant-view:not([hidden]) .is-demo-active)::after {
+  opacity: 1;
+  visibility: visible;
+}
+.mo-panel.is-demo-active {
+  position: relative;
+  z-index: 60;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mo-app::after { transition: none; }
+}
