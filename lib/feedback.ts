@@ -109,12 +109,21 @@ export const selectedMomentIds = (draft: FeedbackDraft) =>
   draft.focus === 'overall'
     ? []
     : (draft.selectedIds ?? (draft.selected ? [draft.selected.id] : []));
-export const selectionLabel = (draft: FeedbackDraft) =>
-  draft.focus === 'overall'
-    ? 'Your overall shopping experience'
-    : selectedMomentIds(draft).length > 1
-      ? 'Your selected shopping moments'
-      : (draft.selected?.title ?? 'Your shopping experience');
+export function selectionLabel(
+  draft: FeedbackDraft,
+  events: JourneyEvent[] = [],
+) {
+  if (draft.focus === 'overall') return 'Your overall shopping experience';
+  const ids = new Set(selectedMomentIds(draft));
+  const selected = journeyMoments(events).filter((moment) =>
+    moment.eventIds.some((id) => ids.has(id)),
+  );
+  if (!selected.length)
+    return draft.selected?.title ?? 'Your shopping experience';
+  return selected
+    .map((moment) => `${moment.page.title} (${moment.label.toLowerCase()})`)
+    .join(' → ');
+}
 
 export type JourneyMoment = {
   id: string;
@@ -385,9 +394,12 @@ export function validQuestions(value: unknown): value is Question[] {
   );
 }
 
-export function feedbackSummary(draft: FeedbackDraft) {
+export function feedbackSummary(
+  draft: FeedbackDraft,
+  events: JourneyEvent[] = [],
+) {
   const answers = draft.questions
     .map((q) => draft.answers[q.id])
     .filter(Boolean);
-  return `${selectionLabel(draft)} — ${draft.category}. ${answers.join('. ')}.${draft.note.trim() ? ` ${draft.note.trim()}` : ''}`;
+  return `${selectionLabel(draft, events)} — ${draft.category}. ${answers.join('. ')}.${draft.note.trim() ? ` ${draft.note.trim()}` : ''}`;
 }

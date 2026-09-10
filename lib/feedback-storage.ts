@@ -188,7 +188,7 @@ export function submitFeedback(
     summary: '',
     demo: true,
   };
-  receipt.summary = feedbackSummary(draft);
+  receipt.summary = feedbackSummary(draft, session.events);
   // Write before confirming receipt. Storage failure must not look like success.
   const records = readFeedbackSubmissions();
   localStorage.setItem(

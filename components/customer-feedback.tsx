@@ -256,7 +256,7 @@ export function FeedbackCheckout({
   const chosenCount = moments.filter((moment) =>
     chosenIds.includes(moment.id),
   ).length;
-  const focusLabel = selectionLabel(draft);
+  const focusLabel = selectionLabel(draft, session.events);
   function chooseMoment(moment: (typeof moments)[number]) {
     const ids = chosenIds.includes(moment.id)
       ? chosenIds.filter((id) => !moment.eventIds.includes(id))
@@ -687,7 +687,7 @@ export function FeedbackCheckout({
                       </DialogDescription>
                       <div className="pf-summary">
                         <span>Your feedback</span>
-                        <p>{feedbackSummary(draft)}</p>
+                        <p>{feedbackSummary(draft, session.events)}</p>
                         <button
                           className="pf-text"
                           onClick={() => updateFeedbackDraft({ step: 'pain' })}
