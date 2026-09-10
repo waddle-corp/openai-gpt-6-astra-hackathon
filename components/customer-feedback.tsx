@@ -20,7 +20,8 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   categories,
-  feedbackSummary,
+  feedbackReviewText,
+  feedbackPages,
   journeyMoments,
   journeySummary,
   selectedMomentIds,
@@ -380,9 +381,8 @@ export function FeedbackCheckout({
           <DialogContent className="pf-dialog">
             <header className="pf-dialog-header">
               <span className="pf-brand">
-                <MessageSquare size={19} /> pay with your feedback
+                <MessageSquare size={19} /> Pay with your feedback
               </span>
-              <span className="pf-demo-label">Demo</span>
             </header>
             <div className="pf-dialog-body">
               {receipt ? (
@@ -687,7 +687,23 @@ export function FeedbackCheckout({
                       </DialogDescription>
                       <div className="pf-summary">
                         <span>Your feedback</span>
-                        <p>{feedbackSummary(draft, session.events)}</p>
+                        <p>{feedbackReviewText(draft)}</p>
+                        <div className="pf-review-context">
+                          <strong>
+                            {draft.focus === 'overall'
+                              ? 'About your overall visit'
+                              : 'Related products & pages'}
+                          </strong>
+                          {feedbackPages(draft, session.events).length > 0 && (
+                            <ul>
+                              {feedbackPages(draft, session.events).map(
+                                (page) => (
+                                  <li key={page}>{page}</li>
+                                ),
+                              )}
+                            </ul>
+                          )}
+                        </div>
                         <button
                           className="pf-text"
                           onClick={() => updateFeedbackDraft({ step: 'pain' })}

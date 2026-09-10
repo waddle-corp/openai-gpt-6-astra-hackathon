@@ -394,12 +394,44 @@ export function validQuestions(value: unknown): value is Question[] {
   );
 }
 
+export function feedbackReviewText(draft: FeedbackDraft) {
+  const sentences = draft.questions.flatMap((question) => {
+    const answer = draft.answers[question.id];
+    if (!answer) return [];
+    if (question.id === 'cause' && answer !== 'None of these')
+      return [
+        answer === 'Compatibility was unclear'
+          ? 'I couldn’t tell which products were compatible.'
+          : `${answer.replace(/[.!?]+$/, '')}.`,
+      ];
+    if (question.id === 'impact' && answer !== 'None of these')
+      return [`${answer.replace(/[.!?]+$/, '')}.`];
+    // Preserve the question for conditional answers and model-generated options.
+    return [`${question.prompt} ${answer}`];
+  });
+  return [draft.note.trim(), ...sentences].filter(Boolean).join(' ');
+}
+
+export function feedbackPages(draft: FeedbackDraft, events: JourneyEvent[]) {
+  if (draft.focus === 'overall') return [];
+  const ids = new Set(selectedMomentIds(draft));
+  const pages = journeyMoments(events)
+    .filter((moment) => moment.eventIds.some((id) => ids.has(id)))
+    .map((moment) => moment.page.title);
+  return [
+    ...new Set(
+      pages.length ? pages : draft.selected ? [draft.selected.title] : [],
+    ),
+  ];
+}
+
 export function feedbackSummary(
   draft: FeedbackDraft,
   events: JourneyEvent[] = [],
 ) {
-  const answers = draft.questions
-    .map((q) => draft.answers[q.id])
-    .filter(Boolean);
-  return `${selectionLabel(draft, events)} — ${draft.category}. ${answers.join('. ')}.${draft.note.trim() ? ` ${draft.note.trim()}` : ''}`;
+  const pages = feedbackPages(draft, events);
+  const context = pages.length
+    ? `Related pages: ${pages.join('; ')}.`
+    : 'About my overall shopping experience.';
+  return `${feedbackReviewText(draft)} ${context}`;
 }

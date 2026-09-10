@@ -655,3 +655,21 @@
     max-height: 320px;
   }
 }
+
+.pf-review-context {
+  margin: 16px 0;
+  padding-top: 12px;
+  border-top: 1px solid #e2e2e2;
+  font-size: 13px;
+  color: #666;
+}
+.pf-review-context strong {
+  font-weight: 500;
+}
+.pf-review-context ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+.pf-review-context li + li {
+  margin-top: 4px;
+}
