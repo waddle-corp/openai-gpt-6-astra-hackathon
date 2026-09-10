@@ -22,3 +22,17 @@ export function analysisProgress(elapsed: number, deadline?: number) {
     ? Math.min(100, Math.max(0, Math.floor((elapsed / deadline) * 100)))
     : 0;
 }
+
+export const DEMO_FLOW_MS = 20000;
+export function demoFlowAt(time: number, count: number) {
+  const elapsed = Math.max(0, Math.min(DEMO_FLOW_MS, time));
+  const initial = Math.min(25, count);
+  return {
+    signalCount:
+      initial + Math.floor((count - initial) * Math.min(1, elapsed / 5000)),
+    analysisStarted: elapsed >= 6000,
+    analysisElapsed: Math.max(0, Math.min(DEMO_ANALYSIS_MS, elapsed - 6000)),
+    generating: elapsed >= 15000 && elapsed < DEMO_FLOW_MS,
+    previewsReady: elapsed >= DEMO_FLOW_MS,
+  };
+}

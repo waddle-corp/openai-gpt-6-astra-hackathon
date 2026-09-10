@@ -1,7 +1,16 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Check, Play, X } from 'lucide-react';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Check,
+  Play,
+  Pause,
+  RotateCcw,
+  LoaderCircle,
+  X,
+} from 'lucide-react';
 import type { AdminOverviewRecord } from '@/lib/admin-overview-data';
 import '@/app/admin/overview.css';
 import { MerchantDirection } from './merchant-direction';
@@ -10,7 +19,8 @@ import { AudienceTab } from './audience-tab';
 import {
   analysisSchedule,
   analysisProgress,
-  DEMO_ANALYSIS_MS,
+  DEMO_FLOW_MS,
+  demoFlowAt,
 } from '@/lib/demo-analysis';
 
 const REPLAYS_PER_PAGE = 12;
@@ -244,7 +254,6 @@ function ImprovementComparison({
 
 export function MerchantOverview({
   records,
-  totalSignals,
 }: {
   records: AdminOverviewRecord[];
   totalSignals: number;
@@ -258,17 +267,27 @@ export function MerchantOverview({
     id: number;
     deadlines: Record<string, number>;
   }>({ id: 0, deadlines: {} });
-  const [elapsed, setElapsed] = useState(0);
+  const [flowTime, setFlowTime] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const clock = useRef(0);
   useEffect(() => {
-    if (!run.id) return;
-    const started = performance.now();
+    if (!playing) return;
+    let last = performance.now();
     const timer = window.setInterval(() => {
-      const next = Math.min(DEMO_ANALYSIS_MS, performance.now() - started);
-      setElapsed(next);
-      if (next === DEMO_ANALYSIS_MS) window.clearInterval(timer);
+      const now = performance.now();
+      clock.current = Math.min(DEMO_FLOW_MS, clock.current + now - last);
+      last = now;
+      setFlowTime(clock.current);
+      if (clock.current >= DEMO_FLOW_MS) setPlaying(false);
     }, 50);
     return () => window.clearInterval(timer);
-  }, [run.id]);
+  }, [playing, run.id]);
+  const flow = demoFlowAt(flowTime, records.length);
+  const elapsed = flow.analysisElapsed;
+  const visibleSignals = records
+    .slice(25, flow.signalCount)
+    .reverse()
+    .concat(records.slice(0, Math.min(25, flow.signalCount)));
   const [inspecting, setInspecting] = useState<AdminOverviewRecord | null>(
     null,
   );
@@ -280,6 +299,20 @@ export function MerchantOverview({
     .sort((a, b) => a[1] - b[1])
     .map(([id]) => replays.find((record) => record.feedback.id === id))
     .filter((record): record is AdminOverviewRecord => Boolean(record));
+  function restart() {
+    clock.current = 0;
+    setFlowTime(0);
+    setPlaying(true);
+    setComparison(null);
+    setInspecting(null);
+    setView('merchant');
+    setReplayPage(0);
+    setSelectedId(records[0]?.feedback.id);
+    setRun((previous) => ({
+      id: previous.id + 1,
+      deadlines: analysisSchedule(replays.map((record) => record.feedback.id)),
+    }));
+  }
   const selectSignal = (record: AdminOverviewRecord) => {
     if (!record.strategyMatch) {
       setInspecting(record);
@@ -312,6 +345,21 @@ export function MerchantOverview({
             }}
           />
         </nav>
+        <div className="mo-demo-controls">
+          <button onClick={restart}>
+            <RotateCcw size={14} /> Restart
+          </button>
+          <button
+            onClick={() => {
+              if (!run.id || flow.previewsReady) restart();
+              else setPlaying((value) => !value);
+            }}
+            aria-label={playing ? 'Pause demo' : 'Play demo'}
+          >
+            {playing ? <Pause size={14} /> : <Play size={14} />}
+            {playing ? 'Pause' : 'Play'}
+          </button>
+        </div>
       </header>
       <div className="mo-merchant-view" hidden={view !== 'merchant'}>
         <MerchantDirection />
@@ -329,12 +377,12 @@ export function MerchantOverview({
             </div>
             <div className="mo-scope-note">
               <span>
-                {records.filter((record) => record.strategyMatch).length} of{' '}
-                {totalSignals} match your strategy
+                {visibleSignals.filter((record) => record.strategyMatch).length}{' '}
+                of {flow.signalCount} match your strategy
               </span>
             </div>
             <div className="mo-signals-list">
-              {records.map((record) => (
+              {visibleSignals.map((record) => (
                 <button
                   className={`mo-signal ${record.strategyMatch ? 'is-matched' : 'is-out-of-scope'} ${record.feedback.id === selectedId ? 'is-selected' : ''}`}
                   key={record.feedback.id}
@@ -364,21 +412,6 @@ export function MerchantOverview({
                   <small className="mo-step-number">02</small>Computer-use fleet
                 </h2>
               </div>
-              <button
-                className="mo-play-control"
-                aria-label="Play eight-second demo analysis"
-                onClick={() => {
-                  setElapsed(0);
-                  setRun((previous) => ({
-                    id: previous.id + 1,
-                    deadlines: analysisSchedule(
-                      replays.map((record) => record.feedback.id),
-                    ),
-                  }));
-                }}
-              >
-                <Play size={14} /> Play
-              </button>
             </div>
             <div className="mo-fleet-split">
               <div className="mo-fleet-previews">
@@ -413,7 +446,8 @@ export function MerchantOverview({
                             <Replay
                               record={record}
                               playing={
-                                run.id > 0 &&
+                                playing &&
+                                flow.analysisStarted &&
                                 !done &&
                                 view === 'merchant' &&
                                 !inspecting
@@ -427,7 +461,7 @@ export function MerchantOverview({
                                 <>
                                   <Check size={12} /> Done
                                 </>
-                              ) : run.id ? (
+                              ) : flow.analysisStarted ? (
                                 'In progress'
                               ) : (
                                 'Ready'
@@ -513,36 +547,60 @@ export function MerchantOverview({
                   </h2>
                 </div>
               </div>
-              <div className="mo-improvement-previews">
-                {(['before', 'after'] as const).map((version) => (
-                  <section className="mo-improvement-preview" key={version}>
-                    <h3>{version === 'before' ? 'As-is' : 'To-be'}</h3>
-                    <button
-                      className="mo-comparison-card"
-                      onClick={() => setComparison(version)}
-                      aria-label={`Open ${version === 'before' ? 'As-is' : 'To-be'} storefront`}
-                    >
-                      <span
-                        className="mo-comparison-thumbnail"
-                        aria-hidden="true"
+              {!flow.previewsReady ? (
+                <div className="mo-improvement-wait" aria-live="polite">
+                  {flow.generating ? (
+                    <>
+                      <LoaderCircle
+                        size={24}
+                        className={playing ? 'mo-generation-spin' : ''}
+                      />
+                      <h3>
+                        {flowTime < 17500
+                          ? 'Connecting the findings'
+                          : 'Preparing improvements'}
+                      </h3>
+                      <p>Matching the solution to your goal and strategy.</p>
+                    </>
+                  ) : (
+                    <>
+                      <h3>Waiting for journey analysis</h3>
+                      <p>Recommended improvements will appear here.</p>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div className="mo-improvement-previews">
+                  {(['before', 'after'] as const).map((version) => (
+                    <section className="mo-improvement-preview" key={version}>
+                      <h3>{version === 'before' ? 'As-is' : 'To-be'}</h3>
+                      <button
+                        className="mo-comparison-card"
+                        onClick={() => setComparison(version)}
+                        aria-label={`Open ${version === 'before' ? 'As-is' : 'To-be'} storefront`}
                       >
-                        <iframe
-                          src={comparisonUrl(version)}
-                          title={`${version} thumbnail`}
-                          tabIndex={-1}
-                          loading="lazy"
-                        />
-                      </span>
-                      <span className="mo-comparison-card-label">
-                        {version === 'before'
-                          ? 'Original product page'
-                          : 'Compatible parts & 3D preview'}{' '}
-                        <span>↗</span>
-                      </span>
-                    </button>
-                  </section>
-                ))}
-              </div>
+                        <span
+                          className="mo-comparison-thumbnail"
+                          aria-hidden="true"
+                        >
+                          <iframe
+                            src={comparisonUrl(version)}
+                            title={`${version} thumbnail`}
+                            tabIndex={-1}
+                            loading="lazy"
+                          />
+                        </span>
+                        <span className="mo-comparison-card-label">
+                          {version === 'before'
+                            ? 'Original product page'
+                            : 'Compatible parts & 3D preview'}{' '}
+                          <span>↗</span>
+                        </span>
+                      </button>
+                    </section>
+                  ))}
+                </div>
+              )}
             </section>
             <section
               className="mo-panel mo-value-card"

@@ -21,7 +21,13 @@ const { records, totalSignals } = getStrategyOverview();
 assert.equal(totalSignals, 33);
 assert.equal(new Set(records.map((record) => record.shortId)).size, 33);
 assert.ok(records.every((record) => /^SIG-\d{4}$/.test(record.shortId)));
-assert.ok(records.every((record) => record.shortId === original.find((item) => item.feedback.id === record.feedback.id).shortId));
+assert.ok(
+  records.every(
+    (record) =>
+      record.shortId ===
+      original.find((item) => item.feedback.id === record.feedback.id).shortId,
+  ),
+);
 assert.equal(records.length, 33);
 assert.equal(records.filter((record) => record.strategyMatch).length, 14);
 assert.equal(new Set(records.map((record) => record.feedback.id)).size, 33);
@@ -82,4 +88,22 @@ for (const record of records.filter((item) => item.strategyMatch)) {
   assert(record.analysis.title && record.analysis.problem);
   assert(record.analysis.generatedAt);
 }
-console.log('OK completed journey feed uses saved findings with explicit provenance');
+console.log(
+  'OK completed journey feed uses saved findings with explicit provenance',
+);
+
+const { demoFlowAt, DEMO_FLOW_MS } = await import('../lib/demo-analysis.ts');
+assert.equal(demoFlowAt(0, 33).signalCount, 25);
+assert.equal(demoFlowAt(2500, 33).signalCount, 29);
+assert.equal(demoFlowAt(5000, 33).signalCount, 33);
+assert.equal(demoFlowAt(5999, 33).analysisStarted, false);
+assert.equal(demoFlowAt(6000, 33).analysisStarted, true);
+assert.equal(demoFlowAt(14000, 33).analysisElapsed, 8000);
+assert.equal(demoFlowAt(14999, 33).generating, false);
+assert.equal(demoFlowAt(15000, 33).generating, true);
+assert.equal(demoFlowAt(19999, 33).previewsReady, false);
+assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).previewsReady, true);
+assert.equal(demoFlowAt(0, 5).signalCount, 5);
+console.log(
+  'OK page demo phase boundaries: 5s signals, 1s wait, 8s analysis, 1s wait, 5s generation',
+);
