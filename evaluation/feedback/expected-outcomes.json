@@ -1,0 +1,215 @@
+{
+  "purpose": "Evaluation only. Never send this file to the analyst as customer evidence.",
+  "cases": [
+    {
+      "feedbackId": "SYN-FB-01",
+      "expectedGroup": "compatibility_mapping",
+      "opportunityTreatment": "candidate",
+      "rationale": "Information exists; test whether the cart model is clearly mapped to the charger option.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "evolve-skateboards-bamboo-gtr-series-2-street",
+        "evolve-skateboards-battery-charger-400013-ss20"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-02",
+      "expectedGroup": "compatibility_mapping",
+      "opportunityTreatment": "conditional",
+      "rationale": "Normalize model/generation terminology; do not count the charger price as recovered revenue.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "boosted-belt-kit",
+        "boostedusa-hyperlane-fast-charger"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-03",
+      "expectedGroup": "compatibility_mapping",
+      "opportunityTreatment": "candidate",
+      "rationale": "Answers disambiguate discovery from compatibility; typed search terms are customer report, not telemetry.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "boosted-helmets",
+        "boostedusa-hyperlane-fast-charger"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-04",
+      "expectedGroup": "configuration_unknown",
+      "opportunityTreatment": "needs_information",
+      "rationale": "Do not infer the gear from the newly selected wheels or model alone.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "evolve-skateboards-gtr-street-wheels-500026-ss20",
+        "evolve-skateboards-drive-belt-street-32t-330211-ss20"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-05",
+      "expectedGroup": "recipient_model_unknown",
+      "opportunityTreatment": "needs_information",
+      "rationale": "Cart does not identify the recipient board; ask owner before recommending.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "boosted-helmets",
+        "boostedusa-hyperlane-fast-charger"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-06",
+      "expectedGroup": "price",
+      "opportunityTreatment": "exclude",
+      "rationale": "Compatibility wording appears in complaint, but the reported purchase blocker is price.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "boosted-belt-kit",
+        "boostedusa-hyperlane-fast-charger"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-07",
+      "expectedGroup": "compatibility_mapping",
+      "opportunityTreatment": "candidate",
+      "rationale": "Variant names create uncertainty despite existing supporting text.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "evolve-skateboards-bamboo-gtr-series-2-street",
+        "evolve-skateboards-battery-charger-400013-ss20"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-08",
+      "expectedGroup": "compatibility_mapping",
+      "opportunityTreatment": "conditional",
+      "rationale": "Treat stated intent as conditional and avoid full-price revenue attribution.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "boosted-belt-kit",
+        "boostedusa-hyperlane-fast-charger"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-09",
+      "expectedGroup": "compatibility_mapping",
+      "opportunityTreatment": "conditional",
+      "rationale": "Search complaint belongs with terminology/mapping once answers are considered.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "boosted-helmets",
+        "boostedusa-hyperlane-fast-charger"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-10",
+      "expectedGroup": "configuration_unknown",
+      "opportunityTreatment": "needs_information",
+      "rationale": "Physical configuration is unavailable; do not assert compatibility.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "evolve-skateboards-gtr-street-wheels-500026-ss20",
+        "evolve-skateboards-drive-belt-street-32t-330211-ss20"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-11",
+      "expectedGroup": "recipient_model_unknown",
+      "opportunityTreatment": "needs_information",
+      "rationale": "Photo is mentioned but not attached; do not claim visual identification.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "boosted-helmets",
+        "boostedusa-hyperlane-fast-charger"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-12",
+      "expectedGroup": "no_current_need",
+      "opportunityTreatment": "exclude",
+      "rationale": "Clearer compatibility is not evidence of immediate additional demand.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "boosted-belt-kit",
+        "boostedusa-hyperlane-fast-charger"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-13",
+      "expectedGroup": "availability",
+      "opportunityTreatment": "exclude",
+      "rationale": "Catalog confirms L-XL unavailable; a compatibility UI will not recover this order.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "boosted-belt-kit",
+        "boosted-helmets"
+      ]
+    },
+    {
+      "feedbackId": "SYN-FB-14",
+      "expectedGroup": "delivery_information",
+      "opportunityTreatment": "exclude",
+      "rationale": "Do not invent a shipping quote or attribute this to compatibility.",
+      "forbiddenInferences": [
+        "A visited product was necessarily abandoned",
+        "Stated conditional intent equals an actual purchase",
+        "A product price equals recovered AOV"
+      ],
+      "investigateProductHandles": [
+        "boosted-belt-kit",
+        "boostedusa-hyperlane-fast-charger"
+      ]
+    }
+  ]
+}

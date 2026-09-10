@@ -118,6 +118,20 @@ try {
     ).length,
     1,
   );
+  assert.equal(
+    model.preparedQuestions(
+      'Finding a product',
+      'I searched for a Stealth charger.',
+    )[0].id,
+    'search_stage',
+  );
+  assert.equal(
+    model.preparedQuestions(
+      'Understanding details',
+      'The label says Gen 2 and V2.',
+    )[0].id,
+    'terminology',
+  );
   const fitQuestions = model.preparedQuestions(
     'Understanding details',
     'I was unsure which charger would fit my board.',

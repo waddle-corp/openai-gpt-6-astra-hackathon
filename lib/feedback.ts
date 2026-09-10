@@ -74,6 +74,7 @@ export type FeedbackSubmission = {
   questionSource: 'prepared' | 'astra';
   summary: string;
   demo: true;
+  synthetic?: true;
 };
 export const FEEDBACK_SUBMISSIONS_KEY = 'pay-feedback-submissions-v1';
 export const categories = [
@@ -162,6 +163,32 @@ export function preparedQuestions(category: string, note = ''): Question[] {
           'It is the original setup',
           'It has been changed; I do not know the size',
           'I know the current gear size',
+          'None of these',
+        ],
+      },
+    ];
+  if (/search.*charger/i.test(note))
+    return [
+      {
+        id: 'search_stage',
+        prompt: 'How far did you get when looking for a charger?',
+        options: [
+          'I never found a charger',
+          'I found one but could not confirm the fit',
+          'The correct charger was sold out',
+          'None of these',
+        ],
+      },
+    ];
+  if (/gen(?:eration)?\s*2|\bV2\b/i.test(note))
+    return [
+      {
+        id: 'terminology',
+        prompt: 'What was unclear about the charger description?',
+        options: [
+          'How my model name relates to the generation labels',
+          'Whether it supports the charging speed I want',
+          'Whether it is available to order',
           'None of these',
         ],
       },
