@@ -1212,3 +1212,20 @@
     padding: 24px 20px;
   }
 }
+
+.pf-question-label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+  color: #b4422c;
+  font-size: 12px;
+  font-weight: 700;
+}
+.pf-question-label > span {
+  margin-left: auto;
+  color: #88786d;
+  font-size: 11px;
+  font-weight: 400;
+}

@@ -413,7 +413,7 @@ export function FeedbackCheckout({
                     <span className="pf-question-progress">
                       {!busy && reply && !reply.question
                         ? 'Review'
-                        : `${Math.min(turns.length + 1, 2)} / 2`}
+                        : `Question ${Math.min(turns.length + 1, 2)} of 2`}
                     </span>
                   </div>
                   {selected.length > 0 && (
@@ -478,6 +478,11 @@ export function FeedbackCheckout({
                       )}
                       {reply.question ? (
                         <div className="pf-agent-question">
+                          <div className="pf-question-label">
+                            <MessageCircle size={15} aria-hidden="true" />{' '}
+                            Question {Math.min(turns.length + 1, 2)} of 2{' '}
+                            <span>Choose one answer</span>
+                          </div>
                           <h3>{reply.question.prompt}</h3>
                           <div className="pf-conversation-options">
                             {reply.question.options.map((answer, i) => (
@@ -632,7 +637,7 @@ export function FeedbackCheckout({
                       {' '}
                       {manual
                         ? 'Back to conversation'
-                        : 'I want to talk about something else'}
+                        : 'I have other feedback to share'}
                     </button>
                   )}
                   {error && (
