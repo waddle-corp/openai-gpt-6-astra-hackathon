@@ -4,14 +4,20 @@ import {
 } from '@/contracts/feedback';
 import { readFeedbackFixtures } from '@/lib/feedback-datasets';
 import collective from '@/data/collective-cache.json';
-import type { RewardLedger } from '@/agents/reward-agent/index.ts';
 import shopperNames from '@/data/shopper-names.json';
+import type { RewardLedger } from '@/agents/reward-agent/index.ts';
 
 export type AdminOverviewRecord = {
   feedback: FeedbackRecord;
   replayUrl: string | null;
   shortId: string;
   strategyMatch?: string;
+  analysis?: {
+    title: string;
+    problem: string;
+    source: 'cached';
+    generatedAt: string;
+  };
 };
 
 // Recorded fixture replays present in public/media/journeys, not live agent runs.
@@ -87,6 +93,20 @@ export function getStrategyOverview() {
     records: allRecords.map((record) => ({
       ...record,
       strategyMatch: matches.get(record.feedback.id),
+      analysis: (() => {
+        const finding = collective.prioritization.opportunities.find(
+          (item) =>
+            item.feedbackIds.includes(record.feedback.id) && aovFocus[item.id],
+        );
+        return finding
+          ? {
+              title: finding.title,
+              problem: finding.problem,
+              source: 'cached' as const,
+              generatedAt: collective.generatedAt,
+            }
+          : undefined;
+      })(),
     })),
   };
 }
