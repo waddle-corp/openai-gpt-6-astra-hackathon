@@ -182,7 +182,8 @@
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-rows: repeat(5, minmax(0, 1fr));
+  grid-template-rows: repeat(6, minmax(0, 84px));
+  align-content: start;
   padding: 0 8px;
 }
 .mo-signal {
@@ -1075,4 +1076,25 @@
 .mo-direction-actions button:focus-visible {
   outline: 2px solid #4263eb;
   outline-offset: 2px;
+}
+
+/* Keep the filtering context explicit and the evidence rows compact. */
+.mo-scope-note {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 0 17px 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e8ebef;
+  font-size: 11px;
+  color: #596579;
+}
+.mo-scope-note strong { color: #303b4c; font-weight: 600; }
+.mo-scope-note small { margin-top: 3px; color: #7d8795; font-size: 10px; }
+.mo-signal { padding: 8px 10px; gap: 5px; }
+@media (max-height: 780px) {
+  .mo-scope-note { gap: 2px; margin-bottom: 6px; padding-bottom: 7px; }
+  .mo-signals-list { grid-template-rows: repeat(6, minmax(0, 1fr)); }
+  .mo-signal { padding: 4px 10px; gap: 3px; }
+  .mo-signal-copy { font-size: 11px; }
 }

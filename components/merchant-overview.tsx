@@ -6,15 +6,8 @@ import type { AdminOverviewRecord } from '@/lib/admin-overview-data';
 import '@/app/admin/overview.css';
 import { MerchantDirection } from './merchant-direction';
 
-const SIGNALS_PER_PAGE = 5;
+const SIGNALS_PER_PAGE = 6;
 const REPLAYS_PER_PAGE = 12;
-const channelName = (channel: string) =>
-  channel === 'product-page'
-    ? 'Product page'
-    : channel === 'checkout'
-      ? 'Checkout'
-      : channel.replaceAll('-', ' ');
-
 function Pagination({
   page,
   size,
@@ -238,10 +231,11 @@ export function MerchantOverview({
               <h2 id="signals-title">Shopper signals</h2>
             </div>
           </div>
-          <p className="mo-scope-note">
-            {records.length} of {totalSignals} signals relevant to compatible
-            parts
-          </p>
+          <div className="mo-scope-note">
+            <strong>Filtered by goal &amp; strategy</strong>
+            <span>Higher AOV · Sell compatible parts</span>
+            <small>{records.length} matching signals / {totalSignals} total</small>
+          </div>
           <div className="mo-signals-list">
             {records
               .slice(
@@ -257,11 +251,7 @@ export function MerchantOverview({
                 >
                   <span className="mo-signal-top">
                     <strong>{record.shortId}</strong>
-                    <span>
-                      {channelName(
-                        record.feedback.source.channel || 'feedback',
-                      )}
-                    </span>
+                    <span>{record.strategyMatch}</span>
                   </span>
                   <p className="mo-signal-copy">
                     {record.feedback.feedback.message ||
@@ -270,14 +260,6 @@ export function MerchantOverview({
                         .map((item) => item.answer)
                         .join(' · ')}
                   </p>
-                  <span
-                    className="mo-signal-page mo-match-reason"
-                    title={
-                      record.feedback.context.selectedPage?.title || undefined
-                    }
-                  >
-                    {record.strategyMatch}
-                  </span>
                 </button>
               ))}
           </div>
