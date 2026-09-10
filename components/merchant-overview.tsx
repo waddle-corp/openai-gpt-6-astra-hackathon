@@ -177,6 +177,8 @@ export function MerchantOverview({
   records: AdminOverviewRecord[];
   totalSignals: number;
 }) {
+  const [view, setView] = useState<'merchant' | 'user'>('merchant');
+  const [storeOpened, setStoreOpened] = useState(false);
   const [selectedId, setSelectedId] = useState(records[0]?.feedback.id);
   const [replayPage, setReplayPage] = useState(0);
   const [playing, setPlaying] = useState(true);
@@ -202,6 +204,10 @@ export function MerchantOverview({
         <a className="mo-brand" href="/admin">
           <span className="mo-brand-text">Gentoo</span>
         </a>
+        <nav className="mo-view-tabs" aria-label="Workspace view">
+          <button type="button" aria-pressed={view === 'merchant'} onClick={() => setView('merchant')}>Merchant</button>
+          <button type="button" aria-pressed={view === 'user'} onClick={() => { setStoreOpened(true); setView('user'); }}>User</button>
+        </nav>
         <div className="mo-header-meta">
           <span className="mo-demo-pill">
             <i /> Demo workspace
@@ -216,6 +222,7 @@ export function MerchantOverview({
           </a>
         </div>
       </header>
+      <div className="mo-merchant-view" hidden={view !== 'merchant'}>
       <MerchantDirection />
       <div className="mo-workspace">
         <section
@@ -293,7 +300,7 @@ export function MerchantOverview({
                   aria-label={`Open replay ${record.shortId}`}
                 >
                   <span className="mo-replay-screen">
-                    <Replay record={record} playing={playing && !inspecting} />
+                    <Replay record={record} playing={playing && view === 'merchant' && !inspecting} />
                   </span>
                   <span className="mo-replay-caption">
                     <strong>{record.shortId}</strong>
@@ -357,6 +364,10 @@ export function MerchantOverview({
           </section>
         </aside>
       </div>
+      </div>
+      {storeOpened && (
+        <iframe className="mo-user-store" src="/store" title="User storefront" hidden={view !== 'user'} />
+      )}
       {inspecting && (
         <Inspection record={inspecting} onClose={() => setInspecting(null)} />
       )}
