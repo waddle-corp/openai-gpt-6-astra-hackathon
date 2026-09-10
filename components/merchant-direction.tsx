@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 
 const defaults = {
   goal: 'Increase average order value',
-  strategy: 'Sell compatible parts',
+  strategy:
+    'Increase basket size by recommending compatible parts alongside each purchase.',
 };
 const storageKey = 'boosted-merchant-direction';
 
@@ -28,7 +29,10 @@ export function MerchantDirection() {
         // oxlint-disable-next-line react/react-compiler
         setDirection({
           goal: saved.goal.slice(0, 100),
-          strategy: saved.strategy.slice(0, 160),
+          strategy:
+            saved.strategy === 'Sell compatible parts'
+              ? defaults.strategy
+              : saved.strategy.slice(0, 160),
         });
       }
     } catch {
