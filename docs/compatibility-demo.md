@@ -18,7 +18,7 @@ The charger description already names compatibility with GTR/Stoke Series 1 & 2.
 
 ## Prepared data
 
-`data/feedback/synthetic-submissions.json` contains 14 **synthetic** completed demo purchases in the same v2 submission shape as the customer flow. Each record retains a purchased item and customer-reported difficulty with another item. Prices, variants, and availability come from the bundled catalog. Events, customers' statements, timestamps, and order references are fictional. `synthetic: true` and `demo: true` must remain visible to downstream consumers.
+`data/feedback/synthetic-submissions.json` contains 14 **synthetic** completed demo purchases in the shared FeedbackRecord v1.0 shape as the customer flow. Each record retains a purchased item and customer-reported difficulty with another item. Prices, variants, and availability come from the bundled catalog. Events, customers' statements, timestamps, and order references are fictional. `source.kind: "synthetic"` and `journey.evidence: "synthetic"` must remain visible to downstream consumers.
 
 For the presentation, use records **02–14** as 13 existing submissions, then add the live customer submission. Record **01** is the rehearsal equivalent of the live scenario; do not include it as another independent customer in the live demonstration.
 
@@ -40,7 +40,9 @@ Typed search queries are not recorded. Any quoted search phrase in a customer's 
 
 Load only the raw submission array into the merchant's demo seed data. Do not automatically inject it into customer browsing sessions or overwrite local live submissions. Keep fixture IDs (`SYN-FB-*`) separate from live IDs (`FB-*`), and de-duplicate seed imports by ID.
 
-New live submissions include `cartSnapshot` (at submission). `completedOrder` stores the actual final demo cart, total, and completion time when checkout finishes. These can differ if the shopper edits the cart after submitting. An uncompleted order is not proof of a purchase. Neither synthetic nor live demo orders are real Shopify payments.
+New live submissions include `context.cart` (at submission). `purchase.cart` stores the actual final demo cart, total, and completion time when checkout finishes. These can differ if the shopper edits the cart after submitting. An uncompleted order is not proof of a purchase. Neither synthetic nor live demo orders are real Shopify payments.
+
+See [feedback-contract.md](feedback-contract.md) and `contracts/feedback.ts` for the shared input contract.
 
 The original journey remains chronological, including repeat product visits. The selected charger screen and the board in the cart should both be included in investigation context. Use the full raw records plus catalog/browser evidence for analysis, not the customer-facing summary alone.
 

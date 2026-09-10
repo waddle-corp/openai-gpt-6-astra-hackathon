@@ -82,6 +82,13 @@ export type FeedbackRecord = {
   review: { status: 'pending_review'; dueAt: string | null };
 };
 
+/** The existing merchant POST /api/feedback should adopt this request envelope. */
+export type FeedbackAnalysisRequest = {
+  feedback: FeedbackRecord;
+  targetUrl?: string;
+  inspect?: boolean;
+};
+
 function object(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
 }

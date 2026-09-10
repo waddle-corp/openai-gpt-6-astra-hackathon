@@ -29,11 +29,11 @@ The live path requires account access and has not been verified without supplied
 
 ## Merchant handoff
 
-Types: `lib/feedback.ts`. Storage boundary: `lib/feedback-storage.ts`.
+Shared types and validation: `contracts/feedback.ts`. Read [feedback-contract.md](feedback-contract.md) for the authoritative merchant handoff. `lib/feedback.ts` contains internal customer draft/receipt types; storage converts them to the shared contract.
 
 Submissions live in localStorage under `pay-feedback-submissions-v1`, readable with `readFeedbackSubmissions()` on the same browser/origin. Listen for `pay-feedback-submitted` in the current window or the native `storage` event from other tabs. This is not shared storage between devices. Replace the storage boundary with a shared API when integrating the merchant backend.
 
-Each `FeedbackSubmission` includes schema version, session/feedback IDs, submitted/review-due times, `pending_review` status, reward preference, cart total in cents, `cartSnapshot` with item/variant IDs and prices, optional completed order reference and `completedOrder` snapshot, journey evidence, selected screen, category, verbatim questions/answers/note, summary, question source, and a `demo: true` marker. An absent order reference means the demo purchase has not completed; do not treat it as a verified order or refund entitlement.
+`readFeedbackSubmissions()` returns `FeedbackRecord[]` v1.0. Records include source provenance, original message and question answers, selected page, chronological events, submission cart, final demo purchase snapshot, reward preference, and review deadline. An absent completed purchase is not a verified order or refund entitlement.
 
 The session and draft use sessionStorage (24-hour expiry). Events are capped at 100. Only store content paths are allowed; checkout, admin, query strings, payment details, and typed searches are excluded. Storage failures do not display a false receipt. Submitted data is retained until manually cleared; restart only resets the active session.
 
@@ -41,4 +41,4 @@ The session and draft use sessionStorage (24-hour expiry). Events are capped at 
 
 Run `node scripts/check-feedback.mjs` for consent, storage, draft, and submission checks. Existing `npm test`, `npm run typecheck`, `npm run lint`, and `npm run build` cover storefront regressions and compilation. Browser interaction and live API verification are separate checks.
 
-New records use schema version 2; legacy v1 records may omit cart snapshots. The storage key remains unchanged for compatibility. See [compatibility-demo.md](compatibility-demo.md) for the live path and 14 labeled synthetic fixtures.
+New persisted records use shared contract v1.0; old customer schema v1/v2 records are migrated on read. The storage key remains unchanged for compatibility. See [compatibility-demo.md](compatibility-demo.md) for the live path and 14 labeled synthetic fixtures.
