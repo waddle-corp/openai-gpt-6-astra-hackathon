@@ -42,3 +42,9 @@ The session and draft use sessionStorage (24-hour expiry). Events are capped at 
 Run `node scripts/check-feedback.mjs` for consent, storage, draft, and submission checks. Existing `npm test`, `npm run typecheck`, `npm run lint`, and `npm run build` cover storefront regressions and compilation. Browser interaction and live API verification are separate checks.
 
 New persisted records use shared contract v1.0; old customer schema v1/v2 records are migrated on read. The storage key remains unchanged for compatibility. See [compatibility-demo.md](compatibility-demo.md) for the live path and 14 labeled synthetic fixtures.
+
+## Multi-moment journey update
+
+The checkout trigger opens the existing spacious modal. Customers can select multiple timeline moments for one connected issue, or select the overall shopping experience. Timeline cards group page visits with observed option/image choices, cart actions, store links, and product-description visibility. Return visits remain visible. The summary uses deterministic rules; it does not claim AI video analysis or infer a pain point from scrolling. Short clarification questions use the selected event IDs and full recorded context. Applying feedback still returns to checkout before placing the demo order.
+
+Shared submissions now use contract v1.1 with `context.focus`; see `docs/feedback-contract.md` for merchant migration.

@@ -20,9 +20,11 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   categories,
-  emptyDraft,
   feedbackSummary,
-  highlights,
+  journeyMoments,
+  journeySummary,
+  selectedMomentIds,
+  selectionLabel,
   preparedQuestions,
   type FeedbackCartItem,
   validQuestions,
@@ -73,8 +75,61 @@ export function FeedbackRecorder() {
   const [preferences, setPreferences] = useState(false);
   useEffect(() => {
     if (state?.session.consent !== 'accepted') return;
-    const frame = requestAnimationFrame(() => capturePage(pathname));
-    return () => cancelAnimationFrame(frame);
+    let observer: IntersectionObserver | undefined;
+    let detach = () => {};
+    const frame = requestAnimationFrame(() => {
+      capturePage(pathname);
+      const main = document.querySelector('main');
+      const title = (
+        main?.querySelector('h1')?.textContent?.trim() || 'Store page'
+      ).slice(0, 120);
+      const description = main?.querySelector('.product-description');
+      if (description && typeof IntersectionObserver !== 'undefined') {
+        observer = new IntersectionObserver(
+          (entries) => {
+            if (entries.some((entry) => entry.isIntersecting)) {
+              recordJourney({
+                kind: 'description_reached',
+                path: pathname,
+                title,
+              });
+              observer?.disconnect();
+            }
+          },
+          { threshold: 0.05 },
+        );
+        observer.observe(description);
+      }
+      const followLink = (event: Event) => {
+        const link =
+          event.target instanceof Element
+            ? (event.target.closest('a[href]') as HTMLAnchorElement | null)
+            : null;
+        if (!link) return;
+        const destination = new URL(link.href);
+        if (
+          destination.origin !== window.location.origin ||
+          !/^\/store\/(products|collections|cart)(\/|$)/.test(
+            destination.pathname,
+          )
+        )
+          return;
+        recordJourney({
+          kind: 'link_clicked',
+          path: pathname,
+          title,
+          destinationPath: destination.pathname,
+          detail: link.textContent?.trim().slice(0, 120) || 'Store link',
+        });
+      };
+      main?.addEventListener('click', followLink);
+      detach = () => main?.removeEventListener('click', followLink);
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      observer?.disconnect();
+      detach();
+    };
   }, [pathname, state?.session.consent]);
   if (!state) return null;
   const banner = state.session.consent === null || preferences;
@@ -91,7 +146,8 @@ export function FeedbackRecorder() {
           <div className="pf-consent-copy">
             <strong>Your experience could pay you back.</strong>
             <p>
-              Let us save the pages you visit and product choices to help you
+              Let us save the pages you visit, product choices, store links you
+              follow, and when product details enter your screen to help you
               leave quick feedback at checkout. Your feedback and journey may be
               processed by AI. No screen video, typed searches, or payment
               details are recorded.
@@ -193,14 +249,36 @@ export function FeedbackCheckout({
   if (!state) return null;
   const { session } = state;
   const draft = session.draft;
-  const screens = highlights(session.events);
+  const moments = journeyMoments(session.events);
+  const chosenIds = selectedMomentIds(draft).filter((id) =>
+    session.events.some((event) => event.id === id),
+  );
+  const chosenCount = moments.filter((moment) =>
+    chosenIds.includes(moment.id),
+  ).length;
+  const focusLabel = selectionLabel(draft);
+  function chooseMoment(moment: (typeof moments)[number]) {
+    const ids = chosenIds.includes(moment.id)
+      ? chosenIds.filter((id) => !moment.eventIds.includes(id))
+      : [...new Set([...chosenIds, ...moment.eventIds])];
+    const orderedIds = session.events
+      .filter((event) => ids.includes(event.id))
+      .map((event) => event.id);
+    updateFeedbackDraft({
+      focus: 'specific_moments',
+      selectedIds: orderedIds,
+      selected: session.events.find((event) => event.id === orderedIds[0]),
+      questions: [],
+      answers: {},
+    });
+  }
   const receipt = session.receipt;
   const question = draft.questions[questionIndex];
   const stepNumber =
     draft.step === 'journey' ? 1 : draft.step === 'review' ? 3 : 2;
 
   async function questions() {
-    if (!draft.selected || loading) return;
+    if ((draft.focus !== 'overall' && !chosenIds.length) || loading) return;
     const controller = new AbortController();
     request.current = controller;
     setLoading(true);
@@ -215,8 +293,12 @@ export function FeedbackCheckout({
         body: JSON.stringify({
           category: draft.category,
           note: draft.note,
-          selectedScreen: draft.selected,
-          journey: session.events.slice(-30),
+          selectedScreen: draft.focus === 'overall' ? null : draft.selected,
+          focus: {
+            scope: draft.focus === 'overall' ? 'overall' : 'specific_moments',
+            eventIds: chosenIds,
+          },
+          journey: session.events,
           cartSnapshot,
         }),
         signal: controller.signal,
@@ -324,9 +406,10 @@ export function FeedbackCheckout({
                   </DialogTitle>
                   <DialogDescription className="pf-description">
                     To share feedback, allow us to record the store pages you
-                    visit and product choices. Recording starts only after you
-                    agree. Your feedback and journey may be processed by AI;
-                    payment details are never recorded.
+                    visit, product choices, store links you follow, and when
+                    product details enter your screen. Recording starts only
+                    after you agree. Your feedback and journey may be processed
+                    by AI; payment details are never recorded.
                   </DialogDescription>
                   <button
                     className="pf-primary"
@@ -378,77 +461,82 @@ export function FeedbackCheckout({
                         Where could shopping feel easier?
                       </DialogTitle>
                       <DialogDescription className="pf-description">
-                        Pick one moment from your visit. A few taps can help us
-                        make it better.
+                        Choose the moments that belong to the same experience,
+                        or tell us about your overall visit.
                       </DialogDescription>
-                      {screens.length ? (
+                      <button
+                        className={`pf-overall ${draft.focus === 'overall' ? 'is-selected' : ''}`}
+                        aria-pressed={draft.focus === 'overall'}
+                        onClick={() =>
+                          updateFeedbackDraft({
+                            focus: 'overall',
+                            selectedIds: [],
+                            selected: undefined,
+                            questions: [],
+                            answers: {},
+                          })
+                        }
+                      >
+                        <MessageSquare size={18} />
+                        <span>My overall shopping experience</span>
+                        {draft.focus === 'overall' && <Check size={18} />}
+                      </button>
+                      {moments.length ? (
                         <>
-                          <div className="pf-journey">
-                            {screens.map((screen, index) => (
+                          <p className="pf-journey-summary">
+                            {journeySummary(session.events)}
+                          </p>
+                          <div
+                            className="pf-timeline"
+                            aria-label="Your recorded shopping journey"
+                          >
+                            {moments.map((moment, index) => (
                               <button
-                                key={screen.id}
-                                className={`pf-screen ${draft.selected?.id === screen.id ? 'is-selected' : ''}`}
-                                aria-pressed={draft.selected?.id === screen.id}
-                                onClick={() =>
-                                  updateFeedbackDraft({
-                                    ...emptyDraft(),
-                                    selected: screen,
-                                  })
-                                }
+                                key={moment.id}
+                                className={`pf-moment ${chosenIds.includes(moment.id) ? 'is-selected' : ''}`}
+                                aria-pressed={chosenIds.includes(moment.id)}
+                                onClick={() => chooseMoment(moment)}
                               >
-                                <div className="pf-screen-image">
-                                  {screen.image ? (
-                                    <img src={screen.image} alt="" />
+                                <span className="pf-moment-marker">
+                                  {chosenIds.includes(moment.id) ? (
+                                    <Check size={16} />
                                   ) : (
-                                    <MessageSquare size={36} />
+                                    index + 1
                                   )}
-                                  <span>
-                                    {String(index + 1).padStart(2, '0')}
-                                  </span>
-                                </div>
-                                <div className="pf-screen-caption">
-                                  <small>
-                                    {screen.path.includes('/products/')
-                                      ? 'Product details'
-                                      : screen.path.includes('/collections/')
-                                        ? 'Collection'
-                                        : screen.path.endsWith('/cart')
-                                          ? 'Your cart'
-                                          : 'Store page'}
-                                  </small>
-                                  <strong>{screen.title}</strong>
-                                  <span>
-                                    {session.events.filter(
-                                      (event) =>
-                                        event.path === screen.path &&
-                                        event.kind !== 'page_view',
-                                    ).length
-                                      ? 'You interacted here'
-                                      : 'You visited this page'}
-                                  </span>
-                                </div>
+                                </span>
+                                {moment.page.image && (
+                                  <img
+                                    className="pf-moment-image"
+                                    src={moment.page.image}
+                                    alt=""
+                                  />
+                                )}
+                                <span className="pf-moment-copy">
+                                  <strong>{moment.label}</strong>
+                                  <span>{moment.page.title}</span>
+                                  {moment.details.length > 0 && (
+                                    <span className="pf-moment-details">
+                                      {moment.details.join(' · ')}
+                                    </span>
+                                  )}
+                                </span>
                               </button>
                             ))}
                           </div>
                           <p className="pf-footnote">
-                            Highlights from your recorded visits ·
-                            representative page imagery
+                            Recorded actions, not a video replay. Product images
+                            are representative. Returning to a page does not
+                            tell us why.
                           </p>
                         </>
                       ) : (
                         <div className="pf-empty">
-                          <strong>No shopping moments saved yet.</strong>
+                          <strong>No recorded moments yet.</strong>
                           <p>
-                            Visit a product or collection after opting in, then
-                            return here. We never reconstruct visits from before
-                            your consent.
+                            You can still share feedback about your overall
+                            experience. Visits before you opted in were not
+                            recorded.
                           </p>
-                          <a
-                            className="pf-primary"
-                            href="/store/collections/all"
-                          >
-                            Explore the store <ArrowRight size={16} />
-                          </a>
                         </div>
                       )}
                       <div className="pf-actions">
@@ -462,10 +550,15 @@ export function FeedbackCheckout({
                         </button>
                         <button
                           className="pf-primary"
-                          disabled={!draft.selected}
+                          disabled={
+                            draft.focus !== 'overall' && !chosenIds.length
+                          }
                           onClick={() => updateFeedbackDraft({ step: 'pain' })}
                         >
-                          This moment <ArrowRight size={16} />
+                          {draft.focus === 'overall'
+                            ? 'Continue'
+                            : `Continue with ${chosenCount} ${chosenCount === 1 ? 'moment' : 'moments'}`}{' '}
+                          <ArrowRight size={16} />
                         </button>
                       </div>
                     </>
@@ -476,8 +569,8 @@ export function FeedbackCheckout({
                         What got in your way?
                       </DialogTitle>
                       <DialogDescription className="pf-description">
-                        Thinking about {draft.selected?.title}. Pick the closest
-                        match.
+                        Thinking about {focusLabel.toLowerCase()}. Pick the
+                        closest match.
                       </DialogDescription>
                       <Choices
                         label="Type of difficulty"
@@ -540,7 +633,7 @@ export function FeedbackCheckout({
                         {question.prompt}
                       </DialogTitle>
                       <DialogDescription className="pf-description">
-                        {draft.selected?.title} · {draft.category}
+                        {focusLabel} · {draft.category}
                       </DialogDescription>
                       <Choices
                         label={question.prompt}

@@ -132,7 +132,20 @@ export function CartProvider({
     [storage, variants, getItems],
   );
   function update(id: string, quantity: number) {
-    storage.save(setCartQuantity(getItems(), id, quantity, variants));
+    const previous = getItems();
+    const next = setCartQuantity(previous, id, quantity, variants);
+    storage.save(next);
+    const before =
+      previous.find((item) => item.variantId === id)?.quantity ?? 0;
+    const after = next.find((item) => item.variantId === id)?.quantity ?? 0;
+    if (before !== after && variants[id])
+      recordJourney({
+        kind: after ? 'cart_updated' : 'cart_removed',
+        path: window.location.pathname,
+        title: variants[id].productTitle,
+        image: variants[id].image,
+        detail: `${variants[id].title} · quantity ${after}`,
+      });
   }
   useEffect(() => {
     const context = (
@@ -294,7 +307,17 @@ export function ProductPurchase({
                 key={image.url}
                 aria-label={`View image ${index + 1}`}
                 aria-pressed={activeImage === image.url}
-                onClick={() => setActiveImage(image.url)}
+                onClick={() => {
+                  if (image.url !== activeImage)
+                    recordJourney({
+                      kind: 'image_selected',
+                      path: window.location.pathname,
+                      title: product.title,
+                      image: image.url,
+                      detail: `Image ${index + 1}`,
+                    });
+                  setActiveImage(image.url);
+                }}
               >
                 <img
                   src={image.url}
