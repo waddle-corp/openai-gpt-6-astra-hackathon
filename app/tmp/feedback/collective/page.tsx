@@ -8,6 +8,8 @@ import type {
   ImprovementOpportunity,
   Prioritization,
 } from '@/agents/feedback-agent/index.ts';
+import type { RewardLedger } from '@/agents/reward-agent/index.ts';
+import { rewardPolicy } from '@/agents/reward-agent/index.ts';
 import { strategy } from '@/agents/shared/strategy.ts';
 import '../feedback.css';
 import { FeedbackMap, groupColor, type MapGroup } from './feedback-map';
@@ -21,11 +23,13 @@ const cached = cache as unknown as {
   prioritization: Prioritization;
   lead: string;
   opportunities: Record<string, ImprovementOpportunity>;
+  reward: RewardLedger;
 };
 const sameIds = (a: Iterable<string>, b: Iterable<string>) => {
   const left = [...new Set(a)].sort().join();
   return left === [...new Set(b)].sort().join();
 };
+const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function CollectiveLab() {
@@ -33,8 +37,9 @@ export default function CollectiveLab() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [focus, setFocus] = useState('');
   const [opportunity, setOpportunity] = useState<ImprovementOpportunity>();
+  const [ledger, setLedger] = useState<RewardLedger>();
   const [error, setError] = useState<string>();
-  const [busy, setBusy] = useState<'prioritize' | 'synthesize'>();
+  const [busy, setBusy] = useState<'prioritize' | 'synthesize' | 'reward'>();
   const [points] = useState<FeedbackPoint[]>(cached.points);
   const [hoveredId, setHoveredId] = useState<string>();
   const [pinnedId, setPinnedId] = useState<string>();
@@ -43,6 +48,7 @@ export default function CollectiveLab() {
   function restart() {
     setPrioritization(undefined);
     setOpportunity(undefined);
+    setLedger(undefined);
     setSelected(new Set());
     setPinnedId(undefined);
     setError(undefined);
@@ -60,6 +66,16 @@ export default function CollectiveLab() {
     });
     return map;
   }, [prioritization]);
+  const bounties = useMemo(
+    () =>
+      new Map(
+        ledger?.contributions.map((item) => [
+          item.feedbackId,
+          dollars(item.bountyCents),
+        ]),
+      ),
+    [ledger],
+  );
   const labels = useMemo(
     () =>
       new Map(
@@ -76,7 +92,7 @@ export default function CollectiveLab() {
   async function call<T>(
     path: string,
     body: unknown,
-    stage: 'prioritize' | 'synthesize',
+    stage: 'prioritize' | 'synthesize' | 'reward',
   ) {
     setBusy(stage);
     setError(undefined);
@@ -98,6 +114,7 @@ export default function CollectiveLab() {
 
   async function prioritize() {
     setOpportunity(undefined);
+    setLedger(undefined);
     setBusy('prioritize');
     await wait(900);
     setPrioritization(cached.prioritization);
@@ -105,6 +122,7 @@ export default function CollectiveLab() {
   }
 
   async function synthesize() {
+    setLedger(undefined);
     const lead = cached.prioritization.opportunities.find(
       (item) => item.id === cached.lead,
     );
@@ -121,6 +139,23 @@ export default function CollectiveLab() {
       'synthesize',
     );
     if (payload) setOpportunity(payload.opportunity);
+  }
+
+  async function publish() {
+    if (!opportunity) return;
+    if (opportunity.title === cached.reward.opportunityTitle) {
+      setBusy('reward');
+      await wait(800);
+      setLedger(cached.reward);
+      setBusy(undefined);
+      return;
+    }
+    const payload = await call<{ ledger: RewardLedger }>(
+      '/api/reward',
+      { feedbackIds: [...selected], opportunity },
+      'reward',
+    );
+    if (payload) setLedger(payload.ledger);
   }
 
   function toggle(id: string) {
@@ -144,13 +179,14 @@ export default function CollectiveLab() {
 
         <section className="feedback-intro">
           <div>
-            <p className="section-index">Merchant side / steps 2 and 3</p>
+            <p className="section-index">Merchant side / steps 2, 3 and 6</p>
             <h1>Which shopper problems matter for this merchant?</h1>
           </div>
           <p className="intro-copy">
             Astra maps {feedbackFixtures.length} recorded shopper experiences,
             ranks them against the merchant strategy, then synthesizes the
-            records you select into one improvement opportunity.
+            records you select into one improvement opportunity. Publishing it
+            pays the shoppers behind it out of the merchant bounty budget.
           </p>
         </section>
 
@@ -173,7 +209,14 @@ export default function CollectiveLab() {
             number="04"
             title="Build"
             active={Boolean(opportunity)}
-            done={false}
+            done={Boolean(ledger)}
+          />
+          <span className="rail-line" />
+          <ProcessStep
+            number="06"
+            title="Reward"
+            active={Boolean(opportunity) && !ledger}
+            done={Boolean(ledger)}
           />
         </div>
 
@@ -222,9 +265,11 @@ export default function CollectiveLab() {
             <div>
               <span className="field-kicker">Feedback map</span>
               <h2>
-                {prioritization
-                  ? 'Stars are the feedback behind the lead opportunity; everything else stays dim'
-                  : 'Shopper feedback arriving in embedding space, not yet judged'}
+                {ledger
+                  ? 'Every star that earned a bounty now carries what its shopper is paid'
+                  : prioritization
+                    ? 'Stars are the feedback behind the lead opportunity; everything else stays dim'
+                    : 'Shopper feedback arriving in embedding space, not yet judged'}
               </h2>
             </div>
             <span className="character-count">
@@ -237,6 +282,7 @@ export default function CollectiveLab() {
             <div className="map-stage">
               <FeedbackMap
                 key={run}
+                bounties={bounties}
                 groups={groups}
                 judged={Boolean(prioritization)}
                 labels={labels}
@@ -369,7 +415,15 @@ export default function CollectiveLab() {
           </section>
         ) : null}
 
-        {opportunity ? <OpportunityResult opportunity={opportunity} /> : null}
+        {opportunity ? (
+          <OpportunityResult
+            busy={busy === 'reward'}
+            ledger={ledger}
+            onPublish={publish}
+            opportunity={opportunity}
+          />
+        ) : null}
+        {ledger ? <RewardResult ledger={ledger} /> : null}
       </div>
     </main>
   );
@@ -421,8 +475,14 @@ function JourneyPlayer({
 
 function OpportunityResult({
   opportunity,
+  ledger,
+  busy,
+  onPublish,
 }: {
   opportunity: ImprovementOpportunity;
+  ledger?: RewardLedger;
+  busy: boolean;
+  onPublish: () => void;
 }) {
   return (
     <section className="triage-result" aria-live="polite">
@@ -467,6 +527,96 @@ function OpportunityResult({
         </span>
         <p>{opportunity.buildBrief}</p>
       </div>
+      <div className="synthesize-bar">
+        <span className="character-count">
+          Merchant bounty budget {dollars(rewardPolicy.poolCents)} per published
+          improvement
+        </span>
+        <button
+          disabled={busy || Boolean(ledger)}
+          onClick={onPublish}
+          type="button"
+        >
+          {busy
+            ? 'Astra is weighing contributions'
+            : ledger
+              ? 'Published'
+              : 'Publish and reward contributors'}
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function RewardResult({ ledger }: { ledger: RewardLedger }) {
+  return (
+    <section className="triage-result" aria-live="polite">
+      <div className="result-topline">
+        <div>
+          <span className="field-kicker">
+            Step 6 · rewarded on publish · {ledger.contributions.length}{' '}
+            contributors
+          </span>
+          <h2>{dollars(ledger.poolCents)} split by contribution</h2>
+        </div>
+      </div>
+      <p className="result-summary">
+        Shares come from the roles Astra assigned and the order it ranked them
+        in, weighted by the merchant policy. Astra does not choose amounts.
+      </p>
+      <div className="result-columns">
+        <ResultList
+          title="Measured on these records"
+          items={[
+            `${dollars(ledger.basket.cartValueCents)} of basket value across ${ledger.basket.recordsWithCart} carts`,
+            `${ledger.basket.notCompleted} of ${ledger.contributions.length} shoppers did not complete the purchase`,
+          ]}
+        />
+        <ResultList
+          title="Metric this improvement is aimed at"
+          // The full metric is already on the opportunity above; one sentence keeps the panels level.
+          items={[`${ledger.successMetric.split('. ')[0]}.`]}
+        />
+      </div>
+      {ledger.contributions.map((item) => (
+        <article className="opportunity" key={item.feedbackId}>
+          <div className="result-topline">
+            <div>
+              <span className="field-kicker">
+                #{item.rank} ·{' '}
+                {item.feedbackId.replace('shopper-feedback-', '#')} ·{' '}
+                {item.roles.join(' · ')} ·{' '}
+                {item.cartCents === null
+                  ? 'no cart recorded'
+                  : `${dollars(item.cartCents)} cart, ${item.purchased ? 'purchased' : 'not completed'}`}{' '}
+                ·{' '}
+                {item.rewardPreference === 'card_cashback'
+                  ? 'card cashback'
+                  : item.rewardPreference === 'coupon'
+                    ? 'store coupon'
+                    : 'reward preference not chosen'}
+              </span>
+              <h3>{dollars(item.bountyCents)}</h3>
+            </div>
+            <div className="fit-score">
+              <strong>{Math.round(item.share * 100)}</strong>
+              <span>% of pool</span>
+            </div>
+          </div>
+          <div className="score-track">
+            <span style={{ width: `${item.share * 100}%` }} />
+          </div>
+          <p className="result-summary">{item.rationale}</p>
+        </article>
+      ))}
+      {ledger.excluded.length ? (
+        <ResultList
+          title="No bounty"
+          items={ledger.excluded.map(
+            (item) => `${item.feedbackId}: ${item.reason}`,
+          )}
+        />
+      ) : null}
     </section>
   );
 }
