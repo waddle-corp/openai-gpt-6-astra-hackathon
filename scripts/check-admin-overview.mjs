@@ -53,8 +53,58 @@ for (const id of ['shopper-feedback-015', 'shopper-feedback-008', 'SYN-FB-04'])
     ),
   );
 assert.ok(!records.some((record) => record.feedback.id === 'SYN-FB-01'));
+// The payout modal shows the ledger as money, so it must add up and name known shoppers.
+const { getRewardLedger } = await import('../lib/admin-overview-data.ts');
+const { allocate } = await import('../lib/allocate.ts');
+const ledger = getRewardLedger();
+const known = new Set(records.map((record) => record.feedback.id));
+assert.equal(
+  ledger.contributions.reduce((sum, payout) => sum + payout.bountyCents, 0),
+  ledger.poolCents,
+  'reward payouts do not add up to the bounty budget',
+);
+for (const payout of ledger.contributions) {
+  assert.ok(
+    known.has(payout.feedbackId),
+    `payout cites unknown ${payout.feedbackId}`,
+  );
+  assert.ok(
+    /^SIG-\d{4}$/.test(payout.shortId),
+    `payout ${payout.feedbackId} lost its signal id`,
+  );
+  assert.ok(
+    payout.shopper && payout.rationale,
+    `payout ${payout.feedbackId} is missing display fields`,
+  );
+}
+const amounts = ledger.contributions.map((payout) => payout.bountyCents);
+assert.equal(
+  new Set(ledger.contributions.map((payout) => payout.shopper)).size,
+  ledger.contributions.length,
+  'two payouts share a shopper name',
+);
+// The merchant can move the budget in the modal; the same weights must still spend it exactly.
+for (const pool of [50000, 12345, 101]) {
+  const cents = allocate(
+    ledger.contributions.map((payout) => payout.weight),
+    pool,
+  );
+  assert.equal(
+    cents.reduce((sum, value) => sum + value, 0),
+    pool,
+    `budget ${pool} did not add up`,
+  );
+}
+assert.deepEqual(
+  amounts,
+  ledger.contributions
+    .map((payout) => payout.bountyCents)
+    .sort((a, b) => b - a),
+  'the payout list is not ordered by amount',
+);
+
 console.log(
-  'OK AOV scope: 14 of 33 signals, original evidence preserved, linked replays, all signals retained with unrelated and set-aside records unselected',
+  `OK AOV scope: 14 of 33 signals, original evidence preserved, linked replays, all signals retained with unrelated and set-aside records unselected; ${ledger.contributions.length} payouts totalling ${ledger.poolCents} cents`,
 );
 
 const { analysisSchedule, analysisProgress, DEMO_ANALYSIS_MS } =
@@ -92,7 +142,8 @@ console.log(
   'OK completed journey feed uses saved findings with explicit provenance',
 );
 
-const { demoFlowAt, DEMO_FLOW_MS } = await import('../lib/demo-analysis.ts');
+const { demoFlowAt, DEMO_FLOW_MS, DEMO_PREVIEWS_MS } =
+  await import('../lib/demo-analysis.ts');
 assert.equal(demoFlowAt(0, 33).signalCount, 25);
 assert.equal(demoFlowAt(1000, 33).signalCount, 29);
 assert.equal(demoFlowAt(2000, 33).signalCount, 33);
@@ -102,8 +153,13 @@ assert.equal(demoFlowAt(8500, 33).analysisElapsed, 6000);
 assert.equal(demoFlowAt(8999, 33).generating, false);
 assert.equal(demoFlowAt(9000, 33).generating, true);
 assert.equal(demoFlowAt(11999, 33).previewsReady, false);
-assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).previewsReady, true);
+assert.equal(demoFlowAt(DEMO_PREVIEWS_MS, 33).previewsReady, true);
+assert.equal(demoFlowAt(DEMO_PREVIEWS_MS, 33).generating, false);
+assert.equal(demoFlowAt(DEMO_PREVIEWS_MS, 33).rewarding, true);
+assert.equal(demoFlowAt(DEMO_FLOW_MS - 1, 33).rewardsReady, false);
+assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).rewarding, false);
+assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).rewardsReady, true);
 assert.equal(demoFlowAt(0, 5).signalCount, 5);
 console.log(
-  'OK page demo phase boundaries: 2s signals, 0.5s wait, 6s analysis, 0.5s wait, 3s generation',
+  'OK page demo phase boundaries: 2s signals, 0.5s wait, 6s analysis, 0.5s wait, 3s generation, 5s rewards',
 );
