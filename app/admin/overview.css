@@ -1708,7 +1708,7 @@
   background: white;
 }
 
-/* Keep the running stage above the page dim without blocking demo controls. */
+/* Fade the backdrop and each stage independently to avoid z-index jumps. */
 .mo-app::after {
   content: '';
   position: fixed;
@@ -1718,16 +1718,30 @@
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 150ms, visibility 150ms;
+  transition: opacity 400ms ease-in-out, visibility 0s linear 400ms;
 }
-.mo-app:has(.mo-merchant-view:not([hidden]) .is-demo-active)::after {
+.mo-app.is-demo-playing::after {
   opacity: 1;
   visibility: visible;
+  transition-delay: 0s;
 }
-.mo-panel.is-demo-active {
+.mo-workspace .mo-panel {
   position: relative;
   z-index: 60;
+  transition: border-color 400ms ease-in-out, box-shadow 400ms ease-in-out;
 }
+.mo-workspace .mo-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  pointer-events: none;
+  background: rgb(17 24 39 / 38%);
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
+}
+.mo-app.is-demo-playing .mo-panel:not(.is-demo-active)::after { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
-  .mo-app::after { transition: none; }
+  .mo-app::after, .mo-workspace .mo-panel, .mo-workspace .mo-panel::after { transition: none; }
 }

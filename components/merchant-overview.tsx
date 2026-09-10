@@ -346,7 +346,9 @@ export function MerchantOverview({
     if (index >= 0) setReplayPage(Math.floor(index / REPLAYS_PER_PAGE));
   };
   return (
-    <main className="mo-app">
+    <main
+      className={`mo-app ${playing && view === 'merchant' ? 'is-demo-playing' : ''}`}
+    >
       <header className="mo-header">
         <a className="mo-brand" href="/admin">
           <span className="mo-brand-text">Gentoo</span>
