@@ -1,0 +1,294 @@
+{
+  "createdAt": "2026-09-10T15:04:53.013724+00:00",
+  "source": "content.json pages[].body img[src] and published blogs.json articles[].body img[src] / image.url; HTML entities decoded",
+  "sourceSha256": "833a3f5a2437ec33607e5f739abf62501d572a4a926073a4ed764b13e9137f0b",
+  "sourcePageCount": 18,
+  "imageUrlCount": 12,
+  "reusedCount": 2,
+  "downloadedCount": 10,
+  "downloadedBytes": 331740,
+  "assets": [
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Boosted-Boards-Scooters-Logo.png?v=1614288394",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Boosted-Boards-Scooters-Logo.png?v=1614288394"
+      ],
+      "pages": [
+        "accessories"
+      ],
+      "reuse": null,
+      "reused": false,
+      "publicPath": "/media/pages/9835f62a0746dfac-Boosted-Boards-Scooters-Logo.png",
+      "filename": "9835f62a0746dfac-Boosted-Boards-Scooters-Logo.png",
+      "bytes": 3767,
+      "sha256": "ccb4845d308cef41a79fad0c8605c8517b0b1c370c9b40b20454baf7bd71c94f",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/evolve-skateboards-Logo_1600x_9dd56e5e-9387-4c75-b277-2b884d7b621d.png?v=1655827750",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/evolve-skateboards-Logo_1600x_9dd56e5e-9387-4c75-b277-2b884d7b621d.png?v=1655827750"
+      ],
+      "pages": [
+        "accessories"
+      ],
+      "reuse": "/media/storefront/evolve-skateboards-Logo_1600x_9dd56e5e-9387-4c75-b277-2b884d7b621d.png",
+      "publicPath": "/media/storefront/evolve-skateboards-Logo_1600x_9dd56e5e-9387-4c75-b277-2b884d7b621d.png",
+      "reused": true
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/mini-motors-Scooters-Logo_1600x_29d965c5-a31a-45d9-84ef-ea6e5987ab74.png?v=1655827949",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/mini-motors-Scooters-Logo_1600x_29d965c5-a31a-45d9-84ef-ea6e5987ab74.png?v=1655827949"
+      ],
+      "pages": [
+        "accessories"
+      ],
+      "reuse": "/media/storefront/mini-motors-Scooters-Logo_1600x_29d965c5-a31a-45d9-84ef-ea6e5987ab74.png",
+      "publicPath": "/media/storefront/mini-motors-Scooters-Logo_1600x_29d965c5-a31a-45d9-84ef-ea6e5987ab74.png",
+      "reused": true
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Super73_Logo_Horizontal_Trademark_Black_1000x200_69f340ae-d549-4366-822d-2af1de3536f9_480x480.png?v=1680834084",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Super73_Logo_Horizontal_Trademark_Black_1000x200_69f340ae-d549-4366-822d-2af1de3536f9_480x480.png?v=1680834084"
+      ],
+      "pages": [
+        "accessories"
+      ],
+      "reuse": null,
+      "reused": false,
+      "publicPath": "/media/pages/032c11ee34916f24-Super73_Logo_Horizontal_Trademark_Black_1000x200_69f340ae-d549-4366-822d-2af1de3536f9_480x480.png",
+      "filename": "032c11ee34916f24-Super73_Logo_Horizontal_Trademark_Black_1000x200_69f340ae-d549-4366-822d-2af1de3536f9_480x480.png",
+      "bytes": 9302,
+      "sha256": "69fdf698d7a9589eb8fc311db2099d462aebb5927caf386eb662bbff329cd055",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0696/2011/files/onewheel-logo.png?height=628&pad_color=fff&v=1657832657&width=1200",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0696/2011/files/onewheel-logo.png?height=628&amp;pad_color=fff&amp;v=1657832657&amp;width=1200",
+        "https://cdn.shopify.com/s/files/1/0696/2011/files/onewheel-logo.png?height=628&pad_color=fff&v=1657832657&width=1200"
+      ],
+      "pages": [
+        "accessories"
+      ],
+      "reuse": null,
+      "reused": false,
+      "publicPath": "/media/pages/6b8f2e71e630368b-onewheel-logo.png",
+      "filename": "6b8f2e71e630368b-onewheel-logo.png",
+      "bytes": 41602,
+      "sha256": "169dba3ab7105d22ea88b5fb3f034d3cf865da468c7970683c51140655c0a09a",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/IMG_9270_480x480.jpg?v=1715295932",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/IMG_9270_480x480.jpg?v=1715295932"
+      ],
+      "pages": [
+        "locations"
+      ],
+      "reuse": null,
+      "reused": false,
+      "publicPath": "/media/pages/4cac91fba13b71ee-IMG_9270_480x480.jpg",
+      "filename": "4cac91fba13b71ee-IMG_9270_480x480.jpg",
+      "bytes": 69941,
+      "sha256": "3f8a4c013f7c36ba65ec37cb49c0cda5b074dacb5a7946b083fc8594ce446d28",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/IMG_8091_480x480.jpg?v=1715372679",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/IMG_8091_480x480.jpg?v=1715372679"
+      ],
+      "pages": [
+        "locations"
+      ],
+      "reuse": null,
+      "reused": false,
+      "publicPath": "/media/pages/3ad7db0717f1817c-IMG_8091_480x480.jpg",
+      "filename": "3ad7db0717f1817c-IMG_8091_480x480.jpg",
+      "bytes": 30388,
+      "sha256": "f7b877eeb977016b48c204c5114217ad37462cef126153c35fc6d5aaf7ae9aac",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/LastMile-SF-Marin-NYC-showroom-floor_2000x_25c9dd04-46dd-435e-a542-9a26a356dc21_480x480.webp?v=1715297718",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/LastMile-SF-Marin-NYC-showroom-floor_2000x_25c9dd04-46dd-435e-a542-9a26a356dc21_480x480.webp?v=1715297718"
+      ],
+      "pages": [
+        "locations"
+      ],
+      "reuse": null,
+      "reused": false,
+      "publicPath": "/media/pages/81c7b75967ace7a9-LastMile-SF-Marin-NYC-showroom-floor_2000x_25c9dd04-46dd-435e-a542-9a26a356dc21_480x480.webp",
+      "filename": "81c7b75967ace7a9-LastMile-SF-Marin-NYC-showroom-floor_2000x_25c9dd04-46dd-435e-a542-9a26a356dc21_480x480.webp",
+      "bytes": 45804,
+      "sha256": "55f038f968287c802ae297efa90afa5a4f8d4449f23b40c0eece3a1ac2dacef4",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/BoostedUSA-Bert-Touch-Battery-restore-module-for-boosted-batteries-product.jpg?v=1757114394",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/BoostedUSA-Bert-Touch-Battery-restore-module-for-boosted-batteries-product.jpg?v=1757114394"
+      ],
+      "pages": [],
+      "articles": [
+        "fix-red-light-of-death-a-simple-guide-to-restoring-your-board-s-battery",
+        "fix-red-light-of-death-a-simple-guide-to-restoring-your-board-s-battery",
+        "how-to-fix-a-dead-electric-skateboard-battery-at-home",
+        "how-to-fix-a-dead-electric-skateboard-battery-at-home"
+      ],
+      "reuse": null,
+      "reused": false,
+      "publicPath": "/media/pages/332f7a51f1c5d72b-BoostedUSA-Bert-Touch-Battery-restore-module-for-boosted-batteries-product.jpg",
+      "filename": "332f7a51f1c5d72b-BoostedUSA-Bert-Touch-Battery-restore-module-for-boosted-batteries-product.jpg",
+      "bytes": 13836,
+      "sha256": "2277e9b8c696bf0dde2af71f7a8730b3b1d136ea3af79e590c58cefebff1a343",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/articles/Tube1.webp?v=1786667653",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/articles/Tube1.webp?v=1786667653"
+      ],
+      "pages": [],
+      "articles": [
+        "fat-tire-e-bike-tube-guide-sizes-psi-tips-and-buying-advice"
+      ],
+      "reuse": null,
+      "reused": false,
+      "publicPath": "/media/pages/1cd3be4732bf640f-Tube1.webp",
+      "filename": "1cd3be4732bf640f-Tube1.webp",
+      "bytes": 38117,
+      "sha256": "5d97de9c181ebe3406f846a5cb19151574a4e37a1cf0390c2a92809c20e426f2",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Tube1.webp?v=1695332819",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Tube1.webp?v=1695332819"
+      ],
+      "pages": [],
+      "articles": [
+        "fat-tire-e-bike-tube-guide-sizes-psi-tips-and-buying-advice",
+        "fat-tire-e-bike-tube-guide-sizes-psi-tips-and-buying-advice"
+      ],
+      "reuse": null,
+      "reused": false,
+      "publicPath": "/media/pages/c5642f51168665f7-Tube1.webp",
+      "filename": "c5642f51168665f7-Tube1.webp",
+      "bytes": 30895,
+      "sha256": "e4c03fac38ade59cd6d9d08f370e4341d75888b4e2af470260e83ed1e427682c",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/products/boostedmotor.jpg?v=1610484214",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/products/boostedmotor.jpg?v=1610484214"
+      ],
+      "pages": [],
+      "articles": [
+        "how-to-restore-power-to-your-electric-skateboard-motor",
+        "how-to-restore-power-to-your-electric-skateboard-motor"
+      ],
+      "reuse": null,
+      "reused": false,
+      "publicPath": "/media/pages/93e558e404e3d396-boostedmotor.jpg",
+      "filename": "93e558e404e3d396-boostedmotor.jpg",
+      "bytes": 48088,
+      "sha256": "8ae47b0013134086dda2422bb5b441df26d302f63e0d1140b5a5475164add10c",
+      "http": "200 image/jpeg"
+    }
+  ],
+  "errors": [],
+  "localHrefs": [
+    {
+      "href": "/collections/boosted-accessories",
+      "sourcePageHandles": [
+        "accessories"
+      ]
+    },
+    {
+      "href": "/collections/evolve-skateboard-accessories",
+      "sourcePageHandles": [
+        "accessories"
+      ]
+    },
+    {
+      "href": "/collections/minimotors-accessories",
+      "sourcePageHandles": [
+        "accessories"
+      ]
+    },
+    {
+      "href": "/collections/super73-accessories",
+      "sourcePageHandles": [
+        "accessories"
+      ]
+    },
+    {
+      "href": "/pages/accessories",
+      "sourcePageHandles": [
+        "accessories"
+      ]
+    },
+    {
+      "href": "/pages/faq",
+      "sourcePageHandles": [
+        "contact-us"
+      ]
+    },
+    {
+      "href": "/pages/shipping",
+      "sourcePageHandles": [
+        "faq"
+      ]
+    }
+  ],
+  "blogSourceSha256": "6f7d1ff5059c07a4a90906989215ebf1a6e773b426da9055027c594fc2215a04",
+  "publishedArticleCount": 4,
+  "articleImageUrls": [
+    "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/BoostedUSA-Bert-Touch-Battery-restore-module-for-boosted-batteries-product.jpg?v=1757114394",
+    "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Tube1.webp?v=1695332819",
+    "https://cdn.shopify.com/s/files/1/0268/1454/6031/products/boostedmotor.jpg?v=1610484214",
+    "https://cdn.shopify.com/s/files/1/0777/6452/6217/articles/Tube1.webp?v=1786667653"
+  ],
+  "articleLocalHrefs": [
+    {
+      "href": "/products/boosted-motor",
+      "sourceArticleHandles": [
+        "how-to-restore-power-to-your-electric-skateboard-motor"
+      ]
+    },
+    {
+      "href": "/products/boostedusa-bert-touch-battery-restore-module",
+      "sourceArticleHandles": [
+        "fix-red-light-of-death-a-simple-guide-to-restoring-your-board-s-battery",
+        "how-to-fix-a-dead-electric-skateboard-battery-at-home"
+      ]
+    },
+    {
+      "href": "/products/inner-tube-20in-x-4-5-5in",
+      "sourceArticleHandles": [
+        "fat-tire-e-bike-tube-guide-sizes-psi-tips-and-buying-advice"
+      ]
+    }
+  ],
+  "uniqueLocalHrefs": [
+    "/collections/boosted-accessories",
+    "/collections/evolve-skateboard-accessories",
+    "/collections/minimotors-accessories",
+    "/collections/super73-accessories",
+    "/pages/accessories",
+    "/pages/faq",
+    "/pages/shipping",
+    "/products/boosted-motor",
+    "/products/boostedusa-bert-touch-battery-restore-module",
+    "/products/inner-tube-20in-x-4-5-5in"
+  ],
+  "verifiedAt": "2026-09-10T15:05:07.650102+00:00",
+  "mappingAliases": 13
+}

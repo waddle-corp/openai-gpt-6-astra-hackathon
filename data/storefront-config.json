@@ -1,0 +1,1893 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "storeDomain": "benchmark-boosted-usa.myshopify.com",
+    "themeId": "156095152265",
+    "themeName": "benchmark boostedusa",
+    "themeFamily": "Flex",
+    "themeVersion": "1.1.4",
+    "sourceFile": "theme/config/settings_data.json",
+    "sourceSha256": "83a433dd540ceba28e6fda28f987fe8f89ecf997eb444174f7b3632c44a34dec",
+    "convertedAt": "2026-09-10T14:51:06.859635+00:00",
+    "method": "Read-only conversion of Shopify CLI live theme pull; original setting values and HTML preserved."
+  },
+  "design": {
+    "typography": {
+      "regular__font": "roboto_n4",
+      "regular_font_size": 15,
+      "logo__font": "roboto_n5",
+      "logo_font_size": 20,
+      "logo_font_style": "lowercase",
+      "nav__font": "roboto_n5",
+      "nav_font_size": 14,
+      "nav_letter_spacing": 1,
+      "nav_font_style": "uppercase",
+      "dropdown_heading_font_size": 30,
+      "dropdown_font_size": 14,
+      "dropdown_letter_spacing": 0,
+      "dropdown_font_style": "none",
+      "button__font": "roboto_n4",
+      "button_letter_spacing": 0,
+      "button_font_style": "none",
+      "heading__font": "roboto_n7",
+      "heading_size": 32,
+      "heading_letter_spacing": 0,
+      "heading_font_style": "none",
+      "preheading_font": "roboto_n4",
+      "preheading_size": 15,
+      "preheading_style": "none",
+      "subheading_font": "roboto_n4",
+      "subheading_size": 15,
+      "subheading_style": "none",
+      "banner_heading__font": "roboto_n7",
+      "banner_heading_size": 45,
+      "banner_heading_style": "none",
+      "banner_text__font": "roboto_n7",
+      "banner_text_size": 15,
+      "banner_text_letter_spacing": 1,
+      "footer_heading_font_size": 18,
+      "footer_font_size": 14,
+      "btn1_font_size": 21,
+      "btn2_font_size": 20,
+      "btn3_font_size": 12
+    },
+    "colors": {
+      "mobile_menu_background_color": "rgba(0,0,0,0)",
+      "mobile_menu_link_color": "rgba(0,0,0,0)",
+      "mobile_menu_link_hover_color": "rgba(0,0,0,0)",
+      "button_primary_bg_color": "#ff4a32",
+      "button_primary_border_color": "rgba(0,0,0,0)",
+      "button_primary_text_color": "#ffffff",
+      "button_primary_bg_color--highlight": "#606060",
+      "button_primary_border_color--highlight": "rgba(0,0,0,0)",
+      "button_primary_text_color--highlight": "#ffffff",
+      "button_secondary_bg_color": "#373737",
+      "button_secondary_border_color": "rgba(0,0,0,0)",
+      "button_secondary_text_color": "#ffffff",
+      "button_secondary_bg_color--highlight": "#ff4a32",
+      "button_secondary_border_color--highlight": "rgba(0,0,0,0)",
+      "button_secondary_text_color--highlight": "#ffffff",
+      "button_link_text_color": "#ff4a32",
+      "button_link_text_color--highlight": "#ccc",
+      "button_cart_bg_color": "#000000",
+      "button_cart_bg_color--highlight": "#ff9705",
+      "button_cart_border_color": "rgba(0,0,0,0)",
+      "button_cart_border_color--highlight": "rgba(0,0,0,0)",
+      "button_cart_text_color": "#fff",
+      "button_cart_text_color--highlight": "#fff",
+      "shop_bg_color": "#ffffff",
+      "border_color": "#000000",
+      "regular_color": "#000000",
+      "link_color": "#ff4a32",
+      "link_hover_color": "#ff2121",
+      "heading_color": "#000000",
+      "banner_heading_color": "#000000",
+      "divider_color": "#cfcfcf",
+      "logo_text": "#ffffff",
+      "header_background": "#ffffff",
+      "header_link_color": "#000000",
+      "header_link_hover_color": "#ff4a32",
+      "header_cart_badge_color": "#000000",
+      "cart_background_color": "#cfcfcf",
+      "dropdown_background": "#ffffff",
+      "dropdown_link_color": "#000000",
+      "dropdown_link_hover_color": "#ff4a32",
+      "footer_background": "#f7f7f7",
+      "footer_border": "rgba(0,0,0,0)",
+      "footer_link_color": "#000000",
+      "footer_link_hover_color": "#ff4a32",
+      "footer_text_color": "#000000",
+      "sale_color": "#373737",
+      "was_price_color": "#ff2121",
+      "product_hover_text_color": "#000000",
+      "product_hover_bg_color": "#ffffff",
+      "banner_bestseller": "#fdcf00",
+      "banner_comingsoon": "#cf0259",
+      "banner_new": "#8c50a4",
+      "banner_preorder": "#506dd0",
+      "banner_sale": "#ff4a32",
+      "banner_staffpick": "#ff9705",
+      "qty_icon_color": "#000000",
+      "qty_icon_hover_color": "#000000",
+      "qty_background_color": "#ffffff",
+      "qty_background_hover_color": "#ffffff",
+      "search_heading_color": "#569f37",
+      "search_popup_bg": "#ffffff",
+      "qs_popup_color": "#fff",
+      "btn1_bg_color": "#ffffff",
+      "btn1_border_color": "#000000",
+      "btn1_text_color": "#000000",
+      "btn1_bg_color--highlight": "#000000",
+      "btn1_border_color--highlight": "#000000",
+      "btn1_text_color--highlight": "#ffffff",
+      "btn2_bg_color": "rgba(0,0,0,0)",
+      "btn2_border_color": "#76c355",
+      "btn2_text_color": "#76c355",
+      "btn2_bg_color--highlight": "#76c355",
+      "btn2_border_color--highlight": "rgba(0,0,0,0)",
+      "btn2_text_color--highlight": "#ffffff",
+      "btn3_bg_color": "#000",
+      "btn3_bg_color--highlight": "#fff",
+      "btn3_border_color": "#000",
+      "btn3_border_color--highlight": "#000",
+      "btn3_text_color": "#fff",
+      "btn3_text_color--highlight": "#000"
+    },
+    "buttons": {
+      "button_primary_padding": "regular",
+      "button_primary_bg_color": "#ff4a32",
+      "button_primary_bg_color_transparency": 100,
+      "button_primary_border_color": "rgba(0,0,0,0)",
+      "button_primary_text_color": "#ffffff",
+      "button_primary_bg_color--highlight": "#606060",
+      "button_primary_bg_color_transparency--highlight": 100,
+      "button_primary_border_color--highlight": "rgba(0,0,0,0)",
+      "button_primary_text_color--highlight": "#ffffff",
+      "button_primary_border_radius": 35,
+      "button_secondary_padding": "regular",
+      "button_secondary_bg_color": "#373737",
+      "button_secondary_bg_color_transparency": 100,
+      "button_secondary_border_color": "rgba(0,0,0,0)",
+      "button_secondary_text_color": "#ffffff",
+      "button_secondary_bg_color--highlight": "#ff4a32",
+      "button_secondary_bg_color_transparency--highlight": 100,
+      "button_secondary_border_color--highlight": "rgba(0,0,0,0)",
+      "button_secondary_text_color--highlight": "#ffffff",
+      "button_secondary_border_radius": 35,
+      "button_link_padding": "regular",
+      "button_link_text_color": "#ff4a32",
+      "button_link_text_color--highlight": "#ccc",
+      "button_link_underline_style": "solid",
+      "button_link_underline_thickness": 1,
+      "button_cart_padding": "regular",
+      "button_cart_bg_color": "#000000",
+      "button_cart_bg_color--highlight": "#ff9705",
+      "button_cart_border_color": "rgba(0,0,0,0)",
+      "button_cart_border_color--highlight": "rgba(0,0,0,0)",
+      "button_cart_text_color": "#fff",
+      "button_cart_text_color--highlight": "#fff",
+      "button_cart_icon": "",
+      "button_cart_icon_position": "left",
+      "button_cart_border_radius": 2,
+      "button__font": "roboto_n4",
+      "button_letter_spacing": 0,
+      "button_font_style": "none",
+      "btn1_font_size": 21,
+      "btn1_border_radius": 0,
+      "btn1_block": false,
+      "btn1_bg_color": "#ffffff",
+      "btn1_border_color": "#000000",
+      "btn1_text_color": "#000000",
+      "btn1_bg_color--highlight": "#000000",
+      "btn1_border_color--highlight": "#000000",
+      "btn1_text_color--highlight": "#ffffff",
+      "btn2_font_size": 20,
+      "btn2_border_radius": 0,
+      "btn2_block": false,
+      "btn2_bg_color": "rgba(0,0,0,0)",
+      "btn2_border_color": "#76c355",
+      "btn2_text_color": "#76c355",
+      "btn2_bg_color--highlight": "#76c355",
+      "btn2_border_color--highlight": "rgba(0,0,0,0)",
+      "btn2_text_color--highlight": "#ffffff",
+      "btn3_font_size": 12,
+      "btn3_border_radius": 2,
+      "btn3_bg_color": "#000",
+      "btn3_bg_color_transparency": 100,
+      "btn3_bg_color--highlight": "#fff",
+      "btn3_bg_color_transparency--highlight": 100,
+      "btn3_border_color": "#000",
+      "btn3_border_color--highlight": "#000",
+      "btn3_text_color": "#fff",
+      "btn3_text_color--highlight": "#000",
+      "btn3_icon": "right-arrow",
+      "btn3_icon_position": "right",
+      "btn3_animation": "checkmark"
+    },
+    "globalSettings": {
+      "show_announcement_bar": true,
+      "show_popup": false,
+      "show_fixed_message": false,
+      "header_layout": "classic",
+      "footer_layout": "classic",
+      "product_layout": "classic",
+      "image_loading_style": "none",
+      "logo_mobile": "shopify://shop_images/Boosted-Boards-Scooters-Logo.png",
+      "mobile_logo_width": 200,
+      "logo_mobile_position": "center",
+      "logo_menu_position": "left",
+      "show_search_icon_mobile": true,
+      "mobile_sidebar_position": "below",
+      "icon_style": "icons",
+      "mobile_menu_background_color": "rgba(0,0,0,0)",
+      "mobile_menu_opacity": 100,
+      "mobile_menu_link_color": "rgba(0,0,0,0)",
+      "mobile_menu_link_hover_color": "rgba(0,0,0,0)",
+      "button_primary_padding": "regular",
+      "button_primary_bg_color": "#ff4a32",
+      "button_primary_bg_color_transparency": 100,
+      "button_primary_border_color": "rgba(0,0,0,0)",
+      "button_primary_text_color": "#ffffff",
+      "button_primary_bg_color--highlight": "#606060",
+      "button_primary_bg_color_transparency--highlight": 100,
+      "button_primary_border_color--highlight": "rgba(0,0,0,0)",
+      "button_primary_text_color--highlight": "#ffffff",
+      "button_primary_border_radius": 35,
+      "button_secondary_padding": "regular",
+      "button_secondary_bg_color": "#373737",
+      "button_secondary_bg_color_transparency": 100,
+      "button_secondary_border_color": "rgba(0,0,0,0)",
+      "button_secondary_text_color": "#ffffff",
+      "button_secondary_bg_color--highlight": "#ff4a32",
+      "button_secondary_bg_color_transparency--highlight": 100,
+      "button_secondary_border_color--highlight": "rgba(0,0,0,0)",
+      "button_secondary_text_color--highlight": "#ffffff",
+      "button_secondary_border_radius": 35,
+      "button_link_padding": "regular",
+      "button_link_text_color": "#ff4a32",
+      "button_link_text_color--highlight": "#ccc",
+      "button_link_underline_style": "solid",
+      "button_link_underline_thickness": 1,
+      "button_cart_padding": "regular",
+      "button_cart_bg_color": "#000000",
+      "button_cart_bg_color--highlight": "#ff9705",
+      "button_cart_border_color": "rgba(0,0,0,0)",
+      "button_cart_border_color--highlight": "rgba(0,0,0,0)",
+      "button_cart_text_color": "#fff",
+      "button_cart_text_color--highlight": "#fff",
+      "button_cart_icon": "",
+      "button_cart_icon_position": "left",
+      "button_cart_border_radius": 2,
+      "icon": "icon_outline",
+      "toggle_icon_style": "carets",
+      "social_media_share_style": "rounded",
+      "breadcrumb_capitalization": "none",
+      "breadcrumb_separator": "arrow",
+      "breadcrumb_size": "regular",
+      "dropdown_style": "vertical",
+      "dropdown_position": "below-parent",
+      "dropdown_link_spacing": "large",
+      "use_placeholders": true,
+      "form_button_style": "button--primary",
+      "display_heading_divider": true,
+      "heading_divider_animation": "slideInRight",
+      "heading_divider_style": "short",
+      "heading_divider_width": 2,
+      "toggle_sidebar": false,
+      "tab_style": "regular",
+      "table_styles_enabled": true,
+      "qty_box_style": "box",
+      "qty_border_radius": 0,
+      "tag_style": "solid",
+      "mega_menu_1": true,
+      "mega_menu_2": true,
+      "mega_menu_3": false,
+      "mega_menu_4": false,
+      "mega_menu_5": false,
+      "mega_menu_6": false,
+      "mega_menu_7": false,
+      "mega_menu_8": false,
+      "mega_menu_9": false,
+      "mega_menu_10": false,
+      "shop_bg_color": "#ffffff",
+      "border_color": "#000000",
+      "regular_color": "#000000",
+      "link_color": "#ff4a32",
+      "link_hover_color": "#ff2121",
+      "heading_color": "#000000",
+      "banner_heading_color": "#000000",
+      "divider_color": "#cfcfcf",
+      "logo_text": "#ffffff",
+      "header_background": "#ffffff",
+      "header_link_color": "#000000",
+      "header_link_hover_color": "#ff4a32",
+      "header_cart_badge_color": "#000000",
+      "cart_background_color": "#cfcfcf",
+      "show_dropdown_shadow": true,
+      "dropdown_background": "#ffffff",
+      "dropdown_background_opacity": 100,
+      "dropdown_link_color": "#000000",
+      "dropdown_link_hover_color": "#ff4a32",
+      "footer_background": "#f7f7f7",
+      "footer_border": "rgba(0,0,0,0)",
+      "footer_link_color": "#000000",
+      "footer_link_hover_color": "#ff4a32",
+      "footer_text_color": "#000000",
+      "sale_color": "#373737",
+      "was_price_color": "#ff2121",
+      "product_hover_text_color": "#000000",
+      "product_hover_bg_color": "#ffffff",
+      "banner_bestseller": "#fdcf00",
+      "banner_comingsoon": "#cf0259",
+      "banner_new": "#8c50a4",
+      "banner_preorder": "#506dd0",
+      "banner_sale": "#ff4a32",
+      "banner_staffpick": "#ff9705",
+      "qty_icon_color": "#000000",
+      "qty_icon_hover_color": "#000000",
+      "qty_background_color": "#ffffff",
+      "qty_background_hover_color": "#ffffff",
+      "regular__font": "roboto_n4",
+      "regular_font_size": 15,
+      "logo__font": "roboto_n5",
+      "logo_font_size": 20,
+      "logo_font_style": "lowercase",
+      "nav__font": "roboto_n5",
+      "nav_font_size": 14,
+      "nav_letter_spacing": 1,
+      "nav_font_style": "uppercase",
+      "dropdown_heading_font_size": 30,
+      "dropdown_font_size": 14,
+      "dropdown_letter_spacing": 0,
+      "dropdown_font_style": "none",
+      "button__font": "roboto_n4",
+      "button_letter_spacing": 0,
+      "button_font_style": "none",
+      "heading__font": "roboto_n7",
+      "heading_size": 32,
+      "heading_letter_spacing": 0,
+      "heading_font_style": "none",
+      "preheading_font": "roboto_n4",
+      "preheading_size": 15,
+      "preheading_style": "none",
+      "subheading_font": "roboto_n4",
+      "subheading_size": 15,
+      "subheading_style": "none",
+      "banner_heading__font": "roboto_n7",
+      "banner_heading_size": 45,
+      "banner_heading_style": "none",
+      "banner_text__font": "roboto_n7",
+      "banner_text_size": 15,
+      "banner_text_letter_spacing": 1,
+      "footer_heading_font_size": 18,
+      "footer_font_size": 14,
+      "search_option": "everything",
+      "search_title": "Search our shop",
+      "search_placeholder": "What are you looking for?",
+      "search_heading_color": "#569f37",
+      "search_display_style": "popup",
+      "search_popup_bg": "#ffffff",
+      "search_menu": "",
+      "enable_autocomplete": true,
+      "search_to_display": 5,
+      "show_secondary_image": false,
+      "display_vendor": false,
+      "thumbnail_hover_enabled": false,
+      "thumbnail_text_alignment": "center",
+      "stickers_enabled": true,
+      "sticker_shape": "square",
+      "sticker_position": "right",
+      "collection_swatches": true,
+      "collection_swatches_shape": "square",
+      "enable_quickshop": false,
+      "quickshop_button_style": "button--secondary",
+      "quickshop_show_vendor": false,
+      "quickshop_show_price_savings": true,
+      "quickshop_magnify_images": false,
+      "show_dynamic_checkout_button": true,
+      "quickshop_truncate_words": false,
+      "quickshop_truncate_words_limit": 20,
+      "quickshop_gallery_transition_styles": "slide",
+      "quickshop_gallery_position": "left",
+      "show_product_gallery_thumbnails": true,
+      "qs_popup_color": "#fff",
+      "enable_shopify_review_comments": true,
+      "enable_shopify_collection_badges": false,
+      "display_product_quantity": false,
+      "limit_quantity": false,
+      "display_inventory_left": false,
+      "inventory_threshold": 10,
+      "free_price_text": "Free",
+      "product_form_style": "swatches",
+      "swatch_style": "square",
+      "notify_me_form": true,
+      "notify_me_description": "<p>Notify me when this product is available:</p>",
+      "size_chart": "",
+      "cart_action": "redirect_cart",
+      "cart_icon": "cart",
+      "display_special_instructions": true,
+      "display_tos_checkbox": true,
+      "tos_page": "returns",
+      "display_savings": false,
+      "display_ajax_quantity_box": true,
+      "cart_message": "",
+      "go_to_checkout": true,
+      "enable_shipping_calculator": true,
+      "shipping_calculator_default_country": "United States",
+      "show_multiple_currencies": false,
+      "currency_format": "money_with_currency_format",
+      "supported_currencies": "USD CAD INR GBP AUD EUR JPY",
+      "default_currency": "USD",
+      "disqus_enabled": false,
+      "disqus_shortname": "",
+      "twitter_link": "",
+      "facebook_link": "https://facebook.com/shopify",
+      "youtube_link": "https://youtube.com/user/shopify",
+      "vimeo_link": "",
+      "pinterest_link": "https://pinterest.com/shopify",
+      "tumblr_link": "",
+      "instagram_link": "https://instagram.com/shopify",
+      "snapchat_link": "",
+      "houzz_link": "",
+      "linkedin_link": "",
+      "dribbble_link": "",
+      "behance_link": "",
+      "flickr_link": "",
+      "email_link": "",
+      "og_image_fallback": "shopify://shop_images/buy-boosted-boards-online-electric-skateboard-2_a9250f7a-4344-4ac8-85f0-588b183f65a5.png",
+      "favicon": "shopify://shop_images/electric-skateboards-and-scooters-boosted-brand.png",
+      "checkout_header_image": "",
+      "checkout_logo_image": "shopify://shop_images/Boosted-Boards-Scooters-Logo.png",
+      "checkout_logo_position": "left",
+      "checkout_logo_size": "large",
+      "checkout_body_background_image": "",
+      "checkout_body_background_color": "#fff",
+      "checkout_input_background_color_mode": "white",
+      "checkout_sidebar_background_image": "",
+      "checkout_sidebar_background_color": "#f7f7f7",
+      "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+      "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+      "checkout_accent_color": "#ff4a32",
+      "checkout_button_color": "#000000",
+      "checkout_error_color": "#e32c2b",
+      "show_labels": false,
+      "quikckshop_show_price_savings": true,
+      "logo_width": 200,
+      "btn1_font_size": 21,
+      "btn1_border_radius": 0,
+      "btn1_block": false,
+      "btn1_bg_color": "#ffffff",
+      "btn1_border_color": "#000000",
+      "btn1_text_color": "#000000",
+      "btn1_bg_color--highlight": "#000000",
+      "btn1_border_color--highlight": "#000000",
+      "btn1_text_color--highlight": "#ffffff",
+      "btn2_font_size": 20,
+      "btn2_border_radius": 0,
+      "btn2_block": false,
+      "btn2_bg_color": "rgba(0,0,0,0)",
+      "btn2_border_color": "#76c355",
+      "btn2_text_color": "#76c355",
+      "btn2_bg_color--highlight": "#76c355",
+      "btn2_border_color--highlight": "rgba(0,0,0,0)",
+      "btn2_text_color--highlight": "#ffffff",
+      "btn3_font_size": 12,
+      "btn3_border_radius": 2,
+      "btn3_bg_color": "#000",
+      "btn3_bg_color_transparency": 100,
+      "btn3_bg_color--highlight": "#fff",
+      "btn3_bg_color_transparency--highlight": 100,
+      "btn3_border_color": "#000",
+      "btn3_border_color--highlight": "#000",
+      "btn3_text_color": "#fff",
+      "btn3_text_color--highlight": "#000",
+      "btn3_icon": "right-arrow",
+      "btn3_icon_position": "right",
+      "btn3_animation": "checkmark"
+    }
+  },
+  "header": {
+    "layout": "classic",
+    "sections": [
+      {
+        "id": "announcement-bar",
+        "type": "announcement-bar",
+        "sourcePath": "current.sections.announcement-bar",
+        "settings": {
+          "icon_label": "",
+          "text": "<p>*Please note* Additional charges may apply on some Electric Bikes and E-Motos Please see our <a href=\"https://boostedusa.com/pages/shipping\" title=\"https://boostedusa.com/pages/shipping\">shipping page</a></p>",
+          "alignment": "center",
+          "size": "regular",
+          "button_label": "",
+          "link": "",
+          "button_style": "button--primary",
+          "background": "#000000",
+          "text_color": "#fbfbfb",
+          "width": "wide",
+          "homepage_only": false,
+          "enable_sticky": false,
+          "show_close_icon": false,
+          "css_class": "announcement-link",
+          "custom_css": ".announcement-link a {\ncolor: #ff4a32;\nborder-bottom: 1px solid #ff4a32;\n}"
+        },
+        "blocks": []
+      },
+      {
+        "id": "header__top-bar",
+        "type": "header__top-bar",
+        "sourcePath": "current.sections.header__top-bar",
+        "settings": {
+          "show_top_bar": false,
+          "font": "open_sans_n4",
+          "font_style": "none",
+          "font_size": 14,
+          "letter_spacing": 0,
+          "background": "rgba(0,0,0,0)",
+          "link_color": "rgba(0,0,0,0)",
+          "link_hover_color": "rgba(0,0,0,0)",
+          "text_color": "rgba(0,0,0,0)",
+          "width": "standard",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "header__top-bar-0",
+            "type": "text",
+            "sourcePath": "current.sections.header__top-bar.blocks.header__top-bar-0",
+            "settings": {
+              "text": "123 Main Street, Pleasantville USA"
+            }
+          },
+          {
+            "id": "header__top-bar-1",
+            "type": "social_media",
+            "sourcePath": "current.sections.header__top-bar.blocks.header__top-bar-1",
+            "settings": {}
+          }
+        ]
+      },
+      {
+        "id": "header-classic",
+        "type": "header-classic",
+        "sourcePath": "current.sections.header-classic",
+        "settings": {
+          "logo": "shopify://shop_images/Boosted-Boards-Scooters-Logo_821f85a9-dae6-45cf-9b58-a57caa41c958.png",
+          "logo_width": 300,
+          "main_linklist": "main-menu-1",
+          "menu_alignment": "start",
+          "display_search": true,
+          "icon_style": "icons",
+          "enable_overlay": false,
+          "show_text_shadow": false,
+          "overlay_link_color": "rgba(0,0,0,0)",
+          "overlay_link_hover_color": "rgba(0,0,0,0)",
+          "overlay_background": "rgba(0,0,0,0)",
+          "overlay_background_opacity": 0,
+          "overlay_logo": "shopify://shop_images/Boosted-Boards-Scooters-Logo.png",
+          "overlay_logo_width": 200,
+          "enable_sticky": true,
+          "sticky_background_opacity": 90,
+          "scroll_logo_width": 160,
+          "width": "wide",
+          "vertical_alignment": "center",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": []
+      }
+    ],
+    "megaMenus": [
+      {
+        "id": "mega-menu-1",
+        "type": "mega-menu-1",
+        "sourcePath": "current.sections.mega-menu-1",
+        "settings": {
+          "parent_link": "shop",
+          "enable_mega_menu_border": false,
+          "mega_menu_background_color": "#ffffff",
+          "mega_menu_text_color": "#404040",
+          "show_mega_bottom_bar": false,
+          "mega_bottom_bar_icon": "",
+          "mega_bottom_bar_text": "Add your deal, information or promotional text",
+          "mega_bottom_bar_link": "",
+          "size": "regular",
+          "bottom_banner_bg": "#fdcf00",
+          "bottom_banner_text": "#000000",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "1559582793214",
+            "type": "mixed",
+            "sourcePath": "current.sections.mega-menu-1.blocks.1559582793214",
+            "settings": {
+              "richtext_top": "",
+              "image_link_top": "shopify://collections/drinks",
+              "image_caption_top": "",
+              "menu_1": "",
+              "menu_1_link": "",
+              "menu_2": "",
+              "menu_2_link": "",
+              "menu_3": "",
+              "menu_3_link": "",
+              "menu_4": "",
+              "menu_4_link": "",
+              "image_link_bottom": "",
+              "richtext_bottom": ""
+            }
+          },
+          {
+            "id": "1559582779968",
+            "type": "mixed",
+            "sourcePath": "current.sections.mega-menu-1.blocks.1559582779968",
+            "settings": {
+              "richtext_top": "",
+              "image_link_top": "shopify://collections/powder",
+              "image_caption_top": "",
+              "menu_1": "",
+              "menu_1_link": "",
+              "menu_2": "",
+              "menu_2_link": "",
+              "menu_3": "",
+              "menu_3_link": "",
+              "menu_4": "",
+              "menu_4_link": "",
+              "image_link_bottom": "",
+              "richtext_bottom": ""
+            }
+          },
+          {
+            "id": "1559582757671",
+            "type": "mixed",
+            "sourcePath": "current.sections.mega-menu-1.blocks.1559582757671",
+            "settings": {
+              "richtext_top": "",
+              "image_link_top": "shopify://collections/bundles",
+              "image_caption_top": "",
+              "menu_1": "",
+              "menu_1_link": "",
+              "menu_2": "",
+              "menu_2_link": "",
+              "menu_3": "",
+              "menu_3_link": "",
+              "menu_4": "",
+              "menu_4_link": "",
+              "image_link_bottom": "",
+              "richtext_bottom": ""
+            }
+          },
+          {
+            "id": "1559582274641",
+            "type": "featured_promo",
+            "sourcePath": "current.sections.mega-menu-1.blocks.1559582274641",
+            "settings": {
+              "richtext": "<p>Meet our new product. Nutritional and convenient, only 100 calories per serving.</p>",
+              "bgr_color": "#ffffff",
+              "text_color": "#000000",
+              "promo_link": "shopify://collections/new",
+              "button_label": "Shop now",
+              "button_style": "button--primary"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mega-menu-2",
+        "type": "mega-menu-2",
+        "sourcePath": "current.sections.mega-menu-2",
+        "settings": {
+          "parent_link": "about",
+          "enable_mega_menu_border": false,
+          "mega_menu_background_color": "#ffffff",
+          "mega_menu_text_color": "#404040",
+          "show_mega_bottom_bar": true,
+          "mega_bottom_bar_icon": "leaf-2",
+          "mega_bottom_bar_text": "New snacks on sale now for a limited time! Use code NEW for 15% off.",
+          "mega_bottom_bar_link": "",
+          "size": "regular",
+          "bottom_banner_bg": "#000000",
+          "bottom_banner_text": "#ffffff",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "mega-menu-2-2",
+            "type": "mixed",
+            "sourcePath": "current.sections.mega-menu-2.blocks.mega-menu-2-2",
+            "settings": {
+              "richtext_top": "Our Story",
+              "image_link_top": "shopify://pages/our-story",
+              "image_caption_top": "<p><a href=\"/pages/our-story\" title=\"Our Story\">Learn more about how and why we started our company.</a></p>",
+              "menu_1": "",
+              "menu_1_link": "",
+              "menu_2": "",
+              "menu_2_link": "",
+              "menu_3": "",
+              "menu_3_link": "",
+              "menu_4": "",
+              "menu_4_link": "",
+              "image_link_bottom": "",
+              "richtext_bottom": ""
+            }
+          },
+          {
+            "id": "1559246020796",
+            "type": "mixed",
+            "sourcePath": "current.sections.mega-menu-2.blocks.1559246020796",
+            "settings": {
+              "richtext_top": "Our Products",
+              "image_link_top": "shopify://collections",
+              "image_caption_top": "<p><a href=\"/collections/all\" title=\"All Products\">See what&#x27;s different about our line of health food products.</a></p>",
+              "menu_1": "",
+              "menu_1_link": "",
+              "menu_2": "",
+              "menu_2_link": "",
+              "menu_3": "",
+              "menu_3_link": "",
+              "menu_4": "",
+              "menu_4_link": "",
+              "image_link_bottom": "shopify://collections",
+              "richtext_bottom": ""
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "home": {
+    "sections": [
+      {
+        "id": "9830fb05-7590-4dc4-b0c5-ea32deddc621",
+        "type": "index__featured-promotions",
+        "sourcePath": "current.sections.9830fb05-7590-4dc4-b0c5-ea32deddc621",
+        "settings": {
+          "border_radius": 0,
+          "crop_images": true,
+          "overlay_background": "#1f1e21",
+          "overlay_background_opacity": 30,
+          "overlay_text": "#ffffff",
+          "show_border": false,
+          "width": "wide",
+          "show_gutter": false,
+          "padding_top": 0,
+          "padding_bottom": 0,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "cb761335-a24a-40d2-b478-34de9c735dca",
+            "type": "image",
+            "sourcePath": "current.sections.9830fb05-7590-4dc4-b0c5-ea32deddc621.blocks.cb761335-a24a-40d2-b478-34de9c735dca",
+            "settings": {
+              "image": "shopify://shop_images/boosted-rev-electric-scooter-now-in-stock_c5926a3e-f2ff-46a9-9c91-97765798bac4.jpg",
+              "link": "shopify://collections/boosted-accessories",
+              "overlay_background": "#ffffff",
+              "overlay_background_opacity": 50,
+              "overlay_text": "#000000",
+              "icon_label": "",
+              "title": "<img alt=\"Boosted Boards Electric Scooters Logo\" class=\"transition--none primary-logo lazyautosizes lazyloaded\" data-src=\"//cdn.shopify.com/s/files/1/0268/1454/6031/files/Boosted-Boards-Scooters-Logo_1600x.png?v=1586529318\" data-sizes=\"auto\" src=\"//cdn.shopify.com/s/files/1/0268/1454/6031/files/Boosted-Boards-Scooters-Logo_1600x.png?v=1586529318\" width=\"250px\" height=\"auto\">",
+              "text": "<p>Boosted Revs and Accessories are still In Stock!</p>"
+            }
+          },
+          {
+            "id": "7b0d8271-bc30-46db-9a0d-97eed9440cb4",
+            "type": "image",
+            "sourcePath": "current.sections.9830fb05-7590-4dc4-b0c5-ea32deddc621.blocks.7b0d8271-bc30-46db-9a0d-97eed9440cb4",
+            "settings": {
+              "image": "shopify://shop_images/Boosted-USA-Super-73-Home-Box-feature-600x544.jpg",
+              "link": "shopify://collections/electric-bikes",
+              "overlay_background": "#ffffff",
+              "overlay_background_opacity": 50,
+              "overlay_text": "#000000",
+              "icon_label": "",
+              "title": "<img src=\"https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Super73_Logo_Horizontal_Trademark_Black_1000x200_69f340ae-d549-4366-822d-2af1de3536f9.png?v=1680833677\" alt=\"Super73 logo\" width=\"100%\" height=\"100%\">",
+              "text": "<p>Boosted USA x Super73<br/>Join the RIDE!</p>"
+            }
+          }
+        ]
+      },
+      {
+        "id": "808876e6-bd96-42fb-80da-503c02f72e49",
+        "type": "index__featured-promotions",
+        "sourcePath": "current.sections.808876e6-bd96-42fb-80da-503c02f72e49",
+        "settings": {
+          "border_radius": 0,
+          "crop_images": true,
+          "overlay_background": "#1f1e21",
+          "overlay_background_opacity": 30,
+          "overlay_text": "#ffffff",
+          "show_border": false,
+          "width": "wide",
+          "show_gutter": false,
+          "padding_top": 0,
+          "padding_bottom": 0,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "d607b23d-a5ae-432f-ac56-5e269afe69dc",
+            "type": "image",
+            "sourcePath": "current.sections.808876e6-bd96-42fb-80da-503c02f72e49.blocks.d607b23d-a5ae-432f-ac56-5e269afe69dc",
+            "settings": {
+              "image": "shopify://shop_images/evolve-electric-skateboard-now-in-stock.jpg",
+              "link": "shopify://collections/evolve-skateboards",
+              "overlay_background": "#ffffff",
+              "overlay_background_opacity": 50,
+              "overlay_text": "#000000",
+              "icon_label": "",
+              "title": "<img src=\"https://cdn.shopify.com/s/files/1/0268/1454/6031/files/evolve-skateboards-Logo_1600x_9dd56e5e-9387-4c75-b277-2b884d7b621d.png?v=1655827750\" alt=\"evolve electric skateboard logo\" width=\"250px\" height=\"100%\">",
+              "text": "<p>Boosted USA has Teamed Up with Evolve Electric Skateboards</p>"
+            }
+          },
+          {
+            "id": "image_YTWpwr",
+            "type": "image",
+            "sourcePath": "current.sections.808876e6-bd96-42fb-80da-503c02f72e49.blocks.image_YTWpwr",
+            "settings": {
+              "link": "",
+              "overlay_background": "rgba(0,0,0,0)",
+              "overlay_background_opacity": 70,
+              "overlay_text": "rgba(0,0,0,0)",
+              "icon_label": "truck",
+              "title": "Special deal",
+              "text": "<p>Promotion description details.</p>"
+            }
+          },
+          {
+            "id": "d6f8b099-bd26-487c-a8e4-ba0769e2e5ba",
+            "type": "image",
+            "sourcePath": "current.sections.808876e6-bd96-42fb-80da-503c02f72e49.blocks.d6f8b099-bd26-487c-a8e4-ba0769e2e5ba",
+            "settings": {
+              "image": "shopify://shop_images/minimotors-electric-scooters-2.jpg",
+              "link": "shopify://collections/minimotors-electric-scooters",
+              "overlay_background": "#ffffff",
+              "overlay_background_opacity": 50,
+              "overlay_text": "#000000",
+              "icon_label": "",
+              "title": "<img src=\"https://cdn.shopify.com/s/files/1/0268/1454/6031/files/mini-motors-Scooters-Logo_1600x_29d965c5-a31a-45d9-84ef-ea6e5987ab74.png?v=1655827949\" alt=\"evolve electric skateboard logo\" width=\"250px\" height=\"100%\">",
+              "text": "<p>Boosted USA is now introducing Minimotors Electric Scooters</p>"
+            }
+          }
+        ]
+      },
+      {
+        "id": "1562081079028",
+        "type": "index__gallery",
+        "sourcePath": "current.sections.1562081079028",
+        "settings": {
+          "gallery_type": "classic",
+          "crop_images": false,
+          "images_per_row": 4,
+          "enable_lightbox": false,
+          "overlay_color": "#ff4a32",
+          "link_color": "#ffffff",
+          "width": "standard",
+          "show_gutter": true,
+          "padding_top": 18,
+          "padding_bottom": 17,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "1562081079028-0",
+            "type": "image",
+            "sourcePath": "current.sections.1562081079028.blocks.1562081079028-0",
+            "settings": {
+              "image": "shopify://shop_images/buy-boosted-rev-electric-scooter-press-electrek-logo-white.png",
+              "link": ""
+            }
+          },
+          {
+            "id": "1562081079028-2",
+            "type": "image",
+            "sourcePath": "current.sections.1562081079028.blocks.1562081079028-2",
+            "settings": {
+              "image": "shopify://shop_images/purchase-boosted-elecric-scooter-TechCrunch-Black-and-White-Logo.png",
+              "link": ""
+            }
+          },
+          {
+            "id": "1562081079028-1",
+            "type": "image",
+            "sourcePath": "current.sections.1562081079028.blocks.1562081079028-1",
+            "settings": {
+              "image": "shopify://shop_images/purchase-boosted-electric-skateboards-press-Popular_Mechanics_logo-white.png",
+              "link": ""
+            }
+          },
+          {
+            "id": "1562081079028-3",
+            "type": "image",
+            "sourcePath": "current.sections.1562081079028.blocks.1562081079028-3",
+            "settings": {
+              "image": "shopify://shop_images/buy-boosted-boards-press-wired_logo_white.png",
+              "link": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": "index_featured_collection_HQmCHU",
+        "type": "index__featured-collection",
+        "sourcePath": "current.sections.index_featured_collection_HQmCHU",
+        "settings": {
+          "title": "Shop Bestseller",
+          "collection": "bestseller",
+          "products_per": 4,
+          "mobile_products_per_row": "1",
+          "products_limit": 10,
+          "align_height": true,
+          "collection_height": 200,
+          "collection_style": "slider",
+          "width": "wide",
+          "show_gutter": true,
+          "padding_top": 50,
+          "padding_bottom": 30,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": []
+      },
+      {
+        "id": "1559243710737",
+        "type": "index__heading",
+        "sourcePath": "current.sections.1559243710737",
+        "settings": {
+          "preheading": "",
+          "title": "Looking for Boosted Revs<br>Super 73 bikes - Evolve Skateboards<br> or Minimotors Dualtron / Speedway?",
+          "subheading": "<p><strong>While we LOVE Boosted- We also LOVE</strong> <br/>Super73, Evolve and Minimotors. <br/><br/>Boosted USA is  now offering <a href=\"/collections/electric-bikes\" title=\"Electric Bikes\">Super73 Electric bikes and Accessories</a>, <a href=\"/collections/evolve-skateboards\" title=\"Electric Skateboards\"><span style=\"text-decoration:underline\">Evolve Skateboards, and Accessories</span></a> as well as <a href=\"/collections/minimotors-electric-scooters\" title=\"Minimotors Electric Scooters\"><span style=\"text-decoration:underline\">Minimotors Electic Scooters</span></a> <br/><br/><strong>Bikes Boards and Scooters are in stock and shipping now.</strong></p>",
+          "preheading_color": "rgba(0,0,0,0)",
+          "heading_color": "rgba(0,0,0,0)",
+          "subheading_color": "rgba(0,0,0,0)",
+          "background": "rgba(0,0,0,0)",
+          "gradient": "rgba(0,0,0,0)",
+          "gradient_rotation": 0,
+          "heading_alignment": "center",
+          "vertical_spacing": "medium",
+          "width": "half",
+          "padding_top": 30,
+          "padding_bottom": 0,
+          "padding_left": 0,
+          "padding_right": 0,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": []
+      },
+      {
+        "id": "5530eeca-f0c7-49f3-8c5d-bf2fe2cd6150",
+        "type": "index__image-with-text",
+        "sourcePath": "current.sections.5530eeca-f0c7-49f3-8c5d-bf2fe2cd6150",
+        "settings": {
+          "width": "standard",
+          "show_gutter": true,
+          "padding_top": 20,
+          "padding_bottom": 20,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "863c7096-bb8b-4935-8f8d-544e439f7946",
+            "type": "image",
+            "sourcePath": "current.sections.5530eeca-f0c7-49f3-8c5d-bf2fe2cd6150.blocks.863c7096-bb8b-4935-8f8d-544e439f7946",
+            "settings": {
+              "image": "shopify://shop_images/Boosted-USA-Super-73-Home-Box-feature-600x600.jpg",
+              "image_crop": "none",
+              "image_link": "shopify://collections/evolve-skateboards"
+            }
+          },
+          {
+            "id": "452f7be6-e5d4-419c-bbdd-661cb1d47aae",
+            "type": "text",
+            "sourcePath": "current.sections.5530eeca-f0c7-49f3-8c5d-bf2fe2cd6150.blocks.452f7be6-e5d4-419c-bbdd-661cb1d47aae",
+            "settings": {
+              "title": "Why Super73?",
+              "heading_size": "regular",
+              "text": "<p>Super73 Electric Bikes are the industry standard in style and performance! </p><p><strong>Fun for every rider!</strong></p><p>With a bike for every rider and any condition, Super73 is the easiest get on and go e-bike out there. With multiple levels of pedal assist and speed levels, these bikes can be customized to changing terrains and specific riders. Don't feel like pedaling? All Super73's have throttles installed. Throw in an easy and intuitive app that allows on the fly changes as well as software updates and there isn't anything you can't tackle in style.</p>",
+              "button_label": "Shop All Bikes",
+              "link": "shopify://collections/electric-bikes",
+              "button_style": "button--primary",
+              "background": "rgba(0,0,0,0)",
+              "text_color": "rgba(0,0,0,0)",
+              "alignment": "left",
+              "vertical_position": "center"
+            }
+          }
+        ]
+      },
+      {
+        "id": "165583775785b15b35",
+        "type": "index__image-with-text",
+        "sourcePath": "current.sections.165583775785b15b35",
+        "settings": {
+          "width": "standard",
+          "show_gutter": true,
+          "padding_top": 20,
+          "padding_bottom": 20,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "165583775785b15b35-2",
+            "type": "text",
+            "sourcePath": "current.sections.165583775785b15b35.blocks.165583775785b15b35-2",
+            "settings": {
+              "title": "Why Minimotors Electric Scooters?",
+              "heading_size": "regular",
+              "text": "<p><strong>Build quality is as impressive as the performance. </strong></p><p>Dualtron Electric Scooters represent the highest quality electric scooters you can find today.  They are the best built, most capable, and have the longest range in the market.  Experience the best electric scooters in the world.  Redefining transport!</p>",
+              "button_label": "Shop All Scooters",
+              "link": "shopify://collections/minimotors-electric-scooters",
+              "button_style": "button--primary",
+              "background": "rgba(0,0,0,0)",
+              "text_color": "rgba(0,0,0,0)",
+              "alignment": "left",
+              "vertical_position": "center"
+            }
+          },
+          {
+            "id": "165583775785b15b35-0",
+            "type": "image",
+            "sourcePath": "current.sections.165583775785b15b35.blocks.165583775785b15b35-0",
+            "settings": {
+              "image": "shopify://shop_images/minimotors-dualtron-speedway-electric-scooters.jpg",
+              "image_crop": "none",
+              "image_link": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": "1646160193955858e4",
+        "type": "index__image-with-text",
+        "sourcePath": "current.sections.1646160193955858e4",
+        "settings": {
+          "width": "standard",
+          "show_gutter": true,
+          "padding_top": 20,
+          "padding_bottom": 20,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "1646160193955858e4-1",
+            "type": "image",
+            "sourcePath": "current.sections.1646160193955858e4.blocks.1646160193955858e4-1",
+            "settings": {
+              "image": "shopify://shop_images/GTR_Collection_Product_Bamboo_2in1_1.jpg",
+              "image_crop": "none",
+              "image_link": "shopify://collections/evolve-skateboards"
+            }
+          },
+          {
+            "id": "1646160193955858e4-2",
+            "type": "text",
+            "sourcePath": "current.sections.1646160193955858e4.blocks.1646160193955858e4-2",
+            "settings": {
+              "title": "Why Evolve Skateboards?",
+              "heading_size": "regular",
+              "text": "<p>Thoughtfully crafted, Evolve boards are high-performance machines that marry strength, sophistication, and the highest quality materials with cutting-edge technology.</p><p><strong>Built by riders for riders!</strong></p><p>Evolve Skateboards was born in Australia, in 2008, through sheer passion and obsession for finding the link between snowboarding, surfing, and all things carving on land. After scouring the world for the best electric skateboard, Evolve was developed out of the need for aesthetically refined and quality electric skateboards that were focused on creating the ultimate endless wave experience.</p>",
+              "button_label": "Shop All Boards",
+              "link": "/collections/evolve-skateboards/evolve?sort_by=manual",
+              "button_style": "button--primary",
+              "background": "rgba(0,0,0,0)",
+              "text_color": "rgba(0,0,0,0)",
+              "alignment": "left",
+              "vertical_position": "center"
+            }
+          }
+        ]
+      },
+      {
+        "id": "1586790779570",
+        "type": "index__image-with-text-overlay",
+        "sourcePath": "current.sections.1586790779570",
+        "settings": {
+          "link": "",
+          "image": "shopify://shop_images/boosted-rev-display.jpg",
+          "pretext": "<p>High-performance </p>",
+          "title": "Electric Scooters",
+          "subtitle": "<p>Cruising campus, going to work or getting through that long list of errands has never been easier or more fun.</p>",
+          "pretext_color": "#000000",
+          "heading_color": "#000000",
+          "subheading_color": "#000000",
+          "text_alignment": "center",
+          "text_horizontal_position": "center",
+          "text_vertical_position": "top",
+          "background_color": "#ffffff",
+          "background_opacity": 0,
+          "border_color": "#ffffff",
+          "border_width": 0,
+          "text_width": 40,
+          "button_1": "",
+          "button_1_link": "",
+          "button_1_style": "button--secondary",
+          "button_2": "Shop Now",
+          "button_2_link": "shopify://products/boosted-rev",
+          "button_2_style": "button--primary",
+          "mobile_image_crop": "none",
+          "mobile_text_below_image": true,
+          "pretext_color_mobile": "rgba(0,0,0,0)",
+          "heading_color_mobile": "rgba(0,0,0,0)",
+          "subheading_color_mobile": "rgba(0,0,0,0)",
+          "width": "wide",
+          "padding_top": 0,
+          "padding_bottom": 0,
+          "padding_left": 0,
+          "padding_right": 0,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": []
+      },
+      {
+        "id": "1586613422427",
+        "type": "index__html",
+        "sourcePath": "current.sections.1586613422427",
+        "settings": {
+          "html_content": "<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class=\"embed-container\"><iframe src=\"https://www.youtube.com/embed/1eLZBg9Qdbw\" frameborder=\"0\" allowfullscreen></iframe></div>\n\n<!--<div class=\"row\">\n <div class=\"eight columns alpha\"><div style=\"margin: 10px;\">\n   <iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/78bXV1ZqQWI\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\"></iframe>\n </div></div>\n <div class=\"eight columns omega\"><div style=\"margin: 10px;\">\n   <iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/1eLZBg9Qdbw\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\"></iframe>\n </div></div>\n</div> -->",
+          "width": "standard",
+          "padding_top": 20,
+          "padding_bottom": 20,
+          "padding_left": 0,
+          "padding_right": 0,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": []
+      },
+      {
+        "id": "164616027804562fb9",
+        "type": "index__image-with-text-overlay",
+        "sourcePath": "current.sections.164616027804562fb9",
+        "settings": {
+          "link": "",
+          "image": "shopify://shop_images/evolve-skateboards-1.jpg",
+          "pretext": "<p>All Terrain + Street</p>",
+          "title": "The Best All Terrain Skateboard!",
+          "subtitle": "<p>2-IN-1</p>",
+          "pretext_color": "#ffffff",
+          "heading_color": "#ffffff",
+          "subheading_color": "#ffffff",
+          "text_alignment": "center",
+          "text_horizontal_position": "center",
+          "text_vertical_position": "middle",
+          "background_color": "#ffffff",
+          "background_opacity": 0,
+          "border_color": "#ffffff",
+          "border_width": 0,
+          "text_width": 40,
+          "button_1": "Shop Now",
+          "button_1_link": "shopify://collections/evolve-skateboards",
+          "button_1_style": "button--primary",
+          "button_2": "",
+          "button_2_link": "",
+          "button_2_style": "button--secondary",
+          "mobile_image_crop": "none",
+          "mobile_text_below_image": true,
+          "pretext_color_mobile": "#000000",
+          "heading_color_mobile": "#000000",
+          "subheading_color_mobile": "#000000",
+          "width": "wide",
+          "padding_top": 0,
+          "padding_bottom": 0,
+          "padding_left": 0,
+          "padding_right": 0,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": []
+      },
+      {
+        "id": "1562162827149",
+        "type": "index__featured-collection",
+        "sourcePath": "current.sections.1562162827149",
+        "settings": {
+          "title": "Looking for Boosted Accessories?",
+          "collection": "boosted-accessories",
+          "products_per": 7,
+          "mobile_products_per_row": "2",
+          "products_limit": 50,
+          "align_height": true,
+          "collection_height": 200,
+          "collection_style": "slider",
+          "width": "wide",
+          "show_gutter": true,
+          "padding_top": 15,
+          "padding_bottom": 30,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": []
+      },
+      {
+        "id": "16461579118dd7f1e9",
+        "type": "index__featured-collection",
+        "sourcePath": "current.sections.16461579118dd7f1e9",
+        "settings": {
+          "title": "Looking for Evolve Accessories?",
+          "collection": "evolve-skateboard-accessories",
+          "products_per": 7,
+          "mobile_products_per_row": "2",
+          "products_limit": 50,
+          "align_height": true,
+          "collection_height": 200,
+          "collection_style": "slider",
+          "width": "wide",
+          "show_gutter": true,
+          "padding_top": 0,
+          "padding_bottom": 20,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": []
+      },
+      {
+        "id": "165582390074d237a3",
+        "type": "index__featured-collection",
+        "sourcePath": "current.sections.165582390074d237a3",
+        "settings": {
+          "title": "Minimotors Accessories",
+          "collection": "minimotors-accessories",
+          "products_per": 7,
+          "mobile_products_per_row": "2",
+          "products_limit": 50,
+          "align_height": true,
+          "collection_height": 200,
+          "collection_style": "slider",
+          "width": "wide",
+          "show_gutter": true,
+          "padding_top": 0,
+          "padding_bottom": 20,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": []
+      },
+      {
+        "id": "1654352458d4ef5f5c",
+        "type": "index__newsletter",
+        "sourcePath": "current.sections.1654352458d4ef5f5c",
+        "settings": {
+          "display_first_name": false,
+          "display_last_name": false,
+          "newsletter_title": "Subscribe to our Newsletter",
+          "newsletter_richtext": "<p>Sign up to get the latest on sales, new releases and more …</p>",
+          "newsletter_section_text_align": "center",
+          "background_color": "#e5e5e5",
+          "text_color": "#000000",
+          "image_darken": false,
+          "image_cropping": "center",
+          "image_position": "left",
+          "width": "wide",
+          "padding_top": 0,
+          "padding_bottom": 0,
+          "padding_left": 0,
+          "padding_right": 0,
+          "animation": "none",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": []
+      }
+    ],
+    "omittedDisabledSectionIds": [
+      "164615784347f33a23",
+      "16461579035326c50a",
+      "1557099047693",
+      "1586787683068",
+      "1586794194577",
+      "1586792178124",
+      "16535669162da8bd07"
+    ],
+    "references": {
+      "collectionHandles": [
+        "bestseller",
+        "boosted-accessories",
+        "electric-bikes",
+        "evolve-skateboard-accessories",
+        "evolve-skateboards",
+        "minimotors-accessories",
+        "minimotors-electric-scooters"
+      ],
+      "productHandles": [
+        "boosted-rev"
+      ]
+    }
+  },
+  "footer": {
+    "layout": "classic",
+    "sections": [
+      {
+        "id": "footer__icon-bar",
+        "type": "footer__icon-bar",
+        "sourcePath": "current.sections.footer__icon-bar",
+        "settings": {
+          "show_icon_bar": false,
+          "alignment": "center",
+          "icon_position": "column",
+          "size": "large",
+          "background": "#ffffff",
+          "link_color": "#000000",
+          "link_hover_color": "#94d976",
+          "text_color": "#000000",
+          "width": "standard",
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "footer__icon-bar-0",
+            "type": "text",
+            "sourcePath": "current.sections.footer__icon-bar.blocks.footer__icon-bar-0",
+            "settings": {
+              "icon": "leaf-2",
+              "text": "recyclable packaging",
+              "link": ""
+            }
+          },
+          {
+            "id": "footer__icon-bar-1",
+            "type": "text",
+            "sourcePath": "current.sections.footer__icon-bar.blocks.footer__icon-bar-1",
+            "settings": {
+              "icon": "heart",
+              "text": "membership club",
+              "link": "#"
+            }
+          },
+          {
+            "id": "footer__icon-bar-2",
+            "type": "text",
+            "sourcePath": "current.sections.footer__icon-bar.blocks.footer__icon-bar-2",
+            "settings": {
+              "icon": "box",
+              "text": "delivery to your door",
+              "link": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": "footer-classic",
+        "type": "footer-classic",
+        "sourcePath": "current.sections.footer-classic",
+        "settings": {
+          "copyright_text": "<p>All Rights Reserved. <a href=\"/pages/terms-of-service\">Terms of Service</a>. Built by <a href=\"https://brynhowlett.com/\" title=\"https://brynhowlett.com/\">BH</a></p>",
+          "display_designed_by": false,
+          "display_shopify": false,
+          "display_payment_methods": true,
+          "css_class": "",
+          "custom_css": ""
+        },
+        "blocks": [
+          {
+            "id": "footer-classic-0",
+            "type": "logo",
+            "sourcePath": "current.sections.footer-classic.blocks.footer-classic-0",
+            "settings": {
+              "logo": "shopify://shop_images/buy-boosted-boards-online-electric-skateboard-2.png",
+              "size": "small",
+              "text": "",
+              "social_icons_footer": false
+            }
+          },
+          {
+            "id": "footer-classic-1",
+            "type": "link_list",
+            "sourcePath": "current.sections.footer-classic.blocks.footer-classic-1",
+            "settings": {
+              "menu": "main-menu",
+              "social_icons_footer": false
+            }
+          },
+          {
+            "id": "footer-classic-2",
+            "type": "text",
+            "sourcePath": "current.sections.footer-classic.blocks.footer-classic-2",
+            "settings": {
+              "title": "About Boosted USA",
+              "content": "<p>Boosted empowers people everywhere to commute across their cities, campuses, and communities in ways that were never before possible.  Boosted is solving one of the biggest problems people face each day: transportation.</p><p><br/>CaliRides LLC - DBA Boosted USA</p><p>821 Francisco Blvd E<br/>San Rafael, CA 94901</p><p></p><p></p>",
+              "social_icons_footer": false
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "product": {
+    "layout": "classic",
+    "main": {
+      "id": "product__main",
+      "type": "product__main",
+      "sourcePath": "current.sections.product__main",
+      "settings": {
+        "product_breadcrumb": false,
+        "gallery_arrows": true,
+        "enable_zoom": false,
+        "enable_product_lightbox": true,
+        "slideshow_speed": 3,
+        "slideshow_transition": "slide",
+        "thumbnail_position": "bottom-thumbnails",
+        "enable_thumbnail_slider": true,
+        "product_images_position": "left",
+        "show_payment_button": true,
+        "display_vendor": true,
+        "display_sku": true,
+        "enable_shopify_product_badges": false,
+        "display_savings": true,
+        "display_collections": false,
+        "display_type": false,
+        "display_tags": false,
+        "display_social_buttons": false,
+        "product_description_position": "bottom",
+        "width": "standard",
+        "padding_top": 50,
+        "padding_bottom": 0,
+        "animation": "none",
+        "css_class": "",
+        "custom_css": ""
+      },
+      "blocks": [
+        {
+          "id": "1566416883772",
+          "type": "recommended_products",
+          "sourcePath": "current.sections.product__main.blocks.1566416883772",
+          "settings": {
+            "width": "wide",
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "animation": "none"
+          }
+        }
+      ]
+    },
+    "recommendations": {
+      "id": "product__recommendations",
+      "type": "product__recommendations",
+      "sourcePath": "current.sections.product__recommendations",
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_style": "grid",
+        "product_recommendations_heading": "You may also like",
+        "products_per": 4,
+        "recommended_products_limit": 4,
+        "align_height": false,
+        "collection_height": 200
+      },
+      "blocks": []
+    }
+  },
+  "collection": {
+    "main": {
+      "id": "collection__main",
+      "type": "collection__main",
+      "sourcePath": "current.sections.collection__main",
+      "settings": {
+        "collection_breadcrumb": false,
+        "collection_tags": false,
+        "collection_sort": false,
+        "show_promo_banner": false,
+        "image_darken": true,
+        "promo_title": "New product release",
+        "promo_text": "<p>Introducing the <a href=\"/products/meal-in-a-bottle-double-mocha\" title=\"Meal-in-a-bottle: Double Mocha\">newest addition</a> to our product line. </p>",
+        "banner_height": "small",
+        "align_height": true,
+        "collection_height": 200,
+        "products_per_row": 3,
+        "mobile_products_per_row": "2",
+        "pagination_limit": 48,
+        "pagination_type": "basic_pagination",
+        "width": "standard",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "css_class": "",
+        "custom_css": ".banner__heading, .banner__subheading {\ncolor: #FFF;\n}"
+      },
+      "blocks": []
+    },
+    "sidebar": {
+      "id": "collection__sidebar",
+      "type": "collection__sidebar",
+      "sourcePath": "current.sections.collection__sidebar",
+      "settings": {
+        "show_sidebar": false,
+        "css_class": "",
+        "custom_css": ""
+      },
+      "blocks": [
+        {
+          "id": "536f88ee-99ea-4ed1-8b51-0eebb8dd9300",
+          "type": "tag_filter",
+          "sourcePath": "current.sections.collection__sidebar.blocks.536f88ee-99ea-4ed1-8b51-0eebb8dd9300",
+          "settings": {
+            "title": "Filter by",
+            "filter_tags": "Evolve Boards, Boosted Boards, Boosted Rev",
+            "enable_filter_swatches": false
+          }
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Enabled homepage promotion image_YTWpwr is retained with Special deal copy, truck icon and no image or link, as in the source.",
+    "Shopify shop_images references are unresolved source identifiers; map them to the exported store file URLs before rendering.",
+    "Menus contain theme menu handles; menu entries and resource existence must be supplied by store-data export.",
+    "Collection/product handles in references are source-theme references, not proof that matching resources are available.",
+    "Source HTML includes external links and a YouTube iframe; this conversion does not activate them."
+  ],
+  "references": {
+    "imageRefs": [
+      {
+        "ref": "shopify://shop_images/Boosted-Boards-Scooters-Logo_821f85a9-dae6-45cf-9b58-a57caa41c958.png",
+        "kind": "shopify_file",
+        "filename": "Boosted-Boards-Scooters-Logo_821f85a9-dae6-45cf-9b58-a57caa41c958.png",
+        "sourcePaths": [
+          "header.sections[2].settings.logo"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/Boosted-Boards-Scooters-Logo.png",
+        "kind": "shopify_file",
+        "filename": "Boosted-Boards-Scooters-Logo.png",
+        "sourcePaths": [
+          "header.sections[2].settings.overlay_logo",
+          "current.logo_mobile"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/boosted-rev-electric-scooter-now-in-stock_c5926a3e-f2ff-46a9-9c91-97765798bac4.jpg",
+        "kind": "shopify_file",
+        "filename": "boosted-rev-electric-scooter-now-in-stock_c5926a3e-f2ff-46a9-9c91-97765798bac4.jpg",
+        "sourcePaths": [
+          "home.sections[0].blocks[0].settings.image"
+        ]
+      },
+      {
+        "ref": "//cdn.shopify.com/s/files/1/0268/1454/6031/files/Boosted-Boards-Scooters-Logo_1600x.png?v=1586529318",
+        "kind": "url",
+        "filename": null,
+        "sourcePaths": [
+          "home.sections[0].blocks[0].settings.title:img@src",
+          "home.sections[0].blocks[0].settings.title:img@data-src"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/Boosted-USA-Super-73-Home-Box-feature-600x544.jpg",
+        "kind": "shopify_file",
+        "filename": "Boosted-USA-Super-73-Home-Box-feature-600x544.jpg",
+        "sourcePaths": [
+          "home.sections[0].blocks[1].settings.image"
+        ]
+      },
+      {
+        "ref": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Super73_Logo_Horizontal_Trademark_Black_1000x200_69f340ae-d549-4366-822d-2af1de3536f9.png?v=1680833677",
+        "kind": "url",
+        "filename": null,
+        "sourcePaths": [
+          "home.sections[0].blocks[1].settings.title:img@src"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/evolve-electric-skateboard-now-in-stock.jpg",
+        "kind": "shopify_file",
+        "filename": "evolve-electric-skateboard-now-in-stock.jpg",
+        "sourcePaths": [
+          "home.sections[1].blocks[0].settings.image"
+        ]
+      },
+      {
+        "ref": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/evolve-skateboards-Logo_1600x_9dd56e5e-9387-4c75-b277-2b884d7b621d.png?v=1655827750",
+        "kind": "url",
+        "filename": null,
+        "sourcePaths": [
+          "home.sections[1].blocks[0].settings.title:img@src"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/minimotors-electric-scooters-2.jpg",
+        "kind": "shopify_file",
+        "filename": "minimotors-electric-scooters-2.jpg",
+        "sourcePaths": [
+          "home.sections[1].blocks[2].settings.image"
+        ]
+      },
+      {
+        "ref": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/mini-motors-Scooters-Logo_1600x_29d965c5-a31a-45d9-84ef-ea6e5987ab74.png?v=1655827949",
+        "kind": "url",
+        "filename": null,
+        "sourcePaths": [
+          "home.sections[1].blocks[2].settings.title:img@src"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/buy-boosted-rev-electric-scooter-press-electrek-logo-white.png",
+        "kind": "shopify_file",
+        "filename": "buy-boosted-rev-electric-scooter-press-electrek-logo-white.png",
+        "sourcePaths": [
+          "home.sections[2].blocks[0].settings.image"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/purchase-boosted-elecric-scooter-TechCrunch-Black-and-White-Logo.png",
+        "kind": "shopify_file",
+        "filename": "purchase-boosted-elecric-scooter-TechCrunch-Black-and-White-Logo.png",
+        "sourcePaths": [
+          "home.sections[2].blocks[1].settings.image"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/purchase-boosted-electric-skateboards-press-Popular_Mechanics_logo-white.png",
+        "kind": "shopify_file",
+        "filename": "purchase-boosted-electric-skateboards-press-Popular_Mechanics_logo-white.png",
+        "sourcePaths": [
+          "home.sections[2].blocks[2].settings.image"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/buy-boosted-boards-press-wired_logo_white.png",
+        "kind": "shopify_file",
+        "filename": "buy-boosted-boards-press-wired_logo_white.png",
+        "sourcePaths": [
+          "home.sections[2].blocks[3].settings.image"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/Boosted-USA-Super-73-Home-Box-feature-600x600.jpg",
+        "kind": "shopify_file",
+        "filename": "Boosted-USA-Super-73-Home-Box-feature-600x600.jpg",
+        "sourcePaths": [
+          "home.sections[5].blocks[0].settings.image"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/minimotors-dualtron-speedway-electric-scooters.jpg",
+        "kind": "shopify_file",
+        "filename": "minimotors-dualtron-speedway-electric-scooters.jpg",
+        "sourcePaths": [
+          "home.sections[6].blocks[1].settings.image"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/GTR_Collection_Product_Bamboo_2in1_1.jpg",
+        "kind": "shopify_file",
+        "filename": "GTR_Collection_Product_Bamboo_2in1_1.jpg",
+        "sourcePaths": [
+          "home.sections[7].blocks[0].settings.image"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/boosted-rev-display.jpg",
+        "kind": "shopify_file",
+        "filename": "boosted-rev-display.jpg",
+        "sourcePaths": [
+          "home.sections[8].settings.image"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/evolve-skateboards-1.jpg",
+        "kind": "shopify_file",
+        "filename": "evolve-skateboards-1.jpg",
+        "sourcePaths": [
+          "home.sections[10].settings.image"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/buy-boosted-boards-online-electric-skateboard-2.png",
+        "kind": "shopify_file",
+        "filename": "buy-boosted-boards-online-electric-skateboard-2.png",
+        "sourcePaths": [
+          "footer.sections[1].blocks[0].settings.logo"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/buy-boosted-boards-online-electric-skateboard-2_a9250f7a-4344-4ac8-85f0-588b183f65a5.png",
+        "kind": "shopify_file",
+        "filename": "buy-boosted-boards-online-electric-skateboard-2_a9250f7a-4344-4ac8-85f0-588b183f65a5.png",
+        "sourcePaths": [
+          "current.og_image_fallback"
+        ]
+      },
+      {
+        "ref": "shopify://shop_images/electric-skateboards-and-scooters-boosted-brand.png",
+        "kind": "shopify_file",
+        "filename": "electric-skateboards-and-scooters-boosted-brand.png",
+        "sourcePaths": [
+          "current.favicon"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "href": "https://boostedusa.com/pages/shipping",
+        "localRoute": null,
+        "sourcePaths": [
+          "header.sections[0].settings.text:a@href"
+        ]
+      },
+      {
+        "href": "shopify://collections/drinks",
+        "localRoute": "/collections/drinks",
+        "sourcePaths": [
+          "header.megaMenus[0].blocks[0].settings.image_link_top"
+        ]
+      },
+      {
+        "href": "shopify://collections/powder",
+        "localRoute": "/collections/powder",
+        "sourcePaths": [
+          "header.megaMenus[0].blocks[1].settings.image_link_top"
+        ]
+      },
+      {
+        "href": "shopify://collections/bundles",
+        "localRoute": "/collections/bundles",
+        "sourcePaths": [
+          "header.megaMenus[0].blocks[2].settings.image_link_top"
+        ]
+      },
+      {
+        "href": "shopify://collections/new",
+        "localRoute": "/collections/new",
+        "sourcePaths": [
+          "header.megaMenus[0].blocks[3].settings.promo_link"
+        ]
+      },
+      {
+        "href": "shopify://pages/our-story",
+        "localRoute": "/pages/our-story",
+        "sourcePaths": [
+          "header.megaMenus[1].blocks[0].settings.image_link_top"
+        ]
+      },
+      {
+        "href": "/pages/our-story",
+        "localRoute": "/pages/our-story",
+        "sourcePaths": [
+          "header.megaMenus[1].blocks[0].settings.image_caption_top:a@href"
+        ]
+      },
+      {
+        "href": "/collections/all",
+        "localRoute": "/collections/all",
+        "sourcePaths": [
+          "header.megaMenus[1].blocks[1].settings.image_caption_top:a@href"
+        ]
+      },
+      {
+        "href": "shopify://collections/boosted-accessories",
+        "localRoute": "/collections/boosted-accessories",
+        "sourcePaths": [
+          "home.sections[0].blocks[0].settings.link"
+        ]
+      },
+      {
+        "href": "shopify://collections/electric-bikes",
+        "localRoute": "/collections/electric-bikes",
+        "sourcePaths": [
+          "home.sections[0].blocks[1].settings.link",
+          "home.sections[5].blocks[1].settings.link"
+        ]
+      },
+      {
+        "href": "shopify://collections/evolve-skateboards",
+        "localRoute": "/collections/evolve-skateboards",
+        "sourcePaths": [
+          "home.sections[1].blocks[0].settings.link",
+          "home.sections[5].blocks[0].settings.image_link",
+          "home.sections[7].blocks[0].settings.image_link",
+          "home.sections[10].settings.button_1_link"
+        ]
+      },
+      {
+        "href": "shopify://collections/minimotors-electric-scooters",
+        "localRoute": "/collections/minimotors-electric-scooters",
+        "sourcePaths": [
+          "home.sections[1].blocks[2].settings.link",
+          "home.sections[6].blocks[0].settings.link"
+        ]
+      },
+      {
+        "href": "/collections/electric-bikes",
+        "localRoute": "/collections/electric-bikes",
+        "sourcePaths": [
+          "home.sections[4].settings.subheading:a@href"
+        ]
+      },
+      {
+        "href": "/collections/evolve-skateboards",
+        "localRoute": "/collections/evolve-skateboards",
+        "sourcePaths": [
+          "home.sections[4].settings.subheading:a@href"
+        ]
+      },
+      {
+        "href": "/collections/minimotors-electric-scooters",
+        "localRoute": "/collections/minimotors-electric-scooters",
+        "sourcePaths": [
+          "home.sections[4].settings.subheading:a@href"
+        ]
+      },
+      {
+        "href": "/collections/evolve-skateboards/evolve?sort_by=manual",
+        "localRoute": "/collections/evolve-skateboards/evolve?sort_by=manual",
+        "sourcePaths": [
+          "home.sections[7].blocks[1].settings.link"
+        ]
+      },
+      {
+        "href": "shopify://products/boosted-rev",
+        "localRoute": "/products/boosted-rev",
+        "sourcePaths": [
+          "home.sections[8].settings.button_2_link"
+        ]
+      },
+      {
+        "href": "/pages/terms-of-service",
+        "localRoute": "/pages/terms-of-service",
+        "sourcePaths": [
+          "footer.sections[1].settings.copyright_text:a@href"
+        ]
+      },
+      {
+        "href": "https://brynhowlett.com/",
+        "localRoute": null,
+        "sourcePaths": [
+          "footer.sections[1].settings.copyright_text:a@href"
+        ]
+      },
+      {
+        "href": "/products/meal-in-a-bottle-double-mocha",
+        "localRoute": "/products/meal-in-a-bottle-double-mocha",
+        "sourcePaths": [
+          "collection.main.settings.promo_text:a@href"
+        ]
+      }
+    ],
+    "collectionHandles": [
+      "all",
+      "bestseller",
+      "boosted-accessories",
+      "bundles",
+      "drinks",
+      "electric-bikes",
+      "evolve-skateboard-accessories",
+      "evolve-skateboards",
+      "minimotors-accessories",
+      "minimotors-electric-scooters",
+      "new",
+      "powder"
+    ],
+    "productHandles": [
+      "boosted-rev",
+      "meal-in-a-bottle-double-mocha"
+    ],
+    "menuHandles": [
+      "main-menu",
+      "main-menu-1"
+    ],
+    "scopeNote": "Top-level references cover extracted header, enabled home, footer, and product/collection configuration. Some settings are gated off at runtime (for example the collection promo). Use home.references for active homepage references."
+  }
+}

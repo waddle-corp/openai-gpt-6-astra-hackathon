@@ -1,0 +1,271 @@
+{
+  "createdAt": "2026-09-10T14:54:32.123890+00:00",
+  "source": "storefront-config.json and exact content.json file image URL matches",
+  "assetCount": 22,
+  "bytes": 1383485,
+  "referenceCount": 22,
+  "assets": [
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/Boosted-Boards-Scooters-Logo_821f85a9-dae6-45cf-9b58-a57caa41c958.png?v=1786666871",
+      "aliases": [
+        "shopify://shop_images/Boosted-Boards-Scooters-Logo_821f85a9-dae6-45cf-9b58-a57caa41c958.png",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/Boosted-Boards-Scooters-Logo_821f85a9-dae6-45cf-9b58-a57caa41c958.png?v=1786666871"
+      ],
+      "filename": "Boosted-Boards-Scooters-Logo_821f85a9-dae6-45cf-9b58-a57caa41c958.png",
+      "publicPath": "/media/storefront/Boosted-Boards-Scooters-Logo_821f85a9-dae6-45cf-9b58-a57caa41c958.png",
+      "bytes": 3751,
+      "sha256": "1a35195dce68c24879ef3e84e0cca8a95ff6bb13852e4aeb35e8693724d30059",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/Boosted-Boards-Scooters-Logo.png?v=1786666846",
+      "aliases": [
+        "shopify://shop_images/Boosted-Boards-Scooters-Logo.png",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/Boosted-Boards-Scooters-Logo.png?v=1786666846"
+      ],
+      "filename": "Boosted-Boards-Scooters-Logo.png",
+      "publicPath": "/media/storefront/Boosted-Boards-Scooters-Logo.png",
+      "bytes": 3767,
+      "sha256": "ccb4845d308cef41a79fad0c8605c8517b0b1c370c9b40b20454baf7bd71c94f",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/boosted-rev-electric-scooter-now-in-stock_c5926a3e-f2ff-46a9-9c91-97765798bac4.jpg?v=1786666852",
+      "aliases": [
+        "shopify://shop_images/boosted-rev-electric-scooter-now-in-stock_c5926a3e-f2ff-46a9-9c91-97765798bac4.jpg",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/boosted-rev-electric-scooter-now-in-stock_c5926a3e-f2ff-46a9-9c91-97765798bac4.jpg?v=1786666852"
+      ],
+      "filename": "boosted-rev-electric-scooter-now-in-stock_c5926a3e-f2ff-46a9-9c91-97765798bac4.jpg",
+      "publicPath": "/media/storefront/boosted-rev-electric-scooter-now-in-stock_c5926a3e-f2ff-46a9-9c91-97765798bac4.jpg",
+      "bytes": 207224,
+      "sha256": "bf9d32d5f158f7bd475e97b927d3165da079276633b1f357b6fa519c6ba94cf1",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Boosted-Boards-Scooters-Logo_1600x.png?v=1586529318",
+      "aliases": [
+        "//cdn.shopify.com/s/files/1/0268/1454/6031/files/Boosted-Boards-Scooters-Logo_1600x.png?v=1586529318",
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Boosted-Boards-Scooters-Logo_1600x.png?v=1586529318"
+      ],
+      "filename": "Boosted-Boards-Scooters-Logo_1600x.png",
+      "publicPath": "/media/storefront/Boosted-Boards-Scooters-Logo_1600x.png",
+      "bytes": 3767,
+      "sha256": "ccb4845d308cef41a79fad0c8605c8517b0b1c370c9b40b20454baf7bd71c94f",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/Boosted-USA-Super-73-Home-Box-feature-600x544.jpg?v=1786666871",
+      "aliases": [
+        "shopify://shop_images/Boosted-USA-Super-73-Home-Box-feature-600x544.jpg",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/Boosted-USA-Super-73-Home-Box-feature-600x544.jpg?v=1786666871"
+      ],
+      "filename": "Boosted-USA-Super-73-Home-Box-feature-600x544.jpg",
+      "publicPath": "/media/storefront/Boosted-USA-Super-73-Home-Box-feature-600x544.jpg",
+      "bytes": 78374,
+      "sha256": "1d0fff0e7eb0bd8d06d9c0eca37ff9c33accd0ba57e35f1400e3690e3dbbec01",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Super73_Logo_Horizontal_Trademark_Black_1000x200_69f340ae-d549-4366-822d-2af1de3536f9.png?v=1680833677",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/Super73_Logo_Horizontal_Trademark_Black_1000x200_69f340ae-d549-4366-822d-2af1de3536f9.png?v=1680833677"
+      ],
+      "filename": "Super73_Logo_Horizontal_Trademark_Black_1000x200_69f340ae-d549-4366-822d-2af1de3536f9.png",
+      "publicPath": "/media/storefront/Super73_Logo_Horizontal_Trademark_Black_1000x200_69f340ae-d549-4366-822d-2af1de3536f9.png",
+      "bytes": 9479,
+      "sha256": "bd5c5d47318f676e55ad849392832068024c5a5dd110643f65017d9d07590f02",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/evolve-electric-skateboard-now-in-stock.jpg?v=1786666852",
+      "aliases": [
+        "shopify://shop_images/evolve-electric-skateboard-now-in-stock.jpg",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/evolve-electric-skateboard-now-in-stock.jpg?v=1786666852"
+      ],
+      "filename": "evolve-electric-skateboard-now-in-stock.jpg",
+      "publicPath": "/media/storefront/evolve-electric-skateboard-now-in-stock.jpg",
+      "bytes": 175208,
+      "sha256": "b9cd15caf1a3572182858b8ef7a020a2714c03b761e265323be86843538e3ca8",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/evolve-skateboards-Logo_1600x_9dd56e5e-9387-4c75-b277-2b884d7b621d.png?v=1655827750",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/evolve-skateboards-Logo_1600x_9dd56e5e-9387-4c75-b277-2b884d7b621d.png?v=1655827750"
+      ],
+      "filename": "evolve-skateboards-Logo_1600x_9dd56e5e-9387-4c75-b277-2b884d7b621d.png",
+      "publicPath": "/media/storefront/evolve-skateboards-Logo_1600x_9dd56e5e-9387-4c75-b277-2b884d7b621d.png",
+      "bytes": 8925,
+      "sha256": "972604f65676eb10d83a276328a5ae0ec0bb0e50ebaa58ea7a10519decaf05d2",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/minimotors-electric-scooters-2.jpg?v=1786666857",
+      "aliases": [
+        "shopify://shop_images/minimotors-electric-scooters-2.jpg",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/minimotors-electric-scooters-2.jpg?v=1786666857"
+      ],
+      "filename": "minimotors-electric-scooters-2.jpg",
+      "publicPath": "/media/storefront/minimotors-electric-scooters-2.jpg",
+      "bytes": 107640,
+      "sha256": "90d0ad1caa4ab31446c33a0e5301f8a0f532c3a0d2d63154cbbd1392cfb2801e",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/mini-motors-Scooters-Logo_1600x_29d965c5-a31a-45d9-84ef-ea6e5987ab74.png?v=1655827949",
+      "aliases": [
+        "https://cdn.shopify.com/s/files/1/0268/1454/6031/files/mini-motors-Scooters-Logo_1600x_29d965c5-a31a-45d9-84ef-ea6e5987ab74.png?v=1655827949"
+      ],
+      "filename": "mini-motors-Scooters-Logo_1600x_29d965c5-a31a-45d9-84ef-ea6e5987ab74.png",
+      "publicPath": "/media/storefront/mini-motors-Scooters-Logo_1600x_29d965c5-a31a-45d9-84ef-ea6e5987ab74.png",
+      "bytes": 15124,
+      "sha256": "092f04b616b0c7767a540682683466630491e8832098af4cd9f2ac18cf109b9d",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/buy-boosted-rev-electric-scooter-press-electrek-logo-white.png?v=1786666846",
+      "aliases": [
+        "shopify://shop_images/buy-boosted-rev-electric-scooter-press-electrek-logo-white.png",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/buy-boosted-rev-electric-scooter-press-electrek-logo-white.png?v=1786666846"
+      ],
+      "filename": "buy-boosted-rev-electric-scooter-press-electrek-logo-white.png",
+      "publicPath": "/media/storefront/buy-boosted-rev-electric-scooter-press-electrek-logo-white.png",
+      "bytes": 2068,
+      "sha256": "ea0b1cadb56070af1b220ed3a8499084912e3ac0eed47954ab0abb2136912d94",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/purchase-boosted-elecric-scooter-TechCrunch-Black-and-White-Logo.png?v=1786666846",
+      "aliases": [
+        "shopify://shop_images/purchase-boosted-elecric-scooter-TechCrunch-Black-and-White-Logo.png",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/purchase-boosted-elecric-scooter-TechCrunch-Black-and-White-Logo.png?v=1786666846"
+      ],
+      "filename": "purchase-boosted-elecric-scooter-TechCrunch-Black-and-White-Logo.png",
+      "publicPath": "/media/storefront/purchase-boosted-elecric-scooter-TechCrunch-Black-and-White-Logo.png",
+      "bytes": 2022,
+      "sha256": "d1111f2212093977585470d21137522a1f945a87a8bf69884131f67f48606db6",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/purchase-boosted-electric-skateboards-press-Popular_Mechanics_logo-white.png?v=1786666846",
+      "aliases": [
+        "shopify://shop_images/purchase-boosted-electric-skateboards-press-Popular_Mechanics_logo-white.png",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/purchase-boosted-electric-skateboards-press-Popular_Mechanics_logo-white.png?v=1786666846"
+      ],
+      "filename": "purchase-boosted-electric-skateboards-press-Popular_Mechanics_logo-white.png",
+      "publicPath": "/media/storefront/purchase-boosted-electric-skateboards-press-Popular_Mechanics_logo-white.png",
+      "bytes": 3244,
+      "sha256": "7402878df3a9cf0ab07b8f41d82366b43db0fc6e9749d301ba54d313b39ec92d",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/buy-boosted-boards-press-wired_logo_white.png?v=1786666846",
+      "aliases": [
+        "shopify://shop_images/buy-boosted-boards-press-wired_logo_white.png",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/buy-boosted-boards-press-wired_logo_white.png?v=1786666846"
+      ],
+      "filename": "buy-boosted-boards-press-wired_logo_white.png",
+      "publicPath": "/media/storefront/buy-boosted-boards-press-wired_logo_white.png",
+      "bytes": 1882,
+      "sha256": "4bdf8ad8e6ade59740508968b4ac0424ebe1174e74a4da0da56222f2124e4dd7",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/Boosted-USA-Super-73-Home-Box-feature-600x600.jpg?v=1786666871",
+      "aliases": [
+        "shopify://shop_images/Boosted-USA-Super-73-Home-Box-feature-600x600.jpg",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/Boosted-USA-Super-73-Home-Box-feature-600x600.jpg?v=1786666871"
+      ],
+      "filename": "Boosted-USA-Super-73-Home-Box-feature-600x600.jpg",
+      "publicPath": "/media/storefront/Boosted-USA-Super-73-Home-Box-feature-600x600.jpg",
+      "bytes": 77785,
+      "sha256": "1d23a9d8d01533ffdbab55e9873a71f043811679ec222d33070733afa7adb746",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/minimotors-dualtron-speedway-electric-scooters.jpg?v=1786666857",
+      "aliases": [
+        "shopify://shop_images/minimotors-dualtron-speedway-electric-scooters.jpg",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/minimotors-dualtron-speedway-electric-scooters.jpg?v=1786666857"
+      ],
+      "filename": "minimotors-dualtron-speedway-electric-scooters.jpg",
+      "publicPath": "/media/storefront/minimotors-dualtron-speedway-electric-scooters.jpg",
+      "bytes": 63698,
+      "sha256": "cc355c59325a6b9c4f0d543667151e756536e7b89313986b688e8485cafd42d2",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/GTR_Collection_Product_Bamboo_2in1_1.jpg?v=1786666852",
+      "aliases": [
+        "shopify://shop_images/GTR_Collection_Product_Bamboo_2in1_1.jpg",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/GTR_Collection_Product_Bamboo_2in1_1.jpg?v=1786666852"
+      ],
+      "filename": "GTR_Collection_Product_Bamboo_2in1_1.jpg",
+      "publicPath": "/media/storefront/GTR_Collection_Product_Bamboo_2in1_1.jpg",
+      "bytes": 385762,
+      "sha256": "053ca4be9356fd47bcac16780952299a42b603075adc411ad18e929d8a63d20f",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/boosted-rev-display.jpg?v=1786666851",
+      "aliases": [
+        "shopify://shop_images/boosted-rev-display.jpg",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/boosted-rev-display.jpg?v=1786666851"
+      ],
+      "filename": "boosted-rev-display.jpg",
+      "publicPath": "/media/storefront/boosted-rev-display.jpg",
+      "bytes": 86782,
+      "sha256": "00a4007c8bc2e7f6d09f90d2d197a74d07d102f03ab088b26654bccdfc9fd1ce",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/evolve-skateboards-1.jpg?v=1786666852",
+      "aliases": [
+        "shopify://shop_images/evolve-skateboards-1.jpg",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/evolve-skateboards-1.jpg?v=1786666852"
+      ],
+      "filename": "evolve-skateboards-1.jpg",
+      "publicPath": "/media/storefront/evolve-skateboards-1.jpg",
+      "bytes": 131258,
+      "sha256": "bb0c50957b2b718d334add2cdbf574598a281ac0147fd89e6d69482b303516b2",
+      "http": "200 image/jpeg"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/buy-boosted-boards-online-electric-skateboard-2.png?v=1786666847",
+      "aliases": [
+        "shopify://shop_images/buy-boosted-boards-online-electric-skateboard-2.png",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/buy-boosted-boards-online-electric-skateboard-2.png?v=1786666847"
+      ],
+      "filename": "buy-boosted-boards-online-electric-skateboard-2.png",
+      "publicPath": "/media/storefront/buy-boosted-boards-online-electric-skateboard-2.png",
+      "bytes": 4913,
+      "sha256": "841af57f71eceebb8f1b8d09347a2a884f3125ab4dbc91eed37125e02993c1d3",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/buy-boosted-boards-online-electric-skateboard-2_a9250f7a-4344-4ac8-85f0-588b183f65a5.png?v=1786666848",
+      "aliases": [
+        "shopify://shop_images/buy-boosted-boards-online-electric-skateboard-2_a9250f7a-4344-4ac8-85f0-588b183f65a5.png",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/buy-boosted-boards-online-electric-skateboard-2_a9250f7a-4344-4ac8-85f0-588b183f65a5.png?v=1786666848"
+      ],
+      "filename": "buy-boosted-boards-online-electric-skateboard-2_a9250f7a-4344-4ac8-85f0-588b183f65a5.png",
+      "publicPath": "/media/storefront/buy-boosted-boards-online-electric-skateboard-2_a9250f7a-4344-4ac8-85f0-588b183f65a5.png",
+      "bytes": 4876,
+      "sha256": "9ecaf8a2758ba8aefa576681108fd56d53c2b923aebcb2176be175fefdb2313a",
+      "http": "200 image/png"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/electric-skateboards-and-scooters-boosted-brand.png?v=1786666847",
+      "aliases": [
+        "shopify://shop_images/electric-skateboards-and-scooters-boosted-brand.png",
+        "https://cdn.shopify.com/s/files/1/0777/6452/6217/files/electric-skateboards-and-scooters-boosted-brand.png?v=1786666847"
+      ],
+      "filename": "electric-skateboards-and-scooters-boosted-brand.png",
+      "publicPath": "/media/storefront/electric-skateboards-and-scooters-boosted-brand.png",
+      "bytes": 5936,
+      "sha256": "1dfcb25bc515f21edadfb2752be56d7151af92548ddc332cf24098fc4bcdbafc",
+      "http": "200 image/png"
+    }
+  ],
+  "unresolved": []
+}
