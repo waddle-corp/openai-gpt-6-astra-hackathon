@@ -1,6 +1,6 @@
 # OpenAI GPT-6 Astra Hackathon
 
-Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.myshopify.com`. The merchant admin is the next step.
+Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.myshopify.com`. The feedback agent lives in `agents/` and is exposed through API routes.
 
 ## Run locally
 
@@ -20,7 +20,9 @@ npm run lint
 npm run build
 ```
 
-The app requires **no database, Shopify account, API keys, environment variables, or external data service**. React/Vinext reads the bundled JSON directly. All catalog photographs, page images, brand imagery, and fonts are local files. The original homepage's YouTube video is an optional external embed.
+The storefront itself requires no database or API key. The feedback API requires `OPENAI_API_KEY`. Copy `.env.example` to `.env` and add the key locally. Never commit `.env`.
+
+`POST /api/feedback` runs the Astra strategy gate first. Set `inspect: true` to start computer-use research only when Astra returns an accepted `fit` decision with a score of at least 70. The isolated browser runner can send its screenshot to `POST /api/feedback/continue`. The agent proposes changes only and never deploys, submits forms, or changes orders and payments.
 
 ## Included snapshot
 
