@@ -1923,3 +1923,70 @@
   font-size: 11px;
   color: #c0523f;
 }
+
+.mo-reward-total {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-bottom: 12px;
+}
+.mo-reward-total strong {
+  font-size: 27px;
+  letter-spacing: -1px;
+  color: #1b2434;
+}
+.mo-reward-total span {
+  flex: 1;
+  min-width: 140px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #7d8896;
+}
+.mo-reward-split {
+  display: flex;
+  gap: 2px;
+  height: 10px;
+  margin-bottom: 14px;
+}
+.mo-reward-split span {
+  min-width: 3px;
+  border-radius: 2px;
+  background: #5478f0;
+}
+.mo-reward-top {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mo-reward-top li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12px;
+}
+.mo-reward-top i {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: #5478f0;
+  flex-shrink: 0;
+}
+.mo-reward-top strong {
+  color: #202731;
+  font-weight: 500;
+}
+.mo-reward-top em {
+  flex: 1;
+  font-style: normal;
+  font-size: 11px;
+  color: #99a3b0;
+}
+.mo-reward-top b {
+  color: #202731;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
