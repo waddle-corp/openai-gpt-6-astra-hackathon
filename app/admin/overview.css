@@ -38,7 +38,7 @@
   outline-offset: 3px;
 }
 .mo-header {
-  height: 65px;
+  height: 54px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -137,7 +137,7 @@
   display: grid;
   grid-template-columns: minmax(0, 27fr) minmax(0, 44fr) minmax(0, 29fr);
   gap: 16px;
-  margin: 0 28px;
+  margin: 0 28px 20px;
 }
 .mo-panel {
   min-width: 0;
@@ -790,7 +790,7 @@
 }
 @media (max-height: 780px) {
   .mo-header {
-    height: 55px;
+    height: 48px;
   }
   .mo-heading {
     padding-top: 16px;
@@ -926,7 +926,7 @@
   grid-template-columns: minmax(0, 27fr) minmax(0, 73fr);
   align-items: start;
   gap: 16px;
-  margin: 0 28px;
+  margin: 0 28px 20px;
   padding: 25px 0 22px;
 }
 .mo-revenue-goal,

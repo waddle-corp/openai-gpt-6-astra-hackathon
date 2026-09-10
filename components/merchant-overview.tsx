@@ -200,12 +200,7 @@ export function MerchantOverview({
     <main className="mo-app">
       <header className="mo-header">
         <a className="mo-brand" href="/admin">
-          <span className="mo-brand-mark">
-            b<span>•</span>
-          </span>
-          <span className="mo-brand-text">
-            Boosted USA <small>Merchant workspace</small>
-          </span>
+          <span className="mo-brand-text">Gentoo</span>
         </a>
         <div className="mo-header-meta">
           <span className="mo-demo-pill">
@@ -366,9 +361,6 @@ export function MerchantOverview({
           </section>
         </aside>
       </div>
-      <footer className="mo-footer">
-        <span>Demo feedback & recorded journeys</span>
-      </footer>
       {inspecting && (
         <Inspection record={inspecting} onClose={() => setInspecting(null)} />
       )}
