@@ -31,8 +31,9 @@ export const demoPhases = {
   beforeAnalysis: 500,
   analysis: DEMO_ANALYSIS_MS,
   beforeGeneration: 500,
-  generation: 1000,
-  focus: 2000,
+  generation: 2000,
+  rewards: 2000,
+  focus: 1000,
 } as const;
 
 const ANALYSIS_AT = demoPhases.signals + demoPhases.beforeAnalysis;
@@ -40,7 +41,7 @@ const GENERATION_AT =
   ANALYSIS_AT + demoPhases.analysis + demoPhases.beforeGeneration;
 export const DEMO_PREVIEWS_MS = GENERATION_AT + demoPhases.generation;
 export const DEMO_FLOW_MS =
-  GENERATION_AT + Math.max(demoPhases.generation, demoPhases.focus);
+  DEMO_PREVIEWS_MS + Math.max(demoPhases.rewards, demoPhases.focus);
 
 export function demoFlowAt(time: number, count: number) {
   const elapsed = Math.max(0, Math.min(DEMO_FLOW_MS, time));
@@ -56,13 +57,16 @@ export function demoFlowAt(time: number, count: number) {
     ),
     generating: elapsed >= GENERATION_AT && elapsed < DEMO_PREVIEWS_MS,
     previewsReady: elapsed >= DEMO_PREVIEWS_MS,
-    rewarding: elapsed >= GENERATION_AT && elapsed < DEMO_PREVIEWS_MS,
-    rewardsReady: elapsed >= DEMO_PREVIEWS_MS,
+    rewarding: elapsed >= DEMO_PREVIEWS_MS && elapsed < DEMO_FLOW_MS,
+    rewardsReady: elapsed >= DEMO_FLOW_MS,
     signalFocus: elapsed < demoPhases.focus,
     analysisFocus:
       elapsed >= ANALYSIS_AT && elapsed < ANALYSIS_AT + demoPhases.focus,
-    resultFocus:
+    improvementFocus:
       elapsed >= GENERATION_AT && elapsed < GENERATION_AT + demoPhases.focus,
+    rewardFocus:
+      elapsed >= DEMO_PREVIEWS_MS &&
+      elapsed < DEMO_PREVIEWS_MS + demoPhases.focus,
   };
 }
 
