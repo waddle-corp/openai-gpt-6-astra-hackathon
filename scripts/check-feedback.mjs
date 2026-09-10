@@ -8,9 +8,19 @@ import ts from 'typescript';
 // Exercise the real storage module with browser storage doubles, without a DOM.
 const directory = await mkdtemp(join(tmpdir(), 'feedback-check-'));
 try {
-  for (const name of ['feedback', 'feedback-storage']) {
+  for (const name of [
+    'feedback',
+    'feedback-contract',
+    'feedback-adapters',
+    'feedback-storage',
+  ]) {
     const source = await readFile(
-      new URL(`../lib/${name}.ts`, import.meta.url),
+      new URL(
+        name === 'feedback-contract'
+          ? '../contracts/feedback.ts'
+          : `../lib/${name}.ts`,
+        import.meta.url,
+      ),
       'utf8',
     );
     const output = ts
@@ -20,7 +30,9 @@ try {
           module: ts.ModuleKind.ES2022,
         },
       })
-      .outputText.replace("'./feedback'", "'./feedback.mjs'");
+      .outputText.replace("'./feedback'", "'./feedback.mjs'")
+      .replace("'../contracts/feedback.ts'", "'./feedback-contract.mjs'")
+      .replace("'./feedback-adapters.ts'", "'./feedback-adapters.mjs'");
     await writeFile(join(directory, `${name}.mjs`), output);
   }
   const model = await import(pathToFileURL(join(directory, 'feedback.mjs')));
@@ -195,17 +207,34 @@ try {
     'Submitting twice is idempotent',
   );
   assert.equal(storage.readFeedbackSubmissions().length, 1);
+  localStorage.setItem(
+    model.FEEDBACK_SUBMISSIONS_KEY,
+    JSON.stringify([receipt]),
+  );
+  assert.equal(
+    storage.readFeedbackSubmissions()[0].contractVersion,
+    '1.0',
+    'Migrate legacy local records',
+  );
+  assert.equal(
+    JSON.parse(localStorage.getItem(model.FEEDBACK_SUBMISSIONS_KEY))[0]
+      .contractVersion,
+    '1.0',
+  );
   storage.linkFeedbackOrder('DEMO-123', [{ ...cart[0], quantity: 2 }]);
   assert.equal(
-    storage.readFeedbackSubmissions()[0].completedOrder.totalCents,
+    storage.readFeedbackSubmissions()[0].purchase.cart.totalCents,
     12000,
   );
   assert.equal(
-    storage.readFeedbackSubmissions()[0].cartSnapshot[0].quantity,
+    storage.readFeedbackSubmissions()[0].context.cart.items[0].quantity,
     1,
     'Keep original feedback cart separate from final order',
   );
-  assert.equal(storage.readFeedbackSubmissions()[0].orderReference, 'DEMO-123');
+  assert.equal(
+    storage.readFeedbackSubmissions()[0].purchase.orderReference,
+    'DEMO-123',
+  );
   storage.resetFeedbackSession();
   assert.equal(storage.getFeedbackState().session.events.length, 0);
   assert.equal(

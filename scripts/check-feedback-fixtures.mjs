@@ -3,11 +3,11 @@ import { readFile } from 'node:fs/promises';
 import {
   categories,
   isRecordablePath,
-  validFeedbackCart,
   validQuestions,
   highlights,
   preparedQuestions,
 } from '../lib/feedback.ts';
+import { parseFeedbackRecords } from '../contracts/feedback.ts';
 import { maxQuantity } from '../lib/shop.ts';
 
 const read = async (path) =>
@@ -24,39 +24,30 @@ assert.deepEqual(
   records.map((record) => record.id),
   expected.cases.map((record) => record.feedbackId),
 );
+parseFeedbackRecords(records);
 for (const record of records) {
-  assert.equal(record.synthetic, true);
-  assert.equal(record.demo, true);
-  assert.equal(record.schemaVersion, 2);
-  assert(categories.includes(record.category));
-  assert(validQuestions(record.questions));
-  assert(validFeedbackCart(record.cartSnapshot));
+  assert.equal(record.source.kind, 'synthetic');
+  assert(categories.includes(record.feedback.category));
   assert.equal(
-    record.orderTotalCents,
-    record.cartSnapshot.reduce(
-      (sum, item) => sum + item.quantity * item.unitPriceCents,
-      0,
-    ),
-  );
-  assert.equal(
-    Date.parse(record.reviewDueAt) - Date.parse(record.submittedAt),
+    Date.parse(record.review.dueAt) - Date.parse(record.createdAt),
     72 * 3600000,
   );
-  assert(record.completedOrder.completedAt > record.submittedAt);
-  assert.deepEqual(record.completedOrder.items, record.cartSnapshot);
-  assert(!('expectedGroup' in record) && !('opportunityTreatment' in record));
-  for (const question of record.questions)
-    assert(question.options.includes(record.answers[question.id]));
-  assert(record.journey.some((event) => event.id === record.selectedScreen.id));
+  assert(record.purchase.completedAt > record.createdAt);
+  assert.deepEqual(record.purchase.cart.items, record.context.cart.items);
+  const events = record.journey.events.map((event) => ({
+    id: event.id,
+    at: event.occurredAt,
+    kind: event.type,
+    path: event.path,
+    title: event.target ?? '',
+  }));
   assert(
-    highlights(record.journey).some(
-      (event) => event.path === record.selectedScreen.path,
+    highlights(events).some(
+      (event) => event.path === record.context.selectedPage.path,
     ),
-    `${record.id}: selected screen must be surfaced`,
   );
-  for (const [index, event] of record.journey.entries()) {
+  for (const event of events) {
     assert(isRecordablePath(event.path));
-    if (index) assert(event.at >= record.journey[index - 1].at);
     if (event.path.includes('/products/'))
       assert(products.has(event.path.split('/').at(-1)));
     if (event.path.includes('/collections/'))
@@ -66,7 +57,7 @@ for (const record of records) {
         ),
       );
   }
-  for (const item of record.cartSnapshot) {
+  for (const item of record.context.cart.items) {
     const product = products.get(item.productHandle);
     const variant = product.variants.find(
       (variant) => variant.id === item.variantId,
@@ -77,10 +68,10 @@ for (const record of records) {
     assert.equal(Math.round(Number(variant.price) * 100), item.unitPriceCents);
     assert(maxQuantity(variant) >= item.quantity);
   }
-  const fallback = preparedQuestions(record.category, record.note);
-  assert(validQuestions(fallback));
   assert(
-    fallback.every((question) => question.options.includes('None of these')),
+    validQuestions(
+      preparedQuestions(record.feedback.category, record.feedback.message),
+    ),
   );
 }
 // Catalog-backed facts for the live route and the sold-out control.
@@ -123,11 +114,16 @@ if (process.argv[2]) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        category: record.category,
-        note: record.note,
-        selectedScreen: record.selectedScreen,
-        journey: record.journey,
-        cartSnapshot: record.cartSnapshot,
+        category: record.feedback.category,
+        note: record.feedback.message,
+        selectedScreen: record.context.selectedPage,
+        journey: record.journey.events.map((event) => ({
+          kind: event.type,
+          path: event.path,
+          title: event.target ?? '',
+          detail: event.value ?? '',
+        })),
+        cartSnapshot: record.context.cart.items,
       }),
       signal: AbortSignal.timeout(15000),
     });

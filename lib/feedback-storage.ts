@@ -1,5 +1,13 @@
 'use client';
 import {
+  parseFeedbackRecords,
+  type FeedbackRecord,
+} from '../contracts/feedback.ts';
+import {
+  customerFeedbackRecord,
+  normalizeStoredFeedback,
+} from './feedback-adapters.ts';
+import {
   emptyDraft,
   FEEDBACK_SUBMISSIONS_KEY,
   isRecordablePath,
@@ -107,7 +115,7 @@ export function recordJourney(event: Omit<JourneyEvent, 'id' | 'at'>) {
     ].slice(-100),
   });
 }
-export function readFeedbackSubmissions(): FeedbackSubmission[] {
+export function readFeedbackSubmissions(): FeedbackRecord[] {
   const parsed: unknown = JSON.parse(
     localStorage.getItem(FEEDBACK_SUBMISSIONS_KEY) ?? '[]',
   );
@@ -115,7 +123,11 @@ export function readFeedbackSubmissions(): FeedbackSubmission[] {
     throw new Error(
       'Saved feedback is unreadable. Export or reset the demo before retrying.',
     );
-  return parsed as FeedbackSubmission[];
+  const records = parseFeedbackRecords(parsed.map(normalizeStoredFeedback));
+  // Validate all entries before replacing any legacy data. Preserve unknown data on error.
+  if (parsed.some((record) => record?.contractVersion !== '1.0'))
+    localStorage.setItem(FEEDBACK_SUBMISSIONS_KEY, JSON.stringify(records));
+  return records;
 }
 export function submitFeedback(
   orderTotalCents: number,
@@ -170,7 +182,7 @@ export function submitFeedback(
     FEEDBACK_SUBMISSIONS_KEY,
     JSON.stringify([
       ...records.filter((record) => record.sessionId !== session.id),
-      receipt,
+      customerFeedbackRecord(receipt),
     ]),
   );
   save({ ...session, receipt });
@@ -198,7 +210,7 @@ export function linkFeedbackOrder(
     },
   };
   const records = readFeedbackSubmissions().map((record) =>
-    record.id === receipt.id ? receipt : record,
+    record.id === receipt.id ? customerFeedbackRecord(receipt) : record,
   );
   localStorage.setItem(FEEDBACK_SUBMISSIONS_KEY, JSON.stringify(records));
   save({ ...session, receipt });
