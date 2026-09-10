@@ -79,6 +79,13 @@ const aovFocus: Record<string, string> = {
   'maintenance-companions': 'Accessory attachment',
 };
 
+// Concise display labels for the saved problems; the source findings stay intact.
+const findingTitles: Record<string, string> = {
+  'model-compatibility': 'Unclear model-to-part compatibility',
+  'complete-installation': 'Unclear included vs. required parts',
+  'maintenance-companions': 'Missing guidance for maintenance essentials',
+};
+
 export function getStrategyOverview() {
   const allRecords = getAdminOverviewRecords();
   const matches = new Map<string, string>();
@@ -98,7 +105,7 @@ export function getStrategyOverview() {
         );
         return finding
           ? {
-              title: finding.title,
+              title: findingTitles[finding.id] ?? finding.title,
               problem: finding.problem,
               source: 'cached' as const,
               generatedAt: collective.generatedAt,

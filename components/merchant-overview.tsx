@@ -412,7 +412,8 @@ export function MerchantOverview({
             <div className="mo-panel-head">
               <div>
                 <h2 id="fleet-title">
-                  <small className="mo-step-number">02</small>Computer-use fleet
+                  <small className="mo-step-number">02</small>Computer-use
+                  investigation
                 </h2>
               </div>
             </div>
@@ -420,7 +421,7 @@ export function MerchantOverview({
               <div className="mo-fleet-previews">
                 <div className="mo-fleet-intro">
                   <span>
-                    <i /> Computer-use analysis
+                    <i /> Agents retrace shoppers’ steps to uncover friction.
                   </span>
                 </div>
                 <div className="mo-replay-grid">
@@ -465,7 +466,7 @@ export function MerchantOverview({
                                   <Check size={12} /> Done
                                 </>
                               ) : flow.analysisStarted ? (
-                                'In progress'
+                                'Investigating'
                               ) : (
                                 'Ready'
                               )}
@@ -498,19 +499,19 @@ export function MerchantOverview({
                 aria-labelledby="analysis-feed-title"
               >
                 <div className="mo-analysis-feed-head">
-                  <h3 id="analysis-feed-title">Journey analysis</h3>
+                  <h3 id="analysis-feed-title">Findings</h3>
                   <span>
-                    {completed.length} / {replays.length} complete
+                    {completed.length} / {replays.length} investigated
                   </span>
                 </div>
                 <p className="mo-analysis-feed-note">
-                  Saved findings linked to each journey
+                  Where shoppers got stuck—and why
                 </p>
                 {!completed.length && (
                   <p className="mo-analysis-empty">
                     {run.id
-                      ? 'Analyzing journeys. Findings will appear here as each session finishes.'
-                      : 'Press Play to start. Completed analyses will collect here.'}
+                      ? 'Investigating journeys. Findings will appear as each session finishes.'
+                      : 'Press Play to start. Findings will collect here.'}
                   </p>
                 )}
                 <div className="mo-analysis-results">
