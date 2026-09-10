@@ -56,12 +56,12 @@ export function getAdminOverviewRecords(): AdminOverviewRecord[] {
     // The rehearsal twin is not a separate shopper submission.
     ...compatibility.filter((record) => record.id !== 'SYN-FB-01'),
   ]);
-  return records.map((feedback) => ({
+  return records.map((feedback, index) => ({
     feedback,
     replayUrl: bundledReplayIds.has(feedback.id)
       ? `/media/journeys/${feedback.id}.webm`
       : null,
-    shortId: feedback.id.replace(/^shopper-feedback-/, '#'),
+    shortId: `SIG-${String(index + 1).padStart(4, '0')}`,
   }));
 }
 
