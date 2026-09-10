@@ -1,4 +1,4 @@
 # Copy to .dev.vars to enable live questions. Never commit credentials.
 OPENAI_API_KEY=
-# Exact Astra API model identifier supplied to your hackathon account.
-OPENAI_FEEDBACK_MODEL=
+# Official Astra Responses API model.
+OPENAI_FEEDBACK_MODEL=gpt-6-astra

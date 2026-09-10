@@ -5,7 +5,7 @@ These instructions apply to all work in this repository.
 ## Shared feedback boundary
 
 - Before changing customer submissions, feedback fixtures, or merchant-agent inputs, read `docs/feedback-contract.md` and use `FeedbackRecord` from `contracts/feedback.ts`.
-- Validate boundary data with `assertFeedbackRecord` or `parseFeedbackRecords`. Do not create a parallel feedback schema or silently change contract v1.0.
+- Validate boundary data with `assertFeedbackRecord` or `parseFeedbackRecords`. Do not create a parallel feedback schema or silently change contract v1.1.
 - Keep `evaluation/` labels out of model inputs. Preserve synthetic provenance and unknown values; never manufacture customer or browser-execution evidence.
 
 ## Branch workflow

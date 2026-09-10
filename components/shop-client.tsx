@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { FeedbackCheckout } from '@/components/customer-feedback';
+import { FeedbackCheckout } from '@/components/feedback-conversation';
 import { recordJourney, linkFeedbackOrder } from '@/lib/feedback-storage';
 import {
   cents,
@@ -132,7 +132,20 @@ export function CartProvider({
     [storage, variants, getItems],
   );
   function update(id: string, quantity: number) {
-    storage.save(setCartQuantity(getItems(), id, quantity, variants));
+    const previous = getItems();
+    const next = setCartQuantity(previous, id, quantity, variants);
+    storage.save(next);
+    const before =
+      previous.find((item) => item.variantId === id)?.quantity ?? 0;
+    const after = next.find((item) => item.variantId === id)?.quantity ?? 0;
+    if (before !== after && variants[id])
+      recordJourney({
+        kind: after ? 'cart_updated' : 'cart_removed',
+        path: window.location.pathname,
+        title: variants[id].productTitle,
+        image: variants[id].image,
+        detail: `${variants[id].title} · quantity ${after}`,
+      });
   }
   useEffect(() => {
     const context = (
@@ -294,7 +307,17 @@ export function ProductPurchase({
                 key={image.url}
                 aria-label={`View image ${index + 1}`}
                 aria-pressed={activeImage === image.url}
-                onClick={() => setActiveImage(image.url)}
+                onClick={() => {
+                  if (image.url !== activeImage)
+                    recordJourney({
+                      kind: 'image_selected',
+                      path: window.location.pathname,
+                      title: product.title,
+                      image: image.url,
+                      detail: `Image ${index + 1}`,
+                    });
+                  setActiveImage(image.url);
+                }}
               >
                 <img
                   src={image.url}
@@ -458,7 +481,19 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
     );
   return (
     <main id="main" className="container">
-      <h1>{checkout ? 'Demo checkout' : 'Your cart'}</h1>
+      {checkout && (
+        <nav className="checkout-progress" aria-label="Checkout progress">
+          <a href="/store/cart">Cart</a>
+          <span aria-hidden="true">/</span>
+          <strong aria-current="step">Checkout</strong>
+        </nav>
+      )}
+      <h1>{checkout ? 'Checkout' : 'Your cart'}</h1>
+      {checkout && (
+        <p className="checkout-intro">
+          Review your order, share your experience, and you’re all set.
+        </p>
+      )}
       {!items.length ? (
         <>
           <p>Your cart is empty.</p>
@@ -467,8 +502,13 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
           </a>
         </>
       ) : (
-        <div className="cart-layout">
+        <div className={`cart-layout ${checkout ? 'checkout-layout' : ''}`}>
           <div>
+            {checkout && (
+              <h2 className="checkout-section-title">
+                1. Review your items <a href="/store/cart">Edit cart</a>
+              </h2>
+            )}
             {items.map((item) => {
               const variant = variants[item.variantId];
               return (
@@ -531,6 +571,79 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
                 </article>
               );
             })}
+            {checkout && (
+              <div className="checkout-details">
+                <section>
+                  <h2>2. Delivery</h2>
+                  <div className="checkout-fields">
+                    <label className="checkout-field-wide">
+                      Email
+                      <input
+                        type="email"
+                        placeholder="alex@example.com"
+                        autoComplete="off"
+                      />
+                    </label>
+                    <label>
+                      First name
+                      <input placeholder="Alex" autoComplete="off" />
+                    </label>
+                    <label>
+                      Last name
+                      <input placeholder="Morgan" autoComplete="off" />
+                    </label>
+                    <label className="checkout-field-wide">
+                      Address
+                      <input
+                        placeholder="123 Example Street"
+                        autoComplete="off"
+                      />
+                    </label>
+                    <label>
+                      City
+                      <input placeholder="New York" autoComplete="off" />
+                    </label>
+                    <label>
+                      ZIP code
+                      <input placeholder="10001" autoComplete="off" />
+                    </label>
+                  </div>
+                  <div className="checkout-delivery-method">
+                    <span>Standard delivery</span>
+                    <strong>Free</strong>
+                  </div>
+                </section>
+                <section>
+                  <h2>3. Payment</h2>
+                  <div className="checkout-payment-heading">
+                    <strong>Credit or debit card</strong>
+                    <span>VISA · Mastercard</span>
+                  </div>
+                  <div className="checkout-fields">
+                    <label className="checkout-field-wide">
+                      Card number
+                      <input
+                        placeholder="4242 4242 4242 4242"
+                        readOnly
+                      />
+                    </label>
+                    <label>
+                      Expiration date
+                      <input placeholder="MM / YY" readOnly />
+                    </label>
+                    <label>
+                      Security code
+                      <input placeholder="CVC" readOnly />
+                    </label>
+                    <label className="checkout-field-wide">
+                      Name on card
+                      <input placeholder="Alex Morgan" readOnly />
+                    </label>
+                  </div>
+                  <p>Test payment mode — no charge will be made.</p>
+                </section>
+              </div>
+            )}
           </div>
           <aside className="cart-summary">
             <h2>{checkout ? 'Order summary' : 'Subtotal'}</h2>
@@ -561,7 +674,7 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
                     clear();
                   }}
                 >
-                  Complete demo order
+                  Place demo order · {money(total)}
                 </Button>
               </>
             ) : (

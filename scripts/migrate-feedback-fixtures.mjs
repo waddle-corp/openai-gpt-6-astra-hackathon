@@ -85,15 +85,15 @@ if (!Array.isArray(shopper)) {
       cases: labels,
     },
   );
-  await write(shopperPath, records);
-} else parseFeedbackRecords(shopper);
+  await write(shopperPath, parseFeedbackRecords(records));
+} else await write(shopperPath, parseFeedbackRecords(shopper));
 
 const compatibility = JSON.parse(await readFile(compatibilityPath, 'utf8'));
 const records = compatibility.map((record) =>
   record.contractVersion ? record : customerFeedbackRecord(record),
 );
 parseFeedbackRecords(records);
-await write(compatibilityPath, records);
+await write(compatibilityPath, parseFeedbackRecords(records));
 console.log(
-  'Both fixture files now contain FeedbackRecord v1.0 arrays; unknown evidence stays null.',
+  'Both fixture files now contain FeedbackRecord v1.1 arrays; unknown evidence stays null.',
 );

@@ -1,5 +1,6 @@
 import {
   assertFeedbackRecord,
+  upgradeFeedbackRecord,
   type FeedbackRecord,
   type FeedbackEvent,
 } from '../contracts/feedback.ts';
@@ -14,7 +15,7 @@ export function customerFeedbackRecord(
     occurredAt: event.at,
     type: event.kind,
     path: event.path,
-    destinationPath: null,
+    destinationPath: event.destinationPath ?? null,
     target: event.title,
     value: event.detail ?? null,
     keys: null,
@@ -24,7 +25,7 @@ export function customerFeedbackRecord(
     image: event.image ?? null,
   }));
   const record: FeedbackRecord = {
-    contractVersion: '1.0',
+    contractVersion: '1.1',
     id: receipt.id,
     createdAt: receipt.submittedAt,
     source: {
@@ -38,7 +39,7 @@ export function customerFeedbackRecord(
     sessionId: receipt.sessionId,
     feedback: {
       message: receipt.note,
-      category: receipt.category,
+      category: receipt.conversational ? null : receipt.category,
       responses: receipt.questions.map((question) => ({
         id: question.id,
         question: question.prompt,
@@ -49,9 +50,15 @@ export function customerFeedbackRecord(
       questionSource: receipt.questionSource,
     },
     context: {
-      selectedPage: {
-        path: receipt.selectedScreen.path,
-        title: receipt.selectedScreen.title,
+      selectedPage: receipt.selectedScreen
+        ? {
+            path: receipt.selectedScreen.path,
+            title: receipt.selectedScreen.title,
+          }
+        : null,
+      focus: receipt.selection ?? {
+        scope: receipt.selectedScreen ? 'legacy_page' : 'overall',
+        eventIds: [],
       },
       relatedProductHandles: [
         ...new Set([
@@ -99,8 +106,7 @@ export function customerFeedbackRecord(
 /** For existing local v1/v2 checkout records only. Reject unknown versions. */
 export function normalizeStoredFeedback(value: unknown): FeedbackRecord {
   if (value && typeof value === 'object' && 'contractVersion' in value) {
-    assertFeedbackRecord(value);
-    return value;
+    return upgradeFeedbackRecord(value);
   }
   if (
     !value ||

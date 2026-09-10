@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     }
     if (!record) {
       return Response.json(
-        { error: 'feedback (FeedbackRecord v1.0) or feedbackId is required.' },
+        { error: 'feedback (FeedbackRecord v1.1) or feedbackId is required.' },
         { status: 400 },
       );
     }

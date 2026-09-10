@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import {
   assertFeedbackRecord,
+  upgradeFeedbackRecord,
   parseFeedbackRecords,
 } from '../contracts/feedback.ts';
 const read = async (path) =>
@@ -42,11 +43,42 @@ assert.deepEqual(
   labels.cases.map((record) => record.feedbackId),
 );
 const example = compatibility[0];
+const legacy = structuredClone(example);
+legacy.contractVersion = '1.0';
+delete legacy.context.focus;
+const upgraded = upgradeFeedbackRecord(legacy);
+assert.equal(upgraded.contractVersion, '1.1');
+assert.deepEqual(upgraded.context.focus, {
+  scope: 'legacy_page',
+  eventIds: [],
+});
+assert.equal(legacy.contractVersion, '1.0', 'Upgrade must not mutate input');
+const multi = structuredClone(example);
+multi.context.focus = {
+  scope: 'specific_moments',
+  eventIds: multi.journey.events.slice(0, 2).map((event) => event.id),
+};
+assertFeedbackRecord(multi);
 const reject = (change) => {
   const record = structuredClone(example);
   change(record);
   assert.throws(() => assertFeedbackRecord(record));
 };
+reject((record) => {
+  record.context.focus = { scope: 'specific_moments', eventIds: ['missing'] };
+});
+reject((record) => {
+  record.context.focus = { scope: 'specific_moments', eventIds: [] };
+});
+reject((record) => {
+  record.context.focus = { scope: 'overall', eventIds: [] };
+});
+reject((record) => {
+  record.context.focus = {
+    scope: 'specific_moments',
+    eventIds: [record.journey.events[0].id, record.journey.events[0].id],
+  };
+});
 reject((record) => {
   record.topic = 'compatibility';
 });

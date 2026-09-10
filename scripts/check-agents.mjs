@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { assertFeedbackRecord } from '../contracts/feedback.ts';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import {
@@ -66,7 +67,9 @@ for (const record of feedbackFixtures) {
     `${record.id} target path`,
   );
   assert(record.journey.events.length > 0, `${record.id} has an empty journey`);
-  assert(journeySummary(record.journey).includes(record.journey.events[0].path));
+  assert(
+    journeySummary(record.journey).includes(record.journey.events[0].path),
+  );
 }
 assert.equal(findFeedback('nope'), undefined);
 
@@ -79,12 +82,41 @@ assert(prompt.includes(first.context.selectedPage.title));
 assert(prompt.includes(`score ${FIT_THRESHOLD}`));
 assert(prompt.includes('Recorded shopper journey'));
 const lab = labRecord('Free text only', '/store/cart');
+assertFeedbackRecord(lab);
+assertFeedbackRecord(labRecord('Overall visit', '/elsewhere'));
 const freeText = triagePrompt(lab);
 assert(freeText.includes('Free text only') && freeText.includes('/store/cart'));
 const compat = feedbackFixtures.find((record) => record.id === 'SYN-FB-02');
 const compatPrompt = triagePrompt(compat);
-assert(compatPrompt.includes('Cart at submission') && compatPrompt.includes('Q: ') && compatPrompt.includes('cart_added'));
+assert(
+  compatPrompt.includes('Cart at submission') &&
+    compatPrompt.includes('Q: ') &&
+    compatPrompt.includes('cart_added'),
+);
 assert(!feedbackFixtures.some((record) => record.id === 'SYN-FB-01'));
+
+// Current customer contract reaches merchant prompts without losing focus or approved text.
+const selectedEvent = compat.journey.events[0];
+const conversational = {
+  ...compat,
+  feedback: {
+    ...compat.feedback,
+    message: '',
+    category: null,
+    summary: 'I could not choose a charger.',
+  },
+  context: {
+    ...compat.context,
+    focus: { scope: 'specific_moments', eventIds: [selectedEvent.id] },
+  },
+};
+assertFeedbackRecord(conversational);
+const conversationPrompt = triagePrompt(conversational);
+assert(conversationPrompt.includes(conversational.feedback.summary));
+assert(conversationPrompt.includes(`Selected moment ${selectedEvent.id}:`));
+assert(
+  conversationPrompt.includes('Customer feedback scope: specific_moments'),
+);
 
 // Collective: prioritize (step 2)
 const knownIds = new Set(feedbackFixtures.map((record) => record.id));

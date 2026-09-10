@@ -26,7 +26,7 @@ export function feedbackTargetPath(record: FeedbackRecord) {
   );
 }
 
-/** Minimal v1.0 record for free-text lab input; everything unknown stays null. */
+/** Minimal v1.1 record for free-text lab input; everything unknown stays null. */
 export function labRecord(message: string, path = '/store'): FeedbackRecord {
   return {
     contractVersion: FEEDBACK_CONTRACT_VERSION,
@@ -47,6 +47,10 @@ export function labRecord(message: string, path = '/store'): FeedbackRecord {
       questionSource: null,
     },
     context: {
+      focus: {
+        scope: path.startsWith('/store') ? 'legacy_page' : 'overall',
+        eventIds: [],
+      },
       selectedPage: path.startsWith('/store') ? { path, title: null } : null,
       relatedProductHandles: [],
       cart: null,
@@ -91,6 +95,23 @@ export function recordContext(record: FeedbackRecord) {
   const lines = [
     `Feedback record: ${record.id} (${record.source.channel}, ${record.source.kind})`,
   ];
+  lines.push(`Customer feedback scope: ${record.context.focus.scope}`);
+  if (record.context.focus.eventIds.length) {
+    lines.push(
+      `Customer-selected journey event IDs: ${record.context.focus.eventIds.join(', ')}`,
+    );
+    for (const event of record.journey.events.filter((event) =>
+      record.context.focus.eventIds.includes(event.id),
+    )) {
+      lines.push(
+        `Selected moment ${event.id}: ${event.type} @ ${event.path}${event.target ? ` (${event.target})` : ''}`,
+      );
+    }
+  }
+  if (record.feedback.summary)
+    lines.push(
+      `Customer-approved feedback summary: ${record.feedback.summary}`,
+    );
   const page = record.context.selectedPage;
   if (page)
     lines.push(
