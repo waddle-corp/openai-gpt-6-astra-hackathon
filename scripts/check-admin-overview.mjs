@@ -19,14 +19,14 @@ const { getAdminOverviewRecords, getStrategyOverview } =
 const original = getAdminOverviewRecords();
 const { records, totalSignals } = getStrategyOverview();
 assert.equal(totalSignals, 33);
-assert.equal(records.length, 14);
-assert.equal(new Set(records.map((record) => record.feedback.id)).size, 14);
+assert.equal(records.length, 33);
+assert.equal(records.filter((record) => record.strategyMatch).length, 14);
+assert.equal(new Set(records.map((record) => record.feedback.id)).size, 33);
 for (const record of records) {
   assert.deepEqual(
     record.feedback,
     original.find((item) => item.feedback.id === record.feedback.id).feedback,
   );
-  assert.ok(record.strategyMatch);
   assert.ok(record.replayUrl);
 }
 for (const id of [
@@ -34,14 +34,14 @@ for (const id of [
   'shopper-feedback-003',
   'shopper-feedback-019',
 ])
-  assert.ok(records.some((record) => record.feedback.id === id));
+  assert.ok(records.some((record) => record.feedback.id === id && record.strategyMatch));
 for (const id of [
   'shopper-feedback-015',
   'shopper-feedback-008',
   'SYN-FB-04',
-  'SYN-FB-01',
 ])
-  assert.ok(!records.some((record) => record.feedback.id === id));
+  assert.ok(records.some((record) => record.feedback.id === id && !record.strategyMatch));
+assert.ok(!records.some((record) => record.feedback.id === 'SYN-FB-01'));
 console.log(
-  'OK AOV scope: 14 of 33 signals, original evidence preserved, linked replays, unrelated and set-aside records excluded',
+  'OK AOV scope: 14 of 33 signals, original evidence preserved, linked replays, all signals retained with unrelated and set-aside records unselected',
 );

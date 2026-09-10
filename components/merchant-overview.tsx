@@ -6,7 +6,6 @@ import type { AdminOverviewRecord } from '@/lib/admin-overview-data';
 import '@/app/admin/overview.css';
 import { MerchantDirection } from './merchant-direction';
 
-const SIGNALS_PER_PAGE = 6;
 const REPLAYS_PER_PAGE = 12;
 function Pagination({
   page,
@@ -179,15 +178,18 @@ export function MerchantOverview({
   totalSignals: number;
 }) {
   const [selectedId, setSelectedId] = useState(records[0]?.feedback.id);
-  const [signalPage, setSignalPage] = useState(0);
   const [replayPage, setReplayPage] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [inspecting, setInspecting] = useState<AdminOverviewRecord | null>(
     null,
   );
   const selected = records.find((record) => record.feedback.id === selectedId);
-  const replays = records.filter((record) => record.replayUrl);
+  const replays = records.filter((record) => record.strategyMatch && record.replayUrl);
   const selectSignal = (record: AdminOverviewRecord) => {
+    if (!record.strategyMatch) {
+      setInspecting(record);
+      return;
+    }
     setSelectedId(record.feedback.id);
     const index = replays.findIndex(
       (item) => item.feedback.id === record.feedback.id,
@@ -232,26 +234,21 @@ export function MerchantOverview({
             </div>
           </div>
           <div className="mo-scope-note">
-            <strong>Filtered by goal &amp; strategy</strong>
+            <strong>Selected for this strategy</strong>
             <span>Higher AOV · Sell compatible parts</span>
-            <small>{records.length} matching signals / {totalSignals} total</small>
+            <small>{records.filter((record) => record.strategyMatch).length} selected / {totalSignals} total · Others dimmed</small>
           </div>
           <div className="mo-signals-list">
-            {records
-              .slice(
-                signalPage * SIGNALS_PER_PAGE,
-                (signalPage + 1) * SIGNALS_PER_PAGE,
-              )
-              .map((record) => (
+            {records.map((record) => (
                 <button
-                  className={`mo-signal ${record.feedback.id === selectedId ? 'is-selected' : ''}`}
+                  className={`mo-signal ${record.strategyMatch ? 'is-matched' : 'is-out-of-scope'} ${record.feedback.id === selectedId ? 'is-selected' : ''}`}
                   key={record.feedback.id}
                   onClick={() => selectSignal(record)}
                   aria-pressed={record.feedback.id === selectedId}
                 >
                   <span className="mo-signal-top">
                     <strong>{record.shortId}</strong>
-                    <span>{record.strategyMatch}</span>
+                    <span>{record.strategyMatch || 'Outside strategy'}</span>
                   </span>
                   <p className="mo-signal-copy">
                     {record.feedback.feedback.message ||
@@ -263,13 +260,6 @@ export function MerchantOverview({
                 </button>
               ))}
           </div>
-          <Pagination
-            page={signalPage}
-            size={SIGNALS_PER_PAGE}
-            count={records.length}
-            onChange={setSignalPage}
-            label="signals"
-          />
         </section>
         <section className="mo-panel mo-fleet" aria-labelledby="fleet-title">
           <div className="mo-panel-head">
@@ -306,13 +296,6 @@ export function MerchantOverview({
                   key={record.feedback.id}
                   onClick={() => {
                     setSelectedId(record.feedback.id);
-                    setSignalPage(
-                      Math.floor(
-                        records.findIndex(
-                          (item) => item.feedback.id === record.feedback.id,
-                        ) / SIGNALS_PER_PAGE,
-                      ),
-                    );
                     setInspecting(record);
                   }}
                   aria-label={`Open replay ${record.shortId}`}

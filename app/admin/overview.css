@@ -1098,3 +1098,20 @@
   .mo-signal { padding: 4px 10px; gap: 3px; }
   .mo-signal-copy { font-size: 11px; }
 }
+
+.mo-signals-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  padding-bottom: 8px;
+}
+.mo-signal { flex: 0 0 auto; min-height: 76px; }
+.mo-signal.is-matched { border-left: 2px solid #5874cb; }
+.mo-signal.is-out-of-scope { opacity: .38; background: #f7f8fa; }
+.mo-signal.is-out-of-scope:hover,
+.mo-signal.is-out-of-scope:focus-visible { opacity: .8; }
+@media (max-height: 780px) {
+  .mo-signal { min-height: 65px; }
+}

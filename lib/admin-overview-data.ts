@@ -82,9 +82,7 @@ export function getStrategyOverview() {
   }
   return {
     totalSignals: allRecords.length,
-    records: allRecords
-      .filter((record) => matches.has(record.feedback.id))
-      .map((record) => ({
+    records: allRecords.map((record) => ({
         ...record,
         strategyMatch: matches.get(record.feedback.id),
       })),
