@@ -98,6 +98,8 @@ export default async function StoreRoute({ params, searchParams }: Props) {
     );
   }
   const page = Math.max(1, Math.floor(Number(query.page) || 1));
+  // ?before=1 shows the product page as it was before the compatibility work, for demos.
+  const before = query.before !== undefined;
   if (path[0] === 'products' && path.length === 2) {
     const product = byHandle.get(path[1]);
     if (!product) notFound();
@@ -121,12 +123,12 @@ export default async function StoreRoute({ params, searchParams }: Props) {
             typeof query.variant === 'string' ? query.variant : undefined
           }
         >
-          <FitsPanel product={product} />
+          {!before && <FitsPanel product={product} />}
           <div className="rich-text product-description">
             <Html html={product.descriptionHtml} />
           </div>
         </ProductPurchase>
-        <CompatibleParts product={product} />
+        {!before && <CompatibleParts product={product} />}
         {related.length > 0 && (
           <section className="related-products">
             <h2>You may also like</h2>

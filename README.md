@@ -6,16 +6,60 @@ Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.mysho
 
 Customer demo setup, real/simulated behavior, optional Astra credentials, and the merchant handoff contract are documented in [docs/customer-feedback.md](docs/customer-feedback.md).
 
-**This branch is the improved storefront.** Shoppers kept asking which parts fit their ride, so Astra built a compatibility experience into the product pages. Everything below runs from this checkout.
+**`main` is the improved storefront.** Shoppers kept asking which parts fit their ride, so Astra built a compatibility experience into the product pages. Everything below runs from this checkout.
 
-To see the before and after side by side, run the storefront as it was on a second port from its own worktree:
+### Compare before and after
+
+Add `?before=1` to any product page and it renders as it did before the compatibility work: no **Compatible parts** section, no **Fits your ride** panel. One server, one clone, two tabs.
 
 ```sh
-git worktree add ../shop-before origin/main
-(cd ../shop-before && npm ci && npm run dev -- --port 3002)
+npm run dev
 ```
 
-Then compare http://localhost:3002/store/products/gtr-series-2-bamboo-at (before) with http://localhost:3000/store/products/gtr-series-2-bamboo-at (after). `/tmp/build` puts the same comparison on one page for any build the agent produces.
+- after http://localhost:3000/store/products/gtr-series-2-bamboo-at
+- before http://localhost:3000/store/products/gtr-series-2-bamboo-at?before=1
+
+The flag only hides the two sections; everything else on the page is the current code. When you need the real earlier storefront (to compare the whole app, not just this feature), check the old commit out into a second worktree instead.
+
+<details>
+<summary>Running the actual earlier storefront on a second port</summary>
+
+The storefront as it was is commit `3b1620f`, the first parent of merge commit `163ee06` that brought the compatibility work into `main`. Check it out into a second worktree and give it its own port. The two servers are separate processes with separate files and separate browser storage, so neither affects the other and both stay up together.
+
+```sh
+git clone https://github.com/waddle-corp/openai-gpt-6-astra-hackathon.git
+cd openai-gpt-6-astra-hackathon
+npm ci
+npm run dev &                                   # after: http://localhost:3000
+
+git worktree add ../shop-before 3b1620f
+(cd ../shop-before && npm ci && npm run dev -- --port 3002 &)   # before: http://localhost:3002
+```
+
+Open the same path on both ports and compare:
+
+- after http://localhost:3000/store/products/gtr-series-2-bamboo-at
+- before http://localhost:3002/store/products/gtr-series-2-bamboo-at
+
+The improved page carries a **Compatible parts** section with a 3D board; the original goes straight from the description to *You may also like*. Neither server needs `OPENAI_API_KEY`; only the agents do.
+
+The second `npm ci` takes a few minutes. Both worktrees pin the same dependency versions, so you can skip it with `ln -s "$PWD/node_modules" ../shop-before/node_modules` instead, at the cost of the comparison worktree breaking if the main checkout is removed.
+
+Clean up with `git worktree remove ../shop-before`.
+
+</details>
+
+### Where the improvement lives
+
+Useful when handing this to a coding agent. The change is additive: 3 lines in the product route, 82 added lines of CSS, and new files.
+
+| Area | Files |
+| --- | --- |
+| Compatibility UI and fitment rules | `components/compatibility.tsx`, `components/compatibility-data.ts`, `components/compatibility-assembly.tsx` |
+| 3D ride and wheel preview | `components/vehicle-model.tsx`, `components/vehicle-hotspots.ts`, `components/wheel-swatches.tsx`, `public/media/3d/evolve-gtr.glb` |
+| Wired into the storefront | `app/store/[...path]/page.tsx` (3 lines), `app/store/store.css` (appended block) |
+| Blender sources for the model | `scripts/build-3d.py`, `scripts/3d/board.py`, `scripts/3d/street_wheel.py` |
+| The agent that built it | `agents/coding-agent/`, `app/api/build/`, `app/tmp/build/` |
 
 ## Open the improved shop
 
