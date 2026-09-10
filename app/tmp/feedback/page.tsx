@@ -2,7 +2,11 @@
 
 import { useState } from 'react';
 import type { SyntheticEvent } from 'react';
-import { feedbackFixtures, feedbackTargetPath } from '@/agents/feedback-agent/fixtures.ts';
+import {
+  feedbackFixtures,
+  feedbackTargetPath,
+  labRecord,
+} from '@/agents/feedback-agent/fixtures.ts';
 import './feedback.css';
 
 type Triage = {
@@ -29,7 +33,9 @@ export default function FeedbackLab() {
   const [feedback, setFeedback] = useState('');
   const [feedbackId, setFeedbackId] = useState('');
   const [targetUrl, setTargetUrl] = useState(() =>
-    typeof window === 'undefined' ? 'http://localhost:3000/store' : `${window.location.origin}/store`,
+    typeof window === 'undefined'
+      ? 'http://localhost:3000/store'
+      : `${window.location.origin}/store`,
   );
   const [inspect, setInspect] = useState(true);
   const [result, setResult] = useState<AgentResult>();
@@ -39,7 +45,7 @@ export default function FeedbackLab() {
     setFeedbackId(id);
     const record = feedbackFixtures.find((item) => item.id === id);
     if (!record) return;
-    setFeedback(record.message);
+    setFeedback(record.feedback.message);
     setTargetUrl(`${window.location.origin}${feedbackTargetPath(record)}`);
   }
 
@@ -51,7 +57,18 @@ export default function FeedbackLab() {
       const response = await fetch('/api/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ feedback, targetUrl, inspect, feedbackId: feedbackId || undefined }),
+        body: JSON.stringify(
+          feedbackId
+            ? { feedbackId, message: feedback, targetUrl, inspect }
+            : {
+                feedback: labRecord(
+                  feedback,
+                  new URL(targetUrl, window.location.origin).pathname,
+                ),
+                targetUrl,
+                inspect,
+              },
+        ),
       });
       setResult((await response.json()) as AgentResult);
     } catch {
@@ -65,8 +82,12 @@ export default function FeedbackLab() {
     <main className="feedback-lab">
       <div className="feedback-frame">
         <header className="feedback-header">
-          <a className="back-link" href="/store">← Storefront</a>
-          <a className="back-link" href="/tmp/feedback/collective">Collective lab →</a>
+          <a className="back-link" href="/store">
+            ← Storefront
+          </a>
+          <a className="back-link" href="/tmp/feedback/collective">
+            Collective lab →
+          </a>
           <span className="lab-mark">Astra / feedback lab</span>
         </header>
 
@@ -76,16 +97,32 @@ export default function FeedbackLab() {
             <h1>Should this feedback become a storefront experiment?</h1>
           </div>
           <p className="intro-copy">
-            Submit one shopper observation. Astra checks its fit against the growth strategy before any browser inspection begins.
+            Submit one shopper observation. Astra checks its fit against the
+            growth strategy before any browser inspection begins.
           </p>
         </section>
 
         <div className="process-rail" aria-label="Agent process">
-          <ProcessStep number="01" title="Triage" active={!result?.computer} done={Boolean(result?.triage)} />
+          <ProcessStep
+            number="01"
+            title="Triage"
+            active={!result?.computer}
+            done={Boolean(result?.triage)}
+          />
           <span className="rail-line" />
-          <ProcessStep number="02" title="Inspect" active={Boolean(result?.computer)} done={result?.computer?.status === 'complete'} />
+          <ProcessStep
+            number="02"
+            title="Inspect"
+            active={Boolean(result?.computer)}
+            done={result?.computer?.status === 'complete'}
+          />
           <span className="rail-line" />
-          <ProcessStep number="03" title="Propose" active={result?.computer?.status === 'complete'} done={false} />
+          <ProcessStep
+            number="03"
+            title="Propose"
+            active={result?.computer?.status === 'complete'}
+            done={false}
+          />
         </div>
 
         <form className="feedback-form" onSubmit={evaluate}>
@@ -96,12 +133,19 @@ export default function FeedbackLab() {
             </div>
             <span className="character-count">{feedback.length} / 4,000</span>
           </div>
-          <label className="url-label" htmlFor="fixture">Synthetic shopper feedback (optional)</label>
-          <select id="fixture" value={feedbackId} onChange={(event) => loadFixture(event.target.value)}>
+          <label className="url-label" htmlFor="fixture">
+            Synthetic shopper feedback (optional)
+          </label>
+          <select
+            id="fixture"
+            value={feedbackId}
+            onChange={(event) => loadFixture(event.target.value)}
+          >
             <option value="">Write your own</option>
             {feedbackFixtures.map((record) => (
               <option key={record.id} value={record.id}>
-                {record.id} · {record.topic} · {record.message.slice(0, 70)}
+                {record.id} · {record.source.channel} ·{' '}
+                {record.feedback.message.slice(0, 70)}
               </option>
             ))}
           </select>
@@ -113,7 +157,9 @@ export default function FeedbackLab() {
             maxLength={4000}
             required
           />
-          <label className="url-label" htmlFor="target-url">Page for optional inspection</label>
+          <label className="url-label" htmlFor="target-url">
+            Page for optional inspection
+          </label>
           <input
             id="target-url"
             type="url"
@@ -123,7 +169,11 @@ export default function FeedbackLab() {
           />
           <div className="form-footer">
             <label className="inspect-toggle">
-              <input checked={inspect} onChange={(event) => setInspect(event.target.checked)} type="checkbox" />
+              <input
+                checked={inspect}
+                onChange={(event) => setInspect(event.target.checked)}
+                type="checkbox"
+              />
               <span>Inspect with computer use when accepted</span>
             </label>
             <button disabled={isLoading} type="submit">
@@ -132,15 +182,36 @@ export default function FeedbackLab() {
           </div>
         </form>
 
-        {result?.error ? <div className="agent-error" role="alert">{result.error}</div> : null}
+        {result?.error ? (
+          <div className="agent-error" role="alert">
+            {result.error}
+          </div>
+        ) : null}
         {result?.triage ? <TriageResult result={result} /> : null}
       </div>
     </main>
   );
 }
 
-function ProcessStep({ number, title, active, done }: { number: string; title: string; active: boolean; done: boolean }) {
-  return <div className={`process-step ${active ? 'is-active' : ''} ${done ? 'is-done' : ''}`}><span>{number}</span><strong>{title}</strong></div>;
+function ProcessStep({
+  number,
+  title,
+  active,
+  done,
+}: {
+  number: string;
+  title: string;
+  active: boolean;
+  done: boolean;
+}) {
+  return (
+    <div
+      className={`process-step ${active ? 'is-active' : ''} ${done ? 'is-done' : ''}`}
+    >
+      <span>{number}</span>
+      <strong>{title}</strong>
+    </div>
+  );
 }
 
 function TriageResult({ result }: { result: AgentResult }) {
@@ -152,24 +223,61 @@ function TriageResult({ result }: { result: AgentResult }) {
           <span className="field-kicker">Astra decision</span>
           <h2>{triage.decision}</h2>
         </div>
-        <div className="fit-score"><strong>{triage.score}</strong><span>/ 100 fit</span></div>
+        <div className="fit-score">
+          <strong>{triage.score}</strong>
+          <span>/ 100 fit</span>
+        </div>
       </div>
-      <div className="score-track"><span style={{ width: `${triage.score}%` }} /></div>
+      <div className="score-track">
+        <span style={{ width: `${triage.score}%` }} />
+      </div>
       <p className="result-summary">{triage.summary}</p>
       <div className="result-columns">
         <ResultList title="Why it fits" items={triage.evidence} />
         <ResultList title="Risks or gaps" items={triage.risks} />
       </div>
-      <div className="next-step"><span className="field-kicker">Next step</span><p>{triage.nextStep}</p></div>
+      <div className="next-step">
+        <span className="field-kicker">Next step</span>
+        <p>{triage.nextStep}</p>
+      </div>
       {result.computer?.status === 'needs_screenshot' ? (
-        <div className="computer-status"><span className="status-dot" /><div><strong>Computer use is queued</strong><p>The isolated browser runner should execute {result.computer.call?.actions?.length ?? 0} action(s), then send a screenshot to the continuation endpoint.</p></div></div>
+        <div className="computer-status">
+          <span className="status-dot" />
+          <div>
+            <strong>Computer use is queued</strong>
+            <p>
+              The isolated browser runner should execute{' '}
+              {result.computer.call?.actions?.length ?? 0} action(s), then send
+              a screenshot to the continuation endpoint.
+            </p>
+          </div>
+        </div>
       ) : result.computer?.output ? (
-        <div className="computer-status"><span className="status-dot" /><div><strong>Proposal ready</strong><p>{result.computer.output}</p></div></div>
+        <div className="computer-status">
+          <span className="status-dot" />
+          <div>
+            <strong>Proposal ready</strong>
+            <p>{result.computer.output}</p>
+          </div>
+        </div>
       ) : null}
     </section>
   );
 }
 
 function ResultList({ title, items }: { title: string; items: string[] }) {
-  return <div><h3>{title}</h3>{items.length ? <ul>{items.map((item) => <li key={item}>{item}</li>)}</ul> : <p className="empty-list">Nothing identified.</p>}</div>;
+  return (
+    <div>
+      <h3>{title}</h3>
+      {items.length ? (
+        <ul>
+          {items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      ) : (
+        <p className="empty-list">Nothing identified.</p>
+      )}
+    </div>
+  );
 }

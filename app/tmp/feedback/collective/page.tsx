@@ -64,8 +64,10 @@ export default function CollectiveLab() {
     () =>
       new Map(
         feedbackFixtures.map((record) => [
-          record.id!,
-          groups.get(record.id!)?.title ?? record.topic ?? '',
+          record.id,
+          groups.get(record.id)?.title ??
+            record.context.selectedPage?.title ??
+            record.source.channel,
         ]),
       ),
     [groups],
@@ -316,7 +318,7 @@ export default function CollectiveLab() {
                     <label
                       className={`chip ${selected.has(id) ? 'is-selected' : ''}`}
                       key={id}
-                      title={byId.get(id)?.message}
+                      title={byId.get(id)?.feedback.message}
                     >
                       <input
                         checked={selected.has(id)}
@@ -324,7 +326,8 @@ export default function CollectiveLab() {
                         type="checkbox"
                       />
                       {id.replace('shopper-feedback-', '#')}{' '}
-                      {byId.get(id)?.topic}
+                      {byId.get(id)?.context.selectedPage?.title ??
+                        byId.get(id)?.source.channel}
                     </label>
                   ))}
                   <button

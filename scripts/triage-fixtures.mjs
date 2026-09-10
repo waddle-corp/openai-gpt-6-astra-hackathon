@@ -22,7 +22,7 @@ const results = [];
 for (const record of feedbackFixtures) {
   const targetUrl = `${origin}${feedbackTargetPath(record)}`;
   const triage = await triageFeedback(record, targetUrl);
-  results.push({ id: record.id, topic: record.topic, targetUrl, triage });
+  results.push({ id: record.id, channel: record.source.channel, targetUrl, triage });
   console.error(`${record.id} ${triage.decision} ${triage.score}`);
 }
 
@@ -30,9 +30,9 @@ if (json) {
   console.log(JSON.stringify(results, null, 2));
 } else {
   console.table(
-    results.map(({ id, topic, triage }) => ({
+    results.map(({ id, channel, triage }) => ({
       id,
-      topic,
+      channel,
       decision: triage.decision,
       score: triage.score,
       computerUse: isAcceptedTriage(triage) ? 'yes' : 'no',

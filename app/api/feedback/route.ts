@@ -1,29 +1,52 @@
-import { findFeedback, isAcceptedTriage, startComputerUse, triageFeedback } from '@/agents';
+import {
+  findFeedback,
+  isAcceptedTriage,
+  startComputerUse,
+  triageFeedback,
+} from '@/agents';
+import {
+  assertFeedbackRecord,
+  type FeedbackRecord,
+} from '@/contracts/feedback';
 import { agentErrorResponse } from '@/lib/agent-response';
 
+/** Accepts the shared FeedbackAnalysisRequest, or `feedbackId` to pick a fixture (optionally with an edited `message`). */
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as {
       feedback?: unknown;
+      feedbackId?: unknown;
+      message?: unknown;
       targetUrl?: unknown;
       inspect?: unknown;
-      feedbackId?: unknown;
     };
-    const feedback = typeof body.feedback === 'string' ? body.feedback.trim() : '';
-    const targetUrl = typeof body.targetUrl === 'string' ? body.targetUrl.trim() : '';
-    if (!feedback) {
-      return Response.json({ error: 'feedback is required.' }, { status: 400 });
-    }
-    if (feedback.length > 4000) {
-      return Response.json({ error: 'feedback must be 4,000 characters or fewer.' }, { status: 400 });
-    }
+    const targetUrl =
+      typeof body.targetUrl === 'string' ? body.targetUrl.trim() : '';
 
-    const fixture = typeof body.feedbackId === 'string' ? findFeedback(body.feedbackId) : undefined;
-    if (typeof body.feedbackId === 'string' && !fixture) {
-      return Response.json({ error: 'feedbackId does not match data/shopper-feedback.json.' }, { status: 400 });
+    let record: FeedbackRecord | undefined;
+    if (typeof body.feedbackId === 'string') {
+      const fixture = findFeedback(body.feedbackId);
+      if (!fixture) {
+        return Response.json(
+          { error: 'feedbackId does not match the feedback fixtures.' },
+          { status: 400 },
+        );
+      }
+      const message =
+        typeof body.message === 'string' && body.message.trim()
+          ? body.message.trim()
+          : fixture.feedback.message;
+      record = { ...fixture, feedback: { ...fixture.feedback, message } };
+    } else if (body.feedback !== undefined) {
+      assertFeedbackRecord(body.feedback);
+      record = body.feedback;
     }
-    // The edited text wins; the fixture only adds topic, product, and journey context.
-    const record = { ...fixture, message: feedback };
+    if (!record) {
+      return Response.json(
+        { error: 'feedback (FeedbackRecord v1.0) or feedbackId is required.' },
+        { status: 400 },
+      );
+    }
 
     const triage = await triageFeedback(record, targetUrl);
     if (!isAcceptedTriage(triage) || body.inspect !== true) {
@@ -33,6 +56,12 @@ export async function POST(request: Request) {
     const computer = await startComputerUse(record, targetUrl);
     return Response.json({ triage, computer });
   } catch (error) {
+    if (
+      error instanceof Error &&
+      /FeedbackRecord|contract/i.test(error.message)
+    ) {
+      return Response.json({ error: error.message }, { status: 400 });
+    }
     return agentErrorResponse(error);
   }
 }

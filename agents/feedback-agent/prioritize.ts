@@ -81,7 +81,7 @@ const PRIORITIZATION_SCHEMA = {
 export function feedbackDigest(records: FeedbackRecord[]) {
   return records
     .map((record) =>
-      [...recordContext(record), `Feedback: ${record.message}`].join('\n'),
+      [...recordContext(record), `Feedback: ${record.feedback.message}`].join('\n'),
     )
     .join('\n\n');
 }
@@ -151,6 +151,6 @@ export async function prioritizeFeedback(
   });
   return parsePrioritization(
     responseText(response),
-    new Set(records.flatMap((record) => (record.id ? [record.id] : []))),
+    new Set(records.map((record) => record.id)),
   );
 }

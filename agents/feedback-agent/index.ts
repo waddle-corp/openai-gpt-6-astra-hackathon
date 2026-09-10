@@ -1,5 +1,5 @@
 export { continueComputerUse, startComputerUse } from './computer-use.ts';
-export { feedbackFixtures, feedbackTargetPath, findFeedback } from './fixtures.ts';
+export { feedbackFixtures, feedbackTargetPath, findFeedback, labRecord } from './fixtures.ts';
 export type { FeedbackRecord } from './fixtures.ts';
 export { JOURNEY_STAGES, prioritizeFeedback } from './prioritize.ts';
 export type { Opportunity, Prioritization } from './prioritize.ts';

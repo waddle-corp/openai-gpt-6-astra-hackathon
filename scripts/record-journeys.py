@@ -54,8 +54,8 @@ TEXT_TARGETS = [  # target phrase -> Playwright selector
 
 
 def locate(page, step):
-    target = step.get("target", "")
-    to_path, path = step.get("toPath"), step.get("path")
+    target = step.get("target") or ""
+    to_path, path = step.get("destinationPath"), step.get("path")
     for phrase, selector in TEXT_TARGETS:
         if phrase.lower() in target.lower():
             loc = page.locator(selector).first
@@ -92,17 +92,34 @@ def click(page, loc):
 
 
 def replay(page, journey):
-    page.goto(ORIGIN + journey["startPath"], wait_until="networkidle")
+    start = journey.get("startPath") or journey["events"][0]["path"]
+    page.goto(ORIGIN + start, wait_until="networkidle")
     time.sleep(1.2)
-    for step in journey["steps"]:
-        action = step["action"]
-        if action == "click":
+    for step in journey["events"]:
+        action = step["type"]
+        if action == "page_view":
+            if step["path"] != page.url.replace(ORIGIN, ""):
+                loc = page.locator(f"a[href='{step['path']}']").first
+                if loc.count():
+                    click(page, loc)
+                    page.wait_for_load_state("networkidle")
+                else:
+                    page.goto(ORIGIN + step["path"], wait_until="networkidle")
+        elif action == "variant_selected":
+            option = page.get_by_text(step.get("value") or "", exact=True).first
+            if step.get("value") and step["value"] != "Default Title" and option.count():
+                click(page, option)
+        elif action == "cart_added":
+            loc = page.locator("button:has-text('Add to cart')").first
+            if loc.count():
+                click(page, loc)
+        elif action == "click":
             loc = locate(page, step)
             if loc is None:
-                page.goto(ORIGIN + step["toPath"], wait_until="networkidle")
+                page.goto(ORIGIN + (step.get("destinationPath") or step["path"]), wait_until="networkidle")
             else:
                 click(page, loc)
-                if step["toPath"] != step["path"]:
+                if step.get("destinationPath") and step["destinationPath"] != step["path"]:
                     page.wait_for_load_state("networkidle")
         elif action == "type":
             field = page.locator("input:focus").first
@@ -110,7 +127,7 @@ def replay(page, journey):
                 field = page.locator("input[type='search'], input[name='q']").first
                 click(page, field)
             page.keyboard.press("Control+A")
-            page.keyboard.type(step["text"], delay=70)
+            page.keyboard.type(step.get("value") or "", delay=70)
         elif action == "keypress":
             keys = step.get("keys", [])
             if keys == ["ALT", "LEFT"]:
@@ -138,7 +155,9 @@ def replay(page, journey):
 
 
 def main():
-    records = json.loads((ROOT / "data" / "shopper-feedback.json").read_text())["feedback"]
+    records = json.loads((ROOT / "data" / "shopper-feedback.json").read_text()) + [
+        r for r in json.loads((ROOT / "data" / "feedback" / "synthetic-submissions.json").read_text()) if r["id"] != "SYN-FB-01"
+    ]
     OUT.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as p:
         browser = p.chromium.launch()

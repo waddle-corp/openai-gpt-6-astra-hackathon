@@ -126,6 +126,6 @@ export async function synthesizeOpportunity(
   });
   return parseOpportunity(
     responseText(response),
-    new Set(records.flatMap((record) => (record.id ? [record.id] : []))),
+    new Set(records.map((record) => record.id)),
   );
 }

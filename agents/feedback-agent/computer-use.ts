@@ -48,7 +48,7 @@ export async function startComputerUse(
     input: [
       `Open ${targetUrl || 'the current storefront'} and investigate this accepted feedback.`,
       ...recordContext(record),
-      `User feedback:\n${record.message}`,
+      `User feedback:\n${record.feedback.message}`,
     ].join('\n'),
     tools: [{ type: 'computer' }],
   });

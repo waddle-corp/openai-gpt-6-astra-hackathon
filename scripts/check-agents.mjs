@@ -6,6 +6,7 @@ import {
   feedbackTargetPath,
   findFeedback,
   journeySummary,
+  labRecord,
 } from '../agents/feedback-agent/fixtures.ts';
 import {
   FIT_THRESHOLD,
@@ -56,21 +57,16 @@ assert.equal(config.feedbackSource, 'data/shopper-feedback.json');
 assert.equal(config.computerUsePolicy.canDeploy, false);
 
 // Fixtures
-assert.equal(feedbackFixtures.length, 20);
-assert.equal(new Set(feedbackFixtures.map((record) => record.id)).size, 20);
+assert.equal(feedbackFixtures.length, 33); // 20 shopper + 13 compatibility (SYN-FB-01 excluded)
+assert.equal(new Set(feedbackFixtures.map((record) => record.id)).size, 33);
 for (const record of feedbackFixtures) {
-  assert(record.message.trim(), `${record.id} has no message`);
+  assert(record.feedback.message.trim(), `${record.id} has no message`);
   assert(
     feedbackTargetPath(record).startsWith('/store'),
     `${record.id} target path`,
   );
-  if (record.journey) {
-    assert(
-      record.journey.steps.length > 0,
-      `${record.id} has an empty journey`,
-    );
-    assert(journeySummary(record.journey).includes(record.journey.startPath));
-  }
+  assert(record.journey.events.length > 0, `${record.id} has an empty journey`);
+  assert(journeySummary(record.journey).includes(record.journey.events[0].path));
 }
 assert.equal(findFeedback('nope'), undefined);
 
@@ -78,14 +74,17 @@ assert.equal(findFeedback('nope'), undefined);
 const first = feedbackFixtures[0];
 const prompt = triagePrompt(first, 'http://localhost:3000/store');
 assert(prompt.includes('Goal:'));
-assert(prompt.includes(first.message));
-assert(prompt.includes(first.productTitle));
+assert(prompt.includes(first.feedback.message));
+assert(prompt.includes(first.context.selectedPage.title));
 assert(prompt.includes(`score ${FIT_THRESHOLD}`));
-if (first.journey) assert(prompt.includes('Recorded shopper journey'));
-const freeText = triagePrompt({ message: 'Free text only' });
-assert(
-  freeText.includes('Free text only') && !freeText.includes('Feedback record:'),
-);
+assert(prompt.includes('Recorded shopper journey'));
+const lab = labRecord('Free text only', '/store/cart');
+const freeText = triagePrompt(lab);
+assert(freeText.includes('Free text only') && freeText.includes('/store/cart'));
+const compat = feedbackFixtures.find((record) => record.id === 'SYN-FB-02');
+const compatPrompt = triagePrompt(compat);
+assert(compatPrompt.includes('Cart at submission') && compatPrompt.includes('Q: ') && compatPrompt.includes('cart_added'));
+assert(!feedbackFixtures.some((record) => record.id === 'SYN-FB-01'));
 
 // Collective: prioritize (step 2)
 const knownIds = new Set(feedbackFixtures.map((record) => record.id));
@@ -150,8 +149,8 @@ const selected = feedbackFixtures.slice(0, 3);
 const synthText = synthesizePrompt(selected, 'reduce returns');
 assert(synthText.includes('Merchant focus for this synthesis: reduce returns'));
 assert(
-  synthText.includes(selected[2].message) &&
-    !synthText.includes(feedbackFixtures[5].message),
+  synthText.includes(selected[2].feedback.message) &&
+    !synthText.includes(feedbackFixtures[5].feedback.message),
 );
 const opportunity = parseOpportunity(
   JSON.stringify({

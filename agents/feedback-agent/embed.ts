@@ -40,10 +40,10 @@ export async function embedFeedback(
   records: FeedbackRecord[],
 ): Promise<FeedbackPoint[]> {
   const vectors = await embeddingsCreate(
-    records.map((record) => record.message),
+    records.map((record) => record.feedback.message),
   );
   return pca3(vectors).map(([x, y, z], i) => ({
-    id: records[i].id ?? String(i),
+    id: records[i].id,
     x,
     y,
     z,

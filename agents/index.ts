@@ -3,6 +3,7 @@ export {
   feedbackFixtures,
   feedbackTargetPath,
   findFeedback,
+  labRecord,
   FIT_THRESHOLD,
   isAcceptedTriage,
   JOURNEY_STAGES,
