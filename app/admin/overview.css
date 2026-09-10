@@ -1672,3 +1672,13 @@
   border-color: #5478f0;
   box-shadow: 0 0 0 2px #5478f0, 0 0 20px #5478f01a;
 }
+
+.mo-improvement-previews {
+  grid-template-rows: auto repeat(2, minmax(0, 1fr));
+}
+.mo-improvement-recommendation {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #526075;
+}
