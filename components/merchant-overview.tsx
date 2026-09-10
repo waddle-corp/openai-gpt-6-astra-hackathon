@@ -208,19 +208,6 @@ export function MerchantOverview({
           <button type="button" aria-pressed={view === 'merchant'} onClick={() => setView('merchant')}>Merchant</button>
           <button type="button" aria-pressed={view === 'user'} onClick={() => { setStoreOpened(true); setView('user'); }}>User</button>
         </nav>
-        <div className="mo-header-meta">
-          <span className="mo-demo-pill">
-            <i /> Demo workspace
-          </span>
-          <a
-            className="mo-store-link"
-            href="/store"
-            target="_blank"
-            rel="noreferrer"
-          >
-            View store
-          </a>
-        </div>
       </header>
       <div className="mo-merchant-view" hidden={view !== 'merchant'}>
       <MerchantDirection />
