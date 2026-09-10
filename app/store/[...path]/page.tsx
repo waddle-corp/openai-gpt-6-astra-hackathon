@@ -5,6 +5,7 @@ import { Html, content, imageUrl } from '@/lib/source';
 import { ProductListing, ProductCard } from '@/components/catalog-view';
 import { ProductPurchase, CartPage } from '@/components/shop-client';
 import { cents, type Product } from '@/lib/shop';
+import { FitsPanel, CompatibleParts } from '@/components/compatibility';
 import blogData from '@/data/blogs.json';
 type Props = {
   params: Promise<{ path: string[] }>;
@@ -120,10 +121,12 @@ export default async function StoreRoute({ params, searchParams }: Props) {
             typeof query.variant === 'string' ? query.variant : undefined
           }
         >
+          <FitsPanel product={product} />
           <div className="rich-text product-description">
             <Html html={product.descriptionHtml} />
           </div>
         </ProductPurchase>
+        <CompatibleParts product={product} />
         {related.length > 0 && (
           <section className="related-products">
             <h2>You may also like</h2>

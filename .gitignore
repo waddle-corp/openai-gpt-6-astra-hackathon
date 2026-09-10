@@ -41,3 +41,8 @@ next-env.d.ts
 
 # TypeScript incremental cache
 *.tsbuildinfo
+
+# Astra coding-agent build worktrees and Python bytecode
+/work/
+__pycache__/
+*.pyc
