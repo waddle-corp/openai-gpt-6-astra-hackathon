@@ -11,7 +11,9 @@
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
     "format": "oxfmt",
-    "test": "node --experimental-strip-types scripts/check-catalog.mjs && node scripts/check-feedback.mjs && node --experimental-strip-types scripts/check-feedback-contract.mjs && node --experimental-strip-types scripts/check-feedback-fixtures.mjs && node scripts/check-feedback-conversation.mjs && node --experimental-strip-types scripts/check-agents.mjs",
+    "test": "node --experimental-strip-types scripts/check-catalog.mjs && node scripts/check-feedback.mjs && node --experimental-strip-types scripts/check-feedback-contract.mjs && node --experimental-strip-types scripts/check-feedback-fixtures.mjs && node scripts/check-feedback-conversation.mjs && node --experimental-strip-types scripts/check-agents.mjs && node --experimental-strip-types scripts/check-coding-agent.mjs",
+    "agent:runner": "node --env-file-if-exists=.env --experimental-strip-types scripts/coding-agent-runner.mjs",
+    "agent:refine-3d": "node --env-file-if-exists=.env --experimental-strip-types scripts/refine-3d.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

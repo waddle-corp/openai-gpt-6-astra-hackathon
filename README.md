@@ -6,7 +6,18 @@ Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.mysho
 
 Customer demo setup, real/simulated behavior, optional Astra credentials, and the merchant handoff contract are documented in [docs/customer-feedback.md](docs/customer-feedback.md).
 
-## Run locally
+**This branch is the improved storefront.** Shoppers kept asking which parts fit their ride, so Astra built a compatibility experience into the product pages. Everything below runs from this checkout.
+
+To see the before and after side by side, run the storefront as it was on a second port from its own worktree:
+
+```sh
+git worktree add ../shop-before origin/main
+(cd ../shop-before && npm ci && npm run dev -- --port 3002)
+```
+
+Then compare http://localhost:3002/store/products/gtr-series-2-bamboo-at (before) with http://localhost:3000/store/products/gtr-series-2-bamboo-at (after). `/tmp/build` puts the same comparison on one page for any build the agent produces.
+
+## Open the improved shop
 
 Requires Node.js 22.13+.
 
@@ -15,7 +26,28 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by the development server, normally `http://localhost:3000`.
+| What to look at | URL |
+| --- | --- |
+| Compatible parts on a vehicle page, with the 3D ride | http://localhost:3000/store/products/gtr-series-2-bamboo-at |
+| Fits your ride panel on a part page | http://localhost:3000/store/products/standard-range-battery-pack |
+| Charger with two connector styles called out | http://localhost:3000/store/products/evolve-skateboards-battery-charger-400013-ss20 |
+| Storefront home | http://localhost:3000/store |
+| Merchant build review (needs `npm run agent:runner`) | http://localhost:3000/tmp/build |
+| Feedback labs (steps 1-3) | http://localhost:3000/tmp/feedback and `/tmp/feedback/collective` |
+
+On the vehicle page, scroll to **Compatible parts**: drag the board to rotate it, hover it to replay the parts docking into place, click a hotspot to open that part, and pick a colour under the wheel card to swap the all-terrain wheels for the 97 mm street set.
+
+## What Astra changed
+
+Astra (`gpt-6-astra`) produced the compatibility experience end to end, from shopper feedback to reviewed code:
+
+1. **Feedback into an opportunity.** Five of the synthetic shoppers in `data/shopper-feedback.json` could not tell which parts fit their board. Astra grouped them and wrote the build brief (`agents/coding-agent/fixtures.ts` keeps that result).
+2. **Code.** The coding agent implemented it in an isolated git worktree and verified it in a headless browser: `components/compatibility.tsx`, `components/compatibility-data.ts` and the product-page wiring. It reads fitment from the bundled catalog text only, and says so when a listing does not confirm a model.
+3. **3D.** A second Astra loop compared headless Blender renders against the real product photos and edited the parametric modules until they matched (`scripts/3d/street_wheel.py`, `scripts/3d/board.py`). Run it again with `npm run agent:refine-3d wheel` or `... board`.
+
+A merchant approved the change on `/tmp/build` before it was merged. Nothing deploys on its own.
+
+## Other commands
 
 ```sh
 npm test
@@ -31,6 +63,10 @@ The storefront itself requires no database or API key. The feedback API requires
 The agent reads both fixture files as `FeedbackRecord` v1.0 (20 shopper records plus compatibility submissions 02–14; SYN-FB-01 is the live-demo rehearsal twin and is excluded). `POST /api/feedback` accepts the shared `FeedbackAnalysisRequest` (`{ feedback: FeedbackRecord, targetUrl?, inspect? }`) or `feedbackId` to pick a fixture (with an optional edited `message`); author labels under `evaluation/` are never part of the prompt. `node --experimental-strip-types scripts/triage-fixtures.mjs [origin] [--json]` runs every record through the gate and prints which ones qualify for computer use. The dev server reads `.env` at startup, so restart it after adding the key.
 
 Collective flow (merchant side, steps 2 and 3 of the prototype): `POST /api/feedback/prioritize` groups all records (or `feedbackIds`) into opportunities ranked against the merchant goal, ordered priorities, and constraints in `agents/shared/strategy.ts`, and lists records set aside with a reason. `POST /api/feedback/synthesize` takes `feedbackIds` (and an optional `focus`) and returns one improvement opportunity: the underlying problem, design direction, tensions between shoppers and how they are resolved, verbatim evidence, and a `buildBrief` for the coding agent. `/tmp/feedback/collective` drives both from a cached pass (`data/collective-cache.json`, rebuilt with `node --experimental-strip-types scripts/precompute-collective.mjs`) so the demo never waits on the model; the embedding map shows each record's `text-embedding-3-small` vector projected to 3D. Hovering a point plays that shopper's journey recording from `public/media/journeys/<id>.webm`, produced by `python scripts/record-journeys.py` (Playwright replay of the recorded journey with a visible cursor; the storefront must be running). `node --experimental-strip-types scripts/collective.mjs prioritize` and `... synthesize <id,id,...>` run them from the terminal.
+
+`POST /api/build` starts step ④: the coding agent (`agents/coding-agent/`) builds the synthesized opportunity in an isolated git worktree under `work/`, verifies it in a headless browser at the desktop viewport (mobile is out of scope for now), runs `npm test`, `npm run lint`, `npm run typecheck`, and `npm run build`, and waits for the merchant on `/tmp/build` (original vs implemented, evidence, reasoning, checks, diff). Publish merges the build branch locally; nothing is deployed. The agent runs in a separate Node process because API routes execute inside workerd: start it with `npm run agent:runner` (it reads `OPENAI_API_KEY` from `.env`). See [`agents/coding-agent/README.md`](agents/coding-agent/README.md).
+
+Electric-skateboard product pages render a stylised 3D board in the Compatible parts section. `scripts/build-3d.py` builds it with headless Blender (`brew install --cask blender`, then `/Applications/Blender.app/Contents/MacOS/Blender -b -P scripts/build-3d.py -- public/media/3d/evolve-gtr.glb`): the board plus `Battery`, `Wheels`, `BeltKit`, and `Charger` nodes with one `assemble` animation that docks the parts. The storefront shows it with a vendored copy of `<model-viewer>` (`public/vendor/model-viewer.min.js`, Apache-2.0) so no CDN is needed; hotspot anchors live in `components/vehicle-hotspots.ts`. The GLB is committed; Blender is only needed to regenerate it.
 
 ## Included snapshot
 

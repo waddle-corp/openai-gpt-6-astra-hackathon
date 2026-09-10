@@ -1,0 +1,143 @@
+.build-review .compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.experience h3 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.experience .shots {
+  display: grid;
+  gap: 10px;
+}
+
+.experience img {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.evidence-list li {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.event-log {
+  max-height: 320px;
+  overflow: auto;
+  padding-left: 18px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.event-log li span {
+  display: inline-block;
+  min-width: 64px;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.event-log .event-error {
+  color: #a13b2c;
+}
+
+.check-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.check-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.check-list .is-ok strong::before {
+  content: '✓ ';
+  color: #3c7a3a;
+}
+
+.check-list .is-failed strong::before {
+  content: '✕ ';
+  color: #a13b2c;
+}
+
+.build-review pre {
+  max-height: 360px;
+  overflow: auto;
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.status-dot.is-live {
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.decision-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.decision-bar button {
+  padding: 12px 18px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.decision-bar button.is-primary {
+  background: var(--ink);
+  color: var(--signal);
+}
+
+.decision-bar button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.change-request {
+  display: flex;
+  flex: 1 1 320px;
+  gap: 8px;
+}
+
+.change-request input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: inherit;
+}
+
+@media (max-width: 760px) {
+  .build-review .compare-grid {
+    grid-template-columns: 1fr;
+  }
+}
