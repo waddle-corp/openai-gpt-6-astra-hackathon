@@ -234,7 +234,7 @@ export function MerchantOverview({
                   aria-pressed={record.feedback.id === selectedId}
                 >
                   <span className="mo-signal-top">
-                    <strong>{record.shortId}</strong>
+                    <strong>{record.shortId}{record.feedback.id === selectedId && <span className="mo-selection-label">Selected</span>}</strong>
                     <span>{record.strategyMatch || 'Outside strategy'}</span>
                   </span>
                   <p className="mo-signal-copy">
