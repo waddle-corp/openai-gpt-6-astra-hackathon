@@ -746,23 +746,45 @@ export function MerchantOverview({
               </div>
               {flow.rewardsReady ? (
                 <>
-                  <h3>
-                    {dollars(ledger.poolCents)} across{' '}
-                    {ledger.contributions.length} shoppers
-                  </h3>
-                  <p>
-                    Allocation follows each shopper’s contribution to the
-                    published improvement, not how often the problem was
-                    mentioned.
-                  </p>
+                  <div className="mo-reward-total">
+                    <strong>{dollars(ledger.poolCents)}</strong>
+                    <span>
+                      shared with {ledger.contributions.length} shoppers whose
+                      feedback built it
+                    </span>
+                  </div>
+                  <div
+                    className="mo-reward-split"
+                    aria-label={`Reward split across ${ledger.contributions.length} shoppers`}
+                  >
+                    {ledger.contributions.map((payout, index) => (
+                      <span
+                        key={payout.feedbackId}
+                        style={{
+                          flexGrow: payout.share,
+                          opacity: 1 - index * 0.07,
+                        }}
+                        title={`${payout.shopper} · ${dollars(payout.bountyCents)}`}
+                      />
+                    ))}
+                  </div>
+                  <ul className="mo-reward-top">
+                    {ledger.contributions.slice(0, 3).map((payout, index) => (
+                      <li key={payout.feedbackId}>
+                        <i style={{ opacity: 1 - index * 0.07 }} />
+                        <strong>{payout.shopper}</strong>
+                        <em>{payout.roles[0]}</em>
+                        <b>{dollars(payout.bountyCents)}</b>
+                      </li>
+                    ))}
+                  </ul>
                   <div className="mo-value-track">
                     <span>
-                      {dollars(ledger.contributions[0].bountyCents)} highest ·{' '}
+                      {ledger.contributions.length - 3} more, down to{' '}
                       {dollars(
                         ledger.contributions[ledger.contributions.length - 1]
                           .bountyCents,
-                      )}{' '}
-                      lowest
+                      )}
                     </span>
                     <button
                       className="mo-payout-open"
