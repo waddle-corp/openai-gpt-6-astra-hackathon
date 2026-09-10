@@ -92,6 +92,16 @@ try {
     model.highlights(storage.getFeedbackState().session.events).length,
     1,
   );
+  const cart = [
+    {
+      variantId: 'variant-1',
+      productHandle: 'test-board',
+      productTitle: 'Test board',
+      variantTitle: 'Black',
+      quantity: 1,
+      unitPriceCents: 6000,
+    },
+  ];
   const questions = model.preparedQuestions('Comparing products');
   assert(model.validQuestions(questions));
   assert(
@@ -120,26 +130,39 @@ try {
   localStorage.setItem = () => {
     throw new Error('QuotaExceededError');
   };
-  assert.throws(() => storage.submitFeedback(6000));
+  assert.throws(() => storage.submitFeedback(6000, cart));
   assert.equal(
     storage.getFeedbackState().session.receipt,
     undefined,
     'No false success on storage failure',
   );
   localStorage.setItem = realSet;
-  const receipt = storage.submitFeedback(6000);
+  assert.throws(
+    () => storage.submitFeedback(5999, cart),
+    'Reject mismatched totals',
+  );
+  const receipt = storage.submitFeedback(6000, cart);
   assert.equal(
     Date.parse(receipt.reviewDueAt) - Date.parse(receipt.submittedAt),
     72 * 3600000,
   );
   assert.equal(receipt.rewardPreference, 'card_cashback');
   assert.equal(
-    storage.submitFeedback(6000).id,
+    storage.submitFeedback(6000, cart).id,
     receipt.id,
     'Submitting twice is idempotent',
   );
   assert.equal(storage.readFeedbackSubmissions().length, 1);
-  storage.linkFeedbackOrder('DEMO-123');
+  storage.linkFeedbackOrder('DEMO-123', [{ ...cart[0], quantity: 2 }]);
+  assert.equal(
+    storage.readFeedbackSubmissions()[0].completedOrder.totalCents,
+    12000,
+  );
+  assert.equal(
+    storage.readFeedbackSubmissions()[0].cartSnapshot[0].quantity,
+    1,
+    'Keep original feedback cart separate from final order',
+  );
   assert.equal(storage.readFeedbackSubmissions()[0].orderReference, 'DEMO-123');
   storage.resetFeedbackSession();
   assert.equal(storage.getFeedbackState().session.events.length, 0);

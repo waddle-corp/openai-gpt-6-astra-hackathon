@@ -426,6 +426,14 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
   const { items, variants, update, clear, ready } = useCart();
   const [confirmation, setConfirmation] = useState('');
   const [orderError, setOrderError] = useState('');
+  const cartSnapshot = items.map((item) => ({
+    variantId: item.variantId,
+    productHandle: variants[item.variantId].handle,
+    productTitle: variants[item.variantId].productTitle,
+    variantTitle: variants[item.variantId].title,
+    quantity: item.quantity,
+    unitPriceCents: variants[item.variantId].cents,
+  }));
   const total = items.reduce(
     (sum, item) => sum + variants[item.variantId].cents * item.quantity,
     0,
@@ -532,14 +540,17 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
             </p>
             {checkout ? (
               <>
-                <FeedbackCheckout orderTotalCents={total} />
+                <FeedbackCheckout
+                  orderTotalCents={total}
+                  cartSnapshot={cartSnapshot}
+                />
                 {orderError && <p role="alert">{orderError}</p>}
                 <Button
                   className="button"
                   onClick={() => {
                     const reference = `DEMO-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
                     try {
-                      linkFeedbackOrder(reference);
+                      linkFeedbackOrder(reference, cartSnapshot);
                     } catch {
                       setOrderError(
                         'Unable to link your feedback to this demo order. Allow browser storage and try again.',

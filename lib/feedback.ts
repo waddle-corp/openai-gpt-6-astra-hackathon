@@ -9,6 +9,35 @@ export type JourneyEvent = {
 };
 export type Question = { id: string; prompt: string; options: string[] };
 export type Reward = 'coupon' | 'card_cashback';
+export type FeedbackCartItem = {
+  variantId: string;
+  productHandle: string;
+  productTitle: string;
+  variantTitle: string;
+  quantity: number;
+  unitPriceCents: number;
+};
+export function validFeedbackCart(value: unknown): value is FeedbackCartItem[] {
+  return (
+    Array.isArray(value) &&
+    value.length <= 100 &&
+    value.every(
+      (item) =>
+        item &&
+        ['variantId', 'productHandle', 'productTitle', 'variantTitle'].every(
+          (key) =>
+            typeof item[key] === 'string' &&
+            item[key].length > 0 &&
+            item[key].length <= 240,
+        ) &&
+        Number.isInteger(item.quantity) &&
+        item.quantity > 0 &&
+        item.quantity <= 99 &&
+        Number.isSafeInteger(item.unitPriceCents) &&
+        item.unitPriceCents >= 0,
+    )
+  );
+}
 export type FeedbackDraft = {
   step: 'journey' | 'pain' | 'questions' | 'review';
   selected?: JourneyEvent;
@@ -20,7 +49,7 @@ export type FeedbackDraft = {
   reward?: Reward;
 };
 export type FeedbackSubmission = {
-  schemaVersion: 1;
+  schemaVersion: 1 | 2;
   id: string;
   sessionId: string;
   submittedAt: string;
@@ -28,6 +57,13 @@ export type FeedbackSubmission = {
   status: 'pending_review';
   rewardPreference: Reward;
   orderTotalCents: number;
+  // Optional only for legacy v1 records. New submissions always include it.
+  cartSnapshot?: FeedbackCartItem[];
+  completedOrder?: {
+    items: FeedbackCartItem[];
+    totalCents: number;
+    completedAt: string;
+  };
   orderReference?: string;
   journey: JourneyEvent[];
   selectedScreen: JourneyEvent;

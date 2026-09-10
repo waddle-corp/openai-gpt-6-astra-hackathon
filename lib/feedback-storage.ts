@@ -3,6 +3,9 @@ import {
   emptyDraft,
   FEEDBACK_SUBMISSIONS_KEY,
   isRecordablePath,
+  validFeedbackCart,
+  feedbackSummary,
+  type FeedbackCartItem,
   type FeedbackDraft,
   type FeedbackSubmission,
   type JourneyEvent,
@@ -114,10 +117,22 @@ export function readFeedbackSubmissions(): FeedbackSubmission[] {
     );
   return parsed as FeedbackSubmission[];
 }
-export function submitFeedback(orderTotalCents: number) {
+export function submitFeedback(
+  orderTotalCents: number,
+  cartSnapshot: FeedbackCartItem[],
+) {
   const { session } = getFeedbackState();
   if (session.receipt) return session.receipt;
   const draft = session.draft;
+  if (
+    !validFeedbackCart(cartSnapshot) ||
+    !cartSnapshot.length ||
+    cartSnapshot.reduce(
+      (sum, item) => sum + item.quantity * item.unitPriceCents,
+      0,
+    ) !== orderTotalCents
+  )
+    throw new Error('Invalid cart snapshot.');
   if (
     session.consent !== 'accepted' ||
     !draft.selected ||
@@ -129,7 +144,7 @@ export function submitFeedback(orderTotalCents: number) {
     throw new Error('Please finish the questions and choose a reward.');
   const now = new Date();
   const receipt: FeedbackSubmission = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     id: `FB-${crypto.randomUUID()}`,
     sessionId: session.id,
     submittedAt: now.toISOString(),
@@ -137,6 +152,7 @@ export function submitFeedback(orderTotalCents: number) {
     status: 'pending_review',
     rewardPreference: draft.reward,
     orderTotalCents,
+    cartSnapshot: structuredClone(cartSnapshot),
     journey: session.events,
     selectedScreen: draft.selected,
     category: draft.category,
@@ -147,7 +163,7 @@ export function submitFeedback(orderTotalCents: number) {
     summary: '',
     demo: true,
   };
-  receipt.summary = `${draft.selected.title} — ${draft.category}. ${draft.questions.map((q) => draft.answers[q.id]).join('. ')}.${draft.note.trim() ? ` ${draft.note.trim()}` : ''}`;
+  receipt.summary = feedbackSummary(draft);
   // Write before confirming receipt. Storage failure must not look like success.
   const records = readFeedbackSubmissions();
   localStorage.setItem(
@@ -161,10 +177,26 @@ export function submitFeedback(orderTotalCents: number) {
   window.dispatchEvent(new Event('pay-feedback-submitted'));
   return receipt;
 }
-export function linkFeedbackOrder(reference: string) {
+export function linkFeedbackOrder(
+  reference: string,
+  items: FeedbackCartItem[],
+) {
   const { session } = getFeedbackState();
   if (!session.receipt) return;
-  const receipt = { ...session.receipt, orderReference: reference };
+  if (!validFeedbackCart(items) || !items.length)
+    throw new Error('Invalid order items.');
+  const receipt = {
+    ...session.receipt,
+    orderReference: reference,
+    completedOrder: {
+      items: structuredClone(items),
+      totalCents: items.reduce(
+        (sum, item) => sum + item.quantity * item.unitPriceCents,
+        0,
+      ),
+      completedAt: new Date().toISOString(),
+    },
+  };
   const records = readFeedbackSubmissions().map((record) =>
     record.id === receipt.id ? receipt : record,
   );

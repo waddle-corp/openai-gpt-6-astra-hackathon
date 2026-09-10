@@ -24,6 +24,7 @@ import {
   feedbackSummary,
   highlights,
   preparedQuestions,
+  type FeedbackCartItem,
   validQuestions,
   type Reward,
 } from '@/lib/feedback';
@@ -177,8 +178,10 @@ function Choices({
 
 export function FeedbackCheckout({
   orderTotalCents,
+  cartSnapshot,
 }: {
   orderTotalCents: number;
+  cartSnapshot: FeedbackCartItem[];
 }) {
   const state = useFeedback();
   const [open, setOpen] = useState(false);
@@ -214,6 +217,7 @@ export function FeedbackCheckout({
           note: draft.note,
           selectedScreen: draft.selected,
           journey: session.events.slice(-30),
+          cartSnapshot,
         }),
         signal: controller.signal,
       });
@@ -252,7 +256,7 @@ export function FeedbackCheckout({
   }
   function submit() {
     try {
-      submitFeedback(orderTotalCents);
+      submitFeedback(orderTotalCents, cartSnapshot);
       setError('');
     } catch {
       setError(

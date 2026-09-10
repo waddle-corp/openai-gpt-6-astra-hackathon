@@ -3,6 +3,7 @@ import {
   categories,
   isRecordablePath,
   preparedQuestions,
+  validFeedbackCart,
   validQuestions,
 } from '@/lib/feedback';
 
@@ -59,6 +60,11 @@ export async function POST(request: Request) {
       { status: 400, headers },
     );
   }
+  if (!validFeedbackCart(input.cartSnapshot))
+    return Response.json(
+      { error: 'Invalid cart context' },
+      { status: 400, headers },
+    );
   const fallback = () =>
     Response.json(
       { questions: preparedQuestions(input.category), source: 'prepared' },
@@ -70,6 +76,7 @@ export async function POST(request: Request) {
   // No guessed model ID: configure the Astra identifier supplied by the hackathon.
   if (!key || !model) return fallback();
   const context = {
+    cartSnapshot: input.cartSnapshot,
     category: input.category,
     note: input.note,
     selectedScreen: {
