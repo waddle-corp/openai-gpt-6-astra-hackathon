@@ -17,6 +17,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { FeedbackCheckout } from '@/components/customer-feedback';
+import { recordJourney, linkFeedbackOrder } from '@/lib/feedback-storage';
 import {
   cents,
   money,
@@ -119,6 +121,13 @@ export function CartProvider({
       storage.save(
         normalizeCart([...getItems(), { variantId: id, quantity }], variants),
       );
+      recordJourney({
+        kind: 'cart_added',
+        path: window.location.pathname,
+        title: variants[id].productTitle,
+        image: variants[id].image,
+        detail: `${variants[id].title} · quantity ${quantity}`,
+      });
     },
     [storage, variants, getItems],
   );
@@ -324,6 +333,12 @@ export function ProductPurchase({
                   const next = product.variants.find(
                     (item) => item.id === value,
                   );
+                  recordJourney({
+                    kind: 'variant_selected',
+                    path: window.location.pathname,
+                    title: product.title,
+                    detail: next?.title,
+                  });
                   const image =
                     next?.media[0]?.image?.url ??
                     next?.media[0]?.preview?.image?.url;
@@ -410,6 +425,7 @@ export function ProductPurchase({
 export function CartPage({ checkout = false }: { checkout?: boolean }) {
   const { items, variants, update, clear, ready } = useCart();
   const [confirmation, setConfirmation] = useState('');
+  const [orderError, setOrderError] = useState('');
   const total = items.reduce(
     (sum, item) => sum + variants[item.variantId].cents * item.quantity,
     0,
@@ -515,17 +531,28 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
               Demo only. No shipping charges, taxes, or payments are processed.
             </p>
             {checkout ? (
-              <Button
-                className="button"
-                onClick={() => {
-                  setConfirmation(
-                    `DEMO-${crypto.randomUUID().slice(0, 8).toUpperCase()}`,
-                  );
-                  clear();
-                }}
-              >
-                Complete demo order
-              </Button>
+              <>
+                <FeedbackCheckout orderTotalCents={total} />
+                {orderError && <p role="alert">{orderError}</p>}
+                <Button
+                  className="button"
+                  onClick={() => {
+                    const reference = `DEMO-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+                    try {
+                      linkFeedbackOrder(reference);
+                    } catch {
+                      setOrderError(
+                        'Unable to link your feedback to this demo order. Allow browser storage and try again.',
+                      );
+                      return;
+                    }
+                    setConfirmation(reference);
+                    clear();
+                  }}
+                >
+                  Complete demo order
+                </Button>
+              </>
             ) : (
               <a className="button" href="/store/checkout">
                 Continue to demo checkout
