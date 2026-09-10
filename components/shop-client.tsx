@@ -221,7 +221,7 @@ export function CartLink() {
   const { items } = useCart();
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
   return (
-    <a href="/cart" aria-label={`Cart, ${count} items`}>
+    <a href="/store/cart" aria-label={`Cart, ${count} items`}>
       Cart{count > 0 ? ` (${count})` : ''}
     </a>
   );
@@ -393,7 +393,7 @@ export function ProductPurchase({
             {message && (
               <>
                 {' '}
-                <a href="/cart">View cart →</a>
+                <a href="/store/cart">View cart →</a>
               </>
             )}
           </p>
@@ -427,7 +427,7 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
         <h1>Demo order completed</h1>
         <p>Reference: {confirmation}</p>
         <p>No payment was collected and no order was sent to Shopify.</p>
-        <a className="button" href="/collections/all">
+        <a className="button" href="/store/collections/all">
           Continue shopping
         </a>
       </main>
@@ -438,7 +438,7 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
       {!items.length ? (
         <>
           <p>Your cart is empty.</p>
-          <a href="/collections/all" className="button">
+          <a href="/store/collections/all" className="button">
             Continue shopping
           </a>
         </>
@@ -449,7 +449,7 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
               const variant = variants[item.variantId];
               return (
                 <article className="cart-row" key={item.variantId}>
-                  <a href={`/products/${variant.handle}`}>
+                  <a href={`/store/products/${variant.handle}`}>
                     {variant.image ? (
                       <img
                         src={variant.image}
@@ -462,7 +462,7 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
                     )}
                   </a>
                   <div>
-                    <a href={`/products/${variant.handle}`}>
+                    <a href={`/store/products/${variant.handle}`}>
                       <h2>{variant.productTitle}</h2>
                     </a>
                     {variant.title !== 'Default Title' && (
@@ -527,13 +527,13 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
                 Complete demo order
               </Button>
             ) : (
-              <a className="button" href="/checkout">
+              <a className="button" href="/store/checkout">
                 Continue to demo checkout
               </a>
             )}
             <a
               className="continue-shopping"
-              href={checkout ? '/cart' : '/collections/all'}
+              href={checkout ? '/store/cart' : '/store/collections/all'}
             >
               {checkout ? 'Return to cart' : 'Continue shopping'}
             </a>

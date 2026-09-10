@@ -126,15 +126,20 @@ export function localLink(value: string = '/') {
         /^\/products\/boosted-rev(?=[?#]|$)/,
         '/collections/electric-scooters',
       );
+  const storePath = (value: string) => {
+    if (/^\/media(?:\/|$)/.test(value)) return value;
+    return '/store' + path(value.replace(/^\/store(?=[/?#]|$)/, '') || '/');
+  };
+  if (value.startsWith('#') || value.startsWith('?')) return value;
   const normalized = value.replace(/^shopify:\/\//, '/');
   if (normalized.startsWith('/') && !normalized.startsWith('//'))
-    return path(normalized);
+    return storePath(normalized);
   try {
     const url = new URL(
       normalized.startsWith('//') ? `https:${normalized}` : normalized,
     );
     if (!['https:', 'http:', 'mailto:', 'tel:'].includes(url.protocol))
-      return '/';
+      return '/store';
     if (
       [
         'boostedusa.com',
@@ -142,9 +147,9 @@ export function localLink(value: string = '/') {
         'benchmark-boosted-usa.myshopify.com',
       ].includes(url.hostname)
     )
-      return path(`${url.pathname}${url.search}${url.hash}`);
+      return storePath(`${url.pathname}${url.search}${url.hash}`);
     return url.href;
   } catch {
-    return '/';
+    return '/store';
   }
 }

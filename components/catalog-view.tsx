@@ -19,7 +19,7 @@ export function ProductCard({ product }: { product: Product }) {
   );
   return (
     <article className="product-card">
-      <a href={`/products/${product.handle}`}>
+      <a href={`/store/products/${product.handle}`}>
         <div className="card-photo">
           {product.images[0] ? (
             <img
@@ -75,7 +75,8 @@ export function ProductListing({
       </div>
       {!items.length ? (
         <p>
-          No products found. <a href="/collections/all">Browse all products</a>
+          No products found.{' '}
+          <a href="/store/collections/all">Browse all products</a>
         </p>
       ) : (
         <div className="product-grid">

@@ -79,7 +79,7 @@ export default async function StoreRoute({ params, searchParams }: Props) {
   const { path } = await params;
   const query = await searchParams;
   if (path.join('/') === 'products/boosted-rev')
-    redirect('/collections/electric-scooters');
+    redirect('/store/collections/electric-scooters');
   if (
     path[0] === 'collections' &&
     path[2] === 'products' &&
@@ -92,7 +92,9 @@ export default async function StoreRoute({ params, searchParams }: Props) {
         ),
       ),
     ).toString();
-    redirect(`/products/${path[3]}${queryString ? `?${queryString}` : ''}`);
+    redirect(
+      `/store/products/${path[3]}${queryString ? `?${queryString}` : ''}`,
+    );
   }
   const page = Math.max(1, Math.floor(Number(query.page) || 1));
   if (path[0] === 'products' && path.length === 2) {
@@ -106,9 +108,9 @@ export default async function StoreRoute({ params, searchParams }: Props) {
     return (
       <main id="main" className="container">
         <nav className="breadcrumbs" aria-label="Breadcrumb">
-          <a href="/">Home</a>
+          <a href="/store">Home</a>
           <span>/</span>
-          <a href="/collections/all">Products</a>
+          <a href="/store/collections/all">Products</a>
           <span>/</span>
           <span>{product.title}</span>
         </nav>
@@ -141,7 +143,10 @@ export default async function StoreRoute({ params, searchParams }: Props) {
         <h1>Collections</h1>
         <div className="collection-grid">
           {catalog.collections.map((collection) => (
-            <a href={`/collections/${collection.handle}`} key={collection.id}>
+            <a
+              href={`/store/collections/${collection.handle}`}
+              key={collection.id}
+            >
               {collection.image && (
                 <img
                   src={imageUrl(collection.image.url)}
@@ -189,7 +194,7 @@ export default async function StoreRoute({ params, searchParams }: Props) {
           description={collection?.descriptionHtml}
           items={items}
           page={page}
-          base={`/${path.join('/')}${query.sort_by ? `?sort_by=${encodeURIComponent(String(query.sort_by))}` : ''}`}
+          base={`/store/${path.join('/')}${query.sort_by ? `?sort_by=${encodeURIComponent(String(query.sort_by))}` : ''}`}
         />
       </main>
     );
@@ -218,7 +223,7 @@ export default async function StoreRoute({ params, searchParams }: Props) {
     return (
       <main id="main" className="container">
         <h1>Search</h1>
-        <form action="/search" className="search-form">
+        <form action="/store/search" className="search-form">
           <input
             type="search"
             name="q"
@@ -235,7 +240,7 @@ export default async function StoreRoute({ params, searchParams }: Props) {
             title={`Results for “${term}”`}
             items={matches}
             page={page}
-            base={`/search?q=${encodeURIComponent(term)}`}
+            base={`/store/search?q=${encodeURIComponent(term)}`}
           />
         )}
       </main>
@@ -256,7 +261,7 @@ export default async function StoreRoute({ params, searchParams }: Props) {
         {articles.length ? (
           articles.map((article) => (
             <article key={article.id} className="article-preview">
-              <a href={`/blogs/${blog.handle}/${article.handle}`}>
+              <a href={`/store/blogs/${blog.handle}/${article.handle}`}>
                 <h2>{article.title}</h2>
                 {article.image && (
                   <img
@@ -266,7 +271,7 @@ export default async function StoreRoute({ params, searchParams }: Props) {
                 )}
               </a>
               <Html html={article.summary} />
-              <a href={`/blogs/${blog.handle}/${article.handle}`}>
+              <a href={`/store/blogs/${blog.handle}/${article.handle}`}>
                 Read more →
               </a>
             </article>
