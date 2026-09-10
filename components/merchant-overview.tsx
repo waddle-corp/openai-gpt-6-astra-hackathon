@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Check, Play, X } from 'lucide-react';
 import type { AdminOverviewRecord } from '@/lib/admin-overview-data';
 import '@/app/admin/overview.css';
 import { MerchantDirection } from './merchant-direction';
+import { AudienceTab } from './audience-tab';
 
 import {
   analysisSchedule,
@@ -188,6 +189,8 @@ export function MerchantOverview({
   records: AdminOverviewRecord[];
   totalSignals: number;
 }) {
+  const [view, setView] = useState<'merchant' | 'user'>('merchant');
+  const [storeOpened, setStoreOpened] = useState(false);
   const [selectedId, setSelectedId] = useState(records[0]?.feedback.id);
   const [replayPage, setReplayPage] = useState(0);
   const [run, setRun] = useState<{
@@ -233,20 +236,12 @@ export function MerchantOverview({
         <a className="mo-brand" href="/admin">
           <span className="mo-brand-text">Gentoo</span>
         </a>
-        <div className="mo-header-meta">
-          <span className="mo-demo-pill">
-            <i /> Demo workspace
-          </span>
-          <a
-            className="mo-store-link"
-            href="/store"
-            target="_blank"
-            rel="noreferrer"
-          >
-            View store
-          </a>
-        </div>
+        <nav className="mo-view-tabs" aria-label="Workspace view">
+          <AudienceTab audience="merchant" active={view === 'merchant'} onSelect={() => setView('merchant')} />
+          <AudienceTab audience="user" active={view === 'user'} onSelect={() => { setStoreOpened(true); setView('user'); }} />
+        </nav>
       </header>
+      <div className="mo-merchant-view" hidden={view !== 'merchant'}>
       <MerchantDirection />
       <div className="mo-workspace">
         <section
@@ -345,7 +340,7 @@ export function MerchantOverview({
                         <span className="mo-replay-screen">
                           <Replay
                             record={record}
-                            playing={run.id > 0 && !done && !inspecting}
+                            playing={run.id > 0 && !done && view === 'merchant' && !inspecting}
                             runId={run.id}
                           />
                           <span
@@ -478,6 +473,10 @@ export function MerchantOverview({
           </section>
         </aside>
       </div>
+      </div>
+      {storeOpened && (
+        <iframe className="mo-user-store" src="/store" title="User storefront" hidden={view !== 'user'} />
+      )}
       {inspecting && (
         <Inspection record={inspecting} onClose={() => setInspecting(null)} />
       )}

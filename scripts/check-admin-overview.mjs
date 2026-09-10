@@ -19,6 +19,9 @@ const { getAdminOverviewRecords, getStrategyOverview } =
 const original = getAdminOverviewRecords();
 const { records, totalSignals } = getStrategyOverview();
 assert.equal(totalSignals, 33);
+assert.equal(new Set(records.map((record) => record.shortId)).size, 33);
+assert.ok(records.every((record) => /^SIG-\d{4}$/.test(record.shortId)));
+assert.ok(records.every((record) => record.shortId === original.find((item) => item.feedback.id === record.feedback.id).shortId));
 assert.equal(records.length, 33);
 assert.equal(records.filter((record) => record.strategyMatch).length, 14);
 assert.equal(new Set(records.map((record) => record.feedback.id)).size, 33);

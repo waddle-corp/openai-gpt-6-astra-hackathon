@@ -69,21 +69,14 @@
   transform: translateX(-50%);
   width: min(1040px, calc(100% - 32px));
   background: #fff;
-  box-shadow: 0 8px 50px #0003;
-  border: 1px solid #ddd;
-  border-top: 3px solid #ff4a32;
+  box-shadow: 0 12px 36px #18202b1f, 0 2px 6px #18202b0a;
+  border: 1px solid #dfe2e6;
   border-radius: 12px;
   padding: 24px;
   z-index: 40;
   display: flex;
   align-items: flex-start;
   gap: 20px;
-}
-.pf-consent-icon {
-  background: #fff0ec;
-  color: #c72f1c;
-  padding: 12px;
-  border-radius: 12px;
 }
 .pf-consent-copy {
   flex: 1;
@@ -516,9 +509,6 @@
     padding: 18px;
     gap: 12px;
     flex-wrap: wrap;
-  }
-  .pf-consent-icon {
-    display: none;
   }
   .pf-consent-copy {
     flex-basis: 100%;
