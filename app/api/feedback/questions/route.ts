@@ -67,7 +67,10 @@ export async function POST(request: Request) {
     );
   const fallback = () =>
     Response.json(
-      { questions: preparedQuestions(input.category), source: 'prepared' },
+      {
+        questions: preparedQuestions(input.category, input.note),
+        source: 'prepared',
+      },
       { headers },
     );
   const config = env as unknown as Record<string, string | undefined>;

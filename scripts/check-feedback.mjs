@@ -104,6 +104,34 @@ try {
   ];
   const questions = model.preparedQuestions('Comparing products');
   assert(model.validQuestions(questions));
+  assert.equal(
+    model.preparedQuestions(
+      'Understanding details',
+      'I do not know my friend’s board model.',
+    )[0].id,
+    'model_check',
+  );
+  assert.equal(
+    model.preparedQuestions(
+      'Choosing an option',
+      'My gear was changed; 32T or 38T?',
+    ).length,
+    1,
+  );
+  const fitQuestions = model.preparedQuestions(
+    'Understanding details',
+    'I was unsure which charger would fit my board.',
+  );
+  assert.equal(fitQuestions[0].id, 'purchase_barrier');
+  assert(
+    fitQuestions[0].options.includes('The price'),
+    'Offer a competing explanation',
+  );
+  assert(
+    fitQuestions[1].options.includes('Still leave it out'),
+    'Do not assume recovered revenue',
+  );
+
   assert(
     !model.validQuestions([{ ...questions[0], options: ['Same', 'Same'] }]),
   );

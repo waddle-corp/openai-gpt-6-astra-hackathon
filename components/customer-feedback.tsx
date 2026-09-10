@@ -206,7 +206,7 @@ export function FeedbackCheckout({
     setLoading(true);
     setError('');
     const timer = setTimeout(() => controller.abort(), 10000);
-    let next = preparedQuestions(draft.category);
+    let next = preparedQuestions(draft.category, draft.note);
     let source: 'prepared' | 'astra' = 'prepared';
     try {
       const response = await fetch('/api/feedback/questions', {

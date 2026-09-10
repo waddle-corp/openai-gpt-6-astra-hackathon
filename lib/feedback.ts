@@ -133,7 +133,63 @@ export function highlights(events: JourneyEvent[]): JourneyEvent[] {
     .map(({ event }) => event);
 }
 
-export function preparedQuestions(category: string): Question[] {
+export function preparedQuestions(category: string, note = ''): Question[] {
+  // Explicit, bounded demo heuristics. Never label these as AI inference.
+  const compatibility =
+    /compatib|which.*charger|charger.*(fit|work)|맞는|호환/i.test(note);
+  const missingModel =
+    /(friend|gift|친구|선물).*(model|모델)|model.*(friend|gift)/i.test(note);
+  const modified = /32t|38t|gear|기어/i.test(note);
+  if (missingModel)
+    return [
+      {
+        id: 'model_check',
+        prompt: 'Can you confirm the model of the board this is for?',
+        options: [
+          'I can check the model now',
+          'I need to ask the owner',
+          'I cannot confirm the model',
+          'None of these',
+        ],
+      },
+    ];
+  if (modified)
+    return [
+      {
+        id: 'configuration',
+        prompt: 'What do you know about the current gear setup?',
+        options: [
+          'It is the original setup',
+          'It has been changed; I do not know the size',
+          'I know the current gear size',
+          'None of these',
+        ],
+      },
+    ];
+  if (compatibility)
+    return [
+      {
+        id: 'purchase_barrier',
+        prompt: 'What most influenced your decision about the extra item?',
+        options: [
+          'I was unsure it would work with the board',
+          'The price',
+          'I do not need it yet',
+          'None of these',
+        ],
+      },
+      {
+        id: 'conditional_intent',
+        prompt: 'If the fit were confirmed, what would you most likely do?',
+        options: [
+          'Consider adding it to this order',
+          'Compare prices before deciding',
+          'Wait until I need it',
+          'Still leave it out',
+          'None of these',
+        ],
+      },
+    ];
   const options: Record<string, string[]> = {
     'Finding a product': [
       'I could not narrow down the selection',
