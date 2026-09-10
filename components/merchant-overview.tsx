@@ -576,8 +576,7 @@ export function MerchantOverview({
               ) : (
                 <div className="mo-improvement-previews">
                   <p className="mo-improvement-recommendation">
-                    Based on these findings, Gentoo recommends interactive 3D
-                    parts discovery with clear compatibility guidance.
+                    Add interactive 3D parts discovery with clear compatibility guidance.
                   </p>
                   {(['before', 'after'] as const).map((version) => (
                     <section className="mo-improvement-preview" key={version}>
