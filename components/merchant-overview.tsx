@@ -428,9 +428,9 @@ export function MerchantOverview({
                                   <Check size={12} /> Done
                                 </>
                               ) : run.id ? (
-                                `Analyzing ${progress}%`
+                                'In progress'
                               ) : (
-                                'Ready · 0%'
+                                'Ready'
                               )}
                             </span>
                             <progress
