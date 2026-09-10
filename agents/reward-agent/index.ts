@@ -3,6 +3,7 @@ import {
   type FeedbackRecord,
 } from '../feedback-agent/fixtures.ts';
 import type { ImprovementOpportunity } from '../feedback-agent/synthesize.ts';
+import { allocate } from '../../lib/allocate.ts';
 import { responseText, responsesCreate } from '../shared/openai.ts';
 import { strategy } from '../shared/strategy.ts';
 
@@ -215,7 +216,7 @@ function rankedWeights(assessments: Assessment[]) {
   });
 }
 
-/** Largest remainder: shares follow the ranked weights and the cents always add up to the merchant budget. */
+/** The role decides the size, the rank breaks ties, and the cents always add up to the merchant budget. */
 export function splitPool(
   assessments: Assessment[],
   records: FeedbackRecord[],
@@ -225,16 +226,7 @@ export function splitPool(
   const weights = rankedWeights(assessments);
   const total = weights.reduce((sum, weight) => sum + weight, 0);
   if (!total) throw new Error('No feedback earned a share of the reward pool.');
-  const exact = weights.map((weight) => (poolCents * weight) / total);
-  const cents = exact.map(Math.floor);
-  let left = poolCents - cents.reduce((sum, value) => sum + value, 0);
-  for (const index of [...exact.keys()].sort(
-    (a, b) => exact[b] - cents[b] - (exact[a] - cents[a]),
-  )) {
-    if (left <= 0) break;
-    cents[index] += 1;
-    left -= 1;
-  }
+  const cents = allocate(weights, poolCents);
   return assessments.map((item, index) => {
     const record = byId.get(item.feedbackId);
     return {

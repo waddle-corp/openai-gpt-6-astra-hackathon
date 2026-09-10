@@ -11,7 +11,12 @@ import {
   LoaderCircle,
   X,
 } from 'lucide-react';
-import type { AdminOverviewRecord } from '@/lib/admin-overview-data';
+import { allocate } from '@/lib/allocate';
+import {
+  getRewardLedger,
+  type AdminOverviewRecord,
+  type RewardPayout,
+} from '@/lib/admin-overview-data';
 import '@/app/admin/overview.css';
 import { MerchantDirection } from './merchant-direction';
 import { AudienceTab } from './audience-tab';
@@ -21,9 +26,18 @@ import {
   analysisProgress,
   DEMO_FLOW_MS,
   demoFlowAt,
+  demoSpeed,
 } from '@/lib/demo-analysis';
 
 const REPLAYS_PER_PAGE = 12;
+const ledger = getRewardLedger();
+const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
+const rewardChannel = (payout: RewardPayout) =>
+  payout.rewardPreference === 'card_cashback'
+    ? 'Card cashback'
+    : payout.rewardPreference === 'coupon'
+      ? 'Store coupon'
+      : 'No preference chosen';
 function Pagination({
   page,
   size,
@@ -252,6 +266,111 @@ function ImprovementComparison({
   );
 }
 
+function Payouts({ onClose }: { onClose: () => void }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [budget, setBudget] = useState(String(ledger.poolCents / 100));
+  useEffect(() => {
+    dialog.current?.showModal();
+  }, []);
+  const poolCents = Math.round(Number(budget) * 100);
+  const validBudget = Number.isFinite(poolCents) && poolCents > 0;
+  // Reweighting is arithmetic on the roles Astra already judged, so the budget can move without a new run.
+  const cents = validBudget
+    ? allocate(
+        ledger.contributions.map((payout) => payout.weight),
+        poolCents,
+      )
+    : ledger.contributions.map((payout) => payout.bountyCents);
+  return (
+    <dialog
+      ref={dialog}
+      className="mo-dialog mo-payout-dialog"
+      aria-labelledby="payout-dialog-title"
+      onCancel={onClose}
+      closedby="any"
+      onClose={onClose}
+    >
+      <div className="mo-dialog-head">
+        <div>
+          <span className="mo-kicker">
+            REWARD LEDGER · {ledger.contributions.length} SHOPPERS
+          </span>
+          <h2 id="payout-dialog-title">{ledger.opportunityTitle}</h2>
+        </div>
+        <button aria-label="Close rewards" onClick={onClose}>
+          <X size={20} />
+        </button>
+      </div>
+      <div className="mo-payout-summary">
+        <div>
+          <label htmlFor="payout-budget">Bounty budget</label>
+          <div className="mo-budget-field">
+            <span>$</span>
+            <input
+              id="payout-budget"
+              inputMode="decimal"
+              onChange={(event) => setBudget(event.target.value)}
+              value={budget}
+            />
+          </div>
+          {validBudget ? null : (
+            <small className="mo-budget-error">Enter an amount above $0</small>
+          )}
+        </div>
+        <div>
+          <span>Basket value behind it</span>
+          <strong>{dollars(ledger.basket.cartValueCents)}</strong>
+        </div>
+        <div>
+          <span>Did not complete</span>
+          <strong>
+            {ledger.basket.notCompleted} of {ledger.contributions.length}
+          </strong>
+        </div>
+      </div>
+      <div className="mo-payout-list">
+        {ledger.contributions.map((payout, index) => (
+          <article className="mo-payout" key={payout.feedbackId}>
+            <div className="mo-payout-top">
+              <strong>{payout.shopper}</strong>
+              <span>
+                {payout.shortId} · {payout.roles.join(' · ')}
+              </span>
+              <b>{dollars(cents[index])}</b>
+            </div>
+            <div className="mo-payout-bar">
+              <span style={{ width: `${payout.share * 100}%` }} />
+            </div>
+            <p>{payout.rationale}</p>
+            <div className="mo-payout-meta">
+              <span>{rewardChannel(payout)}</span>
+              <span>
+                {payout.cartCents === null
+                  ? 'No cart recorded'
+                  : `${dollars(payout.cartCents)} cart · ${payout.purchased ? 'purchased' : 'not completed'}`}
+              </span>
+              <span>Astra rank {payout.rank}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="mo-payout-foot">
+        <span>
+          Changing the budget re-splits the same contributions. It does not run
+          Astra again.
+        </span>
+        <strong>
+          {dollars(cents.reduce((sum, value) => sum + value, 0))} total
+        </strong>
+      </div>
+      <p className="mo-payout-note">
+        Nothing is paid from this screen. Names are demo personas, and coupons
+        and cashback are the shoppers&rsquo; stated preferences.
+      </p>
+    </dialog>
+  );
+}
+
 export function MerchantOverview({
   records,
 }: {
@@ -259,6 +378,7 @@ export function MerchantOverview({
   totalSignals: number;
 }) {
   const [comparison, setComparison] = useState<ComparisonVersion | null>(null);
+  const [showPayouts, setShowPayouts] = useState(false);
   const [view, setView] = useState<'merchant' | 'user'>('merchant');
   const [storeOpened, setStoreOpened] = useState(false);
   const [selectedId, setSelectedId] = useState(records[0]?.feedback.id);
@@ -270,12 +390,19 @@ export function MerchantOverview({
   const [flowTime, setFlowTime] = useState(0);
   const [playing, setPlaying] = useState(false);
   const clock = useRef(0);
+  const speed = useRef(1);
+  useEffect(() => {
+    speed.current = demoSpeed(window.location.search);
+  }, []);
   useEffect(() => {
     if (!playing) return;
     let last = performance.now();
     const timer = window.setInterval(() => {
       const now = performance.now();
-      clock.current = Math.min(DEMO_FLOW_MS, clock.current + now - last);
+      clock.current = Math.min(
+        DEMO_FLOW_MS,
+        clock.current + (now - last) * speed.current,
+      );
       last = now;
       setFlowTime(clock.current);
       if (clock.current >= DEMO_FLOW_MS) setPlaying(false);
@@ -351,7 +478,7 @@ export function MerchantOverview({
           </button>
           <button
             onClick={() => {
-              if (!run.id || flow.previewsReady) restart();
+              if (!run.id || flow.rewardsReady) restart();
               else setPlaying((value) => !value);
             }}
             aria-label={playing ? 'Pause demo' : 'Play demo'}
@@ -606,7 +733,7 @@ export function MerchantOverview({
               )}
             </section>
             <section
-              className="mo-panel mo-value-card"
+              className={`mo-panel mo-value-card ${playing && flow.rewarding ? 'is-demo-active' : ''}`}
               aria-labelledby="value-title"
             >
               <div className="mo-panel-head">
@@ -617,8 +744,59 @@ export function MerchantOverview({
                   </h2>
                 </div>
               </div>
-              <h3>Rewards pending</h3>
-              <p>Allocation follows the improvement’s validated impact.</p>
+              {flow.rewardsReady ? (
+                <>
+                  <h3>
+                    {dollars(ledger.poolCents)} across{' '}
+                    {ledger.contributions.length} shoppers
+                  </h3>
+                  <p>
+                    Allocation follows each shopper’s contribution to the
+                    published improvement, not how often the problem was
+                    mentioned.
+                  </p>
+                  <div className="mo-value-track">
+                    <span>
+                      {dollars(ledger.contributions[0].bountyCents)} highest ·{' '}
+                      {dollars(
+                        ledger.contributions[ledger.contributions.length - 1]
+                          .bountyCents,
+                      )}{' '}
+                      lowest
+                    </span>
+                    <button
+                      className="mo-payout-open"
+                      onClick={() => setShowPayouts(true)}
+                      type="button"
+                    >
+                      Review payouts
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="mo-improvement-wait" aria-live="polite">
+                  {flow.rewarding ? (
+                    <>
+                      <LoaderCircle
+                        size={24}
+                        className={playing ? 'mo-generation-spin' : ''}
+                      />
+                      <h3>Crediting the shoppers behind it</h3>
+                      <p>
+                        Weighing each contribution against the merchant bounty
+                        budget.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <h3>Rewards pending</h3>
+                      <p>
+                        Allocation follows the improvement’s validated impact.
+                      </p>
+                    </>
+                  )}
+                </div>
+              )}
             </section>
           </aside>
         </div>
@@ -641,6 +819,7 @@ export function MerchantOverview({
       {inspecting && (
         <Inspection record={inspecting} onClose={() => setInspecting(null)} />
       )}
+      {showPayouts && <Payouts onClose={() => setShowPayouts(false)} />}
     </main>
   );
 }
