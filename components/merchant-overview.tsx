@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Pause, Play, X } from 'lucide-react';
-import type { AdminOverviewRecord } from '@/lib/admin-overview-data';
-import '@/app/admin/overview.css';
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, Pause, Play, X } from "lucide-react";
+import type { AdminOverviewRecord } from "@/lib/admin-overview-data";
+import "@/app/admin/overview.css";
 
 const SIGNALS_PER_PAGE = 5;
 const REPLAYS_PER_PAGE = 12;
 const channelName = (channel: string) =>
-  channel === 'product-page'
-    ? 'Product page'
-    : channel === 'checkout'
-      ? 'Checkout'
-      : channel.replaceAll('-', ' ');
+  channel === "product-page"
+    ? "Product page"
+    : channel === "checkout"
+      ? "Checkout"
+      : channel.replaceAll("-", " ");
 
 function Pagination({
   page,
@@ -30,7 +30,7 @@ function Pagination({
   return (
     <div className="mo-pagination">
       <span>
-        {count ? page * size + 1 : 0}–{Math.min((page + 1) * size, count)}{' '}
+        {count ? page * size + 1 : 0}–{Math.min((page + 1) * size, count)}{" "}
         <span className="mo-muted">of {count}</span>
       </span>
       <div>
@@ -115,7 +115,7 @@ function Inspection({
         <div>
           <span className="mo-kicker">RECORDED JOURNEY · {record.shortId}</span>
           <h2 id="replay-dialog-title">
-            {feedback.context.selectedPage?.title || 'Shopper journey'}
+            {feedback.context.selectedPage?.title || "Shopper journey"}
           </h2>
         </div>
         <button aria-label="Close replay" onClick={onClose}>
@@ -132,7 +132,7 @@ function Inspection({
             “
             {feedback.feedback.message ||
               feedback.feedback.summary ||
-              'Feedback submitted through the questionnaire.'}
+              "Feedback submitted through the questionnaire."}
             ”
           </blockquote>
           <div className="mo-detail-row">
@@ -233,10 +233,7 @@ export function MerchantOverview({
         <div className="mo-active-strategy">
           <span className="mo-kicker">STRATEGY</span>
           <h2>Sell compatible parts</h2>
-          <p>
-            Focus on compatible parts, complete setups, and accessory
-            attachment.
-          </p>
+          <p>Help shoppers find the right parts for their equipment.</p>
         </div>
       </div>
       <div className="mo-workspace">
@@ -251,8 +248,8 @@ export function MerchantOverview({
             </div>
           </div>
           <p className="mo-scope-note">
-            {records.length} of {totalSignals} signals relevant to the AOV
-            strategy
+            {records.length} of {totalSignals} signals relevant to compatible
+            parts
           </p>
           <div className="mo-signals-list">
             {records
@@ -262,7 +259,7 @@ export function MerchantOverview({
               )
               .map((record) => (
                 <button
-                  className={`mo-signal ${record.feedback.id === selectedId ? 'is-selected' : ''}`}
+                  className={`mo-signal ${record.feedback.id === selectedId ? "is-selected" : ""}`}
                   key={record.feedback.id}
                   onClick={() => selectSignal(record)}
                   aria-pressed={record.feedback.id === selectedId}
@@ -271,7 +268,7 @@ export function MerchantOverview({
                     <strong>{record.shortId}</strong>
                     <span>
                       {channelName(
-                        record.feedback.source.channel || 'feedback',
+                        record.feedback.source.channel || "feedback",
                       )}
                     </span>
                   </span>
@@ -280,7 +277,7 @@ export function MerchantOverview({
                       record.feedback.feedback.summary ||
                       record.feedback.feedback.responses
                         .map((item) => item.answer)
-                        .join(' · ')}
+                        .join(" · ")}
                   </p>
                   <span
                     className="mo-signal-page mo-match-reason"
@@ -310,12 +307,12 @@ export function MerchantOverview({
             <button
               className="mo-play-control"
               aria-label={
-                playing ? 'Pause replay previews' : 'Play replay previews'
+                playing ? "Pause replay previews" : "Play replay previews"
               }
               onClick={() => setPlaying((value) => !value)}
             >
               {playing ? <Pause size={14} /> : <Play size={14} />}
-              {playing ? 'Pause' : 'Play'}
+              {playing ? "Pause" : "Play"}
             </button>
           </div>
           <div className="mo-fleet-intro">
@@ -332,7 +329,7 @@ export function MerchantOverview({
               )
               .map((record) => (
                 <button
-                  className={`mo-replay ${selectedId === record.feedback.id ? 'is-selected' : ''}`}
+                  className={`mo-replay ${selectedId === record.feedback.id ? "is-selected" : ""}`}
                   key={record.feedback.id}
                   onClick={() => {
                     setSelectedId(record.feedback.id);
@@ -395,7 +392,7 @@ export function MerchantOverview({
               </div>
             </div>
             <div className="mo-outcome-foot">
-              {selected ? `${selected.shortId} selected` : 'No signal selected'}
+              {selected ? `${selected.shortId} selected` : "No signal selected"}
               <span>Analysis pending</span>
             </div>
           </section>
