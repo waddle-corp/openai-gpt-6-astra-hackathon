@@ -1,5 +1,5 @@
 /** Presentation timing only; never an agent result or customer evidence. */
-export const DEMO_ANALYSIS_MS = 7000;
+export const DEMO_ANALYSIS_MS = 6000;
 export function analysisSchedule(ids: string[], random = Math.random) {
   const order = [...ids];
   for (let i = order.length - 1; i > 0; i--) {
@@ -25,7 +25,7 @@ export function analysisProgress(elapsed: number, deadline?: number) {
     : 0;
 }
 
-export const DEMO_FLOW_MS = 15000;
+export const DEMO_FLOW_MS = 12000;
 export function demoFlowAt(time: number, count: number) {
   const elapsed = Math.max(0, Math.min(DEMO_FLOW_MS, time));
   const initial = Math.min(25, count);
@@ -34,7 +34,7 @@ export function demoFlowAt(time: number, count: number) {
       initial + Math.floor((count - initial) * Math.min(1, elapsed / 2000)),
     analysisStarted: elapsed >= 2500,
     analysisElapsed: Math.max(0, Math.min(DEMO_ANALYSIS_MS, elapsed - 2500)),
-    generating: elapsed >= 10000 && elapsed < DEMO_FLOW_MS,
+    generating: elapsed >= 9000 && elapsed < DEMO_FLOW_MS,
     previewsReady: elapsed >= DEMO_FLOW_MS,
   };
 }

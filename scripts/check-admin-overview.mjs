@@ -80,7 +80,7 @@ assert.deepEqual(analysisSchedule([]), {});
 assert.equal(analysisProgress(0), 0);
 assert.deepEqual(analysisSchedule(['only']), { only: DEMO_ANALYSIS_MS });
 console.log(
-  'OK demo analysis: randomized completion waves, 1–2 second spacing, seven-second completion, and restart progress reset',
+  'OK demo analysis: randomized completion waves, 1–2 second spacing, six-second completion, and restart progress reset',
 );
 
 for (const record of records.filter((item) => item.strategyMatch)) {
@@ -98,12 +98,12 @@ assert.equal(demoFlowAt(1000, 33).signalCount, 29);
 assert.equal(demoFlowAt(2000, 33).signalCount, 33);
 assert.equal(demoFlowAt(2499, 33).analysisStarted, false);
 assert.equal(demoFlowAt(2500, 33).analysisStarted, true);
-assert.equal(demoFlowAt(9500, 33).analysisElapsed, 7000);
-assert.equal(demoFlowAt(9999, 33).generating, false);
-assert.equal(demoFlowAt(10000, 33).generating, true);
-assert.equal(demoFlowAt(14999, 33).previewsReady, false);
+assert.equal(demoFlowAt(8500, 33).analysisElapsed, 6000);
+assert.equal(demoFlowAt(8999, 33).generating, false);
+assert.equal(demoFlowAt(9000, 33).generating, true);
+assert.equal(demoFlowAt(11999, 33).previewsReady, false);
 assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).previewsReady, true);
 assert.equal(demoFlowAt(0, 5).signalCount, 5);
 console.log(
-  'OK page demo phase boundaries: 2s signals, 0.5s wait, 7s analysis, 0.5s wait, 5s generation',
+  'OK page demo phase boundaries: 2s signals, 0.5s wait, 6s analysis, 0.5s wait, 3s generation',
 );

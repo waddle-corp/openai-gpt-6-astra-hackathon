@@ -406,7 +406,7 @@ export function MerchantOverview({
             </div>
           </section>
           <section
-            className={`mo-panel mo-fleet ${playing && flowTime >= 2500 && flowTime < 9500 ? 'is-demo-active' : ''}`}
+            className={`mo-panel mo-fleet ${playing && flowTime >= 2500 && flowTime < 8500 ? 'is-demo-active' : ''}`}
             aria-labelledby="fleet-title"
           >
             <div className="mo-panel-head">
@@ -560,7 +560,7 @@ export function MerchantOverview({
                         className={playing ? 'mo-generation-spin' : ''}
                       />
                       <h3>
-                        {flowTime < 12500
+                        {flowTime < 10500
                           ? 'Connecting the findings'
                           : 'Preparing improvements'}
                       </h3>
