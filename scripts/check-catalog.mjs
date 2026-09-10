@@ -79,13 +79,19 @@ assert.equal(
   localLink(
     'https://boostedusa.com/collections/accessories/products/boosted-charger?variant=123',
   ),
-  '/products/boosted-charger?variant=123',
+  '/store/products/boosted-charger?variant=123',
 );
 assert.equal(
   localLink('shopify://products/boosted-rev'),
-  '/collections/electric-scooters',
+  '/store/collections/electric-scooters',
 );
-assert.equal(localLink('javascript:alert(1)'), '/');
+assert.equal(localLink('javascript:alert(1)'), '/store');
 console.log(
   `Verified 317 products, 1124 variants, 25 collections, ${imageReferences} image references, ${new Set(Object.values(assets)).size} bundled assets, cart quantities, prices, and source links.`,
 );
+
+assert.equal(localLink('/store/cart'), '/store/cart');
+assert.equal(localLink('/media/example.png'), '/media/example.png');
+assert.equal(localLink('#details'), '#details');
+assert.equal(localLink('/search?q=board'), '/store/search?q=board');
+assert.equal(localLink('https://example.com/page'), 'https://example.com/page');

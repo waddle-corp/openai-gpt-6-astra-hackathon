@@ -133,7 +133,7 @@ export function StoreHeader() {
         <Html html={text(announcement.settings.text)} />
       </div>
       <header className="store-header">
-        <a href="/" aria-label="Boosted USA home">
+        <a href="/store" aria-label="Boosted USA home">
           <img
             className="brand-logo"
             src={imageUrl(text(header.settings.logo))}
@@ -143,7 +143,7 @@ export function StoreHeader() {
           />
         </a>
         <div className="header-actions">
-          <a href="/search" aria-label="Search products">
+          <a href="/store/search" aria-label="Search products">
             Search
           </a>
           <CartLink />

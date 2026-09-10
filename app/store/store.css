@@ -1,4 +1,4 @@
-@import './fonts.css';
+@import '../fonts.css';
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
@@ -17,7 +17,8 @@
   --color-ring: #ff4a32;
   --font-sans: Roboto, Arial, Helvetica, sans-serif;
 }
-:root {
+@scope (.store-scope) {
+:scope {
   --background: #fff;
   --foreground: #111;
   --primary: #ff4a32;
@@ -26,7 +27,7 @@
 * {
   box-sizing: border-box;
 }
-body {
+:scope {
   margin: 0;
   background: #fff;
   color: #111;
@@ -843,4 +844,6 @@ del {
     transition: none !important;
     scroll-behavior: auto !important;
   }
+}
+
 }
