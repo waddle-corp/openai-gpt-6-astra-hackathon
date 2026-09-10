@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Pause, Play, X } from 'lucide-react';
 import type { AdminOverviewRecord } from '@/lib/admin-overview-data';
 import '@/app/admin/overview.css';
 import { MerchantDirection } from './merchant-direction';
+import { AudienceTab } from './audience-tab';
 
 const REPLAYS_PER_PAGE = 12;
 function Pagination({
@@ -205,8 +206,8 @@ export function MerchantOverview({
           <span className="mo-brand-text">Gentoo</span>
         </a>
         <nav className="mo-view-tabs" aria-label="Workspace view">
-          <button type="button" aria-pressed={view === 'merchant'} onClick={() => setView('merchant')}>Merchant</button>
-          <button type="button" aria-pressed={view === 'user'} onClick={() => { setStoreOpened(true); setView('user'); }}>User</button>
+          <AudienceTab audience="merchant" active={view === 'merchant'} onSelect={() => setView('merchant')} />
+          <AudienceTab audience="user" active={view === 'user'} onSelect={() => { setStoreOpened(true); setView('user'); }} />
         </nav>
       </header>
       <div className="mo-merchant-view" hidden={view !== 'merchant'}>
