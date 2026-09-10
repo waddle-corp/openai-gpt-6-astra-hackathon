@@ -89,7 +89,7 @@ Both files are now **JSON arrays of `FeedbackRecord`**, not different wrappers:
 
 Original `topic`, `priority`, `sentiment`, and status annotations are preserved in `evaluation/feedback/shopper-labels.json`. Compatibility expectations remain in `evaluation/feedback/expected-outcomes.json`. **Never import `evaluation/` files into the analyst input.**
 
-`readFeedbackSubmissions()` in `lib/feedback-storage.ts` returns canonical `FeedbackRecord[]` from the existing `pay-feedback-submissions-v1` key. The key intentionally stays the same. Legacy customer schema v1/v2 records are validated/converted and persisted on read. Unknown versions or malformed records raise an error without overwriting the stored data. The customer modal's session receipt remains an internal type and is converted before persistence.
+`readFeedbackSubmissions()` in `lib/feedback-storage.ts` returns canonical `FeedbackRecord[]` from the existing `pay-feedback-submissions-v1` key. The key intentionally stays the same. Legacy customer schema v1/v2 records are validated/converted and persisted on read. Unknown versions or malformed records raise an error without overwriting the stored data. The customer flow's session receipt remains an internal type and is converted before persistence.
 
 Same-window listeners can use `pay-feedback-submitted`; other tabs can listen to the native `storage` event. State is still local to the same browser/origin. This contract does not provide cross-device transport, durable backend storage, or a browser runner. Those integration pieces remain separate.
 

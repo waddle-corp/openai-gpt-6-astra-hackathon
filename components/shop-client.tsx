@@ -561,7 +561,7 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
                     clear();
                   }}
                 >
-                  Complete demo order
+                  Place demo order · {money(total)}
                 </Button>
               </>
             ) : (

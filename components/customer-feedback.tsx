@@ -9,14 +9,13 @@ import {
   MessageSquare,
   ShieldCheck,
   Sparkles,
-  CreditCard,
+  ChevronDown,
 } from 'lucide-react';
 import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   categories,
@@ -189,6 +188,7 @@ export function FeedbackCheckout({
   const [error, setError] = useState('');
   const [questionIndex, setQuestionIndex] = useState(0);
   const request = useRef<AbortController | null>(null);
+  const trigger = useRef<HTMLButtonElement | null>(null);
   useEffect(() => () => request.current?.abort(), []);
   if (!state) return null;
   const { session } = state;
@@ -258,6 +258,8 @@ export function FeedbackCheckout({
     try {
       submitFeedback(orderTotalCents, cartSnapshot);
       setError('');
+      close(false);
+      trigger.current?.focus();
     } catch {
       setError(
         'We could not save your feedback. Allow browser storage and try again. Your answers are still here.',
@@ -266,95 +268,53 @@ export function FeedbackCheckout({
   }
   return (
     <>
-      <div className="pf-checkout-entry">
-        <span className="pf-eyebrow">
-          <Gift size={15} /> A little feedback. A little payback.
-        </span>
-        <button
-          className="pf-primary"
-          onClick={() => {
-            setQuestionIndex(0);
-            setOpen(true);
-          }}
-        >
-          {receipt ? 'View your feedback' : 'Pay with your feedback'}{' '}
-          <ArrowRight size={18} />
-        </button>
-        <p>
-          {receipt
-            ? 'Feedback received · reward review pending'
-            : 'About 30 seconds. Choose a coupon or card cashback.'}
-        </p>
-        <small>
-          Rewards depend on your contribution. Reviewed within 72 hours; no
-          discount is applied today.
-        </small>
-      </div>
-      <Dialog open={open} onOpenChange={close}>
-        <DialogContent className="pf-dialog">
-          <header className="pf-dialog-header">
-            <span className="pf-brand">
-              <MessageSquare size={19} /> pay with your feedback
+      <section
+        className="pf-checkout-entry"
+        aria-label="Optional order feedback"
+      >
+        <Collapsible open={open} onOpenChange={close}>
+          <CollapsibleTrigger ref={trigger} className="pf-checkout-toggle">
+            <span className="pf-checkout-toggle-icon">
+              {receipt ? <Check size={18} /> : <Gift size={18} />}
             </span>
-            <span className="pf-demo-label">Demo</span>
-          </header>
-          <div className="pf-dialog-body">
+            <span className="pf-checkout-toggle-label">
+              <strong>
+                {receipt ? 'Feedback added' : 'Pay with your feedback'}
+              </strong>
+              <small>
+                {receipt
+                  ? receipt.rewardPreference === 'coupon'
+                    ? 'Next-purchase coupon selected'
+                    : 'Card cashback selected'
+                  : 'Optional · about 30 seconds'}
+              </small>
+            </span>
+            <ChevronDown size={17} className={open ? 'is-open' : ''} />
+          </CollapsibleTrigger>
+          <p className="pf-checkout-hint" aria-live="polite">
+            {receipt
+              ? 'We’ll review your contribution within 72 hours. You can place your order below.'
+              : 'Share a shopping moment for a chance to earn a coupon or card cashback.'}
+          </p>
+          <CollapsibleContent className="pf-inline-body">
             {receipt ? (
-              <div className="pf-success">
-                <span className="pf-success-icon">
-                  <Check size={32} />
-                </span>
-                <DialogTitle className="pf-title">
-                  You spotted it. We’ll take it from here.
-                </DialogTitle>
-                <DialogDescription className="pf-description">
-                  Your feedback is saved in this demo. Continue checkout to
-                  finish your purchase.
-                </DialogDescription>
-                <div className="pf-receipt">
-                  <span>
-                    <Clock3 size={19} /> Review within 72 hours
-                  </span>
-                  <p>
-                    Reward eligibility and amount depend on how usefully your
-                    feedback is incorporated.
-                  </p>
-                  <hr />
-                  <span>
-                    {receipt.rewardPreference === 'coupon' ? (
-                      <Gift size={19} />
-                    ) : (
-                      <CreditCard size={19} />
-                    )}
-                    {receipt.rewardPreference === 'coupon'
-                      ? 'Next-purchase coupon'
-                      : 'Cashback to your payment card'}
-                  </span>
-                  <p>
-                    {receipt.rewardPreference === 'coupon'
-                      ? 'A discount toward your next order.'
-                      : 'A partial refund of this purchase. Card processing can take longer after reward confirmation.'}
-                  </p>
-                </div>
+              <div className="pf-applied-feedback">
+                <p>{receipt.summary}</p>
                 <small>
-                  Reference {receipt.id.slice(0, 11).toUpperCase()} · No real
-                  coupon or refund is issued in this demo.
+                  Reward eligibility and amount depend on your contribution. No
+                  discount is applied to today’s total. Card refund processing
+                  may take longer after confirmation.
                 </small>
-                <button className="pf-primary" onClick={() => close(false)}>
-                  Continue checkout <ArrowRight size={18} />
-                </button>
               </div>
             ) : session.consent !== 'accepted' ? (
               <>
-                <DialogTitle className="pf-title">
-                  Your experience, on your terms.
-                </DialogTitle>
-                <DialogDescription className="pf-description">
+                <h3 className="pf-title">Your experience, on your terms.</h3>
+                <p className="pf-description">
                   To share feedback, allow us to record the store pages you
                   visit and product choices. Recording starts only after you
                   agree. Your feedback and journey may be processed by AI;
                   payment details are never recorded.
-                </DialogDescription>
+                </p>
                 <button
                   className="pf-primary"
                   onClick={() => setFeedbackConsent('accepted')}
@@ -362,19 +322,17 @@ export function FeedbackCheckout({
                   Allow and continue
                 </button>
                 <button className="pf-text" onClick={() => close(false)}>
-                  Return to checkout
+                  Maybe later
                 </button>
               </>
             ) : session.skipped ? (
               <>
-                <DialogTitle className="pf-title">
-                  Glad your shopping went smoothly.
-                </DialogTitle>
-                <DialogDescription className="pf-description">
+                <h3 className="pf-title">Glad your shopping went smoothly.</h3>
+                <p className="pf-description">
                   No feedback is needed. You can continue with checkout.
-                </DialogDescription>
+                </p>
                 <button className="pf-primary" onClick={() => close(false)}>
-                  Continue checkout
+                  Done
                 </button>
               </>
             ) : (
@@ -384,13 +342,13 @@ export function FeedbackCheckout({
                   aria-label={`Step ${stepNumber} of 3`}
                 >
                   <span className={stepNumber >= 1 ? 'active' : ''}>
-                    01 Your journey
+                    01 Journey
                   </span>
                   <span className={stepNumber >= 2 ? 'active' : ''}>
-                    02 A quick question
+                    02 Question
                   </span>
                   <span className={stepNumber >= 3 ? 'active' : ''}>
-                    03 Your reward
+                    03 Reward
                   </span>
                 </div>
                 {!state.persistent && (
@@ -401,13 +359,13 @@ export function FeedbackCheckout({
                 )}
                 {draft.step === 'journey' && (
                   <>
-                    <DialogTitle className="pf-title">
+                    <h3 className="pf-title">
                       Where could shopping feel easier?
-                    </DialogTitle>
-                    <DialogDescription className="pf-description">
+                    </h3>
+                    <p className="pf-description">
                       Pick one moment from your visit. A few taps can help us
                       make it better.
-                    </DialogDescription>
+                    </p>
                     {screens.length ? (
                       <>
                         <div className="pf-journey">
@@ -496,13 +454,11 @@ export function FeedbackCheckout({
                 )}
                 {draft.step === 'pain' && (
                   <>
-                    <DialogTitle className="pf-title">
-                      What got in your way?
-                    </DialogTitle>
-                    <DialogDescription className="pf-description">
+                    <h3 className="pf-title">What got in your way?</h3>
+                    <p className="pf-description">
                       Thinking about {draft.selected?.title}. Pick the closest
                       match.
-                    </DialogDescription>
+                    </p>
                     <Choices
                       label="Type of difficulty"
                       options={categories}
@@ -556,12 +512,10 @@ export function FeedbackCheckout({
                         {questionIndex + 1} of {draft.questions.length}
                       </span>
                     </div>
-                    <DialogTitle className="pf-title">
-                      {question.prompt}
-                    </DialogTitle>
-                    <DialogDescription className="pf-description">
+                    <h3 className="pf-title">{question.prompt}</h3>
+                    <p className="pf-description">
                       {draft.selected?.title} · {draft.category}
-                    </DialogDescription>
+                    </p>
                     <Choices
                       label={question.prompt}
                       options={question.options}
@@ -602,13 +556,11 @@ export function FeedbackCheckout({
                 )}
                 {draft.step === 'review' && (
                   <>
-                    <DialogTitle className="pf-title">
-                      A better store starts here.
-                    </DialogTitle>
-                    <DialogDescription className="pf-description">
+                    <h3 className="pf-title">A better store starts here.</h3>
+                    <p className="pf-description">
                       Check your feedback and choose how you’d like to be
                       rewarded if it contributes to an improvement.
-                    </DialogDescription>
+                    </p>
                     <div className="pf-summary">
                       <span>Your feedback</span>
                       <p>{feedbackSummary(draft)}</p>
@@ -672,20 +624,20 @@ export function FeedbackCheckout({
                         disabled={!draft.reward}
                         onClick={submit}
                       >
-                        Submit feedback <ArrowRight size={16} />
+                        Apply feedback <ArrowRight size={16} />
                       </button>
                     </div>
                     <p className="pf-footnote">
-                      Demo submission stays in this browser. Checkout is
-                      completed separately.
+                      Your order total stays the same. Any reward is confirmed
+                      after review.
                     </p>
                   </>
                 )}
               </>
             )}
-          </div>
-        </DialogContent>
-      </Dialog>
+          </CollapsibleContent>
+        </Collapsible>
+      </section>
     </>
   );
 }
