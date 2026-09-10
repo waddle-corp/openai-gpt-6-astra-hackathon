@@ -209,32 +209,6 @@ export function MerchantOverview({
     );
     if (index >= 0) setReplayPage(Math.floor(index / REPLAYS_PER_PAGE));
   };
-  const steps = [
-    {
-      number: '01',
-      title: 'Shopper signals',
-      detail: `${records.length} feedback records`,
-      icon: MessageSquare,
-    },
-    {
-      number: '02',
-      title: 'Computer-use fleet',
-      detail: `${replays.length} recorded replays`,
-      icon: Monitor,
-    },
-    {
-      number: '03',
-      title: 'Diagnosis & improvement',
-      detail: 'Findings, changes & expected impact',
-      icon: Sparkles,
-    },
-    {
-      number: '04',
-      title: 'Value shared back',
-      detail: 'Reward the shoppers who helped',
-      icon: CircleDollarSign,
-    },
-  ];
   return (
     <main className="mo-app">
       <header className="mo-header">
@@ -272,23 +246,6 @@ export function MerchantOverview({
           </span>
         </div>
       </div>
-      <nav className="mo-flow" aria-label="How shopper feedback becomes value">
-        {steps.map((step, index) => (
-          <div
-            className={`mo-flow-step ${index < 2 ? 'is-ready' : ''}`}
-            key={step.number}
-          >
-            <span className="mo-step-number">{step.number}</span>
-            <div>
-              <strong>{step.title}</strong>
-              <small>{step.detail}</small>
-            </div>
-            {index < steps.length - 1 && (
-              <ArrowRight className="mo-flow-arrow" size={18} />
-            )}
-          </div>
-        ))}
-      </nav>
       <div className="mo-workspace">
         <section
           className="mo-panel mo-signals"
