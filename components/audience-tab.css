@@ -1,4 +1,7 @@
-.audience-tab { position: relative; display: flex; }
+.audience-tab {
+  position: relative;
+  display: flex;
+}
 .audience-preview {
   position: absolute;
   z-index: 100;
@@ -13,13 +16,75 @@
   visibility: hidden;
   opacity: 0;
   transform: translateY(-4px);
-  transition: opacity 150ms, transform 150ms, visibility 150ms;
+  transition:
+    opacity 150ms,
+    transform 150ms,
+    visibility 150ms;
 }
-.audience-preview { pointer-events: none; }
-.audience-tab:not(.is-dismissed) > button:hover + .audience-preview { visibility: visible; opacity: 1; transform: translateY(0); }
-.audience-portrait-frame { overflow: hidden; border-radius: 10px; margin-bottom: 18px; }
-.audience-portrait { display: block; width: 100%; height: auto; }
-.audience-portrait-frame.is-merchant .audience-portrait { transform: scale(1.18); transform-origin: center top; }
-.audience-preview strong { display: block; color: #253041; font-size: 25px; font-weight: 600; letter-spacing: -.4px; }
-.audience-preview p { margin: 8px 0 3px; color: #697483; font-size: 17px; line-height: 1.55; }
-@media (prefers-reduced-motion: reduce) { .audience-preview { transition: none; } }
+.audience-preview {
+  pointer-events: none;
+}
+.audience-tab:not(.is-dismissed) > button:hover + .audience-preview {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+.audience-portrait-frame {
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+.audience-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.audience-portrait-frame.is-merchant .audience-portrait {
+  transform: scale(1.18);
+  transform-origin: center top;
+}
+.audience-preview strong {
+  display: block;
+  color: #253041;
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+.audience-preview p {
+  margin: 8px 0 3px;
+  color: #697483;
+  font-size: 17px;
+  line-height: 1.55;
+}
+@media (prefers-reduced-motion: reduce) {
+  .audience-preview {
+    transition: none;
+  }
+}
+
+.audience-tab::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgb(17 24 39 / 48%);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 150ms,
+    visibility 150ms;
+}
+.audience-tab:not(.is-dismissed):has(> button:hover)::before {
+  opacity: 1;
+  visibility: visible;
+}
+.audience-tab:not(.is-dismissed) > button:hover {
+  position: relative;
+  z-index: 101;
+}
+@media (prefers-reduced-motion: reduce) {
+  .audience-tab::before {
+    transition: none;
+  }
+}
