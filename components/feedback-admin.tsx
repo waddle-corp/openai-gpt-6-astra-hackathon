@@ -9,13 +9,13 @@ import {
   MousePointer2,
   Pause,
   Play,
-  Plus,
   RotateCcw,
 } from 'lucide-react';
 import { useDemo } from './feedback-state';
 import { AgentFactoryScene } from './agent-factory-scene';
 import { projectFleet, type FleetWorker } from '@/lib/agent-fleet';
-import type { Feedback } from '@/lib/feedback';
+import { initialState, type Feedback } from '@/lib/feedback';
+import { DEMO_DURATION_MS, projectDemoTour } from '@/lib/demo-tour';
 
 type Fleet = ReturnType<typeof projectFleet>;
 type Page = { title: string; content: ReactNode };
@@ -28,121 +28,189 @@ const usd = (value: number) =>
   }).format(value);
 const person = (feedback: Feedback) => feedback.persona.split(' · ')[0];
 const time = (ms: number) =>
-  `00:${String(Math.floor(ms / 1000)).padStart(2, '0')}`;
+  `${String(Math.floor(ms / 60000)).padStart(2, '0')}:${String(Math.floor(ms / 1000) % 60).padStart(2, '0')}`;
 
 export default function FeedbackAdmin() {
   const { state, error } = useDemo();
   const [clock, setClock] = useState(28000);
   const [playing, setPlaying] = useState(true);
   const [detail, setDetail] = useState<Detail | null>(null);
-  const active = playing && !detail;
+  const [tourMs, setTourMs] = useState<number | null>(null);
+  const tour = tourMs === null ? null : projectDemoTour(tourMs);
+  const touring = tour !== null;
+  const tourRunning = touring && playing && !tour.finished;
+  const active = touring ? tourRunning : playing && !detail;
   useEffect(() => {
-    if (!active) return;
+    if (!tourRunning) return;
+    let previous = performance.now();
+    const timer = setInterval(() => {
+      const now = performance.now();
+      const delta = now - previous;
+      previous = now;
+      setTourMs((value) =>
+        value === null ? null : Math.min(DEMO_DURATION_MS, value + delta),
+      );
+    }, 100);
+    return () => clearInterval(timer);
+  }, [tourRunning]);
+  useEffect(() => {
+    if (!active || touring) return;
     const timer = setInterval(() => setClock((value) => value + 250), 250);
     return () => clearInterval(timer);
-  }, [active]);
+  }, [active, touring]);
   const fleet = useMemo(
-    () => projectFleet(state.feedback, clock),
-    [state.feedback, clock],
+    () =>
+      projectFleet(
+        touring ? initialState.feedback : state.feedback,
+        tour?.sampleMs ?? clock,
+      ),
+    [state.feedback, clock, touring, tour?.sampleMs],
   );
-  const recent = [...fleet.runs]
-    .filter((item) => item.run.source === 'sample' && item.snapshot.event)
-    .sort(
-      (a, b) =>
-        a.elapsedMs -
-        a.snapshot.event!.elapsedMs -
-        (b.elapsedMs - b.snapshot.event!.elapsedMs),
-    )[0];
+  const openDetail = (next: Detail) => {
+    if (tour) {
+      setClock(tour.sampleMs);
+      setTourMs(null);
+      setPlaying(false);
+    }
+    setDetail(next);
+  };
+  const startTour = () => {
+    setDetail(null);
+    setTourMs(0);
+    setPlaying(true);
+  };
+  const exitTour = () => {
+    if (tour) setClock(tour.sampleMs);
+    setTourMs(null);
+    setPlaying(false);
+    setDetail(null);
+  };
+  let guidedDetail: Detail | null = null;
+  if (tour?.showModal) {
+    const report = initialState.feedback.find(
+      (item) => item.sample && item.group === 'delivery',
+    )!;
+    const storyFleet = {
+      ...fleet,
+      runs: fleet.runs.filter((item) =>
+        item.run.feedback.some((feedback) => feedback.id === report.id),
+      ),
+    };
+    const worker = fleet.workers.find((item) => item.feedbackId === report.id)!;
+    switch (tour.step) {
+      case '01':
+        guidedDetail = feedbackDetail(report);
+        break;
+      case '02':
+        guidedDetail = workerDetail(
+          worker,
+          fleet,
+          fleet.workers.indexOf(worker) + 1,
+        );
+        break;
+      case '03':
+        guidedDetail = findingsDetail(storyFleet);
+        break;
+      case '04':
+        guidedDetail = improvementDetail(storyFleet);
+        break;
+      case '05':
+        guidedDetail = rewardDetail(storyFleet);
+        break;
+    }
+  }
   return (
-    <div className={`av-app ${active ? '' : 'is-paused'}`}>
-      <header className="av-header">
-        <a className="av-brand" href="/admin">
-          <span className="av-brand-mark">
-            <Plus size={19} />
-          </span>
-          Pay with Feedback
-        </a>
-        <div className="av-header-center">SYSTEM OVERVIEW</div>
-        <div className="av-header-actions">
-          <span className="av-sample">
-            <i />
-            Sample orchestration
-          </span>
-          <a href="/store">
-            Storefront
-            <ArrowUpRight size={13} />
-          </a>
-        </div>
-      </header>
+    <div
+      className={`av-app ${active ? '' : 'is-paused'}`}
+      data-tour-step={tour?.step}
+    >
       {error && <output className="av-error">{error}</output>}
       <main className="av-overview">
-        <div className="av-heading">
-          <div>
-            <p className="av-eyebrow">AN AUTONOMOUS IMPROVEMENT SYSTEM</p>
-            <h1>COMMERCE, IN MOTION.</h1>
-            <p className="av-heading-description">
-              Agents turn shopper insight into improvements — and share the
-              value back.
-            </p>
-          </div>
-          <span className="av-view-mark">
-            01—05<span>THE COMPLETE LOOP</span>
-          </span>
-        </div>
+        <h1 className="av-sr-title">Agent factory</h1>
         <AgentFactoryScene
           fleet={fleet}
           actions={{
-            feedback: (feedback) => setDetail(feedbackDetail(feedback)),
+            feedback: (feedback) => openDetail(feedbackDetail(feedback)),
             worker: (worker, index) =>
-              setDetail(workerDetail(worker, fleet, index)),
+              openDetail(workerDetail(worker, fleet, index)),
             signals: () =>
-              setDetail({
+              openDetail({
                 title: 'Shopper signals',
                 pages: fleet.feedback.flatMap(
                   (feedback) => feedbackDetail(feedback).pages,
                 ),
               }),
-            findings: () => setDetail(findingsDetail(fleet)),
-            improvements: () => setDetail(improvementDetail(fleet)),
-            rewards: () => setDetail(rewardDetail(fleet)),
+            findings: () => openDetail(findingsDetail(fleet)),
+            improvements: () => openDetail(improvementDetail(fleet)),
+            rewards: () => openDetail(rewardDetail(fleet)),
           }}
         />
         <footer className="av-transport">
           <div className="av-transport-controls">
             <button
-              aria-label={playing ? 'Pause simulation' : 'Play simulation'}
-              onClick={() => setPlaying((value) => !value)}
+              className="av-record-control"
+              aria-pressed={tourRunning}
+              aria-label={
+                !touring || tour.finished
+                  ? 'Play 60-second demo'
+                  : playing
+                    ? 'Pause demo'
+                    : 'Resume demo'
+              }
+              title={
+                !touring || tour.finished
+                  ? 'Play 60-second demo'
+                  : playing
+                    ? 'Pause demo'
+                    : 'Resume demo'
+              }
+              onClick={() =>
+                !touring || tour.finished
+                  ? startTour()
+                  : setPlaying((value) => !value)
+              }
             >
-              {playing ? <Pause size={14} /> : <Play size={14} />}
+              <span className="av-record-dot" aria-hidden="true" />
             </button>
             <button
               aria-label="Restart simulation"
               onClick={() => {
-                setClock(0);
-                setPlaying(true);
+                if (touring) startTour();
+                else {
+                  setClock(0);
+                  setPlaying(true);
+                }
               }}
             >
               <RotateCcw size={13} />
             </button>
-            <span>{active ? 'SIMULATION RUNNING' : 'SIMULATION PAUSED'}</span>
-          </div>
-          <div className="av-activity">
-            <span className="av-status-dot" />
             <span>
-              {recent?.snapshot.event?.title || 'Waiting for incoming signals'}
+              {touring
+                ? tour.finished
+                  ? 'DEMO COMPLETE'
+                  : active
+                    ? 'SAMPLE DEMO'
+                    : 'DEMO PAUSED'
+                : active
+                  ? 'SIMULATION RUNNING'
+                  : 'SIMULATION PAUSED'}
             </span>
           </div>
           <label className="av-clock">
-            <span>{time(clock % fleet.cycleMs)}</span>
+            <span>{time(tourMs ?? clock % fleet.cycleMs)}</span>
             <input
               type="range"
               aria-label="Simulation position"
               min="0"
-              max={fleet.cycleMs - 1}
+              max={touring ? DEMO_DURATION_MS : fleet.cycleMs - 1}
               step="250"
-              value={clock % fleet.cycleMs}
+              value={tourMs ?? clock % fleet.cycleMs}
               onChange={(event) => {
                 const position = Number(event.target.value);
+                if (touring) {
+                  setTourMs(position);
+                  return;
+                }
                 setClock(
                   (current) =>
                     Math.floor(current / fleet.cycleMs) * fleet.cycleMs +
@@ -150,11 +218,28 @@ export default function FeedbackAdmin() {
                 );
               }}
             />
-            <span>LOOP</span>
+            <span>{touring ? '/ 01:00' : 'LOOP'}</span>
           </label>
+          <a className="av-storefront-link" href="/store">
+            Storefront <ArrowUpRight size={13} />
+          </a>
         </footer>
       </main>
-      {detail && <ZoomDetail detail={detail} onClose={() => setDetail(null)} />}
+      {guidedDetail ? (
+        <ZoomDetail
+          key={tour!.step}
+          detail={guidedDetail}
+          onClose={exitTour}
+          guided={{
+            page: Math.min(tour!.page, guidedDetail.pages.length - 1),
+            elapsedMs: tourMs!,
+            playing,
+            onToggle: () => setPlaying((value) => !value),
+          }}
+        />
+      ) : (
+        detail && <ZoomDetail detail={detail} onClose={() => setDetail(null)} />
+      )}
     </div>
   );
 }
@@ -489,18 +574,27 @@ function rewardDetail(fleet: Fleet): Detail {
 function ZoomDetail({
   detail,
   onClose,
+  guided,
 }: {
   detail: Detail;
   onClose: () => void;
+  guided?: {
+    page: number;
+    elapsedMs: number;
+    playing: boolean;
+    onToggle: () => void;
+  };
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
-  const [page, setPage] = useState(0);
+  const [manualPage, setPage] = useState(0);
+  const page = guided?.page ?? manualPage;
   useEffect(() => {
     dialog.current?.showModal();
   }, []);
   return (
     <dialog
       ref={dialog}
+      closedby="any"
       className={`av-dialog ${detail.wide ? 'is-wide' : ''}`}
       aria-label={detail.title}
       onClose={onClose}
@@ -508,9 +602,19 @@ function ZoomDetail({
       <header>
         <button onClick={() => dialog.current?.close()}>
           <ArrowLeft size={14} />
-          Back to overview
+          {guided ? 'Exit demo' : 'Back to overview'}
         </button>
-        <span>FOCUSED VIEW</span>
+        {guided ? (
+          <button
+            onClick={guided.onToggle}
+            aria-label={guided.playing ? 'Pause demo' : 'Resume demo'}
+          >
+            {guided.playing ? <Pause size={14} /> : <Play size={14} />}
+            {time(guided.elapsedMs)} / 01:00
+          </button>
+        ) : (
+          <span>FOCUSED VIEW</span>
+        )}
       </header>
       <h2>{detail.title}</h2>
       <div className="av-dialog-section">
@@ -520,25 +624,36 @@ function ZoomDetail({
         </small>
       </div>
       <div className="av-dialog-content">{detail.pages[page].content}</div>
-      <footer>
-        <button
-          disabled={page === 0}
-          onClick={() => setPage((value) => value - 1)}
-        >
-          <ChevronLeft size={14} />
-          Previous
-        </button>
-        <button
-          onClick={() =>
-            page === detail.pages.length - 1
-              ? dialog.current?.close()
-              : setPage((value) => value + 1)
-          }
-        >
-          {page === detail.pages.length - 1 ? 'Back to overview' : 'Next'}
-          <ArrowRight size={14} />
-        </button>
-      </footer>
+      {guided ? (
+        <footer className="av-guided-footer">
+          <span>Sample demo · continuing automatically</span>
+          <progress
+            aria-label="Demo progress"
+            value={guided.elapsedMs}
+            max={DEMO_DURATION_MS}
+          />
+        </footer>
+      ) : (
+        <footer>
+          <button
+            disabled={page === 0}
+            onClick={() => setPage((value) => value - 1)}
+          >
+            <ChevronLeft size={14} />
+            Previous
+          </button>
+          <button
+            onClick={() =>
+              page === detail.pages.length - 1
+                ? dialog.current?.close()
+                : setPage((value) => value + 1)
+            }
+          >
+            {page === detail.pages.length - 1 ? 'Back to overview' : 'Next'}
+            <ArrowRight size={14} />
+          </button>
+        </footer>
+      )}
     </dialog>
   );
 }

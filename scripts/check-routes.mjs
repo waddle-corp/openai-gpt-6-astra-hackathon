@@ -30,7 +30,7 @@ assert.doesNotMatch(
   html,
   /store-header|store-footer|store-scope|boosted-demo-cart/,
 );
-assert.match(html, /SYSTEM OVERVIEW/);
+assert.match(html, /class="av-storefront-link" href="\/store"/);
 assert.match(html, /Agent system map/);
 const image = await fetch(
   origin +

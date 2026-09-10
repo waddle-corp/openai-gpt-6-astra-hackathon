@@ -1,0 +1,12 @@
+/* These masks clip the original supplied art; source pixels remain untouched. */
+.fx-asset-assembly {
+  clip-path: url(#factory-assembly-cutout);
+}
+
+.fx-asset-rewards {
+  clip-path: url(#factory-rewards-cutout);
+}
+
+.fx-asset-conveyors {
+  clip-path: url(#factory-conveyors-cutout);
+}
