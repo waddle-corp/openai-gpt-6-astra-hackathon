@@ -1396,3 +1396,33 @@
   object-fit: contain;
   object-position: center;
 }
+
+.mo-improvement-previews {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 0 16px 16px;
+  overflow-y: auto;
+}
+.mo-improvement-preview {
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+}
+.mo-improvement-preview h3 {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: #657185;
+  margin: 0 0 8px;
+}
+.mo-improvement-preview-empty {
+  flex: 1;
+  min-height: 70px;
+  border: 1px solid #e4e8ee;
+  border-radius: 8px;
+  background: #f7f8fa;
+}

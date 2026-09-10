@@ -208,7 +208,6 @@ export function MerchantOverview({
   const [inspecting, setInspecting] = useState<AdminOverviewRecord | null>(
     null,
   );
-  const selected = records.find((record) => record.feedback.id === selectedId);
   const replays = records.filter(
     (record) => record.strategyMatch && record.replayUrl,
   );
@@ -435,32 +434,32 @@ export function MerchantOverview({
             <div className="mo-panel-head">
               <div>
                 <h2 id="diagnosis-title">
-                  <small className="mo-step-number">03</small>Diagnosis &
-                  improvement
+                  <small className="mo-step-number">03</small>Recommended
+                  improvements
                 </h2>
               </div>
             </div>
-            <div className="mo-outcome-body">
-              <h3>Analysis pending</h3>
-              <p>No diagnosis or proposal has been generated yet.</p>
-              <div className="mo-result-fields">
-                <div>
-                  <span>Diagnosis</span>
-                  <small>—</small>
-                </div>
-                <div>
-                  <span>Proposed improvement</span>
-                  <small>—</small>
-                </div>
-                <div>
-                  <span>Expected impact</span>
-                  <small>—</small>
-                </div>
-              </div>
-            </div>
-            <div className="mo-outcome-foot">
-              {selected ? `${selected.shortId} selected` : 'No signal selected'}
-              <span>Analysis pending</span>
+            <div className="mo-improvement-previews">
+              <section
+                className="mo-improvement-preview"
+                aria-labelledby="as-is-title"
+              >
+                <h3 id="as-is-title">As-is</h3>
+                <div
+                  className="mo-improvement-preview-empty"
+                  aria-label="As-is preview, empty"
+                />
+              </section>
+              <section
+                className="mo-improvement-preview"
+                aria-labelledby="to-be-title"
+              >
+                <h3 id="to-be-title">To-be</h3>
+                <div
+                  className="mo-improvement-preview-empty"
+                  aria-label="To-be preview, empty"
+                />
+              </section>
             </div>
           </section>
           <section
