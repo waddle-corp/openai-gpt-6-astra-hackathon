@@ -314,131 +314,118 @@ export function MerchantOverview({
               <Play size={14} /> Play
             </button>
           </div>
-          <div className="mo-fleet-intro">
-            <span>
-              <i /> Computer-use analysis
-            </span>
-          </div>
-          <div className="mo-replay-grid">
-            {replays
-              .slice(
-                replayPage * REPLAYS_PER_PAGE,
-                (replayPage + 1) * REPLAYS_PER_PAGE,
-              )
-              .map((record) => {
-                const progress = analysisProgress(
-                  elapsed,
-                  run.deadlines[record.feedback.id],
-                );
-                const done = progress === 100;
-                return (
+          <div className="mo-fleet-split">
+            <div className="mo-fleet-previews">
+              <div className="mo-fleet-intro">
+                <span>
+                  <i /> Computer-use analysis
+                </span>
+              </div>
+              <div className="mo-replay-grid">
+                {replays
+                  .slice(
+                    replayPage * REPLAYS_PER_PAGE,
+                    (replayPage + 1) * REPLAYS_PER_PAGE,
+                  )
+                  .map((record) => {
+                    const progress = analysisProgress(
+                      elapsed,
+                      run.deadlines[record.feedback.id],
+                    );
+                    const done = progress === 100;
+                    return (
+                      <button
+                        className={`mo-replay ${selectedId === record.feedback.id ? 'is-selected' : ''}`}
+                        key={record.feedback.id}
+                        onClick={() => {
+                          setSelectedId(record.feedback.id);
+                          setInspecting(record);
+                        }}
+                        aria-label={`Open replay ${record.shortId}`}
+                      >
+                        <span className="mo-replay-screen">
+                          <Replay
+                            record={record}
+                            playing={run.id > 0 && !done && !inspecting}
+                            runId={run.id}
+                          />
+                          <span
+                            className={`mo-analysis-status ${done ? 'is-done' : ''}`}
+                          >
+                            {done ? (
+                              <>
+                                <Check size={12} /> Done
+                              </>
+                            ) : run.id ? (
+                              `Analyzing ${progress}%`
+                            ) : (
+                              'Ready · 0%'
+                            )}
+                          </span>
+                          <progress
+                            className="mo-analysis-track"
+                            aria-label={`Demo analysis ${record.shortId}`}
+                            max={100}
+                            value={progress}
+                          />
+                        </span>
+                        <span className="mo-replay-caption">
+                          <strong>{record.shortId}</strong>
+                          <span>{record.feedback.journey.viewport}</span>
+                        </span>
+                      </button>
+                    );
+                  })}
+              </div>
+              <Pagination
+                page={replayPage}
+                size={REPLAYS_PER_PAGE}
+                count={replays.length}
+                onChange={setReplayPage}
+                label="replays"
+              />
+            </div>
+            <section
+              className="mo-analysis-feed"
+              aria-labelledby="analysis-feed-title"
+            >
+              <div className="mo-analysis-feed-head">
+                <h3 id="analysis-feed-title">Journey analysis</h3>
+                <span>
+                  {completed.length} / {replays.length} complete
+                </span>
+              </div>
+              <p className="mo-analysis-feed-note">
+                Saved findings linked to each journey
+              </p>
+              {!completed.length && (
+                <p className="mo-analysis-empty">
+                  {run.id
+                    ? 'Analyzing journeys. Findings will appear here as each session finishes.'
+                    : 'Press Play to start. Completed analyses will collect here.'}
+                </p>
+              )}
+              <div className="mo-analysis-results">
+                {completed.map((record) => (
                   <button
-                    className={`mo-replay ${selectedId === record.feedback.id ? 'is-selected' : ''}`}
-                    key={record.feedback.id}
+                    className="mo-analysis-result mo-analysis-result-compact"
+                    key={`${run.id}-${record.feedback.id}`}
+                    title={record.analysis?.title || 'Journey ready for review'}
                     onClick={() => {
                       setSelectedId(record.feedback.id);
                       setInspecting(record);
                     }}
-                    aria-label={`Open replay ${record.shortId}`}
                   >
-                    <span className="mo-replay-screen">
-                      <Replay
-                        record={record}
-                        playing={run.id > 0 && !done && !inspecting}
-                        runId={run.id}
-                      />
-                      <span
-                        className={`mo-analysis-status ${done ? 'is-done' : ''}`}
-                      >
-                        {done ? (
-                          <>
-                            <Check size={12} /> Done
-                          </>
-                        ) : run.id ? (
-                          `Analyzing ${progress}%`
-                        ) : (
-                          'Ready · 0%'
-                        )}
-                      </span>
-                      <progress
-                        className="mo-analysis-track"
-                        aria-label={`Demo analysis ${record.shortId}`}
-                        max={100}
-                        value={progress}
-                      />
-                    </span>
-                    <span className="mo-replay-caption">
-                      <strong>{record.shortId}</strong>
-                      <span>{record.feedback.journey.viewport}</span>
-                    </span>
+                    <span>{record.shortId}</span>
+                    <strong>
+                      {record.analysis?.title || 'Journey ready for review'}
+                    </strong>
+                    <Check size={13} aria-label="Done" />
                   </button>
-                );
-              })}
+                ))}
+              </div>
+            </section>
           </div>
-          <Pagination
-            page={replayPage}
-            size={REPLAYS_PER_PAGE}
-            count={replays.length}
-            onChange={setReplayPage}
-            label="replays"
-          />
-          <section
-            className="mo-analysis-feed"
-            aria-labelledby="analysis-feed-title"
-          >
-            <div className="mo-analysis-feed-head">
-              <h3 id="analysis-feed-title">Journey analysis</h3>
-              <span>
-                {completed.length} / {replays.length} complete
-              </span>
-            </div>
-            <p className="mo-analysis-feed-note">
-              Saved findings linked to each journey
-            </p>
-            {!completed.length && (
-              <p className="mo-analysis-empty">
-                {run.id
-                  ? 'Analyzing journeys. Findings will appear here as each session finishes.'
-                  : 'Press Play to start. Completed analyses will collect here.'}
-              </p>
-            )}
-            <div className="mo-analysis-results">
-              {completed.map((record) => (
-                <article
-                  className="mo-analysis-result"
-                  key={`${run.id}-${record.feedback.id}`}
-                >
-                  <div className="mo-analysis-result-head">
-                    <button
-                      onClick={() => {
-                        setSelectedId(record.feedback.id);
-                        setInspecting(record);
-                      }}
-                    >
-                      {record.shortId}
-                    </button>
-                    <span>
-                      <Check size={12} /> Done
-                    </span>
-                  </div>
-                  <h4>
-                    {record.analysis?.title || 'Journey ready for review'}
-                  </h4>
-                  <p>
-                    {record.analysis?.problem ||
-                      'No saved finding is available for this journey.'}
-                  </p>
-                  <details>
-                    <summary>Shopper context</summary>
-                    <p>
-                      {record.feedback.feedback.summary ||
-                        record.feedback.feedback.message}
-                    </p>
-                  </details>
-                </article>
-              ))}
-            </div>
-          </section>
         </section>
         <aside className="mo-outcomes">
           <section
