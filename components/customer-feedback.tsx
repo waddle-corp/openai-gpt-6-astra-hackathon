@@ -222,7 +222,7 @@ function Choices({
           key={option}
         >
           <RadioGroupItem value={option} className="pf-radio" />
-          <span>{option}</span>
+          <span className="pf-choice-label">{option}</span>
           <span className="pf-choice-number" aria-hidden="true">
             {value === option ? <Check size={16} /> : index + 1}
           </span>
