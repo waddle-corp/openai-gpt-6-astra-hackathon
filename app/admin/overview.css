@@ -1695,11 +1695,26 @@
 }
 
 .mo-outcomes > .mo-outcome-card {
-  flex: 7 1 0;
+  flex: 1 1 0;
+  min-height: 260px;
 }
 .mo-outcomes > .mo-value-card {
-  flex: 3 1 0;
-  min-height: 160px;
+  flex: 0 0 auto;
+  min-height: 300px;
+  padding: 16px;
+}
+.mo-value-card > * {
+  flex-shrink: 0;
+}
+.mo-value-card .mo-value-track {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+@media (max-height: 700px) {
+  .mo-outcomes {
+    overflow-y: auto;
+  }
 }
 
 .mo-comparison-viewport {
@@ -1946,7 +1961,8 @@
 .mo-reward-split {
   display: flex;
   gap: 2px;
-  height: 10px;
+  height: 14px;
+  min-height: 14px;
   margin-bottom: 14px;
 }
 .mo-reward-split span {
