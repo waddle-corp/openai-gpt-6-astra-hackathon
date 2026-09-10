@@ -401,7 +401,7 @@ export function FeedbackCheckout({
                         {busy
                           ? 'Connecting your moments'
                           : reply?.source === 'astra'
-                            ? 'Astra'
+                            ? 'Gentoo'
                             : 'Guided preview'}
                       </strong>
                       <small>

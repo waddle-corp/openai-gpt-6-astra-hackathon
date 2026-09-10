@@ -1229,3 +1229,19 @@
   font-size: 11px;
   font-weight: 400;
 }
+
+/* Compact question choices while preserving comfortable touch targets. */
+.pf-agent-question .pf-conversation-options {
+  gap: 6px;
+}
+.pf-agent-question .pf-conversation-options button {
+  min-height: 44px;
+  padding: 10px 13px;
+  font-size: 14px;
+  line-height: 1.4;
+  border-radius: 8px;
+}
+.pf-active-conversation .pf-agent-question h3 {
+  font-size: 18px;
+  margin: 14px 0 16px;
+}
