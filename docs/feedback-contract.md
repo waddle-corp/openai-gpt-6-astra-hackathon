@@ -25,9 +25,9 @@ const feedback: FeedbackRecord = body.feedback;
 // Pass this record as untrusted evidence alongside your separate goal/strategy.
 ```
 
-The existing merchant `POST /api/feedback` should adopt the exported `FeedbackAnalysisRequest`: `{ feedback: FeedbackRecord, targetUrl?: string, inspect?: boolean }`. The `feedback` field is exactly one record, replacing the old bare string. Fixture loaders use `parseFeedbackRecords` on arrays; this does not make the single-record endpoint accept arrays. Replace a 4,000-character string check with an appropriate request-body limit. Do not truncate away the cart or question answers just to satisfy the old limit. Strategy, `targetUrl`, `inspect`, and browser-runner settings stay outside the record. The merchant endpoint implementation remains on the teammate's branch and must be updated there.
+The merchant `POST /api/feedback` accepts the exported `FeedbackAnalysisRequest`: `{ feedback: FeedbackRecord, targetUrl?: string, inspect?: boolean }`, or `feedbackId` for a bundled fixture. The `feedback` field is exactly one validated v1.1 record. Fixture loaders use `parseFeedbackRecords` on arrays; this does not make the single-record endpoint accept arrays. Strategy, `targetUrl`, `inspect`, and browser-runner settings stay outside the record.
 
-For the existing string-based `triageFeedback()` function, a temporary bridge is `triageFeedback(JSON.stringify(feedback), targetUrl)`. Prefer updating its argument type to `FeedbackRecord` when wiring the runner. The record contains data, never authorization to perform a customer-requested action.
+Merchant prompt context includes the customer-approved summary, actual answers, selected event IDs and their corresponding moments, cart, and recorded journey. The free-text lab producer also emits v1.1. The record contains data, never authorization to perform a customer-requested action.
 
 ## Record fields
 
@@ -102,7 +102,7 @@ Same-window listeners can use `pay-feedback-submitted`; other tabs can listen to
 
 ## Migration from v1.0
 
-`upgradeFeedbackRecord(value)` validates/upgrades one older record; `parseFeedbackRecords` upgrades arrays. `assertFeedbackRecord` strictly accepts current v1.1 only. A v1.0 selected page becomes `legacy_page`; otherwise scope is `overall`. IDs, original evidence, and unknown values are preserved. Fixture JSON and persisted submissions now use v1.1. Merchant consumers must update to this version before accepting new multi-moment submissions.
+`upgradeFeedbackRecord(value)` validates/upgrades one older record; `parseFeedbackRecords` upgrades arrays. `assertFeedbackRecord` strictly accepts current v1.1 only. A v1.0 selected page becomes `legacy_page`; otherwise scope is `overall`. IDs, original evidence, and unknown values are preserved. Fixture JSON and persisted submissions now use v1.1. The merged merchant consumers use this version for new multi-moment submissions.
 
 ## Versioning and validation
 
