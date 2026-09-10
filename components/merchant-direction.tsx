@@ -133,7 +133,7 @@ export function MerchantDirection() {
               setEditing(true);
             }}
           >
-            Edit goal & strategy
+            Edit
           </button>
         )}
       </div>
