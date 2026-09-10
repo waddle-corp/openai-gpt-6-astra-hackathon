@@ -234,9 +234,7 @@ export function MerchantOverview({
             </div>
           </div>
           <div className="mo-scope-note">
-            <strong>Selected for this strategy</strong>
-            <span>Higher AOV · Sell compatible parts</span>
-            <small>{records.filter((record) => record.strategyMatch).length} selected / {totalSignals} total · Others dimmed</small>
+            <span>{records.filter((record) => record.strategyMatch).length} of {totalSignals} match your strategy</span>
           </div>
           <div className="mo-signals-list">
             {records.map((record) => (
