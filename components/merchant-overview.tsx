@@ -365,7 +365,7 @@ export function MerchantOverview({
         <MerchantDirection />
         <div className="mo-workspace">
           <section
-            className="mo-panel mo-signals"
+            className={`mo-panel mo-signals ${playing && flowTime < 5000 ? 'is-demo-active' : ''}`}
             aria-labelledby="signals-title"
           >
             <div className="mo-panel-head">
@@ -405,7 +405,10 @@ export function MerchantOverview({
               ))}
             </div>
           </section>
-          <section className="mo-panel mo-fleet" aria-labelledby="fleet-title">
+          <section
+            className={`mo-panel mo-fleet ${playing && flowTime >= 6000 && flowTime < 14000 ? 'is-demo-active' : ''}`}
+            aria-labelledby="fleet-title"
+          >
             <div className="mo-panel-head">
               <div>
                 <h2 id="fleet-title">
@@ -536,7 +539,7 @@ export function MerchantOverview({
           </section>
           <aside className="mo-outcomes">
             <section
-              className="mo-panel mo-outcome-card"
+              className={`mo-panel mo-outcome-card ${playing && flow.generating ? 'is-demo-active' : ''}`}
               aria-labelledby="diagnosis-title"
             >
               <div className="mo-panel-head">

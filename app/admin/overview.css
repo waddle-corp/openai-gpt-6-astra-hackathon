@@ -1667,3 +1667,8 @@
     animation: none;
   }
 }
+
+.mo-panel.is-demo-active {
+  border-color: #5478f0;
+  box-shadow: 0 0 0 2px #5478f0, 0 0 20px #5478f01a;
+}
