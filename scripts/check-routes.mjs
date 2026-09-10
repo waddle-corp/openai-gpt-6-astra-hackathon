@@ -30,16 +30,8 @@ assert.doesNotMatch(
   html,
   /store-header|store-footer|store-scope|boosted-demo-cart/,
 );
-const body = html.match(/<body[^>]*>([\s\S]*?)<\/body>/)?.[1];
-assert.notEqual(body, undefined);
-assert.equal(
-  body
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '')
-    .replace(/<!--[^]*?-->/g, '')
-    .trim(),
-  '',
-  'Admin body must be empty',
-);
+assert.match(html, /Feedback becomes/);
+assert.match(html, /Feedback workflow/);
 const image = await fetch(
   origin +
     '/media/storefront/buy-boosted-boards-online-electric-skateboard-2.png',
@@ -57,5 +49,5 @@ assert.equal(
   '/store/products/boosted-charger?variant=123',
 );
 console.log(
-  'OK root redirect, empty admin, static image, canonical product redirect',
+  'OK root redirect, merchant admin, static image, canonical product redirect',
 );

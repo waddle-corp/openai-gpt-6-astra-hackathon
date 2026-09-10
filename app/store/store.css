@@ -847,3 +847,9 @@ del {
 }
 
 }
+.store-scope .feedback-checkout {margin-top:20px;padding-top:20px;border-top:1px solid #ccc}
+.store-scope .feedback-checkout p {font-size:14px;line-height:1.5}
+.store-scope .feedback-checkout fieldset {border:1px solid #ccc;padding:12px;margin:14px 0}
+.store-scope .feedback-checkout .feedback-moment {display:flex;gap:10px;align-items:start;margin:12px 0;font-size:14px}
+.store-scope .feedback-checkout input[type=checkbox] {width:18px;height:18px;flex-shrink:0}
+.store-scope .feedback-checkout textarea {display:block;width:100%;padding:10px;border:1px solid #aaa;box-sizing:border-box;font:inherit;margin-top:8px}

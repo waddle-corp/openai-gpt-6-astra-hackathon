@@ -8,6 +8,8 @@ import {
   useState,
   useSyncExternalStore,
 } from 'react';
+import { FeedbackCheckout } from './feedback-checkout';
+import { captureMoment } from './feedback-state';
 import { flushSync } from 'react-dom';
 import {
   Select,
@@ -252,6 +254,13 @@ export function ProductPurchase({
       product.images[0]?.url ??
       '',
   );
+  useEffect(() => {
+    captureMoment({
+      label: 'Viewed product',
+      route: `/store/products/${product.handle}`,
+      detail: product.title,
+    });
+  }, [product.handle, product.title]);
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState('');
   const max = variant ? maxQuantity(variant) : 0;
@@ -328,6 +337,11 @@ export function ProductPurchase({
                     next?.media[0]?.image?.url ??
                     next?.media[0]?.preview?.image?.url;
                   if (image) setActiveImage(image);
+                  captureMoment({
+                    label: 'Selected option',
+                    route: `/store/products/${product.handle}`,
+                    detail: `${product.title} · ${next?.title}`,
+                  });
                 }}
               >
                 <SelectTrigger
@@ -353,6 +367,11 @@ export function ProductPurchase({
               const amount = Math.min(quantity, remaining);
               if (amount < 1) return;
               add(variantId, amount);
+              captureMoment({
+                label: 'Added to cart',
+                route: `/store/products/${product.handle}`,
+                detail: `${product.title} · ${variant?.title} · quantity ${amount}`,
+              });
               setMessage(`${amount} added to your cart.`);
             }}
           >
@@ -427,6 +446,12 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
         <h1>Demo order completed</h1>
         <p>Reference: {confirmation}</p>
         <p>No payment was collected and no order was sent to Shopify.</p>
+        {confirmation.startsWith('F-') && (
+          <p>
+            Your feedback reached the merchant queue.{' '}
+            <a href="/admin">View merchant admin →</a>
+          </p>
+        )}
         <a className="button" href="/store/collections/all">
           Continue shopping
         </a>
@@ -530,6 +555,20 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
               <a className="button" href="/store/checkout">
                 Continue to demo checkout
               </a>
+            )}
+            {checkout && (
+              <FeedbackCheckout
+                cartMoments={items.map((item) => ({
+                  id: `checkout-${item.variantId}`,
+                  label: 'Checkout review',
+                  route: '/store/checkout',
+                  detail: `${variants[item.variantId].productTitle} · ${variants[item.variantId].title} · quantity ${item.quantity}`,
+                }))}
+                onComplete={(id) => {
+                  setConfirmation(id);
+                  clear();
+                }}
+              />
             )}
             <a
               className="continue-shopping"
