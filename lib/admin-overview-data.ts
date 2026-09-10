@@ -81,11 +81,23 @@ const aovFocus: Record<string, string> = {
   'maintenance-companions': 'Accessory attachment',
 };
 
-// Concise display labels for the saved problems; the source findings stay intact.
+// Editorial display titles grounded in each saved submission and its answers.
+// These specialize the grouped finding for the feed without changing source evidence.
 const findingTitles: Record<string, string> = {
-  'model-compatibility': 'Unclear model-to-part compatibility',
-  'complete-installation': 'Unclear included vs. required parts',
-  'maintenance-companions': 'Missing guidance for maintenance essentials',
+  'shopper-feedback-001': 'Mini X battery fit is uncertain',
+  'shopper-feedback-003': 'Upgrade kit contents need a parts list',
+  'shopper-feedback-006': 'Wheel purchase leaves pulley needs unclear',
+  'shopper-feedback-013': 'Broad charger title obscures GTR 2 fit',
+  'shopper-feedback-016': 'Replacement link leaves charger choice unresolved',
+  'shopper-feedback-017': 'Bike assembly tools and time are unclear',
+  'shopper-feedback-019': 'Maintenance essentials need a bundle',
+  'SYN-FB-02': 'Mini X owner cannot decode Gen 2 / V2',
+  'SYN-FB-03': 'Charger found, but Stealth fit unconfirmed',
+  'SYN-FB-06': 'Price holds back the charger purchase',
+  'SYN-FB-07': 'Charger options do not map clearly to the cart',
+  'SYN-FB-08': 'Repeat reading leaves Mini S fit unresolved',
+  'SYN-FB-09': 'Stealth name clashes with Generation 2 label',
+  'SYN-FB-12': 'Confusing fit, but no need for a charger yet',
 };
 
 export function getStrategyOverview() {
@@ -107,7 +119,7 @@ export function getStrategyOverview() {
         );
         return finding
           ? {
-              title: findingTitles[finding.id] ?? finding.title,
+              title: findingTitles[record.feedback.id] ?? finding.title,
               problem: finding.problem,
               source: 'cached' as const,
               generatedAt: collective.generatedAt,
