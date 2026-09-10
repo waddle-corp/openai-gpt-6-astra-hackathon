@@ -1,6 +1,6 @@
-# Shared feedback contract — v1.0
+# Shared feedback contract — v1.1
 
-**Authoritative code:** `contracts/feedback.ts` exports `FeedbackRecord`, `FeedbackCart`, `FeedbackEvent`, `assertFeedbackRecord`, and `parseFeedbackRecords`. All finalized customer submissions and merchant feedback inputs use this contract. Internal questionnaire/draft types are not the shared boundary.
+**Authoritative code:** `contracts/feedback.ts` exports `FeedbackRecord`, `FeedbackCart`, `FeedbackEvent`, `assertFeedbackRecord`, `upgradeFeedbackRecord`, and `parseFeedbackRecords`. All finalized customer submissions and merchant feedback inputs use this contract. Internal questionnaire/draft types are not the shared boundary.
 
 ## Integration in one minute
 
@@ -35,7 +35,7 @@ All fields shown in the TypeScript type are required, including explicitly nulla
 
 | Field                           | Meaning                                                                                                                                                                  |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `contractVersion`               | Exactly `"1.0"`. Reject unsupported versions.                                                                                                                            |
+| `contractVersion`               | Exactly `"1.1"`. Reject unsupported versions.                                                                                                                            |
 | `id`, `createdAt`               | Feedback ID and time submitted/generated as a feedback record.                                                                                                           |
 | `source`                        | `kind`: `demo_session` or `synthetic`; producer, optional dataset ID, and channel such as `checkout` or `product-page`. These are provenance, not credibility scores.    |
 | `sessionId`                     | Customer demo session ID, or `null` if not recorded.                                                                                                                     |
@@ -44,13 +44,19 @@ All fields shown in the TypeScript type are required, including explicitly nulla
 | `feedback.responses`            | Ordered `{id, question, options, answer}` records. Empty if no questioning occurred. Answers must be one of the recorded options; optional free text stays in `message`. |
 | `feedback.summary`              | Customer-facing summary or `null`; do not manufacture a summary for records that lack one. Prefer original words/answers as evidence.                                    |
 | `feedback.questionSource`       | `prepared`, `astra`, or `null` when there were no questions.                                                                                                             |
-| `context.selectedPage`          | `{path, title}` for the page singled out, or `null`. A fixture may identify a page without implying a customer clicked a UI selector.                                    |
+| `context.selectedPage`          | `{path, title}` for the first selected moment (legacy display only), or `null`. A fixture may identify a page without implying a customer clicked a UI selector.                                    |
 | `context.relatedProductHandles` | Products present in the original context. Does not assert ownership, compatibility, purchase intent, or abandonment.                                                     |
 | `context.cart`                  | Cart at feedback submission, or `null` if unavailable.                                                                                                                   |
 | `journey`                       | Evidence kind, viewport, start path, and ordered events.                                                                                                                 |
 | `purchase`                      | Known final demo purchase state, separate from the submission cart.                                                                                                      |
 | `rewardPreference`              | `coupon`, `card_cashback`, or `null`. No reward rate, amount, or entitlement is inferred.                                                                                |
 | `review`                        | Currently `pending_review`; `dueAt` is the promised deadline or `null`. Imported product-page feedback does not acquire a new 72-hour promise.                           |
+
+### Feedback focus (new in v1.1)
+
+`context.focus` is required: `{ scope, eventIds }`. `specific_moments` contains one or more unique IDs from `journey.events`; selected timeline moments include their page and action events. Analyze these together as one connected customer issue. `overall` has an empty ID array and `selectedPage: null`; an empty recorded journey is allowed. `legacy_page` has an empty ID array and a non-null `selectedPage`, preserving older data without inventing selections.
+
+The customer UI groups consecutive actions into moments and preserves return visits. Labels describe observed behavior, not inferred frustration or abandoned revenue. The summary is currently deterministic, not AI highlight analysis.
 
 ### Cart and purchase semantics
 
@@ -68,7 +74,8 @@ A cart has `currency: "USD"`, `capturedAt`, `items`, and `totalCents`. Each item
 
 Each event includes `id`, contiguous one-based `sequence`, nullable `occurredAt`, `type`, `path`, and nullable `destinationPath`, `target`, `value`, `keys`, `button`, `direction`, `scrollY`, `image`.
 
-- Types: `page_view`, `variant_selected`, `cart_added`, `click`, `type`, `keypress`, `scroll`, `drag`.
+- Types: `page_view`, `variant_selected`, `cart_added`, `image_selected`, `description_reached`, `link_clicked`, `cart_updated`, `cart_removed`, `click`, `type`, `keypress`, `scroll`, `drag`.
+- Live capture records selected images, store link destinations, cart quantity changes/removals, and product-description visibility. `description_reached` means the section entered the viewport, not that the customer read it. Generic click/scroll/drag traces currently come from synthetic fixtures.
 - `path` is the store-relative route where the event occurred. `destinationPath` is a supplied resulting route; do not fabricate it for page views.
 - `target` is a supplied semantic target or page/product title, not a guaranteed executable selector.
 - `value` preserves typed text or the recorded option/cart detail. It is not a computed root cause.
@@ -89,14 +96,18 @@ Both files are now **JSON arrays of `FeedbackRecord`**, not different wrappers:
 
 Original `topic`, `priority`, `sentiment`, and status annotations are preserved in `evaluation/feedback/shopper-labels.json`. Compatibility expectations remain in `evaluation/feedback/expected-outcomes.json`. **Never import `evaluation/` files into the analyst input.**
 
-`readFeedbackSubmissions()` in `lib/feedback-storage.ts` returns canonical `FeedbackRecord[]` from the existing `pay-feedback-submissions-v1` key. The key intentionally stays the same. Legacy customer schema v1/v2 records are validated/converted and persisted on read. Unknown versions or malformed records raise an error without overwriting the stored data. The customer flow's session receipt remains an internal type and is converted before persistence.
+`readFeedbackSubmissions()` in `lib/feedback-storage.ts` returns canonical `FeedbackRecord[]` from the existing `pay-feedback-submissions-v1` key. The key intentionally stays the same. Shared v1.0 records and legacy customer schema v1/v2 records are validated/converted and persisted on read. Unknown versions or malformed records raise an error without overwriting the stored data. The customer flow's session receipt remains an internal type and is converted before persistence.
 
 Same-window listeners can use `pay-feedback-submitted`; other tabs can listen to the native `storage` event. State is still local to the same browser/origin. This contract does not provide cross-device transport, durable backend storage, or a browser runner. Those integration pieces remain separate.
+
+## Migration from v1.0
+
+`upgradeFeedbackRecord(value)` validates/upgrades one older record; `parseFeedbackRecords` upgrades arrays. `assertFeedbackRecord` strictly accepts current v1.1 only. A v1.0 selected page becomes `legacy_page`; otherwise scope is `overall`. IDs, original evidence, and unknown values are preserved. Fixture JSON and persisted submissions now use v1.1. Merchant consumers must update to this version before accepting new multi-moment submissions.
 
 ## Versioning and validation
 
 - Consumers must validate at their boundary with `assertFeedbackRecord` (one record) or `parseFeedbackRecords` (an array, including unique IDs).
-- Coordinate contract updates in this file and `contracts/feedback.ts` together. Since validation rejects unknown fields, adding or changing fields requires a versioned migration; do not silently change v1.0.
+- Coordinate contract updates in this file and `contracts/feedback.ts` together. Since validation rejects unknown fields, adding or changing fields requires a versioned migration; do not silently change v1.1.
 - Run `npm test`, `npm run typecheck`, and `npm run lint` when changing the contract or a producer.
 - `scripts/migrate-feedback-fixtures.mjs` is an idempotent conversion utility for old fixture formats. It preserves IDs and isolates old author annotations. It is not imported by the running app.
 

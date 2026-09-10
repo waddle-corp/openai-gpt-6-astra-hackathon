@@ -13,6 +13,7 @@ import {
   isRecordablePath,
   validFeedbackCart,
   feedbackSummary,
+  selectedMomentIds,
   type FeedbackCartItem,
   type FeedbackDraft,
   type FeedbackSubmission,
@@ -125,7 +126,7 @@ export function readFeedbackSubmissions(): FeedbackRecord[] {
     );
   const records = parseFeedbackRecords(parsed.map(normalizeStoredFeedback));
   // Validate all entries before replacing any legacy data. Preserve unknown data on error.
-  if (parsed.some((record) => record?.contractVersion !== '1.0'))
+  if (parsed.some((record) => record?.contractVersion !== '1.1'))
     localStorage.setItem(FEEDBACK_SUBMISSIONS_KEY, JSON.stringify(records));
   return records;
 }
@@ -136,6 +137,7 @@ export function submitFeedback(
   const { session } = getFeedbackState();
   if (session.receipt) return session.receipt;
   const draft = session.draft;
+  const selectedIds = selectedMomentIds(draft);
   if (
     !validFeedbackCart(cartSnapshot) ||
     !cartSnapshot.length ||
@@ -147,7 +149,11 @@ export function submitFeedback(
     throw new Error('Invalid cart snapshot.');
   if (
     session.consent !== 'accepted' ||
-    !draft.selected ||
+    (draft.focus !== 'overall' &&
+      (!selectedIds.length ||
+        selectedIds.some(
+          (id) => !session.events.some((event) => event.id === id),
+        ))) ||
     !draft.reward ||
     !draft.category ||
     !draft.questions.length ||
@@ -166,7 +172,14 @@ export function submitFeedback(
     orderTotalCents,
     cartSnapshot: structuredClone(cartSnapshot),
     journey: session.events,
-    selectedScreen: draft.selected,
+    selectedScreen:
+      draft.focus === 'overall'
+        ? null
+        : (session.events.find((event) => event.id === selectedIds[0]) ?? null),
+    selection: {
+      scope: draft.focus === 'overall' ? 'overall' : 'specific_moments',
+      eventIds: selectedIds,
+    },
     category: draft.category,
     note: draft.note.trim(),
     questions: draft.questions,

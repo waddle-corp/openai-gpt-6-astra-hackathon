@@ -1,5 +1,5 @@
 /** Shared customer → merchant boundary. No UI, provider, or browser dependencies. */
-export const FEEDBACK_CONTRACT_VERSION = '1.0' as const;
+export const FEEDBACK_CONTRACT_VERSION = '1.1' as const;
 export type FeedbackCart = {
   currency: 'USD';
   capturedAt: string | null;
@@ -25,7 +25,12 @@ export type FeedbackEvent = {
     | 'type'
     | 'keypress'
     | 'scroll'
-    | 'drag';
+    | 'drag'
+    | 'image_selected'
+    | 'description_reached'
+    | 'link_clicked'
+    | 'cart_updated'
+    | 'cart_removed';
   path: string;
   destinationPath: string | null;
   target: string | null;
@@ -62,6 +67,10 @@ export type FeedbackRecord = {
   };
   context: {
     selectedPage: { path: string; title: string | null } | null;
+    focus: {
+      scope: 'specific_moments' | 'overall' | 'legacy_page';
+      eventIds: string[];
+    };
     /** Context references, not assertions that products were abandoned or compatible. */
     relatedProductHandles: string[];
     cart: FeedbackCart | null;
@@ -157,7 +166,7 @@ export function assertFeedbackRecord(
   value: unknown,
 ): asserts value is FeedbackRecord {
   const fail = () => {
-    throw new Error('Invalid FeedbackRecord v1.0');
+    throw new Error('Invalid FeedbackRecord v1.1');
   };
   if (
     !object(value) ||
@@ -233,7 +242,12 @@ export function assertFeedbackRecord(
   }
   if (
     !object(context) ||
-    !keys(context, ['selectedPage', 'relatedProductHandles', 'cart']) ||
+    !keys(context, [
+      'selectedPage',
+      'focus',
+      'relatedProductHandles',
+      'cart',
+    ]) ||
     !strings(context.relatedProductHandles) ||
     !cart(context.cart)
   )
@@ -291,6 +305,11 @@ export function assertFeedbackRecord(
         'keypress',
         'scroll',
         'drag',
+        'image_selected',
+        'description_reached',
+        'link_clicked',
+        'cart_updated',
+        'cart_removed',
       ].includes(String(event.type)) ||
       !path(event.path) ||
       !(event.destinationPath === null || path(event.destinationPath)) ||
@@ -311,6 +330,25 @@ export function assertFeedbackRecord(
       lastTime = time;
     }
   }
+  const focus = context.focus;
+  if (
+    !object(focus) ||
+    !keys(focus, ['scope', 'eventIds']) ||
+    !['specific_moments', 'overall', 'legacy_page'].includes(
+      focus.scope as string,
+    ) ||
+    !strings(focus.eventIds) ||
+    new Set(focus.eventIds).size !== focus.eventIds.length ||
+    focus.eventIds.some((id) => !eventIds.has(id))
+  )
+    return fail();
+  if (focus.scope === 'specific_moments' && !focus.eventIds.length)
+    return fail();
+  if (focus.scope !== 'specific_moments' && focus.eventIds.length)
+    return fail();
+  if (focus.scope === 'overall' && context.selectedPage !== null) return fail();
+  if (focus.scope === 'legacy_page' && context.selectedPage === null)
+    return fail();
   if (
     !object(purchase) ||
     !keys(purchase, ['status', 'orderReference', 'completedAt', 'cart']) ||
@@ -343,15 +381,38 @@ export function assertFeedbackRecord(
     return fail();
 }
 
+/** Explicit migration: do not invent event selections for old single-page records. */
+export function upgradeFeedbackRecord(value: unknown): FeedbackRecord {
+  let next = value;
+  if (object(value) && value.contractVersion === '1.0') {
+    if (!object(value.context) || 'focus' in value.context)
+      throw new Error('Invalid legacy feedback context');
+    next = {
+      ...value,
+      contractVersion: '1.1',
+      context: {
+        ...value.context,
+        focus: {
+          scope:
+            value.context.selectedPage === null ? 'overall' : 'legacy_page',
+          eventIds: [],
+        },
+      },
+    };
+  }
+  assertFeedbackRecord(next);
+  return next;
+}
+
 export function parseFeedbackRecords(value: unknown): FeedbackRecord[] {
   if (!Array.isArray(value))
-    throw new Error('Expected an array of FeedbackRecord v1.0');
+    throw new Error('Expected an array of FeedbackRecord v1.1');
+  const records = value.map(upgradeFeedbackRecord);
   const ids = new Set<string>();
-  for (const record of value) {
-    assertFeedbackRecord(record);
+  for (const record of records) {
     if (ids.has(record.id))
       throw new Error(`Duplicate feedback ID: ${record.id}`);
     ids.add(record.id);
   }
-  return value;
+  return records;
 }

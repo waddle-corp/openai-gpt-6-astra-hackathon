@@ -195,7 +195,32 @@ try {
     () => storage.submitFeedback(5999, cart),
     'Reject mismatched totals',
   );
+  const eventIds = storage
+    .getFeedbackState()
+    .session.events.map((event) => event.id);
+  storage.updateFeedbackDraft({
+    focus: 'specific_moments',
+    selectedIds: ['missing'],
+  });
+  assert.throws(() => storage.submitFeedback(6000, cart));
+  storage.updateFeedbackDraft({ selectedIds: eventIds });
   const receipt = storage.submitFeedback(6000, cart);
+  assert.deepEqual(
+    storage.readFeedbackSubmissions()[0].context.focus.eventIds,
+    eventIds,
+  );
+  const journey = storage.getFeedbackState().session.events;
+  assert.equal(model.journeyMoments(journey).length, 1);
+  assert.equal(model.journeyMoments(journey)[0].label, 'Added to your cart');
+  assert.equal(
+    model.journeyMoments([
+      ...journey,
+      { ...journey[0], id: 'other', path: '/store/cart' },
+      { ...journey[0], id: 'return' },
+    ]).length,
+    3,
+  );
+
   assert.equal(
     Date.parse(receipt.reviewDueAt) - Date.parse(receipt.submittedAt),
     72 * 3600000,
@@ -213,13 +238,13 @@ try {
   );
   assert.equal(
     storage.readFeedbackSubmissions()[0].contractVersion,
-    '1.0',
+    '1.1',
     'Migrate legacy local records',
   );
   assert.equal(
     JSON.parse(localStorage.getItem(model.FEEDBACK_SUBMISSIONS_KEY))[0]
       .contractVersion,
-    '1.0',
+    '1.1',
   );
   storage.linkFeedbackOrder('DEMO-123', [{ ...cart[0], quantity: 2 }]);
   assert.equal(
@@ -242,6 +267,25 @@ try {
     1,
     'Restart preserves merchant submissions',
   );
+  storage.setFeedbackConsent('accepted');
+  storage.updateFeedbackDraft({
+    focus: 'overall',
+    category: 'Comparing products',
+    questions,
+    answers: {
+      cause: questions[0].options[0],
+      impact: questions[1].options[1],
+    },
+    reward: 'coupon',
+    step: 'review',
+  });
+  const overall = storage.submitFeedback(6000, cart);
+  assert.equal(overall.selectedScreen, null);
+  assert.deepEqual(storage.readFeedbackSubmissions().at(-1).context.focus, {
+    scope: 'overall',
+    eventIds: [],
+  });
+  storage.resetFeedbackSession();
   storage.setFeedbackConsent('accepted');
   storage.recordJourney(page);
   storage.setFeedbackConsent('declined');

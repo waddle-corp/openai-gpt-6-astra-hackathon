@@ -1,6 +1,6 @@
 [
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-001",
     "createdAt": "2026-08-22T14:18:00Z",
     "source": {
@@ -25,7 +25,11 @@
       "relatedProductHandles": [
         "standard-range-battery-pack"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -139,7 +143,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-002",
     "createdAt": "2026-08-23T09:42:00Z",
     "source": {
@@ -164,7 +168,11 @@
       "relatedProductHandles": [
         "boosted-remote"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -278,7 +286,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-003",
     "createdAt": "2026-08-24T16:07:00Z",
     "source": {
@@ -303,7 +311,11 @@
       "relatedProductHandles": [
         "boosted-pulley-belt-upgrade-kit"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -417,7 +429,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-004",
     "createdAt": "2026-08-25T11:31:00Z",
     "source": {
@@ -442,7 +454,11 @@
       "relatedProductHandles": [
         "gtr-series-2-bamboo-at"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -539,7 +555,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-005",
     "createdAt": "2026-08-26T18:54:00Z",
     "source": {
@@ -564,7 +580,11 @@
       "relatedProductHandles": [
         "evolve-gtr-series-2-carbon-street"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -682,7 +702,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-006",
     "createdAt": "2026-08-27T07:16:00Z",
     "source": {
@@ -707,7 +727,11 @@
       "relatedProductHandles": [
         "2nd-gen-wheels"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -759,7 +783,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-007",
     "createdAt": "2026-08-28T13:03:00Z",
     "source": {
@@ -784,7 +808,11 @@
       "relatedProductHandles": [
         "boosted-helmets"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -851,7 +879,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-008",
     "createdAt": "2026-08-29T20:25:00Z",
     "source": {
@@ -871,7 +899,11 @@
     "context": {
       "selectedPage": null,
       "relatedProductHandles": [],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "overall",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -938,7 +970,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-009",
     "createdAt": "2026-08-30T10:47:00Z",
     "source": {
@@ -963,7 +995,11 @@
       "relatedProductHandles": [
         "boosted-rev-battery-pack"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -1062,7 +1098,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-010",
     "createdAt": "2026-08-31T15:36:00Z",
     "source": {
@@ -1087,7 +1123,11 @@
       "relatedProductHandles": [
         "dualtron-thunder-3-electric-scooter"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -1154,7 +1194,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-011",
     "createdAt": "2026-09-01T08:12:00Z",
     "source": {
@@ -1179,7 +1219,11 @@
       "relatedProductHandles": [
         "boosted-rev-frame"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -1231,7 +1275,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-012",
     "createdAt": "2026-09-01T19:44:00Z",
     "source": {
@@ -1256,7 +1300,11 @@
       "relatedProductHandles": [
         "boosted-motor-guards"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -1368,7 +1416,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-013",
     "createdAt": "2026-09-02T12:28:00Z",
     "source": {
@@ -1393,7 +1441,11 @@
       "relatedProductHandles": [
         "evolve-skateboards-battery-charger-400013-ss20"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -1460,7 +1512,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-014",
     "createdAt": "2026-09-03T17:51:00Z",
     "source": {
@@ -1480,7 +1532,11 @@
     "context": {
       "selectedPage": null,
       "relatedProductHandles": [],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "overall",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -1547,7 +1603,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-015",
     "createdAt": "2026-09-04T09:05:00Z",
     "source": {
@@ -1572,7 +1628,11 @@
       "relatedProductHandles": [
         "boosted-daypack"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -1654,7 +1714,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-016",
     "createdAt": "2026-09-04T21:19:00Z",
     "source": {
@@ -1679,7 +1739,11 @@
       "relatedProductHandles": [
         "boosted-charger"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -1731,7 +1795,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-017",
     "createdAt": "2026-09-05T14:42:00Z",
     "source": {
@@ -1756,7 +1820,11 @@
       "relatedProductHandles": [
         "super73-rx"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -1823,7 +1891,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-018",
     "createdAt": "2026-09-06T11:08:00Z",
     "source": {
@@ -1843,7 +1911,11 @@
     "context": {
       "selectedPage": null,
       "relatedProductHandles": [],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "overall",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -1927,7 +1999,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-019",
     "createdAt": "2026-09-07T18:33:00Z",
     "source": {
@@ -1952,7 +2024,11 @@
       "relatedProductHandles": [
         "boosted-skate-tool"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",
@@ -2034,7 +2110,7 @@
     }
   },
   {
-    "contractVersion": "1.0",
+    "contractVersion": "1.1",
     "id": "shopper-feedback-020",
     "createdAt": "2026-09-08T22:02:00Z",
     "source": {
@@ -2059,7 +2135,11 @@
       "relatedProductHandles": [
         "boosted-usa-gift-card"
       ],
-      "cart": null
+      "cart": null,
+      "focus": {
+        "scope": "legacy_page",
+        "eventIds": []
+      }
     },
     "journey": {
       "evidence": "synthetic",

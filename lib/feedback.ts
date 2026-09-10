@@ -1,11 +1,20 @@
 export type JourneyEvent = {
   id: string;
   at: string;
-  kind: 'page_view' | 'variant_selected' | 'cart_added';
+  kind:
+    | 'page_view'
+    | 'variant_selected'
+    | 'cart_added'
+    | 'image_selected'
+    | 'description_reached'
+    | 'link_clicked'
+    | 'cart_updated'
+    | 'cart_removed';
   path: string;
   title: string;
   image?: string;
   detail?: string;
+  destinationPath?: string;
 };
 export type Question = { id: string; prompt: string; options: string[] };
 export type Reward = 'coupon' | 'card_cashback';
@@ -41,6 +50,8 @@ export function validFeedbackCart(value: unknown): value is FeedbackCartItem[] {
 export type FeedbackDraft = {
   step: 'journey' | 'pain' | 'questions' | 'review';
   selected?: JourneyEvent;
+  focus?: 'specific_moments' | 'overall';
+  selectedIds?: string[];
   category: string;
   note: string;
   questions: Question[];
@@ -66,7 +77,8 @@ export type FeedbackSubmission = {
   };
   orderReference?: string;
   journey: JourneyEvent[];
-  selectedScreen: JourneyEvent;
+  selectedScreen: JourneyEvent | null;
+  selection?: { scope: 'specific_moments' | 'overall'; eventIds: string[] };
   category: string;
   note: string;
   questions: Question[];
@@ -92,6 +104,85 @@ export const emptyDraft = (): FeedbackDraft => ({
   answers: {},
   questionSource: 'prepared',
 });
+
+export const selectedMomentIds = (draft: FeedbackDraft) =>
+  draft.focus === 'overall'
+    ? []
+    : (draft.selectedIds ?? (draft.selected ? [draft.selected.id] : []));
+export const selectionLabel = (draft: FeedbackDraft) =>
+  draft.focus === 'overall'
+    ? 'Your overall shopping experience'
+    : selectedMomentIds(draft).length > 1
+      ? 'Your selected shopping moments'
+      : (draft.selected?.title ?? 'Your shopping experience');
+
+export type JourneyMoment = {
+  id: string;
+  eventIds: string[];
+  page: JourneyEvent;
+  label: string;
+  details: string[];
+};
+/** Observed actions only. Repeat visits remain separate; no motive or dwell-time inference. */
+export function journeyMoments(events: JourneyEvent[]): JourneyMoment[] {
+  const moments: JourneyMoment[] = [];
+  const visits = new Set<string>();
+  for (const event of events) {
+    let moment = moments.at(-1);
+    if (
+      event.kind === 'page_view' ||
+      !moment ||
+      moment.page.path !== event.path
+    ) {
+      const returning = visits.has(event.path);
+      const label = event.path.endsWith('/cart')
+        ? 'Reviewed your cart'
+        : returning
+          ? 'Returned to this page'
+          : event.path.includes('/products/')
+            ? 'Explored a product'
+            : event.path.includes('/collections/')
+              ? 'Browsed a collection'
+              : event.path.endsWith('/search')
+                ? 'Visited product search'
+                : 'Visited the store';
+      moment = { id: event.id, eventIds: [], page: event, label, details: [] };
+      moments.push(moment);
+      visits.add(event.path);
+    }
+    moment.eventIds.push(event.id);
+    const detail = event.detail ? `: ${event.detail}` : '';
+    if (event.kind === 'cart_added') {
+      moment.label = 'Added to your cart';
+      moment.details.push(`Added ${event.title}${detail}`);
+    }
+    if (event.kind === 'variant_selected')
+      moment.details.push(`Selected an option${detail}`);
+    if (event.kind === 'image_selected')
+      moment.details.push(`Changed product image${detail}`);
+    if (event.kind === 'description_reached')
+      moment.details.push('Product description entered the viewport');
+    if (event.kind === 'link_clicked')
+      moment.details.push(`Followed a store link${detail}`);
+    if (event.kind === 'cart_updated')
+      moment.details.push(`Changed quantity for ${event.title}${detail}`);
+    if (event.kind === 'cart_removed')
+      moment.details.push(`Removed ${event.title}`);
+  }
+  return moments;
+}
+
+export function journeySummary(events: JourneyEvent[]) {
+  const pages = events.filter((event) => event.kind === 'page_view');
+  const additions = events.filter((event) => event.kind === 'cart_added');
+  const seen = new Set<string>();
+  const returns = pages.filter((event) => {
+    const repeat = seen.has(event.path);
+    seen.add(event.path);
+    return repeat;
+  }).length;
+  return `${seen.size} store pages visited${additions.length ? ` · ${additions.length} add-to-cart actions` : ''}${returns ? ` · ${returns} return visits` : ''}`;
+}
 
 export function isRecordablePath(path: string) {
   return /^\/store(?:\/(?:products|collections|pages|blogs)(?:\/[a-zA-Z0-9/_-]+)?|\/cart|\/search)?\/?$/.test(
@@ -298,5 +389,5 @@ export function feedbackSummary(draft: FeedbackDraft) {
   const answers = draft.questions
     .map((q) => draft.answers[q.id])
     .filter(Boolean);
-  return `${draft.selected?.title ?? 'Shopping experience'} — ${draft.category}. ${answers.join('. ')}.${draft.note.trim() ? ` ${draft.note.trim()}` : ''}`;
+  return `${selectionLabel(draft)} — ${draft.category}. ${answers.join('. ')}.${draft.note.trim() ? ` ${draft.note.trim()}` : ''}`;
 }
