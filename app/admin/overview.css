@@ -1032,9 +1032,8 @@
 }
 .mo-direction-editable h1,
 .mo-direction-editable h2 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .mo-direction-editable input {
   display: block;
