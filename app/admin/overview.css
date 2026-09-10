@@ -1676,7 +1676,8 @@
 }
 
 .mo-improvement-previews {
-  grid-template-rows: auto minmax(0, 2fr) minmax(0, 3fr);
+  grid-template-rows: auto 72px minmax(170px, 1fr);
+  gap: 12px;
 }
 .mo-improvement-recommendation {
   margin: 0;
@@ -1700,7 +1701,7 @@
 }
 .mo-outcomes > .mo-value-card {
   flex: 0 0 auto;
-  min-height: 300px;
+  min-height: 270px;
   padding: 16px;
 }
 .mo-value-card > * {
@@ -1710,6 +1711,8 @@
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 @media (max-height: 700px) {
   .mo-outcomes {
