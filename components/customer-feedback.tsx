@@ -140,9 +140,6 @@ export function FeedbackRecorder() {
           className="pf-consent"
           aria-label="Shopping feedback participation"
         >
-          <div className="pf-consent-icon">
-            <MessageSquare size={24} />
-          </div>
           <div className="pf-consent-copy">
             <strong>Your experience could pay you back.</strong>
             <p>

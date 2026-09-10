@@ -79,12 +79,6 @@
   align-items: flex-start;
   gap: 20px;
 }
-.pf-consent-icon {
-  background: #fff0ec;
-  color: #c72f1c;
-  padding: 12px;
-  border-radius: 12px;
-}
 .pf-consent-copy {
   flex: 1;
 }
@@ -516,9 +510,6 @@
     padding: 18px;
     gap: 12px;
     flex-wrap: wrap;
-  }
-  .pf-consent-icon {
-    display: none;
   }
   .pf-consent-copy {
     flex-basis: 100%;
