@@ -1,859 +1,544 @@
 'use client';
-import { useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
-  ArrowUpRight,
-  ArrowRight,
   ArrowLeft,
-  Check,
+  ArrowRight,
+  ArrowUpRight,
+  ChevronLeft,
+  Globe,
+  MousePointer2,
+  Pause,
   Play,
   Plus,
-  LockKeyhole,
-  ScanLine,
-  ChevronDown,
+  RotateCcw,
 } from 'lucide-react';
 import { useDemo } from './feedback-state';
-import {
-  reproduce,
-  propose,
-  approve,
-  pay,
-  calculate,
-  allocate,
-  supported,
-  type Feedback,
-  type Forecast,
-  type Proposal,
-} from '@/lib/feedback';
+import { AgentFactoryScene } from './agent-factory-scene';
+import { projectFleet, type FleetWorker } from '@/lib/agent-fleet';
+import type { Feedback } from '@/lib/feedback';
+
+type Fleet = ReturnType<typeof projectFleet>;
+type Page = { title: string; content: ReactNode };
+type Detail = { title: string; pages: Page[]; wide?: boolean };
 const usd = (value: number) =>
   new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 0,
   }).format(value);
-const fields: { key: keyof Forecast; label: string; step: number }[] = [
-  { key: 'sessions', label: 'Affected sessions', step: 100 },
-  { key: 'baseline', label: 'Baseline paid conversion (%)', step: 0.1 },
-  { key: 'lift', label: 'Absolute lift (percentage points)', step: 0.1 },
-  { key: 'aov', label: 'Average order value ($)', step: 10 },
-  { key: 'margin', label: 'Contribution margin (%)', step: 1 },
-  { key: 'cap', label: 'Reward budget cap ($)', step: 50 },
-];
+const person = (feedback: Feedback) => feedback.persona.split(' · ')[0];
+const time = (ms: number) =>
+  `00:${String(Math.floor(ms / 1000)).padStart(2, '0')}`;
+
 export default function FeedbackAdmin() {
-  const { state, ready, error, update } = useDemo();
-  const [selected, setSelected] = useState('F-014');
-  const [stage, setStage] = useState(0);
-  const [moment, setMoment] = useState(0);
-  const [running, setRunning] = useState(false);
-  const [notice, setNotice] = useState('');
-  const feedback =
-    state.feedback.find((f) => f.id === selected) || state.feedback[0];
-  const proposal = state.proposals.find((p) => p.id === feedback.group);
-  const locked = !!proposal && proposal.status !== 'proposed';
-  const activeStage = stage === 2 && !proposal ? 1 : stage;
-  const currentMoment = feedback.moments[moment] || feedback.moments[0];
-  const related = state.feedback.filter(
-    (f) => f.sample && f.group === feedback.group && f.id !== feedback.id,
+  const { state, error } = useDemo();
+  const [clock, setClock] = useState(28000);
+  const [playing, setPlaying] = useState(true);
+  const [detail, setDetail] = useState<Detail | null>(null);
+  const active = playing && !detail;
+  useEffect(() => {
+    if (!active) return;
+    const timer = setInterval(() => setClock((value) => value + 250), 250);
+    return () => clearInterval(timer);
+  }, [active]);
+  const fleet = useMemo(
+    () => projectFleet(state.feedback, clock),
+    [state.feedback, clock],
   );
-  function selectReport(id: string) {
-    setSelected(id);
-    setStage(0);
-    setMoment(0);
-    setNotice('');
-  }
-  async function investigate() {
-    if (running || locked) return;
-    setRunning(true);
-    setStage(1);
-    setNotice('');
-    try {
-      const reports = [feedback, ...related.filter((f) => !f.run)];
-      const results = await Promise.all(
-        reports.map(async (f) => ({ id: f.id, run: await reproduce(f) })),
-      );
-      update((s) => ({
-        ...s,
-        feedback: s.feedback.map((f) => {
-          const result = results.find((r) => r.id === f.id);
-          return result ? { ...f, run: result.run, reviewed: false } : f;
-        }),
-      }));
-    } catch {
-      setNotice(
-        'The check could not finish. Your feedback is saved; try again.',
-      );
-    } finally {
-      setRunning(false);
-    }
-  }
-  function createImprovement() {
-    update((s) => {
-      const next = {
-        ...s,
-        feedback: s.feedback.map((f) =>
-          f.id === feedback.id ? { ...f, reviewed: true } : f,
-        ),
-      };
-      return {
-        ...next,
-        proposals: s.proposals.some((p) => p.id === feedback.group)
-          ? s.proposals
-          : [...s.proposals, propose(feedback.group, next.feedback)],
-      };
-    });
-    setStage(2);
-  }
-  function changeProposal(next: Proposal) {
-    update((s) => ({
-      ...s,
-      proposals: s.proposals.map((p) =>
-        p.id === next.id && p.status === 'proposed'
-          ? { ...next, version: p.version + 1 }
-          : p,
-      ),
-    }));
-  }
+  const recent = [...fleet.runs]
+    .filter((item) => item.run.source === 'sample' && item.snapshot.event)
+    .sort(
+      (a, b) =>
+        a.elapsedMs -
+        a.snapshot.event!.elapsedMs -
+        (b.elapsedMs - b.snapshot.event!.elapsedMs),
+    )[0];
   return (
-    <div className="pf-admin">
-      <header className="pf-header">
-        <a
-          className="pf-brand"
-          href="/admin"
-          aria-label="Pay with Feedback home"
-        >
-          <span className="pf-symbol" aria-hidden="true">
-            <Plus size={23} />
+    <div className={`av-app ${active ? '' : 'is-paused'}`}>
+      <header className="av-header">
+        <a className="av-brand" href="/admin">
+          <span className="av-brand-mark">
+            <Plus size={19} />
           </span>
-          Pay with Feedback<span className="pf-demo-label">DEMO</span>
+          Pay with Feedback
         </a>
-        <a className="pf-store-link" href="/store">
-          Try the shopper experience
-          <ArrowUpRight size={16} />
-        </a>
+        <div className="av-header-center">SYSTEM OVERVIEW</div>
+        <div className="av-header-actions">
+          <span className="av-sample">
+            <i />
+            Sample orchestration
+          </span>
+          <a href="/store">
+            Storefront
+            <ArrowUpRight size={13} />
+          </a>
+        </div>
       </header>
-      <main>
-        <div className="pf-opening">
+      {error && <output className="av-error">{error}</output>}
+      <main className="av-overview">
+        <div className="av-heading">
           <div>
-            <p className="pf-eyebrow">SHOPPER INSIGHT → SHARED UPSIDE</p>
-            <h1>
-              Feedback becomes <span>value.</span>
-            </h1>
-            <p>
-              Shoppers pay with feedback. Your agent investigates. You reward
-              what helps.
+            <p className="av-eyebrow">AN AUTONOMOUS IMPROVEMENT SYSTEM</p>
+            <h1>COMMERCE, IN MOTION.</h1>
+            <p className="av-heading-description">
+              Agents turn shopper insight into improvements — and share the
+              value back.
             </p>
           </div>
+          <span className="av-view-mark">
+            01—05<span>THE COMPLETE LOOP</span>
+          </span>
         </div>
-        <div className="pf-session-bar">
-          <nav className="pf-stages" aria-label="Feedback workflow">
-            {['Feedback', 'Investigation', 'Improvement & reward'].map(
-              (label, i) => (
-                <button
-                  key={label}
-                  aria-current={activeStage === i ? 'step' : undefined}
-                  disabled={
-                    running ||
-                    (i === 1 && !feedback.run) ||
-                    (i === 2 && !proposal)
-                  }
-                  onClick={() => setStage(i)}
-                >
-                  <span>{String(i + 1).padStart(2, '0')}</span>
-                  {label}
-                </button>
-              ),
-            )}
-          </nav>
-          <div className="pf-report-picker">
-            <label htmlFor="pf-feedback">Feedback</label>
-            <select
-              id="pf-feedback"
-              disabled={running}
-              value={feedback.id}
-              onChange={(e) => selectReport(e.target.value)}
+        <AgentFactoryScene
+          fleet={fleet}
+          actions={{
+            feedback: (feedback) => setDetail(feedbackDetail(feedback)),
+            worker: (worker, index) =>
+              setDetail(workerDetail(worker, fleet, index)),
+            signals: () =>
+              setDetail({
+                title: 'Shopper signals',
+                pages: fleet.feedback.flatMap(
+                  (feedback) => feedbackDetail(feedback).pages,
+                ),
+              }),
+            findings: () => setDetail(findingsDetail(fleet)),
+            improvements: () => setDetail(improvementDetail(fleet)),
+            rewards: () => setDetail(rewardDetail(fleet)),
+          }}
+        />
+        <footer className="av-transport">
+          <div className="av-transport-controls">
+            <button
+              aria-label={playing ? 'Pause simulation' : 'Play simulation'}
+              onClick={() => setPlaying((value) => !value)}
             >
-              {state.feedback.map((f) => (
-                <option key={f.id} value={f.id}>
-                  {f.sample ? '' : 'New · '}
-                  {f.persona.split(' · ')[0]} — {f.title}
-                </option>
-              ))}
-            </select>
-            <ChevronDown size={14} />
+              {playing ? <Pause size={14} /> : <Play size={14} />}
+            </button>
+            <button
+              aria-label="Restart simulation"
+              onClick={() => {
+                setClock(0);
+                setPlaying(true);
+              }}
+            >
+              <RotateCcw size={13} />
+            </button>
+            <span>{active ? 'SIMULATION RUNNING' : 'SIMULATION PAUSED'}</span>
           </div>
-        </div>
-        {(error || notice) && (
-          <output className="pf-notice">{error || notice}</output>
-        )}
-        <div className="pf-stage-content" key={`${feedback.id}-${activeStage}`}>
-          {activeStage === 0 && (
-            <section className="pf-story" aria-label="Shopper feedback">
-              <div className="pf-journey">
-                <div className="pf-window-bar">
-                  <span className="pf-window-dots" aria-hidden="true">
-                    •••
-                  </span>
-                  <span className="pf-moment-route" title={currentMoment.route}>
-                    {currentMoment.route}
-                  </span>
-                  <span>
-                    {feedback.sample ? 'Sample · ' : ''}
-                    {moment + 1} / {feedback.moments.length}
-                  </span>
-                </div>
-                <div className="pf-visual">
-                  {feedback.sample && currentMoment.image ? (
-                    <a
-                      href={currentMoment.image}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <img
-                        src={currentMoment.image}
-                        alt="Local storefront reference, not a shopper recording or replay result"
-                      />
-                    </a>
-                  ) : (
-                    <div className="pf-activity">
-                      <ScanLine size={38} />
-                      <h2>{currentMoment.label}</h2>
-                      <p>{currentMoment.detail}</p>
-                    </div>
-                  )}
-                </div>
-                <div className="pf-journey-bottom">
-                  <div className="pf-moments">
-                    {feedback.moments.map((m, i) => (
-                      <button
-                        key={m.id}
-                        aria-pressed={i === moment}
-                        onClick={() => setMoment(i)}
-                      >
-                        {m.label}
-                      </button>
-                    ))}
-                  </div>
-                  <InfoPanel
-                    label="Moment details"
-                    pages={[
-                      {
-                        title: 'Journey context',
-                        content: (
-                          <>
-                            <h3>{currentMoment.label}</h3>
-                            <p>{currentMoment.detail}</p>
-                            <h3>Storefront route</h3>
-                            <p>{currentMoment.route}</p>
-                            <p>
-                              {feedback.sample && currentMoment.image
-                                ? 'This screenshot is a storefront reference. It is not a shopper recording or reproduction result.'
-                                : 'This is a shopper-selected activity summary, not a screen recording.'}
-                            </p>
-                          </>
-                        ),
-                      },
-                    ]}
-                  />
-                </div>
-              </div>
-              <div className="pf-story-copy">
-                <div className="pf-person">
-                  <span className="pf-avatar">{feedback.persona[0]}</span>
-                  <div>
-                    {feedback.persona.split(' · ')[0]}
-                    <small>
-                      {feedback.sample
-                        ? 'Sample shopper'
-                        : 'Submitted with Pay with Feedback'}
-                    </small>
-                  </div>
-                </div>
-                <blockquote>
-                  “
-                  {feedback.comment.length > 160
-                    ? feedback.comment.slice(0, 160) + '…'
-                    : feedback.comment}
-                  ”
-                </blockquote>
-                {feedback.comment.length > 160 && (
-                  <InfoPanel
-                    label="Read full feedback"
-                    pages={(feedback.comment.match(/[\s\S]{1,400}/g) || []).map(
-                      (text, i) => ({
-                        title: `Part ${i + 1}`,
-                        content: <p>{text}</p>,
-                      }),
-                    )}
-                  />
-                )}
-
-                <p className="pf-context">
-                  {feedback.sample
-                    ? 'Shared at checkout instead of paying for a demo order.'
-                    : 'Your shopper selected these moments and shared what made shopping difficult.'}
-                </p>
-                <div className="pf-next">
-                  <button
-                    className="pf-primary"
-                    disabled={!ready || running}
-                    onClick={() => (feedback.run ? setStage(1) : investigate())}
-                  >
-                    {feedback.run
-                      ? 'View investigation'
-                      : 'Investigate feedback'}
-                    <ArrowRight size={18} />
-                  </button>
-                  <small>
-                    {feedback.run
-                      ? feedback.run.verdict
-                      : `Demo replay${related.length ? ` · includes ${related.length} related report` : ''}`}
-                  </small>
-                </div>
-              </div>
-            </section>
-          )}
-          {activeStage === 1 && (
-            <section
-              className="pf-investigation"
-              aria-label="Investigation result"
-            >
-              <div
-                className={`pf-agent-orb ${running ? 'is-running' : ''}`}
-                aria-hidden="true"
-              >
-                <ScanLine size={30} />
-              </div>
-              {running ? (
-                <output className="pf-running">
-                  <p className="pf-eyebrow">DEMO REPLAY</p>
-                  <h2>Following the shopper’s trail.</h2>
-                  <p>
-                    Reviewing selected moments
-                    {related.length ? ' and related feedback' : ''}…
-                  </p>
-                </output>
-              ) : (
-                <>
-                  <div className="pf-result-heading">
-                    <p className="pf-eyebrow">
-                      {feedback.run?.verdict || 'CHECK INTERRUPTED'} · DEMO
-                      REPLAY
-                    </p>
-                    <h2>
-                      {supported(feedback)
-                        ? 'The friction is worth fixing.'
-                        : feedback.run?.verdict === 'Could not reproduce'
-                          ? 'The report is still open.'
-                          : 'A clue, not a conclusion.'}
-                    </h2>
-                    <p>
-                      {supported(feedback)
-                        ? 'The sample shopper couldn’t find delivery timing at the moment they needed it.'
-                        : feedback.run?.observation ||
-                          'Run the check again to continue.'}
-                    </p>
-                  </div>
-                  {supported(feedback) && (
-                    <div className="pf-hypothesis">
-                      <span>Working hypothesis</span>
-                      <p>
-                        Delivery guidance is too far from the purchase decision.
-                      </p>
-                      <small>
-                        Validate placement and destination rules before making a
-                        change.
-                      </small>
-                    </div>
-                  )}
-                  <InfoPanel
-                    label="Inspect the evidence"
-                    pages={[
-                      {
-                        title: 'Finding',
-                        content: (
-                          <>
-                            <h3>Observation</h3>
-                            <p>{feedback.run?.observation}</p>
-                            <h3>Root-cause hypothesis</h3>
-                            <p>{feedback.run?.hypothesis}</p>
-                            <h3>Confidence</h3>
-                            <p>{feedback.run?.confidence}</p>
-                          </>
-                        ),
-                      },
-                      {
-                        title: 'Replay steps',
-                        content: (
-                          <>
-                            <h3>Deterministic demo</h3>
-                            <ol>
-                              {feedback.run?.steps.map((step) => (
-                                <li key={step}>{step}</li>
-                              ))}
-                            </ol>
-                            {related.length > 0 && (
-                              <p>
-                                {related.length + 1} reports describe this
-                                friction. Supported contributions share one
-                                improvement.
-                              </p>
-                            )}
-                            <p>
-                              These are illustrative outcomes, not a live
-                              computer-use run.
-                            </p>
-                            <button
-                              className="pf-text-button"
-                              disabled={locked || running}
-                              onClick={investigate}
-                            >
-                              Run demo again <Play size={13} />
-                            </button>
-                            {locked && (
-                              <p>
-                                Replay is locked because the reward has been
-                                approved.
-                              </p>
-                            )}
-                          </>
-                        ),
-                      },
-                    ]}
-                  />
-
-                  <div className="pf-result-action">
-                    {supported(feedback) ? (
-                      <button
-                        className="pf-primary"
-                        disabled={!ready}
-                        onClick={
-                          proposal ? () => setStage(2) : createImprovement
-                        }
-                      >
-                        {proposal
-                          ? 'View improvement'
-                          : 'Review & create improvement'}
-                        <ArrowRight size={18} />
-                      </button>
-                    ) : (
-                      <button
-                        className="pf-secondary"
-                        onClick={() => setStage(0)}
-                      >
-                        <ArrowLeft size={16} />
-                        Back to feedback
-                      </button>
-                    )}
-                    <small>
-                      {supported(feedback)
-                        ? 'Based on illustrative evidence. No live browser run.'
-                        : 'The original feedback stays saved. More evidence is needed.'}
-                    </small>
-                  </div>
-                </>
-              )}
-            </section>
-          )}
-          {activeStage === 2 && proposal && (
-            <RewardStage
-              proposal={proposal}
-              feedback={state.feedback}
-              onChange={changeProposal}
-              onApprove={() =>
-                update((s) => ({
-                  ...s,
-                  proposals: s.proposals.map((p) =>
-                    p.id === proposal.id ? approve(p, s.feedback) : p,
-                  ),
-                }))
-              }
-              onPay={() =>
-                update((s) => ({
-                  ...s,
-                  proposals: s.proposals.map((p) =>
-                    p.id === proposal.id ? pay(p) : p,
-                  ),
-                }))
-              }
+          <div className="av-activity">
+            <span className="av-status-dot" />
+            <span>
+              {recent?.snapshot.event?.title || 'Waiting for incoming signals'}
+            </span>
+          </div>
+          <label className="av-clock">
+            <span>{time(clock % fleet.cycleMs)}</span>
+            <input
+              type="range"
+              aria-label="Simulation position"
+              min="0"
+              max={fleet.cycleMs - 1}
+              step="250"
+              value={clock % fleet.cycleMs}
+              onChange={(event) => {
+                const position = Number(event.target.value);
+                setClock(
+                  (current) =>
+                    Math.floor(current / fleet.cycleMs) * fleet.cycleMs +
+                    position,
+                );
+              }}
             />
-          )}
-        </div>
+            <span>LOOP</span>
+          </label>
+        </footer>
       </main>
+      {detail && <ZoomDetail detail={detail} onClose={() => setDetail(null)} />}
     </div>
   );
 }
-function RewardStage({
-  proposal: p,
-  feedback,
-  onChange,
-  onApprove,
-  onPay,
+
+function MiniBrowser({
+  worker,
+  large = false,
 }: {
-  proposal: Proposal;
-  feedback: Feedback[];
-  onChange: (p: Proposal) => void;
-  onApprove: () => void;
-  onPay: () => void;
+  worker: FleetWorker;
+  large?: boolean;
 }) {
-  const locked = p.status !== 'proposed';
-  let problem = '';
-  let scenarios: ReturnType<typeof calculate>[] = [];
-  let allocations: { id: string; cents: number }[] = [];
-  try {
-    scenarios = [0, 1, 2].map((m) => calculate(p.forecast, m));
-    allocations =
-      p.snapshot?.allocations || allocate(scenarios[1].pool, p.contributors);
-  } catch (e) {
-    problem = e instanceof Error ? e.message : 'Invalid assumptions';
-  }
-  const pool = p.snapshot?.pool ?? scenarios[1]?.pool ?? 0;
   return (
-    <section className="pf-reward" aria-label="Improvement and reward">
-      <div className="pf-change">
-        <p className="pf-eyebrow">THE PROPOSED IMPROVEMENT</p>
-        <h2>{p.title}</h2>
-        <p className="pf-change-description">{p.change}</p>
-        <div className="pf-profit">
-          <span>Expected extra profit / 30 days</span>
-          <strong>{scenarios[1] ? usd(scenarios[1].profit) : '—'}</strong>
-          <small>Unmeasured estimate · contribution profit</small>
-        </div>
-        <InfoPanel
-          label="How is this estimated?"
-          pages={[
-            {
-              title: 'Proposed change',
-              content: (
-                <>
-                  <h3>{p.title}</h3>
-                  <p>{p.change}</p>
-                  <p>
-                    This is a proposal. Approving the reward does not modify the
-                    storefront.
-                  </p>
-                </>
-              ),
-            },
-            {
-              title: 'Assumptions',
-              content: (
-                <>
-                  <fieldset disabled={locked} className="pf-inputs">
-                    {fields.map((f) => (
-                      <label key={f.key}>
-                        {f.label}
-                        <input
-                          type="number"
-                          min={0}
-                          max={
-                            ['baseline', 'margin', 'lift'].includes(f.key)
-                              ? 100
-                              : 100000000
-                          }
-                          step={f.step}
-                          value={p.forecast[f.key]}
-                          onChange={(e) =>
-                            onChange({
-                              ...p,
-                              forecast: {
-                                ...p.forecast,
-                                [f.key]: Number(e.target.value),
-                              },
-                            })
-                          }
-                        />
-                      </label>
-                    ))}
-                  </fieldset>
-                  {locked && (
-                    <p>These inputs are locked to the approved version.</p>
-                  )}
-                  {problem && (
-                    <p role="alert" className="pf-validation">
-                      {problem}
-                    </p>
-                  )}
-                </>
-              ),
-            },
-            {
-              title: 'Scenarios',
-              content: (
-                <>
-                  <div className="pf-scenarios">
-                    {['Low', 'Base', 'High'].map((label, i) => (
-                      <div key={label}>
-                        <span>{label}</span>
-                        <strong>
-                          {scenarios[i] ? usd(scenarios[i].profit) : '—'}
-                        </strong>
-                        <small>+{scenarios[i]?.lift ?? '—'} pp</small>
-                      </div>
-                    ))}
-                  </div>
-                  <h3>30-day contribution profit</h3>
-                  <p>
-                    Sessions × absolute conversion lift × AOV × contribution
-                    margin.
-                  </p>
-                  <p>
-                    Baseline is context. Low = zero lift; high = 2× base lift,
-                    capped at 100% conversion. One improvement has one forecast;
-                    reports do not multiply its value.
-                  </p>
-                  <p>
-                    These are unmeasured estimates, not evidence of actual
-                    uplift.
-                  </p>
-                </>
-              ),
-            },
-            {
-              title: 'Validation',
-              content: (
-                <>
-                  <h3>Acceptance check</h3>
-                  <p>{p.acceptance}</p>
-                  <h3>Measure after shipping</h3>
-                  <p>
-                    Paid checkout conversion, cancellations and delivery-promise
-                    accuracy. Exclude feedback-funded demo orders from paid
-                    conversion and revenue.
-                  </p>
-                </>
-              ),
-            },
-          ]}
-        />
-      </div>
-      <div className="pf-reward-panel">
-        <div className="pf-reward-label">
-          <span>
-            {p.status === 'paid'
-              ? 'REWARD COMPLETE'
-              : locked
-                ? 'REWARD APPROVED'
-                : 'SHARE THE UPSIDE'}
-          </span>
-          {locked && <LockKeyhole size={15} />}
-        </div>
-        <h3>
-          {p.status === 'paid'
-            ? 'Good feedback. Rewarded.'
-            : 'Give value back.'}
-        </h3>
-        <div className="pf-share-control">
-          <label htmlFor="pf-share">Share of expected profit</label>
-          <span>{p.forecast.rate}%</span>
-          <input
-            id="pf-share"
-            type="range"
-            min={0}
-            max={100}
-            step={1}
-            disabled={locked}
-            value={p.forecast.rate}
-            onChange={(e) =>
-              onChange({
-                ...p,
-                forecast: { ...p.forecast, rate: Number(e.target.value) },
-              })
+    <span className={`av-mini-browser ${large ? 'is-large' : ''}`}>
+      <span className="av-mini-url">
+        <Globe size={8} />
+        {worker.route}
+      </span>
+      <span className="av-mini-page">
+        {worker.referenceImage ? (
+          <img
+            src={worker.referenceImage}
+            alt={
+              large
+                ? 'Bundled storefront reference; simulated browser activity'
+                : ''
             }
           />
-        </div>
-        <div className="pf-reward-total">
-          <strong>{usd(pool / 100)}</strong>
-          <span>
-            shared with {p.contributors.length} contributor
-            {p.contributors.length === 1 ? '' : 's'}
+        ) : (
+          <span className="av-page-wireframe">
+            <span className="av-wire-nav" />
+            <span className="av-wire-product">
+              <span />
+              <span>
+                <i />
+                <i />
+                <i />
+                <b />
+              </span>
+            </span>
+            <span className="av-wire-lines">
+              <i />
+              <i />
+            </span>
           </span>
-        </div>
-        {!problem && (
-          <div className="pf-allocations">
-            {p.contributors.map((c) => (
-              <div key={c.id}>
-                <span className="pf-avatar">
-                  {feedback.find((f) => f.id === c.id)?.persona[0] || 'S'}
-                </span>
-                <span>
-                  {feedback
-                    .find((f) => f.id === c.id)
-                    ?.persona.split(' · ')[0] || c.id}
-                  <small>{c.id}</small>
-                </span>
-                <strong>
-                  {usd(
-                    (allocations.find((a) => a.id === c.id)?.cents || 0) / 100,
-                  )}
-                </strong>
-              </div>
-            ))}
-          </div>
         )}
-        <InfoPanel
-          label="Allocation & reward policy"
-          pages={[
-            {
-              title: 'Contribution weights',
-              content: (
-                <>
-                  {p.contributors.map((c) => (
-                    <label className="pf-weight" key={c.id}>
-                      <span>
-                        {c.id}
-                        <small>{c.reason}</small>
-                      </span>
-                      <input
-                        aria-label={`Weight for ${c.id}`}
-                        disabled={locked}
-                        type="number"
-                        min={0}
-                        max={1000}
-                        value={c.weight}
-                        onChange={(e) =>
-                          onChange({
-                            ...p,
-                            contributors: p.contributors.map((person) =>
-                              person.id === c.id
-                                ? { ...person, weight: Number(e.target.value) }
-                                : person,
-                            ),
-                          })
-                        }
-                      />
-                    </label>
-                  ))}
-                  {problem && (
-                    <p role="alert" className="pf-validation">
-                      {problem}
-                    </p>
-                  )}
-                </>
-              ),
-            },
-            {
-              title: 'Reward policy',
-              content: (
-                <>
-                  <h3>One improvement. One reward pool.</h3>
-                  <p>
-                    {p.forecast.rate}% of expected contribution profit, capped
-                    at {usd(p.forecast.cap)}.
-                  </p>
-                  <p>
-                    Weights are reward-policy choices, not measured causal
-                    shares. Exact repeat submissions reuse their report. Related
-                    reports share a single benefit estimate.
-                  </p>
-                  <p>
-                    Approval locks version {p.version}, forecast, pool and
-                    allocations. Payout is simulated and repeat requests reuse
-                    the same receipt.
-                  </p>
-                </>
-              ),
-            },
-          ]}
+        <span className="av-scan-area" />
+        <MousePointer2
+          className="av-browser-cursor"
+          size={large ? 23 : 12}
+          fill="currentColor"
         />
-
-        {problem && (
-          <p className="pf-validation" role="alert">
-            {problem}
-          </p>
-        )}
-        <button
-          className="pf-primary"
-          disabled={!!problem || p.status === 'paid' || pool <= 0}
-          onClick={locked ? onPay : onApprove}
-        >
-          {p.status === 'paid' ? (
-            <>
-              <Check size={18} />
-              Demo payout complete
-            </>
-          ) : locked ? (
-            <>
-              Simulate payout
-              <ArrowRight size={18} />
-            </>
-          ) : (
-            <>
-              Approve {usd(pool / 100)} reward
-              <ArrowRight size={18} />
-            </>
-          )}
-        </button>
-        <p className="pf-payout-note">
-          {p.receipt
-            ? `${p.receipt} · No money moved.`
-            : locked
-              ? `Version ${p.snapshot?.version} locked. No real money will move.`
-              : 'Demo reward · Approval locks this forecast and allocation.'}
-        </p>
-      </div>
-    </section>
+      </span>
+    </span>
   );
 }
 
-function InfoPanel({
-  label,
-  pages,
+function feedbackDetail(feedback: Feedback): Detail {
+  return {
+    title: `${feedback.id} · ${person(feedback)}`,
+    pages: [
+      ...(feedback.comment.match(/[\s\S]{1,240}/g) || ['']).map(
+        (comment, index) => ({
+          title: `Shopper signal${index ? ` · ${index + 1}` : ''}`,
+          content: (
+            <>
+              <h3>{feedback.title}</h3>
+              <blockquote>“{comment}”</blockquote>
+              <p className="av-detail-note">
+                {feedback.sample
+                  ? 'Sample shopper report'
+                  : 'New submission · waiting for backend execution'}
+              </p>
+            </>
+          ),
+        }),
+      ),
+      ...feedback.moments.map((moment) => ({
+        title: 'Shopping context',
+        content: (
+          <>
+            <h3>{moment.label}</h3>
+            <p>{moment.detail}</p>
+            <code>{moment.route}</code>
+            <p className="av-detail-note">
+              Selected activity context. No payment or form values captured.
+            </p>
+          </>
+        ),
+      })),
+    ],
+  };
+}
+
+function workerDetail(
+  worker: FleetWorker,
+  fleet: Fleet,
+  number: number,
+): Detail {
+  const item = fleet.runs.find((entry) => entry.run.id === worker.runId);
+  return {
+    title: `Browser ${String(number).padStart(2, '0')} · ${worker.label}`,
+    wide: true,
+    pages: [
+      {
+        title: `${worker.feedbackId} · ${worker.phase} · ${worker.status}`,
+        content: (
+          <div className="av-browser-zoom">
+            <MiniBrowser worker={worker} large />
+            <p className="av-detail-note">
+              Simulated computer-use worker ·{' '}
+              {worker.referenceImage
+                ? 'bundled reference image'
+                : 'schematic page preview'}
+              . No live browser session is connected.
+            </p>
+          </div>
+        ),
+      },
+      {
+        title: 'Investigation context',
+        content: (
+          <>
+            <h3>{item?.run.title}</h3>
+            <p>
+              {item?.snapshot.event?.summary ||
+                'Waiting for this investigation to start.'}
+            </p>
+            <dl>
+              <div>
+                <dt>Page</dt>
+                <dd>{worker.route}</dd>
+              </div>
+              <div>
+                <dt>Task</dt>
+                <dd>{worker.label}</dd>
+              </div>
+              <div>
+                <dt>Worker status</dt>
+                <dd>{worker.status}</dd>
+              </div>
+              <div>
+                <dt>Latest investigation event</dt>
+                <dd>{item?.snapshot.event?.status || 'queued'}</dd>
+              </div>
+            </dl>
+          </>
+        ),
+      },
+    ],
+  };
+}
+
+function findingsDetail(fleet: Fleet): Detail {
+  const pages = fleet.runs
+    .filter((item) => item.snapshot.finding)
+    .map((item) => {
+      const finding = item.snapshot.finding!;
+      return {
+        title: item.run.feedback.map((f) => f.id).join(' + '),
+        content: (
+          <>
+            <h3>{finding.verdict}</h3>
+            <p>{finding.observation}</p>
+            <h3>Root-cause hypothesis</h3>
+            <p>{finding.hypothesis}</p>
+            <p className="av-detail-note">{finding.confidence}</p>
+          </>
+        ),
+      };
+    });
+  return {
+    title: 'Findings',
+    pages: pages.length
+      ? pages
+      : [
+          {
+            title: 'Awaiting evidence',
+            content: (
+              <>
+                <h3>Investigations are in progress.</h3>
+                <p>
+                  Findings appear as each run emits evidence. Unresolved reports
+                  remain open.
+                </p>
+              </>
+            ),
+          },
+        ],
+  };
+}
+
+function improvementDetail(fleet: Fleet): Detail {
+  const pages = fleet.runs.flatMap((item) => {
+    const proposal = item.snapshot.proposal;
+    if (!proposal) return [];
+    return [
+      {
+        title: 'Proposed improvement',
+        content: (
+          <>
+            <h3>{proposal.title}</h3>
+            <p>{proposal.change}</p>
+            <h3>Acceptance check</h3>
+            <p>{proposal.acceptance}</p>
+            <p className="av-detail-note">
+              Proposed system output. The storefront has not been changed.
+            </p>
+          </>
+        ),
+      },
+      {
+        title: 'Expected value · unmeasured estimate',
+        content: (
+          <>
+            <div className="av-scenarios">
+              {proposal.scenarios.map((scenario) => (
+                <div key={scenario.label}>
+                  <span>{scenario.label}</span>
+                  <strong>{usd(scenario.profit)}</strong>
+                  <small>+{scenario.lift} pp lift</small>
+                </div>
+              ))}
+            </div>
+            <dl className="av-assumptions">
+              {[
+                [
+                  'Affected sessions',
+                  proposal.forecast.sessions.toLocaleString(),
+                ],
+                ['Paid conversion', `${proposal.forecast.baseline}%`],
+                ['Assumed lift', `${proposal.forecast.lift} pp`],
+                ['AOV', usd(proposal.forecast.aov)],
+                ['Contribution margin', `${proposal.forecast.margin}%`],
+                [
+                  'Reward share / cap',
+                  `${proposal.forecast.rate}% / ${usd(proposal.forecast.cap)}`,
+                ],
+              ].map(([label, value]) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="av-detail-note">
+              Sessions × absolute conversion lift × AOV × margin. Baseline is
+              context. Feedback-funded orders are excluded from paid conversion
+              and revenue.
+            </p>
+          </>
+        ),
+      },
+    ];
+  });
+  return {
+    title: 'Improvements',
+    pages: pages.length
+      ? pages
+      : [
+          {
+            title: 'Awaiting a supported finding',
+            content: (
+              <>
+                <h3>Evidence comes first.</h3>
+                <p>
+                  A proposed improvement and its forecast appear only after the
+                  corresponding agent event.
+                </p>
+              </>
+            ),
+          },
+        ],
+  };
+}
+
+function rewardDetail(fleet: Fleet): Detail {
+  const pages = fleet.runs.flatMap((item) => {
+    const reward = item.snapshot.reward;
+    if (!reward) return [];
+    return [
+      {
+        title: `Reward ${reward.status}`,
+        content: (
+          <>
+            <h3>
+              {usd(reward.poolCents / 100)}{' '}
+              {reward.status === 'paid' ? 'shared with' : 'allocated to'}{' '}
+              contributing shoppers
+            </h3>
+            {reward.allocations.map((allocation) => (
+              <div className="av-reward-detail" key={allocation.feedbackId}>
+                <strong>
+                  {allocation.persona} · {usd(allocation.cents / 100)}
+                </strong>
+                <p>{allocation.reason}</p>
+              </div>
+            ))}
+            <p>
+              One improvement, one reward pool. Allocation weights are policy
+              choices, not measured causal shares.
+            </p>
+            <p className="av-detail-note">
+              Simulated payout. No money moved.
+              {reward.receipt && ` Receipt: ${reward.receipt}`}
+            </p>
+          </>
+        ),
+      },
+    ];
+  });
+  return {
+    title: 'Shopper rewards',
+    pages: pages.length
+      ? pages
+      : [
+          {
+            title: 'Awaiting an improvement',
+            content: (
+              <>
+                <h3>Value follows evidence.</h3>
+                <p>
+                  The system allocates a single reward pool to the shoppers
+                  whose reports contributed to an improvement.
+                </p>
+              </>
+            ),
+          },
+        ],
+  };
+}
+
+function ZoomDetail({
+  detail,
+  onClose,
 }: {
-  label: string;
-  pages: { title: string; content: ReactNode }[];
+  detail: Detail;
+  onClose: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [page, setPage] = useState(0);
+  useEffect(() => {
+    dialog.current?.showModal();
+  }, []);
   return (
-    <>
-      <button
-        className="pf-info-trigger"
-        onClick={() => {
-          setPage(0);
-          dialog.current?.showModal();
-        }}
-      >
-        {label}
-        <Plus size={14} />
-      </button>
-      <dialog ref={dialog} className="pf-info-dialog" aria-label={label}>
-        <div className="pf-dialog-header">
-          <h2>{label}</h2>
-          <button
-            aria-label="Close details"
-            onClick={() => dialog.current?.close()}
-          >
-            ×
-          </button>
-        </div>
-        <nav aria-label={`${label} sections`} className="pf-dialog-tabs">
-          {pages.map((p, i) => (
-            <button
-              key={p.title}
-              aria-pressed={page === i}
-              onClick={() => setPage(i)}
-            >
-              {p.title}
-            </button>
-          ))}
-        </nav>
-        <div className="pf-dialog-body">{pages[page]?.content}</div>
-        <div className="pf-dialog-footer">
-          <span>
-            {page + 1} / {pages.length}
-          </span>
-          <button
-            className="pf-text-button"
-            onClick={() =>
-              page < pages.length - 1
-                ? setPage(page + 1)
-                : dialog.current?.close()
-            }
-          >
-            {page < pages.length - 1 ? 'Next' : 'Done'}
-            <ArrowRight size={15} />
-          </button>
-        </div>
-      </dialog>
-    </>
+    <dialog
+      ref={dialog}
+      className={`av-dialog ${detail.wide ? 'is-wide' : ''}`}
+      aria-label={detail.title}
+      onClose={onClose}
+    >
+      <header>
+        <button onClick={() => dialog.current?.close()}>
+          <ArrowLeft size={14} />
+          Back to overview
+        </button>
+        <span>FOCUSED VIEW</span>
+      </header>
+      <h2>{detail.title}</h2>
+      <div className="av-dialog-section">
+        <span>{detail.pages[page].title}</span>
+        <small>
+          {page + 1} / {detail.pages.length}
+        </small>
+      </div>
+      <div className="av-dialog-content">{detail.pages[page].content}</div>
+      <footer>
+        <button
+          disabled={page === 0}
+          onClick={() => setPage((value) => value - 1)}
+        >
+          <ChevronLeft size={14} />
+          Previous
+        </button>
+        <button
+          onClick={() =>
+            page === detail.pages.length - 1
+              ? dialog.current?.close()
+              : setPage((value) => value + 1)
+          }
+        >
+          {page === detail.pages.length - 1 ? 'Back to overview' : 'Next'}
+          <ArrowRight size={14} />
+        </button>
+      </footer>
+    </dialog>
   );
 }

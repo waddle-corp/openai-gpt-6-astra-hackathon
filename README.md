@@ -1,6 +1,6 @@
 # OpenAI GPT-6 Astra Hackathon
 
-Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.myshopify.com`. The merchant admin is the next step.
+Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.myshopify.com`. The agent system overview lives at `/admin`.
 
 ## Run locally
 
@@ -38,7 +38,7 @@ Edit the JSON files to update the demo and commit those edits like application c
 
 ## Routes
 
-`/` redirects to `/store`. All shopper routes live under `/store`, including products, collections, search, cart, and demo checkout. `/admin` hosts the Pay with Feedback merchant workspace in its own layout without storefront chrome or cart state. Shared catalog data and `/media` assets remain unchanged. With a preview running, use `node scripts/check-routes.mjs http://localhost:4318` to check route separation, redirects, and static assets.
+`/` redirects to `/store`. All shopper routes live under `/store`, including products, collections, search, cart, and demo checkout. `/admin` hosts the Pay with Feedback agent system overview in its own layout without storefront chrome or cart state. Shared catalog data and `/media` assets remain unchanged. With a preview running, use `node scripts/check-routes.mjs http://localhost:4318` to check route separation, redirects, and static assets.
 
 ## Storefront behavior
 
@@ -64,31 +64,35 @@ Lint covers the application code; generated Shadcn primitives retain their upstr
 
 No credentials, customer records, orders, or private account information are included in the bundled data.
 
-## Pay with Feedback merchant demo
+## Pay with Feedback system overview
 
 Run `npm run dev -- --host 127.0.0.1 --port 5190`, then open
-`http://localhost:5190/admin`. This change is local-only; no deployment is required.
+`http://localhost:5190/admin`. This is a desktop-first, fixed-viewport factory scene for the agent system. Shopper signals enter an intake station, travel through parallel browser workbenches, and reach evidence inspection, improvement assembly and reward distribution. No deployment is required.
 
-Demo walkthrough:
+### Demo walkthrough
 
-1. In `/store`, open **BoostedUSA Hyperlane Fast Charger** (the older Boosted Charger is sold out), add it to the cart, and continue to demo checkout.
-2. Choose **Pay with Feedback**, review/deselect the captured moments, and describe the confusion. Submit to complete a feedback-funded demo order. No payment, shipment or Shopify order is created.
-3. Open `/admin` on the same origin/browser. The new report appears immediately in the Feedback selector, including in another open tab. Choose **Investigate feedback**: it correctly returns **Needs more evidence**, because a fixture cannot verify new reports.
-4. Select Alex (F-014) and choose **Investigate feedback**. The demo checks the related Sam report too. Choose **Review & create improvement** to combine both supported contributions into one forecast and bounty pool. Existing proposals retain their original contributors.
-5. Use **How is this estimated?** and **Allocation & reward policy** for tabbed forecast and weight controls. The defaults produce $3,200 expected 30-day contribution profit and a $640 bounty. Approve to lock inputs/version/pool/allocations, then simulate payout. Reload preserves the receipt; repeated payout calls return the same result.
-6. For a fresh demo, use a new browser origin/profile or remove only the `pay-with-feedback-v1` local-storage key in developer tools. This restores sample reports without changing the catalog or cart.
+1. Open `/admin` to see the complete system in motion: four sample shopper reports, 12 illustrative worker windows and three output stations. The scene starts 28 seconds into a 36-second sample loop, with a simulated delivery reward visible while three option-investigation tasks run in parallel. The three investigations start 12 seconds apart to keep activity distributed through the loop.
+2. Follow the physical conveyor from the intake tray through the browser workbenches to the evidence scanner, improvement assembly station and shopper reward trays. The delivery reports share one investigation, one improvement and one $640 simulated reward pool. The cart and option samples remain unresolved without proposals or rewards.
+3. Click a shopper card, browser monitor or station label to open a focused view. Worker views show a larger bundled reference or schematic page and the current investigation context. Output views show the observation, root-cause hypothesis, proposal, forecast assumptions or reward allocations available at that position. Opening a focused view pauses the scene; **Back to overview** restores it.
+4. Hover a shopper card to highlight its workers. Use the bottom controls to pause, restart or scrub the simulation. These controls only change presentation; they never start an investigation, approve an improvement or transfer money. Output details use the current event projection, so later rewards do not appear early.
+5. To demonstrate an actual submission, open `/store/products/boostedusa-hyperlane-fast-charger`, add to cart, continue to checkout and choose **Pay with Feedback**. Review the selected moments and submit. The same-origin admin places the report first among shopper signals with **Awaiting backend** status. The intake tray shows up to four reports; click its **Shopper signals** label to view all reports and their moments in paginated detail. Real submissions receive no simulated workers, findings, proposals or rewards.
 
-### Persistence, capture and evidence boundaries
+### Dean’s backend boundary
 
-- No external database, authentication, model call, or payment provider. Catalog data/assets remain bundled and unchanged. Feedback/proposals use `localStorage` (`pay-with-feedback-v1`); activity moments use per-tab `sessionStorage` (`feedback-journey`). Clearing site data loses these records. Origins/ports/devices do not share records. Storage failures surface an error instead of claiming submission success. This is a single-operator demo: simultaneous writes across tabs are not transactional, and storage is editable by the browser owner.
-- Journey capture explicitly records product title, option label, quantity and known storefront routes. It does not inspect page text, arbitrary clicks, input values, URL queries, credentials, payment details or recordings. It keeps the last eight moments and lets shoppers choose which to submit. The comment is user-authored; the UI asks them to omit personal information.
-- Moments are activity summaries, not screenshots. The bundled `public/evidence/charger-reference.jpg` is a sanitized reference capture of the local Hyperlane product page on 2026-09-10 at 1600×900 with an empty cart. It is not a shopper recording, a reported defect, or a reproduction result. Sample personas, comments, outcomes and proposals are illustrative. A shipping-page link exists in the store header; absence of a precise date near purchase does not establish a defect or prove uplift.
-- The app has no bundled Playwright/computer-use server runtime. The Codex verification browser is development tooling, not an application service. `reproduce(Feedback): Promise<Run>` in `lib/feedback.ts` is the deterministic adapter boundary. A future trusted server runner must validate known storefront routes, use isolated browser sessions, keep model credentials server-side, capture/redact step screenshots, and return evidence-linked verdicts. Never turn arbitrary shopper prose into executable code or unrestricted navigation. There is no hidden live mode.
-- **Reproduced** means repeated reported behavior; **Observation supported** means evidence supports an observation without proving a defect; **Could not reproduce** remains inconclusive; **Needs more evidence** means insufficient context. The demo never labels a new report as reproduced. Root causes remain hypotheses; forecasts are unmeasured estimates.
-- One improvement owns one benefit estimate and pool: `min(cap, sessions × absolute lift / 100 × AOV × margin / 100 × bounty share / 100)`. The baseline is contextual. Low/base/high use 0×/1×/2× lift, capped at 100% conversion. Feedback-funded demo orders never enter paid revenue/conversion; no paid analytics are collected in this app.
-- Allocation uses editable policy weights and largest-remainder cent rounding, not measured causal shares. Eligible report IDs are unique. Exact repeated submissions with the same selected moments reuse the report; semantic duplicates require merchant review (not automated). Approval freezes the forecast snapshot, proposal version, pool and allocations. Payout is simulated with a stable receipt ID; no real money moves, and browser persistence is not a production payout ledger.
+Dean owns agent execution, worker lifecycles, reproduction evidence, findings, forecasts, proposal and reward decisions. This checkout implements the visualization and deterministic sample data. There is no backend endpoint or live connection configured and no credentials are required.
+
+`components/feedback-admin.tsx` owns playback and focused details. It passes the `projectFleet` result from `lib/agent-fleet.ts` into `components/agent-factory-scene.tsx`, which renders the physical stations, conveyors and browser monitors using `app/admin/factory-scene.css`. The projection retains all feedback, deduplicates related sample runs, exposes only reached events and creates sample workers from shopper moments. Pending submissions remain fixed while sample runs loop. Images and animated cursors in worker windows illustrate computer use; they do not represent live browser sessions.
+
+`lib/agent-run.ts` defines `AgentRun`, `decodeAgentEvent`, `appendEvent` and `projectEvent` for validated ordered delivery and historical projection. Connecting Dean's backend requires replacing the sample fleet projection with backend run and worker data through the eventual transport. Reuse the event validation and projection boundary; reserve `source: "live"` for actual backend-delivered events and keep pending submissions distinct. A live fleet feed is not implemented. See [the event contract](docs/agent-run-events.md) for exact fields, ordering and responsibility boundaries. This is a proposed integration contract, not evidence of agreement with Dean.
+
+### Persistence and evidence
+
+- No external database, authentication, model call or payment provider. Catalog data/assets stay bundled. Shopper feedback uses `localStorage` (`pay-with-feedback-v1`); activity moments use per-tab `sessionStorage` (`feedback-journey`). Reload preserves submissions and resets the sample scene to its 28-second opening. Different origins/ports/devices do not share records. Clearing site data removes local submissions. Simultaneous writes across tabs are not transactional.
+- The viewer reads submissions and never writes run outcomes into local business state. Previous demo proposal records are ignored. Replaying a sample is side-effect-free, including the simulated payout receipt.
+- Capture explicitly records product title, option label, quantity and known storefront routes. It does not inspect arbitrary clicks, page text, form values, URL queries, credentials, payment details or recordings. Shoppers select from the last eight moments and write their own comment; the UI asks them to omit personal information.
+- `public/evidence/charger-reference.jpg` is a sanitized reference capture of the local Hyperlane product page on 2026-09-10 at 1600×900 with an empty cart. It is not a shopper recording, a computer-use capture or proof of a defect. Sample personas, events, findings and outcomes are illustrative. A shipping-page link exists in the store header; lack of a precise date near purchase does not prove a defect or uplift.
+- Sample forecasts are unmeasured 30-day contribution estimates. The default $3,200 = 10,000 affected sessions × 0.4 percentage-point lift × $200 AOV × 40% margin. Baseline conversion is 4%. Low/base/high are $0/$3,200/$6,400. Feedback-funded demo orders are excluded from paid revenue and conversion.
+- One improvement has one pool: min($1,000 cap, 20% × $3,200) = $640. The sample policy allocates $384/$256, then emits approved and simulated-paid events with a stable receipt. Those are recorded outputs, not actions triggered by the viewer. Allocation policy is not measured causal attribution; the real backend must own eligibility, deduplication, locks and payout idempotency.
 
 Checks: `npm test`, `npm run typecheck`, `npm run lint`, `npm run build`, and
 `npm run test:routes -- http://localhost:5190` with the preview running.
-
-The merchant UI is a fixed viewport workspace with three stages and no vertical page scroll. Evidence, forecasts and reward policy use tabbed modal panels; explanatory demo/settings UI is intentionally omitted. Longer comments are paginated in the full-feedback panel.

@@ -11,7 +11,7 @@
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
     "format": "oxfmt",
-    "test": "node --experimental-strip-types scripts/check-catalog.mjs && node --experimental-strip-types scripts/check-feedback.mjs",
+    "test": "node --experimental-strip-types scripts/check-catalog.mjs && node --experimental-strip-types scripts/check-feedback.mjs && node --experimental-strip-types scripts/check-agent-run.mjs && node --experimental-strip-types scripts/check-agent-fleet.mjs",
     "typecheck": "tsc --noEmit",
     "test:routes": "node scripts/check-routes.mjs"
   },

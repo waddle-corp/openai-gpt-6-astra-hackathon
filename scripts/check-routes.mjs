@@ -30,8 +30,8 @@ assert.doesNotMatch(
   html,
   /store-header|store-footer|store-scope|boosted-demo-cart/,
 );
-assert.match(html, /Feedback becomes/);
-assert.match(html, /Feedback workflow/);
+assert.match(html, /SYSTEM OVERVIEW/);
+assert.match(html, /Agent system map/);
 const image = await fetch(
   origin +
     '/media/storefront/buy-boosted-boards-online-electric-skateboard-2.png',
@@ -49,5 +49,5 @@ assert.equal(
   '/store/products/boosted-charger?variant=123',
 );
 console.log(
-  'OK root redirect, merchant admin, static image, canonical product redirect',
+  'OK root redirect, agent viewer, static image, canonical product redirect',
 );
