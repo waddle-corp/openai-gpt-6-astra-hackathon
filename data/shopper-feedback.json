@@ -2,7 +2,7 @@
   "source": "synthetic",
   "generatedFor": "openai-gpt-6-astra-hackathon",
   "shop": "benchmark-boosted-usa.myshopify.com",
-  "description": "Synthetic shopper feedback for demo, triage, and response-flow testing. These are not customer records.",
+  "description": "Synthetic shopper feedback for demo, triage, and response-flow testing. Each record includes a replayable relative-path storefront journey. These are not customer records.",
   "feedback": [
     {
       "id": "shopper-feedback-001",
@@ -14,7 +14,41 @@
       "productTitle": "Boosted Standard Range Battery Pack",
       "message": "Will this battery fit a Boosted Mini X, or is it only for the larger boards? I do not want to order the wrong pack.",
       "status": "open",
-      "priority": "high"
+      "priority": "high",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find a replacement battery for an existing Boosted board",
+            "expected": "Homepage navigation and featured products are visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/boosted-accessories",
+            "action": "Open the Boosted Accessories collection",
+            "target": "Browse batteries and replacement parts",
+            "expected": "Accessory products are listed"
+          },
+          {
+            "step": 3,
+            "path": "/store/search?q=standard+range+battery",
+            "action": "Search for a standard range battery",
+            "target": "Battery product result",
+            "expected": "Search results include the standard range battery"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/standard-range-battery-pack",
+            "action": "Inspect the product description and availability",
+            "target": "Mini X compatibility and variant availability",
+            "expected": "The shopper cannot confirm Mini X compatibility from the page"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-002",
@@ -26,7 +60,41 @@
       "productTitle": "Boosted Remote",
       "message": "The remote is showing as sold out. Is there a compatible replacement, or can I join a back-in-stock list?",
       "status": "open",
-      "priority": "high"
+      "priority": "high",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find a replacement remote",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/boosted-accessories",
+            "action": "Open the Boosted Accessories collection",
+            "target": "Remote and controller parts",
+            "expected": "Accessory products are listed"
+          },
+          {
+            "step": 3,
+            "path": "/store/search?q=Boosted+Remote",
+            "action": "Search for a Boosted Remote",
+            "target": "Remote product result",
+            "expected": "The remote appears in search results"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/boosted-remote",
+            "action": "Open the remote product page",
+            "target": "Purchase availability and replacement options",
+            "expected": "The product is sold out and no clear alternative or notification option is visible"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-003",
@@ -38,7 +106,41 @@
       "productTitle": "Boosted Pulley / Belt Upgrade Kit",
       "message": "Does this kit include everything needed for the install, or do I need to buy a separate pulley and tool? A parts list would help.",
       "status": "open",
-      "priority": "medium"
+      "priority": "medium",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find a pulley and belt upgrade",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/boosted-accessories",
+            "action": "Open the Boosted Accessories collection",
+            "target": "Browse drivetrain parts",
+            "expected": "Accessory products are listed"
+          },
+          {
+            "step": 3,
+            "path": "/store/search?q=pulley+belt",
+            "action": "Search for a pulley and belt kit",
+            "target": "Upgrade kit",
+            "expected": "Search results include the pulley and belt upgrade kit"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/boosted-pulley-belt-upgrade-kit",
+            "action": "Open the upgrade kit product page",
+            "target": "Included parts and installation requirements",
+            "expected": "The shopper cannot tell whether every required part and tool is included"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-004",
@@ -50,7 +152,55 @@
       "productTitle": "Evolve GTR Series 2 Bamboo All Terrain",
       "message": "I made it to checkout but cannot see the shipping cost until after entering all of my information. Can you show an estimate for Canada first?",
       "status": "open",
-      "priority": "high"
+      "priority": "high",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find an all-terrain electric skateboard",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/evolve-skateboards",
+            "action": "Open the Electric Skateboards collection",
+            "target": "Evolve boards",
+            "expected": "Electric skateboard products are listed"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/gtr-series-2-bamboo-at",
+            "action": "Open the GTR Series 2 Bamboo All Terrain product page",
+            "target": "Choose a board and check out",
+            "expected": "The board product page is visible"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/gtr-series-2-bamboo-at",
+            "action": "Add the board to the demo cart",
+            "target": "Add to cart control",
+            "expected": "The board appears in the local demo cart"
+          },
+          {
+            "step": 5,
+            "path": "/store/cart",
+            "action": "Open the cart",
+            "target": "Shipping cost before checkout",
+            "expected": "The cart shows the item but no shipping estimate"
+          },
+          {
+            "step": 6,
+            "path": "/store/checkout",
+            "action": "Continue to demo checkout",
+            "target": "Canada shipping estimate",
+            "expected": "The checkout view still does not show a shipping estimate before entering information"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-005",
@@ -62,7 +212,48 @@
       "productTitle": "Evolve GTR Series 2 Carbon Street (Choose your Wheels)",
       "message": "I am deciding between the Carbon Street and the Bamboo All Terrain. A comparison of range, weight, and the best use case would make this much easier.",
       "status": "open",
-      "priority": "medium"
+      "priority": "medium",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Compare electric skateboard options",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/evolve-skateboards",
+            "action": "Open the Electric Skateboards collection",
+            "target": "Carbon Street and Bamboo All Terrain boards",
+            "expected": "Both board types are available to browse"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/evolve-gtr-series-2-carbon-street",
+            "action": "Open the Carbon Street product page",
+            "target": "Range, weight, and use case",
+            "expected": "Carbon Street product details are visible"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/gtr-series-2-bamboo-at",
+            "action": "Open the Bamboo All Terrain product page",
+            "target": "Compare the second board",
+            "expected": "Bamboo All Terrain product details are visible"
+          },
+          {
+            "step": 5,
+            "path": "/store/products/evolve-gtr-series-2-carbon-street",
+            "action": "Return to the Carbon Street product page",
+            "target": "Side-by-side comparison information",
+            "expected": "No concise comparison of range, weight, and use case is available"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-006",
@@ -74,7 +265,34 @@
       "productTitle": "Boosted 2nd Gen Wheels - 80mm",
       "message": "Are the pulleys included with these wheels? I have a V2 board and need to know whether I also need a belt kit before placing the order.",
       "status": "open",
-      "priority": "high"
+      "priority": "high",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store/search?q=Boosted+2nd+Gen+Wheels",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store/search?q=Boosted+2nd+Gen+Wheels",
+            "action": "Search for Boosted 2nd Gen Wheels",
+            "target": "Wheel product result",
+            "expected": "The 80mm wheel product appears in search results"
+          },
+          {
+            "step": 2,
+            "path": "/store/products/2nd-gen-wheels",
+            "action": "Open the wheel product page",
+            "target": "Compatibility with a V2 board",
+            "expected": "The product page is visible"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/2nd-gen-wheels",
+            "action": "Read the product details",
+            "target": "Included pulleys and required belt kit",
+            "expected": "The shopper cannot confirm whether pulleys are included or which additional parts are needed"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-007",
@@ -86,7 +304,41 @@
       "productTitle": "Boosted Helmet - Triple 8 Mips",
       "message": "The helmet looks good, but I cannot find a sizing chart. Please add head measurements so I can choose the right size with confidence.",
       "status": "open",
-      "priority": "medium"
+      "priority": "medium",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find protective gear",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/protective-gear",
+            "action": "Open the Protective Gear collection",
+            "target": "Helmet options",
+            "expected": "Protective gear products are listed"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/boosted-helmets",
+            "action": "Open the Triple 8 Mips helmet product page",
+            "target": "Head measurements and sizing",
+            "expected": "The helmet product page does not show a sizing chart"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/boosted-helmets",
+            "action": "Scroll through the product information",
+            "target": "Sizing guidance before adding to cart",
+            "expected": "The shopper still cannot choose a size with confidence"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-008",
@@ -98,7 +350,41 @@
       "productTitle": null,
       "message": "I want to understand the return window and who pays return shipping before buying a board. I had to search several pages and still could not find a clear answer.",
       "status": "open",
-      "priority": "high"
+      "priority": "high",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find return and shipping policies",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/pages/returns",
+            "action": "Open the Returns page",
+            "target": "Return window and return shipping responsibility",
+            "expected": "The return policy is difficult to scan before purchase"
+          },
+          {
+            "step": 3,
+            "path": "/store/pages/shipping",
+            "action": "Open the Shipping page",
+            "target": "Shipping rules and costs",
+            "expected": "Shipping information is on a separate page"
+          },
+          {
+            "step": 4,
+            "path": "/store/pages/contact-us",
+            "action": "Open the Contact Us page",
+            "target": "Ask for clarification before buying",
+            "expected": "The shopper needs to contact support because the policy answer was not clear enough"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-009",
@@ -110,7 +396,34 @@
       "productTitle": "Boosted Replacement Battery Pack for Rev Scooter",
       "message": "I came here specifically for a replacement Rev battery, but it is out of stock and there is no restock date. Please add a notification option or suggest an alternative.",
       "status": "open",
-      "priority": "high"
+      "priority": "high",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find a replacement Rev battery",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/search?q=Boosted+Rev+battery",
+            "action": "Search for a Boosted Rev battery",
+            "target": "Rev battery product result",
+            "expected": "The replacement battery appears in search results"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/boosted-rev-battery-pack",
+            "action": "Open the replacement battery product page",
+            "target": "Stock status and restock timing",
+            "expected": "The product is sold out and no restock date or notification option is visible"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-010",
@@ -122,7 +435,41 @@
       "productTitle": "Dualtron Thunder 3 Electric Scooter",
       "message": "On my phone, it is hard to tell which image is the front view and which is the rear view. A swipe gallery with image labels would help.",
       "status": "open",
-      "priority": "medium"
+      "priority": "medium",
+      "journey": {
+        "viewport": "mobile",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage on a mobile viewport",
+            "target": "Find an electric scooter",
+            "expected": "The mobile storefront and navigation are visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/electric-scooters",
+            "action": "Open the Electric Scooters collection",
+            "target": "Scooter product options",
+            "expected": "Electric scooter products are listed"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/dualtron-thunder-3-electric-scooter",
+            "action": "Open the Dualtron Thunder 3 product page",
+            "target": "Identify the front and rear views",
+            "expected": "The product gallery is visible on mobile"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/dualtron-thunder-3-electric-scooter",
+            "action": "Swipe through the product gallery thumbnails",
+            "target": "Image orientation and view labels",
+            "expected": "The images are difficult to distinguish because the gallery does not label the views"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-011",
@@ -134,7 +481,34 @@
       "productTitle": "Boosted Replacement Used Frame for Rev Scooter",
       "message": "This is listed as used. Can you show photos of the actual frame and describe any scratches, dents, or stripped threads before I buy it?",
       "status": "open",
-      "priority": "high"
+      "priority": "high",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store/search?q=Boosted+Rev+frame",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store/search?q=Boosted+Rev+frame",
+            "action": "Search for a Boosted Rev frame",
+            "target": "Used replacement frame",
+            "expected": "The used frame appears in search results"
+          },
+          {
+            "step": 2,
+            "path": "/store/products/boosted-rev-frame",
+            "action": "Open the used frame product page",
+            "target": "Actual condition and damage",
+            "expected": "The product is marked as used"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/boosted-rev-frame",
+            "action": "Inspect the product images and description",
+            "target": "Photos of the actual frame and condition notes",
+            "expected": "The shopper cannot see enough condition detail before buying"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-012",
@@ -146,7 +520,48 @@
       "productTitle": "Boosted Motor Guards x2",
       "message": "I added two sets of motor guards, but the cart does not make it clear whether the price is for one guard or a pair. Please make the quantity in the title more obvious.",
       "status": "open",
-      "priority": "medium"
+      "priority": "medium",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find motor guards",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/boosted-accessories",
+            "action": "Open the Boosted Accessories collection",
+            "target": "Motor protection parts",
+            "expected": "Accessory products are listed"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/boosted-motor-guards",
+            "action": "Open the Motor Guards product page",
+            "target": "Quantity and pack size",
+            "expected": "The product title shows x2 but the price unit is still unclear"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/boosted-motor-guards",
+            "action": "Set the quantity to two and add the item to the cart",
+            "target": "Quantity input and Add to cart control",
+            "expected": "Two sets are added to the local demo cart"
+          },
+          {
+            "step": 5,
+            "path": "/store/cart",
+            "action": "Open the cart",
+            "target": "Confirm whether the price is per guard or per pair",
+            "expected": "The cart does not make the unit interpretation clearer"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-013",
@@ -158,7 +573,41 @@
       "productTitle": "Evolve Battery Chargers",
       "message": "Which Evolve models does this charger work with? The product title is broad, and I need to confirm it matches my GTR Series 2 battery.",
       "status": "open",
-      "priority": "high"
+      "priority": "high",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find an Evolve battery charger",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/evolve-skateboard-accessories",
+            "action": "Open the Evolve Skateboard Accessories collection",
+            "target": "Chargers and replacement parts",
+            "expected": "Accessory products are listed"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
+            "action": "Open the Evolve Battery Chargers product page",
+            "target": "Compatibility with a GTR Series 2 battery",
+            "expected": "The charger product page is visible"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
+            "action": "Read the charger description",
+            "target": "Supported Evolve models",
+            "expected": "The shopper cannot confidently confirm compatibility with the GTR Series 2 battery"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-014",
@@ -170,7 +619,41 @@
       "productTitle": null,
       "message": "The product selection is much better than other electric ride shops, but I would love a way to ask a quick pre-purchase question without sending a full email.",
       "status": "open",
-      "priority": "low"
+      "priority": "low",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Get help choosing a product",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/pages/what-should-i-buy",
+            "action": "Open the What should I buy? page",
+            "target": "Product selection guidance",
+            "expected": "General buying guidance is visible"
+          },
+          {
+            "step": 3,
+            "path": "/store/collections/all",
+            "action": "Browse all products",
+            "target": "Compare the available categories",
+            "expected": "The full catalog is available but broad"
+          },
+          {
+            "step": 4,
+            "path": "/store/pages/contact-us",
+            "action": "Open the Contact Us page",
+            "target": "Ask a quick pre-purchase question",
+            "expected": "The shopper reaches a contact route instead of a quick question flow"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-015",
@@ -182,7 +665,41 @@
       "productTitle": "Boosted Daypack Waterproof Backpack",
       "message": "The backpack arrived quickly and the photos were accurate. The only thing I was missing was tracking information after the order shipped.",
       "status": "open",
-      "priority": "low"
+      "priority": "low",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store/products/boosted-daypack",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store/products/boosted-daypack",
+            "action": "Open the Daypack product page from a product link",
+            "target": "Buy the waterproof backpack",
+            "expected": "The Daypack product page is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/products/boosted-daypack",
+            "action": "Add the backpack to the demo cart",
+            "target": "Add to cart control",
+            "expected": "The item appears in the local demo cart"
+          },
+          {
+            "step": 3,
+            "path": "/store/cart",
+            "action": "Open the cart",
+            "target": "Review the item before checkout",
+            "expected": "The cart shows the backpack"
+          },
+          {
+            "step": 4,
+            "path": "/store/checkout",
+            "action": "Complete the demo checkout",
+            "target": "Order confirmation and delivery follow-up",
+            "expected": "A local demo confirmation is shown, but no tracking information is created"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-016",
@@ -194,7 +711,34 @@
       "productTitle": "Boosted Charger",
       "message": "The page says this charger is discontinued and points to a newer one, but I cannot tell which version I should select for my board. The replacement link needs clearer compatibility details.",
       "status": "open",
-      "priority": "high"
+      "priority": "high",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store/products/boosted-charger",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store/products/boosted-charger",
+            "action": "Open the Boosted Charger product page",
+            "target": "Find a current replacement charger",
+            "expected": "The charger product page is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/products/boosted-charger",
+            "action": "Read the discontinued notice",
+            "target": "Replacement charger link",
+            "expected": "The page says a newer charger exists"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/boosted-charger",
+            "action": "Follow the replacement charger link in the description",
+            "target": "Compatible version for the shopper's board",
+            "expected": "The replacement link does not clearly identify which version the shopper should choose"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-017",
@@ -206,7 +750,41 @@
       "productTitle": "Super73 R Adventure Series",
       "message": "Does this bike arrive ready to ride, or should I expect assembly? Please list the tools and approximate setup time on the product page.",
       "status": "open",
-      "priority": "medium"
+      "priority": "medium",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find an electric bike",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/electric-bikes",
+            "action": "Open the Electric Bikes collection",
+            "target": "Super73 R Adventure Series",
+            "expected": "Electric bike products are listed"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/super73-rx",
+            "action": "Open the Super73 R Adventure Series product page",
+            "target": "Assembly requirements",
+            "expected": "The product page is visible"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/super73-rx",
+            "action": "Read the product details",
+            "target": "Tools and setup time",
+            "expected": "The page does not state whether the bike arrives assembled or how long setup takes"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-018",
@@ -218,7 +796,41 @@
       "productTitle": null,
       "message": "I searched for a Boosted Mini replacement deck and got several accessories before finding the deck. Search should prioritize exact product matches and in-stock items.",
       "status": "open",
-      "priority": "medium"
+      "priority": "medium",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find a Boosted Mini replacement deck",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/search?q=Boosted+Mini+replacement+deck",
+            "action": "Search for a Boosted Mini replacement deck",
+            "target": "Exact deck match",
+            "expected": "Accessories appear before the relevant deck result"
+          },
+          {
+            "step": 3,
+            "path": "/store/search?q=Boosted+Mini+replacement+deck",
+            "action": "Review the search results",
+            "target": "Exact matches and in-stock items first",
+            "expected": "The shopper has to scan several accessory results"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/mini-x-deck",
+            "action": "Open the Boosted Mini-X Deck Only product page",
+            "target": "Confirm the replacement deck",
+            "expected": "The shopper eventually finds the relevant deck"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-019",
@@ -230,7 +842,48 @@
       "productTitle": "Boosted Skate Tool",
       "message": "I like that small replacement parts and tools are available here. Showing a recommended maintenance bundle with belts, bearings, and a skate tool would make checkout easier.",
       "status": "open",
-      "priority": "low"
+      "priority": "low",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Find maintenance tools and parts",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/collections/boosted-accessories",
+            "action": "Open the Boosted Accessories collection",
+            "target": "Belts, bearings, and skate tools",
+            "expected": "Maintenance products are listed"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/boosted-skate-tool",
+            "action": "Open the Boosted Skate Tool product page",
+            "target": "Build a maintenance bundle",
+            "expected": "The skate tool product page is visible"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/boosted-skate-tool",
+            "action": "Add the skate tool to the demo cart",
+            "target": "Add to cart control",
+            "expected": "The tool appears in the local demo cart"
+          },
+          {
+            "step": 5,
+            "path": "/store/cart",
+            "action": "Open the cart",
+            "target": "Recommended maintenance bundle",
+            "expected": "The cart does not recommend related belts and bearings"
+          }
+        ]
+      }
     },
     {
       "id": "shopper-feedback-020",
@@ -242,7 +895,67 @@
       "productTitle": "Boosted USA Gift Card",
       "message": "I am buying a gift card, but the checkout does not explain when the recipient gets it or whether it can be used on sale items. That information should be visible before payment.",
       "status": "open",
-      "priority": "medium"
+      "priority": "medium",
+      "journey": {
+        "viewport": "desktop",
+        "startPath": "/store",
+        "steps": [
+          {
+            "step": 1,
+            "path": "/store",
+            "action": "Open the storefront homepage",
+            "target": "Buy a gift card",
+            "expected": "Homepage navigation is visible"
+          },
+          {
+            "step": 2,
+            "path": "/store/search?q=Boosted+USA+Gift+Card",
+            "action": "Search for a Boosted USA Gift Card",
+            "target": "Gift card product result",
+            "expected": "The gift card appears in search results"
+          },
+          {
+            "step": 3,
+            "path": "/store/products/boosted-usa-gift-card",
+            "action": "Open the gift card product page",
+            "target": "Delivery timing and sale-item restrictions",
+            "expected": "The gift card product page is visible"
+          },
+          {
+            "step": 4,
+            "path": "/store/products/boosted-usa-gift-card",
+            "action": "Add the gift card to the demo cart",
+            "target": "Add to cart control",
+            "expected": "The gift card appears in the local demo cart"
+          },
+          {
+            "step": 5,
+            "path": "/store/cart",
+            "action": "Open the cart",
+            "target": "Gift card terms before payment",
+            "expected": "The cart does not explain recipient delivery or sale-item eligibility"
+          },
+          {
+            "step": 6,
+            "path": "/store/checkout",
+            "action": "Continue to demo checkout",
+            "target": "Read gift card terms before payment",
+            "expected": "The checkout still does not show the missing gift card information"
+          }
+        ]
+      }
     }
-  ]
+  ],
+  "journeyReplay": {
+    "pathsAreRelative": true,
+    "requiresFreshBrowserContext": true,
+    "cartState": "empty",
+    "stepFields": [
+      "step",
+      "path",
+      "action",
+      "target",
+      "expected"
+    ]
+  }
 }
