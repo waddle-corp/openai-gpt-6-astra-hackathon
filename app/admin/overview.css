@@ -1160,6 +1160,11 @@
   position: relative;
 }
 .mo-analysis-status {
+  box-sizing: border-box;
+  width: 100px;
+  justify-content: center;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
   position: absolute;
   right: 7px;
   bottom: 10px;
