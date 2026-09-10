@@ -1,10 +1,16 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Pause, Play, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, Play, X } from 'lucide-react';
 import type { AdminOverviewRecord } from '@/lib/admin-overview-data';
 import '@/app/admin/overview.css';
 import { MerchantDirection } from './merchant-direction';
+
+import {
+  analysisSchedule,
+  analysisProgress,
+  DEMO_ANALYSIS_MS,
+} from '@/lib/demo-analysis';
 
 const REPLAYS_PER_PAGE = 12;
 function Pagination({
@@ -50,17 +56,22 @@ function Replay({
   record,
   playing,
   controls = false,
+  runId = 0,
 }: {
   record: AdminOverviewRecord;
   playing: boolean;
   controls?: boolean;
+  runId?: number;
 }) {
   const video = useRef<HTMLVideoElement>(null);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
+    if (video.current) video.current.currentTime = 0;
+  }, [runId, record.replayUrl]);
+  useEffect(() => {
     if (playing) video.current?.play().catch(() => {});
     else video.current?.pause();
-  }, [playing, record.replayUrl]);
+  }, [playing, record.replayUrl, runId]);
   if (!record.replayUrl || failed)
     return (
       <span className="mo-video-unavailable">
@@ -179,12 +190,28 @@ export function MerchantOverview({
 }) {
   const [selectedId, setSelectedId] = useState(records[0]?.feedback.id);
   const [replayPage, setReplayPage] = useState(0);
-  const [playing, setPlaying] = useState(true);
+  const [run, setRun] = useState<{
+    id: number;
+    deadlines: Record<string, number>;
+  }>({ id: 0, deadlines: {} });
+  const [elapsed, setElapsed] = useState(0);
+  useEffect(() => {
+    if (!run.id) return;
+    const started = performance.now();
+    const timer = window.setInterval(() => {
+      const next = Math.min(DEMO_ANALYSIS_MS, performance.now() - started);
+      setElapsed(next);
+      if (next === DEMO_ANALYSIS_MS) window.clearInterval(timer);
+    }, 50);
+    return () => window.clearInterval(timer);
+  }, [run.id]);
   const [inspecting, setInspecting] = useState<AdminOverviewRecord | null>(
     null,
   );
   const selected = records.find((record) => record.feedback.id === selectedId);
-  const replays = records.filter((record) => record.strategyMatch && record.replayUrl);
+  const replays = records.filter(
+    (record) => record.strategyMatch && record.replayUrl,
+  );
   const selectSignal = (record: AdminOverviewRecord) => {
     if (!record.strategyMatch) {
       setInspecting(record);
@@ -224,57 +251,69 @@ export function MerchantOverview({
         >
           <div className="mo-panel-head">
             <div>
-              <h2 id="signals-title"><small className="mo-step-number">01</small>Shopper signals</h2>
+              <h2 id="signals-title">
+                <small className="mo-step-number">01</small>Shopper signals
+              </h2>
             </div>
           </div>
           <div className="mo-scope-note">
-            <span>{records.filter((record) => record.strategyMatch).length} of {totalSignals} match your strategy</span>
+            <span>
+              {records.filter((record) => record.strategyMatch).length} of{' '}
+              {totalSignals} match your strategy
+            </span>
           </div>
           <div className="mo-signals-list">
             {records.map((record) => (
-                <button
-                  className={`mo-signal ${record.strategyMatch ? 'is-matched' : 'is-out-of-scope'} ${record.feedback.id === selectedId ? 'is-selected' : ''}`}
-                  key={record.feedback.id}
-                  disabled={!record.strategyMatch}
-                  onClick={() => selectSignal(record)}
-                  aria-pressed={record.feedback.id === selectedId}
-                >
-                  <span className="mo-signal-top">
-                    <strong>{record.shortId}</strong>
-                    <span>{record.strategyMatch || 'Outside strategy'}</span>
-                  </span>
-                  <p className="mo-signal-copy">
-                    {record.feedback.feedback.message ||
-                      record.feedback.feedback.summary ||
-                      record.feedback.feedback.responses
-                        .map((item) => item.answer)
-                        .join(' · ')}
-                  </p>
-                </button>
-              ))}
+              <button
+                className={`mo-signal ${record.strategyMatch ? 'is-matched' : 'is-out-of-scope'} ${record.feedback.id === selectedId ? 'is-selected' : ''}`}
+                key={record.feedback.id}
+                disabled={!record.strategyMatch}
+                onClick={() => selectSignal(record)}
+                aria-pressed={record.feedback.id === selectedId}
+              >
+                <span className="mo-signal-top">
+                  <strong>{record.shortId}</strong>
+                  <span>{record.strategyMatch || 'Outside strategy'}</span>
+                </span>
+                <p className="mo-signal-copy">
+                  {record.feedback.feedback.message ||
+                    record.feedback.feedback.summary ||
+                    record.feedback.feedback.responses
+                      .map((item) => item.answer)
+                      .join(' · ')}
+                </p>
+              </button>
+            ))}
           </div>
         </section>
         <section className="mo-panel mo-fleet" aria-labelledby="fleet-title">
           <div className="mo-panel-head">
             <div>
-              <h2 id="fleet-title"><small className="mo-step-number">02</small>Computer-use fleet</h2>
+              <h2 id="fleet-title">
+                <small className="mo-step-number">02</small>Computer-use fleet
+              </h2>
             </div>
             <button
               className="mo-play-control"
-              aria-label={
-                playing ? 'Pause replay previews' : 'Play replay previews'
-              }
-              onClick={() => setPlaying((value) => !value)}
+              aria-label="Play eight-second demo analysis"
+              onClick={() => {
+                setElapsed(0);
+                setRun((previous) => ({
+                  id: previous.id + 1,
+                  deadlines: analysisSchedule(
+                    replays.map((record) => record.feedback.id),
+                  ),
+                }));
+              }}
             >
-              {playing ? <Pause size={14} /> : <Play size={14} />}
-              {playing ? 'Pause' : 'Play'}
+              <Play size={14} /> Play
             </button>
           </div>
           <div className="mo-fleet-intro">
             <span>
-              <i /> Recorded browser replays
+              <i /> Computer-use analysis
             </span>
-            <small>Select a session to look closer</small>
+            <small>Demo simulation · 8-second session</small>
           </div>
           <div className="mo-replay-grid">
             {replays
@@ -282,25 +321,55 @@ export function MerchantOverview({
                 replayPage * REPLAYS_PER_PAGE,
                 (replayPage + 1) * REPLAYS_PER_PAGE,
               )
-              .map((record) => (
-                <button
-                  className={`mo-replay ${selectedId === record.feedback.id ? 'is-selected' : ''}`}
-                  key={record.feedback.id}
-                  onClick={() => {
-                    setSelectedId(record.feedback.id);
-                    setInspecting(record);
-                  }}
-                  aria-label={`Open replay ${record.shortId}`}
-                >
-                  <span className="mo-replay-screen">
-                    <Replay record={record} playing={playing && !inspecting} />
-                  </span>
-                  <span className="mo-replay-caption">
-                    <strong>{record.shortId}</strong>
-                    <span>{record.feedback.journey.viewport}</span>
-                  </span>
-                </button>
-              ))}
+              .map((record) => {
+                const progress = analysisProgress(
+                  elapsed,
+                  run.deadlines[record.feedback.id],
+                );
+                const done = progress === 100;
+                return (
+                  <button
+                    className={`mo-replay ${selectedId === record.feedback.id ? 'is-selected' : ''}`}
+                    key={record.feedback.id}
+                    onClick={() => {
+                      setSelectedId(record.feedback.id);
+                      setInspecting(record);
+                    }}
+                    aria-label={`Open replay ${record.shortId}`}
+                  >
+                    <span className="mo-replay-screen">
+                      <Replay
+                        record={record}
+                        playing={run.id > 0 && !done && !inspecting}
+                        runId={run.id}
+                      />
+                      <span
+                        className={`mo-analysis-status ${done ? 'is-done' : ''}`}
+                      >
+                        {done ? (
+                          <>
+                            <Check size={12} /> Done
+                          </>
+                        ) : run.id ? (
+                          `Analyzing ${progress}%`
+                        ) : (
+                          'Ready · 0%'
+                        )}
+                      </span>
+                      <progress
+                        className="mo-analysis-track"
+                        aria-label={`Demo analysis ${record.shortId}`}
+                        max={100}
+                        value={progress}
+                      />
+                    </span>
+                    <span className="mo-replay-caption">
+                      <strong>{record.shortId}</strong>
+                      <span>{record.feedback.journey.viewport}</span>
+                    </span>
+                  </button>
+                );
+              })}
           </div>
           <Pagination
             page={replayPage}
@@ -317,7 +386,10 @@ export function MerchantOverview({
           >
             <div className="mo-panel-head">
               <div>
-                <h2 id="diagnosis-title"><small className="mo-step-number">03</small>Diagnosis & improvement</h2>
+                <h2 id="diagnosis-title">
+                  <small className="mo-step-number">03</small>Diagnosis &
+                  improvement
+                </h2>
               </div>
             </div>
             <div className="mo-outcome-body">
@@ -349,7 +421,9 @@ export function MerchantOverview({
           >
             <div className="mo-panel-head">
               <div>
-                <h2 id="value-title"><small className="mo-step-number">04</small>Value shared back</h2>
+                <h2 id="value-title">
+                  <small className="mo-step-number">04</small>Value shared back
+                </h2>
               </div>
             </div>
             <h3>Rewards pending</h3>

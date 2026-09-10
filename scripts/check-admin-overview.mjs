@@ -34,14 +34,42 @@ for (const id of [
   'shopper-feedback-003',
   'shopper-feedback-019',
 ])
-  assert.ok(records.some((record) => record.feedback.id === id && record.strategyMatch));
-for (const id of [
-  'shopper-feedback-015',
-  'shopper-feedback-008',
-  'SYN-FB-04',
-])
-  assert.ok(records.some((record) => record.feedback.id === id && !record.strategyMatch));
+  assert.ok(
+    records.some((record) => record.feedback.id === id && record.strategyMatch),
+  );
+for (const id of ['shopper-feedback-015', 'shopper-feedback-008', 'SYN-FB-04'])
+  assert.ok(
+    records.some(
+      (record) => record.feedback.id === id && !record.strategyMatch,
+    ),
+  );
 assert.ok(!records.some((record) => record.feedback.id === 'SYN-FB-01'));
 console.log(
   'OK AOV scope: 14 of 33 signals, original evidence preserved, linked replays, all signals retained with unrelated and set-aside records unselected',
+);
+
+const { analysisSchedule, analysisProgress, DEMO_ANALYSIS_MS } =
+  await import('../lib/demo-analysis.ts');
+const replayIds = records
+  .filter((record) => record.strategyMatch)
+  .map((record) => record.feedback.id);
+const deadlines = analysisSchedule(replayIds, () => 0.25);
+assert.equal(Object.keys(deadlines).length, replayIds.length);
+assert.deepEqual(new Set(Object.keys(deadlines)), new Set(replayIds));
+assert.notDeepEqual(Object.keys(deadlines), replayIds);
+const waves = [...new Set(Object.values(deadlines))].sort((a, b) => a - b);
+assert.equal(waves.at(-1), DEMO_ANALYSIS_MS);
+for (let i = 1; i < waves.length; i++)
+  assert(waves[i] - waves[i - 1] >= 1000 && waves[i] - waves[i - 1] <= 2000);
+for (const deadline of Object.values(deadlines)) {
+  assert.equal(analysisProgress(0, deadline), 0);
+  assert(analysisProgress(deadline - 1, deadline) < 100);
+  assert.equal(analysisProgress(deadline, deadline), 100);
+  assert.equal(analysisProgress(9000, deadline), 100);
+}
+assert.deepEqual(analysisSchedule([]), {});
+assert.equal(analysisProgress(0), 0);
+assert.deepEqual(analysisSchedule(['only']), { only: DEMO_ANALYSIS_MS });
+console.log(
+  'OK demo analysis: randomized completion waves, 1–2 second spacing, eight-second completion, and restart progress reset',
 );

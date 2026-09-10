@@ -1089,14 +1089,35 @@
   font-size: 11px;
   color: #596579;
 }
-.mo-scope-note strong { color: #303b4c; font-weight: 600; }
-.mo-scope-note small { margin-top: 3px; color: #7d8795; font-size: 10px; }
-.mo-signal { padding: 8px 10px; gap: 5px; }
+.mo-scope-note strong {
+  color: #303b4c;
+  font-weight: 600;
+}
+.mo-scope-note small {
+  margin-top: 3px;
+  color: #7d8795;
+  font-size: 10px;
+}
+.mo-signal {
+  padding: 8px 10px;
+  gap: 5px;
+}
 @media (max-height: 780px) {
-  .mo-scope-note { gap: 2px; margin-bottom: 6px; padding-bottom: 7px; }
-  .mo-signals-list { grid-template-rows: repeat(6, minmax(0, 1fr)); }
-  .mo-signal { padding: 4px 10px; gap: 3px; }
-  .mo-signal-copy { font-size: 11px; }
+  .mo-scope-note {
+    gap: 2px;
+    margin-bottom: 6px;
+    padding-bottom: 7px;
+  }
+  .mo-signals-list {
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+  }
+  .mo-signal {
+    padding: 4px 10px;
+    gap: 3px;
+  }
+  .mo-signal-copy {
+    font-size: 11px;
+  }
 }
 
 .mo-signals-list {
@@ -1107,12 +1128,71 @@
   scrollbar-width: thin;
   padding-bottom: 8px;
 }
-.mo-signal { flex: 0 0 auto; min-height: 76px; }
-.mo-signal.is-out-of-scope { opacity: .38; background: #f7f8fa; }
-.mo-signal:disabled { cursor: default; }
+.mo-signal {
+  flex: 0 0 auto;
+  min-height: 76px;
+}
+.mo-signal.is-out-of-scope {
+  opacity: 0.38;
+  background: #f7f8fa;
+}
+.mo-signal:disabled {
+  cursor: default;
+}
 @media (max-height: 780px) {
-  .mo-signal { min-height: 65px; }
+  .mo-signal {
+    min-height: 65px;
+  }
 }
 
-.mo-panel-head h2 { display: flex; align-items: baseline; gap: 9px; }
-.mo-step-number { color: #87909e; font-size: 11px; font-weight: 500; }
+.mo-panel-head h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+.mo-step-number {
+  color: #87909e;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.mo-replay-screen {
+  position: relative;
+}
+.mo-analysis-status {
+  position: absolute;
+  right: 7px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 7px;
+  border-radius: 5px;
+  background: #202731eb;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+}
+.mo-analysis-status.is-done {
+  background: #186545ed;
+}
+.mo-analysis-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  width: 100%;
+  border: 0;
+  appearance: none;
+  background: #20273133;
+}
+.mo-analysis-track::-webkit-progress-bar {
+  background: #20273133;
+}
+.mo-analysis-track::-webkit-progress-value {
+  background: #39ba86;
+}
+.mo-analysis-track::-moz-progress-bar {
+  background: #39ba86;
+}
