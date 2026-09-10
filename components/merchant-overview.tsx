@@ -241,6 +241,7 @@ export function MerchantOverview({
                 <button
                   className={`mo-signal ${record.strategyMatch ? 'is-matched' : 'is-out-of-scope'} ${record.feedback.id === selectedId ? 'is-selected' : ''}`}
                   key={record.feedback.id}
+                  disabled={!record.strategyMatch}
                   onClick={() => selectSignal(record)}
                   aria-pressed={record.feedback.id === selectedId}
                 >

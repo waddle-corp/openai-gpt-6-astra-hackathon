@@ -1109,8 +1109,7 @@
 }
 .mo-signal { flex: 0 0 auto; min-height: 76px; }
 .mo-signal.is-out-of-scope { opacity: .38; background: #f7f8fa; }
-.mo-signal.is-out-of-scope:hover,
-.mo-signal.is-out-of-scope:focus-visible { opacity: .8; }
+.mo-signal:disabled { cursor: default; }
 @media (max-height: 780px) {
   .mo-signal { min-height: 65px; }
 }
