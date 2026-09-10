@@ -1,5 +1,7 @@
-import { feedbackDigest } from '../feedback-agent/prioritize.ts';
-import type { FeedbackRecord } from '../feedback-agent/fixtures.ts';
+import {
+  recordContext,
+  type FeedbackRecord,
+} from '../feedback-agent/fixtures.ts';
 import type { ImprovementOpportunity } from '../feedback-agent/synthesize.ts';
 import { responseText, responsesCreate } from '../shared/openai.ts';
 import { strategy } from '../shared/strategy.ts';
@@ -106,6 +108,20 @@ const LEDGER_SCHEMA = {
   required: ['contributions', 'excluded'],
 } as const;
 
+/** Judging a contribution needs the words, the chosen moments and the basket, not the whole click trail. */
+function rewardDigest(records: FeedbackRecord[]) {
+  return records
+    .map((record) =>
+      [
+        ...recordContext(record).filter(
+          (line) => !line.startsWith('Recorded shopper journey'),
+        ),
+        `Feedback: ${record.feedback.message}`,
+      ].join('\n'),
+    )
+    .join('\n\n');
+}
+
 export function rewardPrompt(
   records: FeedbackRecord[],
   opportunity: ImprovementOpportunity,
@@ -134,11 +150,11 @@ export function rewardPrompt(
     'Judge the contribution, not the length: a short remark that first named the problem outranks a long restatement of it.',
     'Do not rank by how many shoppers said the same thing; corroboration is one role, not a multiplier.',
     'A record that did not contribute goes in excluded with a one-line reason. Never invent a feedback ID.',
-    'Amounts are not your decision. Assign roles and one line of rationale addressed to the shopper.',
+    'Amounts are not your decision. Assign roles and a rationale addressed to the shopper: one sentence, at most 15 words, no preamble.',
     '',
     'Feedback records:',
     '',
-    feedbackDigest(records),
+    rewardDigest(records),
   ]
     .filter(Boolean)
     .join('\n');
@@ -255,7 +271,7 @@ export async function rewardContributors(
 ): Promise<RewardLedger> {
   const response = await responsesCreate({
     model: 'gpt-6-astra',
-    reasoning: { effort: 'medium' },
+    reasoning: { effort: 'low' },
     instructions:
       'You decide how shopper feedback contributed to a storefront improvement the merchant published. Return only the requested JSON schema.',
     input: rewardPrompt(records, opportunity, buildSummary),

@@ -523,9 +523,9 @@
       "underlyingProblem": "Shoppers know their board's model name, but the reported storefront labels use broad product names, generation terminology, and replacement links that do not clearly connect that model to the correct purchasable option. This leaves shoppers unable to confirm fit even after finding a relevant product. The shared problem is unresolved compatibility at the decision point, not simply poor discovery. These synthetic journeys suggest a possible attach-rate opportunity, but also show that price and lack of immediate need independently limit purchases.",
       "opportunity": "Add one compact, model-first compatibility block beside the existing variant selector and purchase controls on the three named battery and charger product pages, with the same treatment beside the discontinued Boosted Charger's replacement link. Translate verified compatibility information into explicit board-model-to-product-option guidance. This is smaller and more directly supported than a new product finder, search overhaul, or cart upsell.",
       "designDirection": [
-        "Use a consistent heading such as “Check compatibility” and a short, readable model-to-option list. Name board models explicitly rather than relying on terms such as Gen 2 or V2 alone.",
+        "Use a consistent heading such as \u201cCheck compatibility\u201d and a short, readable model-to-option list. Name board models explicitly rather than relying on terms such as Gen 2 or V2 alone.",
         "Inspect the current storefront descriptions, variant labels, and replacement destinations before writing compatibility copy. Mini X, Mini S, Stealth, and GTR Series 2 are verification targets from the feedback, not assumed compatible models.",
-        "For each supported mapping, show the exact existing option label shoppers should choose. State known exclusions explicitly; distinguish “not compatible” from “compatibility not confirmed.” Never turn an absence of information into a fit claim.",
+        "For each supported mapping, show the exact existing option label shoppers should choose. State known exclusions explicitly; distinguish \u201cnot compatible\u201d from \u201ccompatibility not confirmed.\u201d Never turn an absence of information into a fit claim.",
         "On the discontinued charger page, place verified model and version guidance immediately beside the existing replacement link. Carry the same terminology onto the destination page so shoppers do not have to interpret a second naming system.",
         "Where current storefront content establishes what is included or what additional part is required, surface that information within the same block. Clearly distinguish required parts from optional replacements or spares; do not imply that every shopper needs another charger.",
         "Keep guidance visible without opening a modal or navigating away. On mobile, stack concise model-to-option rows above the selector; on desktop, keep them within the purchase-information column. Reuse existing brand styles and semantic, keyboard-accessible links.",
@@ -552,7 +552,7 @@
             "shopper-feedback-016",
             "SYN-FB-07"
           ],
-          "tension": "The feedback points toward several possible surfaces—search, replacement links, and the cart—but the recorded journeys show shoppers reaching relevant product pages and still being unable to choose confidently.",
+          "tension": "The feedback points toward several possible surfaces\u2014search, replacement links, and the cart\u2014but the recorded journeys show shoppers reaching relevant product pages and still being unable to choose confidently.",
           "resolution": "Resolve the shared product-page decision gap first, including the replacement handoff. Defer search changes and cart-aware recommendations unless later storefront evidence shows an unresolved need."
         }
       ],
@@ -617,15 +617,15 @@
           "quote": "Compatibility is confusing, but honestly the charger can wait. My current one still works."
         }
       ],
-      "successMetric": "First validate on mobile and desktop that a shopper given a board model can identify the verified matching option—or correctly recognize that fit is unconfirmed—from the product page without leaving it, including through the discontinued-product handoff. If existing privacy-safe aggregate reporting supports a controlled comparison, measure accessory attach rate among completed purchases from journeys visiting the affected pages, with AOV as the business outcome and overall conversion as a guardrail. Do not use the synthetic demo purchases as a baseline or assume that fit confirmation removes price and timing objections.",
+      "successMetric": "First validate on mobile and desktop that a shopper given a board model can identify the verified matching option\u2014or correctly recognize that fit is unconfirmed\u2014from the product page without leaving it, including through the discontinued-product handoff. If existing privacy-safe aggregate reporting supports a controlled comparison, measure accessory attach rate among completed purchases from journeys visiting the affected pages, with AOV as the business outcome and overall conversion as a guardrail. Do not use the synthetic demo purchases as a baseline or assume that fit confirmation removes price and timing objections.",
       "buildBrief": "Proposal only; nothing is deployed. First inspect the current UI and public product content at /store/products/standard-range-battery-pack, /store/products/evolve-skateboards-battery-charger-400013-ss20, /store/products/boostedusa-hyperlane-fast-charger, and /store/products/boosted-charger. Verify exact variant labels, available compatibility statements, exclusions, included or required parts, and the discontinued charger's existing replacement destination. Report gaps or contradictions before asserting compatibility. Implement one reusable, product-scoped compatibility block on the first three pages immediately above the existing variant selector, or above the purchase control if no selector exists. Render concise board-model-to-existing-option rows using only verified content. On the discontinued charger page, render equivalent guidance beside the existing replacement link without reinstating purchasing for that product. If its destination differs from the listed Hyperlane page, flag that discrepancy before expanding scope. On desktop, keep the block in the existing purchase-information column; on mobile, use a single-column layout with wrapping text, no horizontal scrolling, and visible guidance before selection. Use semantic headings and lists, descriptive links, existing focus styles, and text rather than color alone for compatibility status. Keep product identifiers, variant identifiers and labels, prices, stock logic, purchase behavior, images, navigation, and the wider visual system unchanged. Do not add model persistence, cart inspection, automatic selection, automatic accessory additions, new tracking, or account functionality. Search, collection, belt, helmet, board, cart, and checkout pages remain unchanged. Acceptance checks must cover the named model questions, verified option-label correspondence, the replacement handoff, unknown-fit states, mobile readability, keyboard navigation, and unchanged purchasing behavior."
     }
   },
   "reward": {
     "opportunityTitle": "Show model-to-part compatibility beside the purchase controls",
     "goal": "Increase average order value by helping shoppers confidently buy the right Boosted USA product and the parts that go with it.",
-    "successMetric": "First validate on mobile and desktop that a shopper given a board model can identify the verified matching option—or correctly recognize that fit is unconfirmed—from the product page without leaving it, including through the discontinued-product handoff. If existing privacy-safe aggregate reporting supports a controlled comparison, measure accessory attach rate among completed purchases from journeys visiting the affected pages, with AOV as the business outcome and overall conversion as a guardrail. Do not use the synthetic demo purchases as a baseline or assume that fit confirmation removes price and timing objections.",
-    "publishedAt": "2026-09-10T20:01:53.209Z",
+    "successMetric": "First validate on mobile and desktop that a shopper given a board model can identify the verified matching option\u2014or correctly recognize that fit is unconfirmed\u2014from the product page without leaving it, including through the discontinued-product handoff. If existing privacy-safe aggregate reporting supports a controlled comparison, measure accessory attach rate among completed purchases from journeys visiting the affected pages, with AOV as the business outcome and overall conversion as a guardrail. Do not use the synthetic demo purchases as a baseline or assume that fit confirmation removes price and timing objections.",
+    "publishedAt": "2026-09-10T20:21:53.529Z",
     "poolCents": 20000,
     "basket": {
       "cartValueCents": 128696,
@@ -641,7 +641,7 @@
           "shaped",
           "addressed"
         ],
-        "rationale": "You pinpointed version uncertainty at the discontinued charger's replacement link and explicitly requested compatibility details there, directly shaping the replacement-handoff guidance.",
+        "rationale": "You identified replacement-version uncertainty and requested compatibility details beside the discontinued charger's replacement link.",
         "rank": 1,
         "weight": 7,
         "share": 0.23936170212765953,
@@ -656,7 +656,7 @@
           "identified",
           "addressed"
         ],
-        "rationale": "You named the precise Mini X versus Gen 2/V2 terminology mismatch that model-to-option guidance targets, while making clear that confirmed fit would not eliminate price comparison.",
+        "rationale": "You pinpointed Mini X versus Gen 2/V2 confusion that model-to-option guidance directly resolves.",
         "rank": 2,
         "weight": 4.777777777777778,
         "share": 0.1633738601823708,
@@ -671,7 +671,7 @@
           "identified",
           "addressed"
         ],
-        "rationale": "You connected the broad Evolve charger title to an unresolved GTR Series 2 fit question, establishing the need for explicit model guidance before purchase.",
+        "rationale": "You exposed broad charger naming that prevented confirming GTR Series 2 fit before purchase.",
         "rank": 3,
         "weight": 4.555555555555555,
         "share": 0.1557750759878419,
@@ -686,7 +686,7 @@
           "corroborated",
           "addressed"
         ],
-        "rationale": "You supplied a concrete Mini X battery-fit question after reading the product details; the battery-page block targets that uncertainty using verified compatibility or an explicit unknown-fit state.",
+        "rationale": "Your Mini X battery question supplied a concrete fit check for the battery purchase block.",
         "rank": 4,
         "weight": 2.6,
         "share": 0.08890577507598782,
@@ -701,7 +701,7 @@
           "corroborated",
           "addressed"
         ],
-        "rationale": "You reinforced the model-versus-generation naming problem with Stealth and Generation 2, showing why guidance is needed after discovery rather than only in search.",
+        "rationale": "You confirmed generation terminology obscured Stealth compatibility even after finding the charger.",
         "rank": 5,
         "weight": 2.466666666666667,
         "share": 0.08434650455927051,
@@ -716,7 +716,7 @@
           "corroborated",
           "addressed"
         ],
-        "rationale": "You reinforced uncertainty about which Evolve charger option matches a GTR Series 2 board; explicit model-to-option rows target that choice without inspecting your cart.",
+        "rationale": "Your charger-option uncertainty reinforces explicit model-to-option guidance without requiring cart inspection.",
         "rank": 6,
         "weight": 2.3333333333333335,
         "share": 0.07978723404255318,
@@ -731,7 +731,7 @@
           "corroborated",
           "addressed"
         ],
-        "rationale": "You added Mini S as a concrete verification target and showed that rereading the charger page did not resolve fit, while price comparison remained a separate consideration.",
+        "rationale": "Your unresolved Mini S fit question becomes a verification target, while price comparison remains your choice.",
         "rank": 7,
         "weight": 2.2,
         "share": 0.07522796352583586,
@@ -746,7 +746,7 @@
           "corroborated",
           "addressed"
         ],
-        "rationale": "Your follow-up confirmed that you reached a charger but could not establish Stealth compatibility; the guidance targets that fit check, not your separate search difficulty.",
+        "rationale": "You confirmed unresolved Stealth fit after finding a charger; guidance addresses that uncertainty, not search.",
         "rank": 8,
         "weight": 2.0666666666666664,
         "share": 0.07066869300911852,
@@ -760,7 +760,7 @@
         "roles": [
           "corroborated"
         ],
-        "rationale": "You broadly reinforced unclear charger compatibility and supplied evidence that price would still prevent an accessory purchase even if fit were confirmed.",
+        "rationale": "You reinforced compatibility confusion while showing price independently prevented adding the charger.",
         "rank": 9,
         "weight": 0.6444444444444444,
         "share": 0.02203647416413373,
@@ -774,7 +774,7 @@
         "roles": [
           "corroborated"
         ],
-        "rationale": "You broadly reinforced compatibility confusion while showing that a working charger and no immediate need independently limit accessory purchases.",
+        "rationale": "You reinforced compatibility confusion while showing a working charger independently removed immediate purchase need.",
         "rank": 10,
         "weight": 0.6,
         "share": 0.02051671732522796,
