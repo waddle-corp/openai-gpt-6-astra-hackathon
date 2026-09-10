@@ -469,7 +469,7 @@ export function MerchantOverview({
             <div className="mo-panel-head">
               <div>
                 <h2 id="value-title">
-                  <small className="mo-step-number">04</small>Value shared back
+                  <small className="mo-step-number">04</small>Expected Impact &amp; Rewards
                 </h2>
               </div>
             </div>
