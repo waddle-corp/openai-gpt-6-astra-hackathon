@@ -1,5 +1,5 @@
 /** Presentation timing only; never an agent result or customer evidence. */
-export const DEMO_ANALYSIS_MS = 8000;
+export const DEMO_ANALYSIS_MS = 7000;
 export function analysisSchedule(ids: string[], random = Math.random) {
   const order = [...ids];
   for (let i = order.length - 1; i > 0; i--) {
@@ -12,7 +12,9 @@ export function analysisSchedule(ids: string[], random = Math.random) {
       const wave = Math.floor((i * waves) / order.length);
       return [
         id,
-        waves === 1 ? DEMO_ANALYSIS_MS : 2000 + (wave * 6000) / (waves - 1),
+        waves === 1
+          ? DEMO_ANALYSIS_MS
+          : 2000 + (wave * (DEMO_ANALYSIS_MS - 2000)) / (waves - 1),
       ];
     }),
   );
@@ -23,16 +25,16 @@ export function analysisProgress(elapsed: number, deadline?: number) {
     : 0;
 }
 
-export const DEMO_FLOW_MS = 20000;
+export const DEMO_FLOW_MS = 16000;
 export function demoFlowAt(time: number, count: number) {
   const elapsed = Math.max(0, Math.min(DEMO_FLOW_MS, time));
   const initial = Math.min(25, count);
   return {
     signalCount:
-      initial + Math.floor((count - initial) * Math.min(1, elapsed / 5000)),
-    analysisStarted: elapsed >= 6000,
-    analysisElapsed: Math.max(0, Math.min(DEMO_ANALYSIS_MS, elapsed - 6000)),
-    generating: elapsed >= 15000 && elapsed < DEMO_FLOW_MS,
+      initial + Math.floor((count - initial) * Math.min(1, elapsed / 2000)),
+    analysisStarted: elapsed >= 3000,
+    analysisElapsed: Math.max(0, Math.min(DEMO_ANALYSIS_MS, elapsed - 3000)),
+    generating: elapsed >= 11000 && elapsed < DEMO_FLOW_MS,
     previewsReady: elapsed >= DEMO_FLOW_MS,
   };
 }

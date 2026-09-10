@@ -80,7 +80,7 @@ assert.deepEqual(analysisSchedule([]), {});
 assert.equal(analysisProgress(0), 0);
 assert.deepEqual(analysisSchedule(['only']), { only: DEMO_ANALYSIS_MS });
 console.log(
-  'OK demo analysis: randomized completion waves, 1–2 second spacing, eight-second completion, and restart progress reset',
+  'OK demo analysis: randomized completion waves, 1–2 second spacing, seven-second completion, and restart progress reset',
 );
 
 for (const record of records.filter((item) => item.strategyMatch)) {
@@ -94,16 +94,16 @@ console.log(
 
 const { demoFlowAt, DEMO_FLOW_MS } = await import('../lib/demo-analysis.ts');
 assert.equal(demoFlowAt(0, 33).signalCount, 25);
-assert.equal(demoFlowAt(2500, 33).signalCount, 29);
-assert.equal(demoFlowAt(5000, 33).signalCount, 33);
-assert.equal(demoFlowAt(5999, 33).analysisStarted, false);
-assert.equal(demoFlowAt(6000, 33).analysisStarted, true);
-assert.equal(demoFlowAt(14000, 33).analysisElapsed, 8000);
-assert.equal(demoFlowAt(14999, 33).generating, false);
-assert.equal(demoFlowAt(15000, 33).generating, true);
-assert.equal(demoFlowAt(19999, 33).previewsReady, false);
+assert.equal(demoFlowAt(1000, 33).signalCount, 29);
+assert.equal(demoFlowAt(2000, 33).signalCount, 33);
+assert.equal(demoFlowAt(2999, 33).analysisStarted, false);
+assert.equal(demoFlowAt(3000, 33).analysisStarted, true);
+assert.equal(demoFlowAt(10000, 33).analysisElapsed, 7000);
+assert.equal(demoFlowAt(10999, 33).generating, false);
+assert.equal(demoFlowAt(11000, 33).generating, true);
+assert.equal(demoFlowAt(15999, 33).previewsReady, false);
 assert.equal(demoFlowAt(DEMO_FLOW_MS, 33).previewsReady, true);
 assert.equal(demoFlowAt(0, 5).signalCount, 5);
 console.log(
-  'OK page demo phase boundaries: 5s signals, 1s wait, 8s analysis, 1s wait, 5s generation',
+  'OK page demo phase boundaries: 2s signals, 1s wait, 7s analysis, 1s wait, 5s generation',
 );
