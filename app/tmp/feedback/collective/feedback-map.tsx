@@ -11,6 +11,7 @@ type Props = {
   judged: boolean; // prioritization has arrived: grouped points become stars, the rest stay dim
   selected: Set<string>;
   labels: Map<string, string>;
+  bounties?: Map<string, string>; // paid contributors, once the merchant publishes
   onToggle: (id: string) => void;
   onHover?: (id?: string) => void;
 };
@@ -49,6 +50,7 @@ export function FeedbackMap({
   judged,
   selected,
   labels,
+  bounties,
   onToggle,
   onHover,
 }: Props) {
@@ -190,6 +192,15 @@ export function FeedbackMap({
         context.arc(item.sx, item.sy, size, 0, Math.PI * 2);
         context.fill();
 
+        const bounty = star && bounties?.get(item.id);
+        if (bounty) {
+          context.font = '11px ui-monospace, SFMono-Regular, Menlo, monospace';
+          context.textAlign = 'center';
+          context.fillStyle = `rgba(255, 250, 235, ${0.8 * item.t})`;
+          context.fillText(bounty, item.sx, item.sy + size + 14);
+          context.textAlign = 'left';
+        }
+
         if (isSelected || hoveredRef.current === item.id) {
           context.lineWidth = isSelected ? 1.5 : 1;
           context.strokeStyle = `rgba(255, 255, 255, ${isSelected ? 0.9 : 0.5})`;
@@ -232,7 +243,7 @@ export function FeedbackMap({
     };
     frame = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(frame);
-  }, [points, groups, judged, selected, labels, onHover]);
+  }, [points, groups, judged, selected, labels, bounties, onHover]);
 
   return (
     <canvas
