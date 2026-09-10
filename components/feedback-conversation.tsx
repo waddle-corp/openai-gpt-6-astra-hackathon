@@ -86,7 +86,7 @@ export function FeedbackCheckout({
       conversational: true,
       approvedSummary: undefined,
     });
-    const timer = setTimeout(() => controller.abort(), 22000);
+    const timer = setTimeout(() => controller.abort(), 50000);
     try {
       const response = await fetch('/api/feedback/conversation', {
         method: 'POST',
