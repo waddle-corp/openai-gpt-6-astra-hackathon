@@ -272,7 +272,10 @@ export async function rewardContributors(
     responseText(response),
     new Set(records.map((record) => record.id)),
   );
-  const paid = splitPool(contributions, records, poolCents);
+  // Ranked before sorting: rank is Astra's ordering, the ledger itself reads by amount.
+  const paid = splitPool(contributions, records, poolCents).sort(
+    (a, b) => b.bountyCents - a.bountyCents,
+  );
   return {
     opportunityTitle: opportunity.title,
     goal: strategy.goal,
