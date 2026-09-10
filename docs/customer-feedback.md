@@ -60,3 +60,9 @@ Catalog lookup runs after a customer answer. It is a bounded server-side lookup,
 The canonical contract remains v1.1. Conversational submissions keep the selected event IDs and actual question/answer pairs. `feedback.category` is null because the customer did not choose a survey category. `feedback.summary` is the customer-approved text, while `feedback.message` remains their original free text. The questionnaire endpoint and legacy component remain available for older demo tooling, but the checkout uses the conversation component.
 
 Validation: `npm test` includes an isolated endpoint test for real catalog lookup, branching, unknown IDs/answers, structured model response parsing with a stubbed provider, and provider failure fallback. A live model quality evaluation requires the configured credentials; mock-provider tests do not establish Astra quality.
+
+## Journey timeline conversation
+
+The customer modal pairs a chronological journey rail with a contextual conversation panel. Recorded visits, return visits, option choices, and cart actions remain factual; highlighted connected moments use the existing focus selection, not a new AI scoring system. Catalog thumbnails illustrate visits and are not session screenshots. Astra continues to generate observations, questions, and the summary through the existing live endpoint.
+
+Clicking a timeline card opens its recorded details without changing the current draft. The explicit “Start a new conversation here” action replaces the current answers and requests a new question scoped to that moment. Manual selection still supports multiple related moments. Customer answers appear separately under “What you shared” for the connected context rather than being presented as observed browser behavior. On mobile, the journey becomes a horizontally scrollable strip above the conversation. The feedback contract, reward flow, and prepared fallback are unchanged.

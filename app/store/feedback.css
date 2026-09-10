@@ -889,3 +889,326 @@
     animation: none;
   }
 }
+
+/* Journey and conversation stay visible together on larger screens. */
+.pf-dialog.pf-conversation-dialog {
+  width: min(1120px, calc(100vw - 32px));
+  max-width: min(1120px, calc(100vw - 32px));
+}
+.pf-conversation-dialog .pf-conversation-body {
+  padding: 28px 32px 0;
+}
+.pf-journey-workspace {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.35fr);
+  margin: 26px -32px 0;
+  border-top: 1px solid #e9e6e3;
+}
+.pf-timeline {
+  background: #f8f7f5;
+  border-right: 1px solid #e9e6e3;
+  padding: 28px 24px;
+  min-width: 0;
+}
+.pf-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: #81756f;
+}
+.pf-timeline-heading h3 {
+  font-size: 20px;
+  margin: 8px 0;
+  letter-spacing: -0.025em;
+}
+.pf-timeline-heading h3 span {
+  font-size: 12px;
+  border: 1px solid #dcd6d1;
+  border-radius: 20px;
+  padding: 2px 7px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+.pf-timeline-heading p,
+.pf-timeline-empty {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #786e68;
+}
+.pf-timeline-list {
+  list-style: none;
+  padding: 0;
+  margin: 25px 0 0;
+}
+.pf-timeline-list > li {
+  position: relative;
+  padding: 0 0 18px 31px;
+}
+.pf-timeline-list > li:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  background: #dcd5ce;
+  top: 24px;
+  bottom: -2px;
+  left: 10px;
+}
+.pf-timeline-list > li.is-related::before {
+  background: #f4a490;
+}
+.pf-timeline-dot {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 21px;
+  height: 21px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #8b7b71;
+  background: #eee8e2;
+  font-size: 10px;
+}
+.is-related .pf-timeline-dot {
+  background: #e64b30;
+  color: white;
+  box-shadow: 0 0 0 4px #fbe6df;
+}
+.pf-timeline-card {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #e4dfda;
+  border-radius: 12px;
+  padding: 13px;
+  background: white;
+  color: #302923;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.is-related .pf-timeline-card {
+  border-color: #e9ac9c;
+  background: #fffaf7;
+}
+.pf-timeline-card:hover,
+.pf-timeline-card[aria-pressed='true'] {
+  border-color: #d65439;
+  box-shadow: 0 3px 12px #5630210d;
+}
+.pf-timeline-card:focus-visible {
+  outline: 2px solid #d65439;
+  outline-offset: 3px;
+}
+.pf-timeline-card-top {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+}
+.pf-timeline-card-top > div {
+  min-width: 0;
+}
+.pf-timeline-card img,
+.pf-timeline-placeholder {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  background: white;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.pf-timeline-placeholder {
+  display: grid;
+  place-items: center;
+  color: #97857a;
+}
+.pf-timeline-card small {
+  display: block;
+  color: #88786d;
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+.pf-timeline-card strong {
+  display: block;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.pf-timeline-card ul {
+  padding-left: 14px;
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: #7a6e64;
+  line-height: 1.6;
+}
+.pf-moment-status {
+  display: inline-block;
+  margin-top: 10px;
+  color: #ba442e;
+  font-size: 10px;
+  font-weight: 600;
+}
+.pf-timeline-caption {
+  color: #978a80;
+  font-size: 10px;
+  margin-top: 20px;
+}
+.pf-timeline-confirmed {
+  border-top: 1px solid #e1d9d0;
+  margin: 6px 0 0 31px;
+  padding-top: 16px;
+}
+.pf-timeline-confirmed > p {
+  font-size: 11px;
+  color: #89796d;
+  margin: 6px 0 12px;
+}
+.pf-timeline-confirmed > div {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  color: #415947;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+.pf-timeline-confirmed svg {
+  flex-shrink: 0;
+}
+.pf-active-conversation {
+  min-width: 0;
+  padding: 28px 32px 32px;
+  background: linear-gradient(150deg, #fff9f6 0, white 240px);
+}
+.pf-active-conversation .pf-agent-label {
+  margin: 0 0 24px;
+  gap: 12px;
+}
+.pf-agent-orb {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #ff704f, #b33221);
+  color: white;
+  box-shadow: 0 5px 18px #db58332e;
+  flex-shrink: 0;
+}
+.pf-agent-label strong {
+  display: block;
+  color: #382a23;
+  font-size: 15px;
+}
+.pf-agent-label small {
+  display: block;
+  color: #947f72;
+  font-size: 11px;
+  margin-top: 4px;
+  font-weight: 400;
+}
+.pf-question-progress {
+  margin-left: auto;
+  white-space: nowrap;
+  color: #8c7d73;
+  font-size: 11px;
+}
+.pf-focus-context {
+  border-left: 2px solid #ed987c;
+  padding: 2px 0 2px 12px;
+  margin-bottom: 23px;
+}
+.pf-focus-context p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #8a7162;
+}
+.pf-active-conversation .pf-agent-observation {
+  font-size: 19px;
+  line-height: 1.65;
+  color: #4c3e35;
+}
+.pf-active-conversation .pf-agent-question {
+  border-top: 1px solid #eee5de;
+  padding-top: 8px;
+  margin-top: 22px;
+}
+.pf-active-conversation .pf-agent-question h3 {
+  font-size: 21px;
+  line-height: 1.45;
+  letter-spacing: -0.025em;
+}
+.pf-moment-explorer {
+  border: 1px solid #e9c0af;
+  background: #fff7ed;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 24px;
+}
+.pf-moment-explorer > strong {
+  display: block;
+  font-size: 15px;
+  margin: 8px 0;
+}
+.pf-moment-explorer p {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.pf-moment-explorer button {
+  margin-top: 10px;
+}
+.pf-moment-explorer .pf-primary {
+  width: 100%;
+  font-size: 13px;
+}
+.pf-moment-explorer > small {
+  display: block;
+  margin-top: 8px;
+  color: #8a6d5e;
+}
+@media (min-width: 761px) {
+  .pf-timeline,
+  .pf-active-conversation {
+    max-height: min(660px, calc(100dvh - 260px));
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+@media (max-width: 760px) {
+  .pf-conversation-dialog .pf-conversation-body {
+    padding: 24px 20px 0;
+  }
+  .pf-journey-workspace {
+    grid-template-columns: minmax(0, 1fr);
+    margin: 22px -20px 0;
+  }
+  .pf-timeline {
+    padding: 20px;
+    border-right: 0;
+    border-bottom: 1px solid #e9e6e3;
+  }
+  .pf-timeline-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 5px 0 8px;
+    margin-top: 14px;
+  }
+  .pf-timeline-list > li {
+    flex: 0 0 230px;
+    padding: 0 0 0 26px;
+  }
+  .pf-timeline-list > li::before {
+    display: none;
+  }
+  .pf-timeline-confirmed {
+    margin-left: 0;
+  }
+  .pf-timeline-caption {
+    margin: 8px 0 0;
+  }
+  .pf-active-conversation {
+    padding: 24px 20px;
+  }
+}
