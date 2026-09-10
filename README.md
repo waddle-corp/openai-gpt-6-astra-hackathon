@@ -1,6 +1,6 @@
 # OpenAI GPT-6 Astra Hackathon
 
-Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.myshopify.com`, with a customer **Pay with your feedback** flow. The merchant admin is the next step.
+Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.myshopify.com`, with a customer **Pay with your feedback** flow. The merchant feedback agent lives in `agents/` and is exposed through API routes; its temporary UI is at `/tmp/feedback`.
 
 **Shared customer/merchant contract:** [docs/feedback-contract.md](docs/feedback-contract.md), with authoritative types and validation in `contracts/feedback.ts`. Both feedback fixture files and persisted customer submissions use `FeedbackRecord` v1.0.
 
@@ -24,7 +24,13 @@ npm run lint
 npm run build
 ```
 
-The app requires **no database, Shopify account, API keys, environment variables, or external data service**. React/Vinext reads the bundled JSON directly. All catalog photographs, page images, brand imagery, and fonts are local files. The original homepage's YouTube video is an optional external embed.
+The storefront itself requires no database or API key. The feedback API requires `OPENAI_API_KEY`. Copy `.env.example` to `.env` and add the key locally. Never commit `.env`.
+
+`POST /api/feedback` runs the Astra strategy gate first. Set `inspect: true` to start computer-use research only when Astra returns an accepted `fit` decision with a score of at least 70. The isolated browser runner can send its screenshot to `POST /api/feedback/continue`. The agent proposes changes only and never deploys, submits forms, or changes orders and payments.
+
+The agent reads both fixture files as `FeedbackRecord` v1.0 (20 shopper records plus compatibility submissions 02–14; SYN-FB-01 is the live-demo rehearsal twin and is excluded). `POST /api/feedback` accepts the shared `FeedbackAnalysisRequest` (`{ feedback: FeedbackRecord, targetUrl?, inspect? }`) or `feedbackId` to pick a fixture (with an optional edited `message`); author labels under `evaluation/` are never part of the prompt. `node --experimental-strip-types scripts/triage-fixtures.mjs [origin] [--json]` runs every record through the gate and prints which ones qualify for computer use. The dev server reads `.env` at startup, so restart it after adding the key.
+
+Collective flow (merchant side, steps 2 and 3 of the prototype): `POST /api/feedback/prioritize` groups all records (or `feedbackIds`) into opportunities ranked against the merchant goal, ordered priorities, and constraints in `agents/shared/strategy.ts`, and lists records set aside with a reason. `POST /api/feedback/synthesize` takes `feedbackIds` (and an optional `focus`) and returns one improvement opportunity: the underlying problem, design direction, tensions between shoppers and how they are resolved, verbatim evidence, and a `buildBrief` for the coding agent. `/tmp/feedback/collective` drives both from a cached pass (`data/collective-cache.json`, rebuilt with `node --experimental-strip-types scripts/precompute-collective.mjs`) so the demo never waits on the model; the embedding map shows each record's `text-embedding-3-small` vector projected to 3D. Hovering a point plays that shopper's journey recording from `public/media/journeys/<id>.webm`, produced by `python scripts/record-journeys.py` (Playwright replay of the recorded journey with a visible cursor; the storefront must be running). `node --experimental-strip-types scripts/collective.mjs prioritize` and `... synthesize <id,id,...>` run them from the terminal.
 
 ## Included snapshot
 
