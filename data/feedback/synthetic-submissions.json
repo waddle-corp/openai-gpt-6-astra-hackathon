@@ -1,0 +1,2762 @@
+[
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-01",
+    "createdAt": "2026-09-10T14:12:57Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-01",
+    "feedback": {
+      "message": "I wanted a second charger for the office, but there were several types and I could not tell which charger would fit the board I added. I left the charger out.",
+      "category": "Understanding details",
+      "responses": [
+        {
+          "id": "purchase_barrier",
+          "question": "What most influenced your decision about the extra item?",
+          "options": [
+            "I was unsure it would work with the board",
+            "The price",
+            "I do not need it yet",
+            "None of these"
+          ],
+          "answer": "I was unsure it would work with the board"
+        },
+        {
+          "id": "conditional_intent",
+          "question": "If the fit were confirmed, what would you most likely do?",
+          "options": [
+            "Consider adding it to this order",
+            "Compare prices before deciding",
+            "Wait until I need it",
+            "Still leave it out",
+            "None of these"
+          ],
+          "answer": "Consider adding it to this order"
+        }
+      ],
+      "summary": "Evolve Battery Chargers — Understanding details. I was unsure it would work with the board. Consider adding it to this order. I wanted a second charger for the office, but there were several types and I could not tell which charger would fit the board I added. I left the charger out.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
+        "title": "Evolve Battery Chargers"
+      },
+      "relatedProductHandles": [
+        "evolve-skateboards-bamboo-gtr-series-2-street",
+        "evolve-skateboards-battery-charger-400013-ss20"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:12:57Z",
+        "totalCents": 106900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47953056923785",
+            "productHandle": "evolve-skateboards-bamboo-gtr-series-2-street",
+            "productTitle": "Evolve GTR Series 2 Bamboo Street",
+            "variantTitle": "Black",
+            "quantity": 1,
+            "unitPriceCents": 106900
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/collections/evolve-skateboards",
+      "events": [
+        {
+          "id": "SYN-01-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T14:09:00Z",
+          "type": "page_view",
+          "path": "/store/collections/evolve-skateboards",
+          "destinationPath": null,
+          "target": "Electric Skateboards",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-01-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T14:09:24Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-bamboo-gtr-series-2-street",
+          "destinationPath": null,
+          "target": "Evolve GTR Series 2 Bamboo Street",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-01-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T14:09:48Z",
+          "type": "variant_selected",
+          "path": "/store/products/evolve-skateboards-bamboo-gtr-series-2-street",
+          "destinationPath": null,
+          "target": "Evolve GTR Series 2 Bamboo Street",
+          "value": "Black",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-01-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T14:10:12Z",
+          "type": "cart_added",
+          "path": "/store/products/evolve-skateboards-bamboo-gtr-series-2-street",
+          "destinationPath": null,
+          "target": "Evolve GTR Series 2 Bamboo Street",
+          "value": "Black · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-01-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T14:10:36Z",
+          "type": "page_view",
+          "path": "/store/collections/evolve-skateboard-accessories",
+          "destinationPath": null,
+          "target": "Evolve Skateboard Accessories",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-01-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T14:11:00Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
+          "destinationPath": null,
+          "target": "Evolve Battery Chargers",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-01-E07",
+          "sequence": 7,
+          "occurredAt": "2026-09-10T14:11:24Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-bamboo-gtr-series-2-street",
+          "destinationPath": null,
+          "target": "Evolve GTR Series 2 Bamboo Street",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-01-E08",
+          "sequence": 8,
+          "occurredAt": "2026-09-10T14:11:48Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-01",
+      "completedAt": "2026-09-10T14:13:27Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:13:27Z",
+        "totalCents": 106900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47953056923785",
+            "productHandle": "evolve-skateboards-bamboo-gtr-series-2-street",
+            "productTitle": "Evolve GTR Series 2 Bamboo Street",
+            "variantTitle": "Black",
+            "quantity": 1,
+            "unitPriceCents": 106900
+          }
+        ]
+      }
+    },
+    "rewardPreference": "coupon",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T14:12:57Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-02",
+    "createdAt": "2026-09-10T14:21:09Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-02",
+    "feedback": {
+      "message": "I have a Mini X. The charger says Gen 2 and V2 and I do not know which mine is. I am just getting the belts today.",
+      "category": "Understanding details",
+      "responses": [
+        {
+          "id": "known_model",
+          "question": "What do you know about the board you own?",
+          "options": [
+            "The model name only",
+            "The model and generation",
+            "I do not know the model",
+            "None of these"
+          ],
+          "answer": "The model name only"
+        },
+        {
+          "id": "conditional_intent",
+          "question": "If the fit were confirmed, what would you most likely do?",
+          "options": [
+            "Consider adding it to this order",
+            "Compare prices before deciding",
+            "Wait until I need it",
+            "Still leave it out",
+            "None of these"
+          ],
+          "answer": "Compare prices before deciding"
+        }
+      ],
+      "summary": "BoostedUSA Hyperlane Fast Charger — Understanding details. The model name only. Compare prices before deciding. I have a Mini X. The charger says Gen 2 and V2 and I do not know which mine is. I am just getting the belts today.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/boostedusa-hyperlane-fast-charger",
+        "title": "BoostedUSA Hyperlane Fast Charger"
+      },
+      "relatedProductHandles": [
+        "boosted-belt-kit",
+        "boostedusa-hyperlane-fast-charger"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:21:09Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/search",
+      "events": [
+        {
+          "id": "SYN-02-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T14:18:00Z",
+          "type": "page_view",
+          "path": "/store/search",
+          "destinationPath": null,
+          "target": "Product search",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-02-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T14:18:24Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-02-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T14:18:48Z",
+          "type": "variant_selected",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-02-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T14:19:12Z",
+          "type": "cart_added",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-02-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T14:19:36Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-02-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T14:20:00Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-02",
+      "completedAt": "2026-09-10T14:21:39Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:21:39Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "rewardPreference": "card_cashback",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T14:21:09Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-03",
+    "createdAt": "2026-09-10T14:31:21Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-03",
+    "feedback": {
+      "message": "I tried searching for a Stealth charger and did not find what I needed. Just ordering the helmet.",
+      "category": "Finding a product",
+      "responses": [
+        {
+          "id": "search_stage",
+          "question": "How far did you get when looking for a charger?",
+          "options": [
+            "I never found a charger",
+            "I found one but could not confirm the fit",
+            "The correct charger was sold out",
+            "None of these"
+          ],
+          "answer": "I found one but could not confirm the fit"
+        },
+        {
+          "id": "conditional_intent",
+          "question": "If the fit were confirmed, what would you most likely do?",
+          "options": [
+            "Consider adding it to this order",
+            "Compare prices before deciding",
+            "Wait until I need it",
+            "Still leave it out",
+            "None of these"
+          ],
+          "answer": "Consider adding it to this order"
+        }
+      ],
+      "summary": "BoostedUSA Hyperlane Fast Charger — Finding a product. I found one but could not confirm the fit. Consider adding it to this order. I tried searching for a Stealth charger and did not find what I needed. Just ordering the helmet.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/boostedusa-hyperlane-fast-charger",
+        "title": "BoostedUSA Hyperlane Fast Charger"
+      },
+      "relatedProductHandles": [
+        "boosted-helmets",
+        "boostedusa-hyperlane-fast-charger"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:31:21Z",
+        "totalCents": 6900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952996958345",
+            "productHandle": "boosted-helmets",
+            "productTitle": "Boosted Helmet - Triple 8 Mips",
+            "variantTitle": "S-M (21.7-22.8\")",
+            "quantity": 1,
+            "unitPriceCents": 6900
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/collections/protective-gear",
+      "events": [
+        {
+          "id": "SYN-03-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T14:27:00Z",
+          "type": "page_view",
+          "path": "/store/collections/protective-gear",
+          "destinationPath": null,
+          "target": "Protective Gear",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-03-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T14:27:24Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-03-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T14:27:48Z",
+          "type": "variant_selected",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": "S-M (21.7-22.8\")",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-03-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T14:28:12Z",
+          "type": "cart_added",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": "S-M (21.7-22.8\") · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-03-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T14:28:36Z",
+          "type": "page_view",
+          "path": "/store/search",
+          "destinationPath": null,
+          "target": "Product search",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-03-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T14:29:00Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-03-E07",
+          "sequence": 7,
+          "occurredAt": "2026-09-10T14:29:24Z",
+          "type": "page_view",
+          "path": "/store/search",
+          "destinationPath": null,
+          "target": "Product search",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-03-E08",
+          "sequence": 8,
+          "occurredAt": "2026-09-10T14:29:48Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-03-E09",
+          "sequence": 9,
+          "occurredAt": "2026-09-10T14:30:12Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-03",
+      "completedAt": "2026-09-10T14:31:51Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:31:51Z",
+        "totalCents": 6900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952996958345",
+            "productHandle": "boosted-helmets",
+            "productTitle": "Boosted Helmet - Triple 8 Mips",
+            "variantTitle": "S-M (21.7-22.8\")",
+            "quantity": 1,
+            "unitPriceCents": 6900
+          }
+        ]
+      }
+    },
+    "rewardPreference": "coupon",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T14:31:21Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-04",
+    "createdAt": "2026-09-10T14:39:33Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-04",
+    "feedback": {
+      "message": "The wheels are sorted. For the spare belt I do not know if I need 32T or 38T. I changed the gear a while ago, so I will check before buying.",
+      "category": "Choosing an option",
+      "responses": [
+        {
+          "id": "configuration",
+          "question": "What do you know about the current gear setup?",
+          "options": [
+            "It is the original setup",
+            "It has been changed; I do not know the size",
+            "I know the current gear size",
+            "None of these"
+          ],
+          "answer": "It has been changed; I do not know the size"
+        }
+      ],
+      "summary": "Evolve Street Drive Belts — Choosing an option. It has been changed; I do not know the size. The wheels are sorted. For the spare belt I do not know if I need 32T or 38T. I changed the gear a while ago, so I will check before buying.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/evolve-skateboards-drive-belt-street-32t-330211-ss20",
+        "title": "Evolve Street Drive Belts"
+      },
+      "relatedProductHandles": [
+        "evolve-skateboards-gtr-street-wheels-500026-ss20",
+        "evolve-skateboards-drive-belt-street-32t-330211-ss20"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:39:33Z",
+        "totalCents": 10999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47953008066697",
+            "productHandle": "evolve-skateboards-gtr-street-wheels-500026-ss20",
+            "productTitle": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+            "variantTitle": "Black",
+            "quantity": 1,
+            "unitPriceCents": 10999
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/collections/evolve-skateboard-accessories",
+      "events": [
+        {
+          "id": "SYN-04-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T14:36:00Z",
+          "type": "page_view",
+          "path": "/store/collections/evolve-skateboard-accessories",
+          "destinationPath": null,
+          "target": "Evolve Skateboard Accessories",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-04-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T14:36:24Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-gtr-street-wheels-500026-ss20",
+          "destinationPath": null,
+          "target": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-04-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T14:36:48Z",
+          "type": "variant_selected",
+          "path": "/store/products/evolve-skateboards-gtr-street-wheels-500026-ss20",
+          "destinationPath": null,
+          "target": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+          "value": "Black",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-04-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T14:37:12Z",
+          "type": "cart_added",
+          "path": "/store/products/evolve-skateboards-gtr-street-wheels-500026-ss20",
+          "destinationPath": null,
+          "target": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+          "value": "Black · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-04-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T14:37:36Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-drive-belt-street-32t-330211-ss20",
+          "destinationPath": null,
+          "target": "Evolve Street Drive Belts",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-04-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T14:38:00Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-gtr-street-wheels-500026-ss20",
+          "destinationPath": null,
+          "target": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-04-E07",
+          "sequence": 7,
+          "occurredAt": "2026-09-10T14:38:24Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-04",
+      "completedAt": "2026-09-10T14:40:03Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:40:03Z",
+        "totalCents": 10999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47953008066697",
+            "productHandle": "evolve-skateboards-gtr-street-wheels-500026-ss20",
+            "productTitle": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+            "variantTitle": "Black",
+            "quantity": 1,
+            "unitPriceCents": 10999
+          }
+        ]
+      }
+    },
+    "rewardPreference": "card_cashback",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T14:39:33Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-05",
+    "createdAt": "2026-09-10T14:48:33Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-05",
+    "feedback": {
+      "message": "I was going to get a charger as a gift for my friend, but I do not know their board model. The helmet is for me.",
+      "category": "Understanding details",
+      "responses": [
+        {
+          "id": "model_check",
+          "question": "Can you confirm the model of the board this is for?",
+          "options": [
+            "I can check the model now",
+            "I need to ask the owner",
+            "I cannot confirm the model",
+            "None of these"
+          ],
+          "answer": "I need to ask the owner"
+        }
+      ],
+      "summary": "BoostedUSA Hyperlane Fast Charger — Understanding details. I need to ask the owner. I was going to get a charger as a gift for my friend, but I do not know their board model. The helmet is for me.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/boostedusa-hyperlane-fast-charger",
+        "title": "BoostedUSA Hyperlane Fast Charger"
+      },
+      "relatedProductHandles": [
+        "boosted-helmets",
+        "boostedusa-hyperlane-fast-charger"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:48:33Z",
+        "totalCents": 6900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952996925577",
+            "productHandle": "boosted-helmets",
+            "productTitle": "Boosted Helmet - Triple 8 Mips",
+            "variantTitle": "XS-S (18.9-21.3\")",
+            "quantity": 1,
+            "unitPriceCents": 6900
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/products/boosted-helmets",
+      "events": [
+        {
+          "id": "SYN-05-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T14:45:00Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-05-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T14:45:24Z",
+          "type": "variant_selected",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": "XS-S (18.9-21.3\")",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-05-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T14:45:48Z",
+          "type": "cart_added",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": "XS-S (18.9-21.3\") · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-05-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T14:46:12Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-05-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T14:46:36Z",
+          "type": "page_view",
+          "path": "/store/collections/boosted-accessories",
+          "destinationPath": null,
+          "target": "Boosted Accessories",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-05-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T14:47:00Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-05-E07",
+          "sequence": 7,
+          "occurredAt": "2026-09-10T14:47:24Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-05",
+      "completedAt": "2026-09-10T14:49:03Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:49:03Z",
+        "totalCents": 6900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952996925577",
+            "productHandle": "boosted-helmets",
+            "productTitle": "Boosted Helmet - Triple 8 Mips",
+            "variantTitle": "XS-S (18.9-21.3\")",
+            "quantity": 1,
+            "unitPriceCents": 6900
+          }
+        ]
+      }
+    },
+    "rewardPreference": "coupon",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T14:48:33Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-06",
+    "createdAt": "2026-09-10T14:56:45Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-06",
+    "feedback": {
+      "message": "The charger compatibility description could be clearer. I am only getting the belts.",
+      "category": "Understanding details",
+      "responses": [
+        {
+          "id": "purchase_barrier",
+          "question": "What most influenced your decision about the extra item?",
+          "options": [
+            "I was unsure it would work with the board",
+            "The price",
+            "I do not need it yet",
+            "None of these"
+          ],
+          "answer": "The price"
+        },
+        {
+          "id": "conditional_intent",
+          "question": "If the fit were confirmed, what would you most likely do?",
+          "options": [
+            "Consider adding it to this order",
+            "Compare prices before deciding",
+            "Wait until I need it",
+            "Still leave it out",
+            "None of these"
+          ],
+          "answer": "Still leave it out"
+        }
+      ],
+      "summary": "BoostedUSA Hyperlane Fast Charger — Understanding details. The price. Still leave it out. The charger compatibility description could be clearer. I am only getting the belts.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/boostedusa-hyperlane-fast-charger",
+        "title": "BoostedUSA Hyperlane Fast Charger"
+      },
+      "relatedProductHandles": [
+        "boosted-belt-kit",
+        "boostedusa-hyperlane-fast-charger"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:56:45Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/products/boosted-belt-kit",
+      "events": [
+        {
+          "id": "SYN-06-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T14:54:00Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-06-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T14:54:24Z",
+          "type": "variant_selected",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-06-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T14:54:48Z",
+          "type": "cart_added",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-06-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T14:55:12Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-06-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T14:55:36Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-06",
+      "completedAt": "2026-09-10T14:57:15Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T14:57:15Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "rewardPreference": "card_cashback",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T14:56:45Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-07",
+    "createdAt": "2026-09-10T15:06:57Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-07",
+    "feedback": {
+      "message": "GTR, Stoke, Hadean... which charger is for the board in my cart? Did not want to order the wrong one.",
+      "category": "Choosing an option",
+      "responses": [
+        {
+          "id": "purchase_barrier",
+          "question": "What most influenced your decision about the extra item?",
+          "options": [
+            "I was unsure it would work with the board",
+            "The price",
+            "I do not need it yet",
+            "None of these"
+          ],
+          "answer": "I was unsure it would work with the board"
+        },
+        {
+          "id": "conditional_intent",
+          "question": "If the fit were confirmed, what would you most likely do?",
+          "options": [
+            "Consider adding it to this order",
+            "Compare prices before deciding",
+            "Wait until I need it",
+            "Still leave it out",
+            "None of these"
+          ],
+          "answer": "Consider adding it to this order"
+        }
+      ],
+      "summary": "Evolve Battery Chargers — Choosing an option. I was unsure it would work with the board. Consider adding it to this order. GTR, Stoke, Hadean... which charger is for the board in my cart? Did not want to order the wrong one.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
+        "title": "Evolve Battery Chargers"
+      },
+      "relatedProductHandles": [
+        "evolve-skateboards-bamboo-gtr-series-2-street",
+        "evolve-skateboards-battery-charger-400013-ss20"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:06:57Z",
+        "totalCents": 106900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47953056694409",
+            "productHandle": "evolve-skateboards-bamboo-gtr-series-2-street",
+            "productTitle": "Evolve GTR Series 2 Bamboo Street",
+            "variantTitle": "White",
+            "quantity": 1,
+            "unitPriceCents": 106900
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/collections/evolve-skateboards",
+      "events": [
+        {
+          "id": "SYN-07-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T15:03:00Z",
+          "type": "page_view",
+          "path": "/store/collections/evolve-skateboards",
+          "destinationPath": null,
+          "target": "Electric Skateboards",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-07-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T15:03:24Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-bamboo-gtr-series-2-street",
+          "destinationPath": null,
+          "target": "Evolve GTR Series 2 Bamboo Street",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-07-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T15:03:48Z",
+          "type": "variant_selected",
+          "path": "/store/products/evolve-skateboards-bamboo-gtr-series-2-street",
+          "destinationPath": null,
+          "target": "Evolve GTR Series 2 Bamboo Street",
+          "value": "White",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-07-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T15:04:12Z",
+          "type": "cart_added",
+          "path": "/store/products/evolve-skateboards-bamboo-gtr-series-2-street",
+          "destinationPath": null,
+          "target": "Evolve GTR Series 2 Bamboo Street",
+          "value": "White · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-07-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T15:04:36Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
+          "destinationPath": null,
+          "target": "Evolve Battery Chargers",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-07-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T15:05:00Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-bamboo-gtr-series-2-street",
+          "destinationPath": null,
+          "target": "Evolve GTR Series 2 Bamboo Street",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-07-E07",
+          "sequence": 7,
+          "occurredAt": "2026-09-10T15:05:24Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
+          "destinationPath": null,
+          "target": "Evolve Battery Chargers",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-07-E08",
+          "sequence": 8,
+          "occurredAt": "2026-09-10T15:05:48Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-07",
+      "completedAt": "2026-09-10T15:07:27Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:07:27Z",
+        "totalCents": 106900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47953056694409",
+            "productHandle": "evolve-skateboards-bamboo-gtr-series-2-street",
+            "productTitle": "Evolve GTR Series 2 Bamboo Street",
+            "variantTitle": "White",
+            "quantity": 1,
+            "unitPriceCents": 106900
+          }
+        ]
+      }
+    },
+    "rewardPreference": "coupon",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T15:06:57Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-08",
+    "createdAt": "2026-09-10T15:15:33Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-08",
+    "feedback": {
+      "message": "Mini S here. Read the charger page twice. Still not sure it works with mine, and I would shop around anyway.",
+      "category": "Understanding details",
+      "responses": [
+        {
+          "id": "purchase_barrier",
+          "question": "What most influenced your decision about the extra item?",
+          "options": [
+            "I was unsure it would work with the board",
+            "The price",
+            "I do not need it yet",
+            "None of these"
+          ],
+          "answer": "I was unsure it would work with the board"
+        },
+        {
+          "id": "conditional_intent",
+          "question": "If the fit were confirmed, what would you most likely do?",
+          "options": [
+            "Consider adding it to this order",
+            "Compare prices before deciding",
+            "Wait until I need it",
+            "Still leave it out",
+            "None of these"
+          ],
+          "answer": "Compare prices before deciding"
+        }
+      ],
+      "summary": "BoostedUSA Hyperlane Fast Charger — Understanding details. I was unsure it would work with the board. Compare prices before deciding. Mini S here. Read the charger page twice. Still not sure it works with mine, and I would shop around anyway.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/boostedusa-hyperlane-fast-charger",
+        "title": "BoostedUSA Hyperlane Fast Charger"
+      },
+      "relatedProductHandles": [
+        "boosted-belt-kit",
+        "boostedusa-hyperlane-fast-charger"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:15:33Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/products/boosted-belt-kit",
+      "events": [
+        {
+          "id": "SYN-08-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T15:12:00Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-08-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T15:12:24Z",
+          "type": "variant_selected",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-08-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T15:12:48Z",
+          "type": "cart_added",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-08-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T15:13:12Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-08-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T15:13:36Z",
+          "type": "page_view",
+          "path": "/store/collections/boosted-accessories",
+          "destinationPath": null,
+          "target": "Boosted Accessories",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-08-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T15:14:00Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-08-E07",
+          "sequence": 7,
+          "occurredAt": "2026-09-10T15:14:24Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-08",
+      "completedAt": "2026-09-10T15:16:03Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:16:03Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "rewardPreference": "card_cashback",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T15:15:33Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-09",
+    "createdAt": "2026-09-10T15:24:33Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-09",
+    "feedback": {
+      "message": "Found a charger eventually. Mine is a Stealth but the heading says Generation 2. Is that the right one?",
+      "category": "Finding a product",
+      "responses": [
+        {
+          "id": "search_stage",
+          "question": "How far did you get when looking for a charger?",
+          "options": [
+            "I never found a charger",
+            "I found one but could not confirm the fit",
+            "The correct charger was sold out",
+            "None of these"
+          ],
+          "answer": "I found one but could not confirm the fit"
+        },
+        {
+          "id": "conditional_intent",
+          "question": "If the fit were confirmed, what would you most likely do?",
+          "options": [
+            "Consider adding it to this order",
+            "Compare prices before deciding",
+            "Wait until I need it",
+            "Still leave it out",
+            "None of these"
+          ],
+          "answer": "Compare prices before deciding"
+        }
+      ],
+      "summary": "BoostedUSA Hyperlane Fast Charger — Finding a product. I found one but could not confirm the fit. Compare prices before deciding. Found a charger eventually. Mine is a Stealth but the heading says Generation 2. Is that the right one?",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/boostedusa-hyperlane-fast-charger",
+        "title": "BoostedUSA Hyperlane Fast Charger"
+      },
+      "relatedProductHandles": [
+        "boosted-helmets",
+        "boostedusa-hyperlane-fast-charger"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:24:33Z",
+        "totalCents": 6900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952996958345",
+            "productHandle": "boosted-helmets",
+            "productTitle": "Boosted Helmet - Triple 8 Mips",
+            "variantTitle": "S-M (21.7-22.8\")",
+            "quantity": 1,
+            "unitPriceCents": 6900
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/collections/protective-gear",
+      "events": [
+        {
+          "id": "SYN-09-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T15:21:00Z",
+          "type": "page_view",
+          "path": "/store/collections/protective-gear",
+          "destinationPath": null,
+          "target": "Protective Gear",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-09-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T15:21:24Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-09-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T15:21:48Z",
+          "type": "variant_selected",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": "S-M (21.7-22.8\")",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-09-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T15:22:12Z",
+          "type": "cart_added",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": "S-M (21.7-22.8\") · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-09-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T15:22:36Z",
+          "type": "page_view",
+          "path": "/store/search",
+          "destinationPath": null,
+          "target": "Product search",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-09-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T15:23:00Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-09-E07",
+          "sequence": 7,
+          "occurredAt": "2026-09-10T15:23:24Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-09",
+      "completedAt": "2026-09-10T15:25:03Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:25:03Z",
+        "totalCents": 6900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952996958345",
+            "productHandle": "boosted-helmets",
+            "productTitle": "Boosted Helmet - Triple 8 Mips",
+            "variantTitle": "S-M (21.7-22.8\")",
+            "quantity": 1,
+            "unitPriceCents": 6900
+          }
+        ]
+      }
+    },
+    "rewardPreference": "coupon",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T15:24:33Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-10",
+    "createdAt": "2026-09-10T15:33:33Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-10",
+    "feedback": {
+      "message": "Spare belt? Not sure. Previous owner changed things and I cannot check the gear until I get home.",
+      "category": "Choosing an option",
+      "responses": [
+        {
+          "id": "configuration",
+          "question": "What do you know about the current gear setup?",
+          "options": [
+            "It is the original setup",
+            "It has been changed; I do not know the size",
+            "I know the current gear size",
+            "None of these"
+          ],
+          "answer": "It has been changed; I do not know the size"
+        }
+      ],
+      "summary": "Evolve Street Drive Belts — Choosing an option. It has been changed; I do not know the size. Spare belt? Not sure. Previous owner changed things and I cannot check the gear until I get home.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/evolve-skateboards-drive-belt-street-32t-330211-ss20",
+        "title": "Evolve Street Drive Belts"
+      },
+      "relatedProductHandles": [
+        "evolve-skateboards-gtr-street-wheels-500026-ss20",
+        "evolve-skateboards-drive-belt-street-32t-330211-ss20"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:33:33Z",
+        "totalCents": 10999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47953008132233",
+            "productHandle": "evolve-skateboards-gtr-street-wheels-500026-ss20",
+            "productTitle": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+            "variantTitle": "Orange",
+            "quantity": 1,
+            "unitPriceCents": 10999
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/products/evolve-skateboards-gtr-street-wheels-500026-ss20",
+      "events": [
+        {
+          "id": "SYN-10-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T15:30:00Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-gtr-street-wheels-500026-ss20",
+          "destinationPath": null,
+          "target": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-10-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T15:30:24Z",
+          "type": "variant_selected",
+          "path": "/store/products/evolve-skateboards-gtr-street-wheels-500026-ss20",
+          "destinationPath": null,
+          "target": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+          "value": "Orange",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-10-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T15:30:48Z",
+          "type": "cart_added",
+          "path": "/store/products/evolve-skateboards-gtr-street-wheels-500026-ss20",
+          "destinationPath": null,
+          "target": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+          "value": "Orange · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-10-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T15:31:12Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-drive-belt-street-32t-330211-ss20",
+          "destinationPath": null,
+          "target": "Evolve Street Drive Belts",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-10-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T15:31:36Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-gtr-street-wheels-500026-ss20",
+          "destinationPath": null,
+          "target": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-10-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T15:32:00Z",
+          "type": "page_view",
+          "path": "/store/products/evolve-skateboards-drive-belt-street-32t-330211-ss20",
+          "destinationPath": null,
+          "target": "Evolve Street Drive Belts",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-10-E07",
+          "sequence": 7,
+          "occurredAt": "2026-09-10T15:32:24Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-10",
+      "completedAt": "2026-09-10T15:34:03Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:34:03Z",
+        "totalCents": 10999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47953008132233",
+            "productHandle": "evolve-skateboards-gtr-street-wheels-500026-ss20",
+            "productTitle": "Evolve GTR Street Wheels (97mm, 76a) Multiple Colors",
+            "variantTitle": "Orange",
+            "quantity": 1,
+            "unitPriceCents": 10999
+          }
+        ]
+      }
+    },
+    "rewardPreference": "card_cashback",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T15:33:33Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-11",
+    "createdAt": "2026-09-10T15:41:45Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-11",
+    "feedback": {
+      "message": "Charger for my brother's board. I have a photo but no model name. Bought my helmet for now.",
+      "category": "Understanding details",
+      "responses": [
+        {
+          "id": "model_check",
+          "question": "Can you confirm the model of the board this is for?",
+          "options": [
+            "I can check the model now",
+            "I need to ask the owner",
+            "I cannot confirm the model",
+            "None of these"
+          ],
+          "answer": "I need to ask the owner"
+        }
+      ],
+      "summary": "BoostedUSA Hyperlane Fast Charger — Understanding details. I need to ask the owner. Charger for my brother's board. I have a photo but no model name. Bought my helmet for now.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/boostedusa-hyperlane-fast-charger",
+        "title": "BoostedUSA Hyperlane Fast Charger"
+      },
+      "relatedProductHandles": [
+        "boosted-helmets",
+        "boostedusa-hyperlane-fast-charger"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:41:45Z",
+        "totalCents": 6900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952996925577",
+            "productHandle": "boosted-helmets",
+            "productTitle": "Boosted Helmet - Triple 8 Mips",
+            "variantTitle": "XS-S (18.9-21.3\")",
+            "quantity": 1,
+            "unitPriceCents": 6900
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/products/boosted-helmets",
+      "events": [
+        {
+          "id": "SYN-11-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T15:39:00Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-11-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T15:39:24Z",
+          "type": "variant_selected",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": "XS-S (18.9-21.3\")",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-11-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T15:39:48Z",
+          "type": "cart_added",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": "XS-S (18.9-21.3\") · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-11-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T15:40:12Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-11-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T15:40:36Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-11",
+      "completedAt": "2026-09-10T15:42:15Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:42:15Z",
+        "totalCents": 6900,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952996925577",
+            "productHandle": "boosted-helmets",
+            "productTitle": "Boosted Helmet - Triple 8 Mips",
+            "variantTitle": "XS-S (18.9-21.3\")",
+            "quantity": 1,
+            "unitPriceCents": 6900
+          }
+        ]
+      }
+    },
+    "rewardPreference": "coupon",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T15:41:45Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-12",
+    "createdAt": "2026-09-10T15:51:09Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-12",
+    "feedback": {
+      "message": "Compatibility is confusing, but honestly the charger can wait. My current one still works.",
+      "category": "Understanding details",
+      "responses": [
+        {
+          "id": "purchase_barrier",
+          "question": "What most influenced your decision about the extra item?",
+          "options": [
+            "I was unsure it would work with the board",
+            "The price",
+            "I do not need it yet",
+            "None of these"
+          ],
+          "answer": "I do not need it yet"
+        },
+        {
+          "id": "conditional_intent",
+          "question": "If the fit were confirmed, what would you most likely do?",
+          "options": [
+            "Consider adding it to this order",
+            "Compare prices before deciding",
+            "Wait until I need it",
+            "Still leave it out",
+            "None of these"
+          ],
+          "answer": "Wait until I need it"
+        }
+      ],
+      "summary": "BoostedUSA Hyperlane Fast Charger — Understanding details. I do not need it yet. Wait until I need it. Compatibility is confusing, but honestly the charger can wait. My current one still works.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/boostedusa-hyperlane-fast-charger",
+        "title": "BoostedUSA Hyperlane Fast Charger"
+      },
+      "relatedProductHandles": [
+        "boosted-belt-kit",
+        "boostedusa-hyperlane-fast-charger"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:51:09Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/collections/boosted-accessories",
+      "events": [
+        {
+          "id": "SYN-12-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T15:48:00Z",
+          "type": "page_view",
+          "path": "/store/collections/boosted-accessories",
+          "destinationPath": null,
+          "target": "Boosted Accessories",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-12-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T15:48:24Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-12-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T15:48:48Z",
+          "type": "variant_selected",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-12-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T15:49:12Z",
+          "type": "cart_added",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-12-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T15:49:36Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-12-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T15:50:00Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-12",
+      "completedAt": "2026-09-10T15:51:39Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T15:51:39Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "rewardPreference": "card_cashback",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T15:51:09Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-13",
+    "createdAt": "2026-09-10T16:00:09Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-13",
+    "feedback": {
+      "message": "Wanted the helmet too, but the large size was sold out. Keeping the belt kit.",
+      "category": "Choosing an option",
+      "responses": [
+        {
+          "id": "size",
+          "question": "Which size were you trying to buy?",
+          "options": [
+            "XS-S",
+            "S-M",
+            "L-XL",
+            "None of these"
+          ],
+          "answer": "L-XL"
+        },
+        {
+          "id": "availability_impact",
+          "question": "What did you decide after checking availability?",
+          "options": [
+            "Wait for my size",
+            "Buy another size",
+            "Buy elsewhere",
+            "None of these"
+          ],
+          "answer": "Wait for my size"
+        }
+      ],
+      "summary": "Boosted Helmet - Triple 8 Mips — Choosing an option. L-XL. Wait for my size. Wanted the helmet too, but the large size was sold out. Keeping the belt kit.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/boosted-helmets",
+        "title": "Boosted Helmet - Triple 8 Mips"
+      },
+      "relatedProductHandles": [
+        "boosted-belt-kit",
+        "boosted-helmets"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T16:00:09Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/products/boosted-belt-kit",
+      "events": [
+        {
+          "id": "SYN-13-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T15:57:00Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-13-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T15:57:24Z",
+          "type": "variant_selected",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-13-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T15:57:48Z",
+          "type": "cart_added",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-13-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T15:58:12Z",
+          "type": "page_view",
+          "path": "/store/collections/protective-gear",
+          "destinationPath": null,
+          "target": "Protective Gear",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-13-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T15:58:36Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-helmets",
+          "destinationPath": null,
+          "target": "Boosted Helmet - Triple 8 Mips",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-13-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T15:59:00Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-13",
+      "completedAt": "2026-09-10T16:00:39Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T16:00:39Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "rewardPreference": "coupon",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T16:00:09Z"
+    }
+  },
+  {
+    "contractVersion": "1.0",
+    "id": "SYN-FB-14",
+    "createdAt": "2026-09-10T16:09:09Z",
+    "source": {
+      "kind": "synthetic",
+      "producer": "compatibility-fixtures",
+      "datasetId": "compatibility-demo-2026-09-10",
+      "channel": "checkout"
+    },
+    "sessionId": "SYN-SESSION-14",
+    "feedback": {
+      "message": "Was looking at the charger as well. I could not work out whether it would arrive before my trip, so I did not add it.",
+      "category": "Understanding details",
+      "responses": [
+        {
+          "id": "missing_detail",
+          "question": "Which delivery information did you need?",
+          "options": [
+            "An arrival date",
+            "The shipping cost",
+            "International delivery options",
+            "None of these"
+          ],
+          "answer": "An arrival date"
+        },
+        {
+          "id": "urgency",
+          "question": "What would you do without a confirmed arrival date?",
+          "options": [
+            "Wait until after my trip",
+            "Order anyway",
+            "Choose another item",
+            "None of these"
+          ],
+          "answer": "Wait until after my trip"
+        }
+      ],
+      "summary": "BoostedUSA Hyperlane Fast Charger — Understanding details. An arrival date. Wait until after my trip. Was looking at the charger as well. I could not work out whether it would arrive before my trip, so I did not add it.",
+      "questionSource": "prepared"
+    },
+    "context": {
+      "selectedPage": {
+        "path": "/store/products/boostedusa-hyperlane-fast-charger",
+        "title": "BoostedUSA Hyperlane Fast Charger"
+      },
+      "relatedProductHandles": [
+        "boosted-belt-kit",
+        "boostedusa-hyperlane-fast-charger"
+      ],
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T16:09:09Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "journey": {
+      "evidence": "synthetic",
+      "viewport": "unknown",
+      "startPath": "/store/products/boosted-belt-kit",
+      "events": [
+        {
+          "id": "SYN-14-E01",
+          "sequence": 1,
+          "occurredAt": "2026-09-10T16:06:00Z",
+          "type": "page_view",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-14-E02",
+          "sequence": 2,
+          "occurredAt": "2026-09-10T16:06:24Z",
+          "type": "variant_selected",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-14-E03",
+          "sequence": 3,
+          "occurredAt": "2026-09-10T16:06:48Z",
+          "type": "cart_added",
+          "path": "/store/products/boosted-belt-kit",
+          "destinationPath": null,
+          "target": "Boosted Belt Kit",
+          "value": "Default Title · quantity 1",
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-14-E04",
+          "sequence": 4,
+          "occurredAt": "2026-09-10T16:07:12Z",
+          "type": "page_view",
+          "path": "/store/products/boostedusa-hyperlane-fast-charger",
+          "destinationPath": null,
+          "target": "BoostedUSA Hyperlane Fast Charger",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-14-E05",
+          "sequence": 5,
+          "occurredAt": "2026-09-10T16:07:36Z",
+          "type": "page_view",
+          "path": "/store/collections/boosted-accessories",
+          "destinationPath": null,
+          "target": "Boosted Accessories",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        },
+        {
+          "id": "SYN-14-E06",
+          "sequence": 6,
+          "occurredAt": "2026-09-10T16:08:00Z",
+          "type": "page_view",
+          "path": "/store/cart",
+          "destinationPath": null,
+          "target": "Your cart",
+          "value": null,
+          "keys": null,
+          "button": null,
+          "direction": null,
+          "scrollY": null,
+          "image": null
+        }
+      ]
+    },
+    "purchase": {
+      "status": "completed_demo",
+      "orderReference": "SYN-ORDER-14",
+      "completedAt": "2026-09-10T16:09:39Z",
+      "cart": {
+        "currency": "USD",
+        "capturedAt": "2026-09-10T16:09:39Z",
+        "totalCents": 1999,
+        "items": [
+          {
+            "variantId": "gid://shopify/ProductVariant/47952997318793",
+            "productHandle": "boosted-belt-kit",
+            "productTitle": "Boosted Belt Kit",
+            "variantTitle": "Default Title",
+            "quantity": 1,
+            "unitPriceCents": 1999
+          }
+        ]
+      }
+    },
+    "rewardPreference": "card_cashback",
+    "review": {
+      "status": "pending_review",
+      "dueAt": "2026-09-13T16:09:09Z"
+    }
+  }
+]

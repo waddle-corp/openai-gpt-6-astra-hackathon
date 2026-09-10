@@ -1,6 +1,10 @@
 # OpenAI GPT-6 Astra Hackathon
 
-Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.myshopify.com`. The merchant admin is the next step.
+Standalone Boosted USA demo storefront, copied from `benchmark-boosted-usa.myshopify.com`, with a customer **Pay with your feedback** flow. The merchant admin is the next step.
+
+**Shared customer/merchant contract:** [docs/feedback-contract.md](docs/feedback-contract.md), with authoritative types and validation in `contracts/feedback.ts`. Both feedback fixture files and persisted customer submissions use `FeedbackRecord` v1.0.
+
+Customer demo setup, real/simulated behavior, optional Astra credentials, and the merchant handoff contract are documented in [docs/customer-feedback.md](docs/customer-feedback.md).
 
 ## Run locally
 

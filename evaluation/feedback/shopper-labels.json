@@ -1,0 +1,145 @@
+{
+  "purpose": "Author labels for evaluation only. Never include in analyst input.",
+  "cases": [
+    {
+      "feedbackId": "shopper-feedback-001",
+      "topic": "compatibility",
+      "priority": "high",
+      "sentiment": "neutral",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-002",
+      "topic": "availability",
+      "priority": "high",
+      "sentiment": "neutral",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-003",
+      "topic": "installation",
+      "priority": "medium",
+      "sentiment": "neutral",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-004",
+      "topic": "shipping",
+      "priority": "high",
+      "sentiment": "negative",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-005",
+      "topic": "product-selection",
+      "priority": "medium",
+      "sentiment": "neutral",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-006",
+      "topic": "compatibility",
+      "priority": "high",
+      "sentiment": "neutral",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-007",
+      "topic": "product-quality",
+      "priority": "medium",
+      "sentiment": "positive",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-008",
+      "topic": "returns",
+      "priority": "high",
+      "sentiment": "negative",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-009",
+      "topic": "availability",
+      "priority": "high",
+      "sentiment": "negative",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-010",
+      "topic": "navigation",
+      "priority": "medium",
+      "sentiment": "negative",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-011",
+      "topic": "used-product",
+      "priority": "high",
+      "sentiment": "neutral",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-012",
+      "topic": "cart",
+      "priority": "medium",
+      "sentiment": "negative",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-013",
+      "topic": "compatibility",
+      "priority": "high",
+      "sentiment": "neutral",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-014",
+      "topic": "support",
+      "priority": "low",
+      "sentiment": "positive",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-015",
+      "topic": "delivery",
+      "priority": "low",
+      "sentiment": "positive",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-016",
+      "topic": "product-information",
+      "priority": "high",
+      "sentiment": "negative",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-017",
+      "topic": "product-selection",
+      "priority": "medium",
+      "sentiment": "neutral",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-018",
+      "topic": "search",
+      "priority": "medium",
+      "sentiment": "negative",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-019",
+      "topic": "pricing",
+      "priority": "low",
+      "sentiment": "positive",
+      "originalStatus": "open"
+    },
+    {
+      "feedbackId": "shopper-feedback-020",
+      "topic": "payment",
+      "priority": "medium",
+      "sentiment": "negative",
+      "originalStatus": "open"
+    }
+  ]
+}
