@@ -2,7 +2,7 @@
   "source": "synthetic",
   "generatedFor": "openai-gpt-6-astra-hackathon",
   "shop": "benchmark-boosted-usa.myshopify.com",
-  "description": "Synthetic shopper feedback for demo, triage, and response-flow testing. Each record includes a replayable relative-path storefront journey. These are not customer records.",
+  "description": "Synthetic shopper feedback for demo, triage, and response-flow testing. Each record includes a synthetic user journey event history. These are not customer records.",
   "feedback": [
     {
       "id": "shopper-feedback-001",
@@ -16,77 +16,58 @@
       "status": "open",
       "priority": "high",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/boosted-accessories",
-          "/store/search?q=standard+range+battery",
-          "/store/products/standard-range-battery-pack",
-          "/store/products/standard-range-battery-pack"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/boosted-accessories",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Accessories collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Boosted Accessories collection link",
+            "button": "left",
+            "toPath": "/store/collections/boosted-accessories"
           },
           {
-            "fromPath": "/store/collections/boosted-accessories",
-            "toPath": "/store/search?q=standard+range+battery",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Search products link"
-              },
-              {
-                "type": "type",
-                "text": "standard range battery"
-              },
-              {
-                "type": "keypress",
-                "keys": [
-                  "ENTER"
-                ]
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/boosted-accessories",
+            "action": "click",
+            "target": "Search products link",
+            "button": "left",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/search?q=standard+range+battery",
-            "toPath": "/store/products/standard-range-battery-pack",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Standard Range Battery Pack product result"
-              }
-            ]
+            "step": 3,
+            "path": "/store/search",
+            "action": "type",
+            "text": "standard range battery",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/products/standard-range-battery-pack",
-            "toPath": "/store/products/standard-range-battery-pack",
-            "actions": [
-              {
-                "type": "scroll",
-                "targetHint": "Product description and compatibility details",
-                "scrollYHint": 600
-              }
-            ]
+            "step": 4,
+            "path": "/store/search",
+            "action": "keypress",
+            "keys": [
+              "ENTER"
+            ],
+            "toPath": "/store/search?q=standard+range+battery"
+          },
+          {
+            "step": 5,
+            "path": "/store/search?q=standard+range+battery",
+            "action": "click",
+            "target": "Standard Range Battery Pack product result",
+            "button": "left",
+            "toPath": "/store/products/standard-range-battery-pack"
+          },
+          {
+            "step": 6,
+            "path": "/store/products/standard-range-battery-pack",
+            "action": "scroll",
+            "target": "Product description and compatibility details",
+            "scrollY": 600,
+            "toPath": "/store/products/standard-range-battery-pack"
           }
         ]
       }
@@ -103,77 +84,58 @@
       "status": "open",
       "priority": "high",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/boosted-accessories",
-          "/store/search?q=Boosted+Remote",
-          "/store/products/boosted-remote",
-          "/store/products/boosted-remote"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/boosted-accessories",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Accessories collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Boosted Accessories collection link",
+            "button": "left",
+            "toPath": "/store/collections/boosted-accessories"
           },
           {
-            "fromPath": "/store/collections/boosted-accessories",
-            "toPath": "/store/search?q=Boosted+Remote",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Search products link"
-              },
-              {
-                "type": "type",
-                "text": "Boosted Remote"
-              },
-              {
-                "type": "keypress",
-                "keys": [
-                  "ENTER"
-                ]
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/boosted-accessories",
+            "action": "click",
+            "target": "Search products link",
+            "button": "left",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/search?q=Boosted+Remote",
-            "toPath": "/store/products/boosted-remote",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Remote product result"
-              }
-            ]
+            "step": 3,
+            "path": "/store/search",
+            "action": "type",
+            "text": "Boosted Remote",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/products/boosted-remote",
-            "toPath": "/store/products/boosted-remote",
-            "actions": [
-              {
-                "type": "scroll",
-                "targetHint": "Availability and replacement information",
-                "scrollYHint": 600
-              }
-            ]
+            "step": 4,
+            "path": "/store/search",
+            "action": "keypress",
+            "keys": [
+              "ENTER"
+            ],
+            "toPath": "/store/search?q=Boosted+Remote"
+          },
+          {
+            "step": 5,
+            "path": "/store/search?q=Boosted+Remote",
+            "action": "click",
+            "target": "Boosted Remote product result",
+            "button": "left",
+            "toPath": "/store/products/boosted-remote"
+          },
+          {
+            "step": 6,
+            "path": "/store/products/boosted-remote",
+            "action": "scroll",
+            "target": "Availability and replacement information",
+            "scrollY": 600,
+            "toPath": "/store/products/boosted-remote"
           }
         ]
       }
@@ -190,77 +152,58 @@
       "status": "open",
       "priority": "medium",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/boosted-accessories",
-          "/store/search?q=pulley+belt",
-          "/store/products/boosted-pulley-belt-upgrade-kit",
-          "/store/products/boosted-pulley-belt-upgrade-kit"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/boosted-accessories",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Accessories collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Boosted Accessories collection link",
+            "button": "left",
+            "toPath": "/store/collections/boosted-accessories"
           },
           {
-            "fromPath": "/store/collections/boosted-accessories",
-            "toPath": "/store/search?q=pulley+belt",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Search products link"
-              },
-              {
-                "type": "type",
-                "text": "pulley belt"
-              },
-              {
-                "type": "keypress",
-                "keys": [
-                  "ENTER"
-                ]
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/boosted-accessories",
+            "action": "click",
+            "target": "Search products link",
+            "button": "left",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/search?q=pulley+belt",
-            "toPath": "/store/products/boosted-pulley-belt-upgrade-kit",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Pulley / Belt Upgrade Kit product result"
-              }
-            ]
+            "step": 3,
+            "path": "/store/search",
+            "action": "type",
+            "text": "pulley belt",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/products/boosted-pulley-belt-upgrade-kit",
-            "toPath": "/store/products/boosted-pulley-belt-upgrade-kit",
-            "actions": [
-              {
-                "type": "scroll",
-                "targetHint": "Included parts and installation details",
-                "scrollYHint": 600
-              }
-            ]
+            "step": 4,
+            "path": "/store/search",
+            "action": "keypress",
+            "keys": [
+              "ENTER"
+            ],
+            "toPath": "/store/search?q=pulley+belt"
+          },
+          {
+            "step": 5,
+            "path": "/store/search?q=pulley+belt",
+            "action": "click",
+            "target": "Boosted Pulley / Belt Upgrade Kit product result",
+            "button": "left",
+            "toPath": "/store/products/boosted-pulley-belt-upgrade-kit"
+          },
+          {
+            "step": 6,
+            "path": "/store/products/boosted-pulley-belt-upgrade-kit",
+            "action": "scroll",
+            "target": "Included parts and installation details",
+            "scrollY": 600,
+            "toPath": "/store/products/boosted-pulley-belt-upgrade-kit"
           }
         ]
       }
@@ -277,79 +220,50 @@
       "status": "open",
       "priority": "high",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/evolve-skateboards",
-          "/store/products/gtr-series-2-bamboo-at",
-          "/store/products/gtr-series-2-bamboo-at",
-          "/store/cart",
-          "/store/checkout"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/evolve-skateboards",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Electric Skateboards collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Electric Skateboards collection link",
+            "button": "left",
+            "toPath": "/store/collections/evolve-skateboards"
           },
           {
-            "fromPath": "/store/collections/evolve-skateboards",
-            "toPath": "/store/products/gtr-series-2-bamboo-at",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Evolve GTR Series 2 Bamboo All Terrain product card"
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/evolve-skateboards",
+            "action": "click",
+            "target": "Evolve GTR Series 2 Bamboo All Terrain product card",
+            "button": "left",
+            "toPath": "/store/products/gtr-series-2-bamboo-at"
           },
           {
-            "fromPath": "/store/products/gtr-series-2-bamboo-at",
-            "toPath": "/store/products/gtr-series-2-bamboo-at",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Add to cart button"
-              }
-            ]
+            "step": 3,
+            "path": "/store/products/gtr-series-2-bamboo-at",
+            "action": "click",
+            "target": "Add to cart button",
+            "button": "left",
+            "toPath": "/store/products/gtr-series-2-bamboo-at"
           },
           {
-            "fromPath": "/store/products/gtr-series-2-bamboo-at",
-            "toPath": "/store/cart",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Cart link"
-              }
-            ]
+            "step": 4,
+            "path": "/store/products/gtr-series-2-bamboo-at",
+            "action": "click",
+            "target": "Cart link",
+            "button": "left",
+            "toPath": "/store/cart"
           },
           {
-            "fromPath": "/store/cart",
-            "toPath": "/store/checkout",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Continue to demo checkout button"
-              }
-            ]
+            "step": 5,
+            "path": "/store/cart",
+            "action": "click",
+            "target": "Continue to demo checkout button",
+            "button": "left",
+            "toPath": "/store/checkout"
           }
         ]
       }
@@ -366,81 +280,62 @@
       "status": "open",
       "priority": "medium",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/evolve-skateboards",
-          "/store/products/evolve-gtr-series-2-carbon-street",
-          "/store/products/gtr-series-2-bamboo-at",
-          "/store/products/evolve-gtr-series-2-carbon-street"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/evolve-skateboards",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Electric Skateboards collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Electric Skateboards collection link",
+            "button": "left",
+            "toPath": "/store/collections/evolve-skateboards"
           },
           {
-            "fromPath": "/store/collections/evolve-skateboards",
-            "toPath": "/store/products/evolve-gtr-series-2-carbon-street",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Evolve GTR Series 2 Carbon Street product card"
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/evolve-skateboards",
+            "action": "click",
+            "target": "Evolve GTR Series 2 Carbon Street product card",
+            "button": "left",
+            "toPath": "/store/products/evolve-gtr-series-2-carbon-street"
           },
           {
-            "fromPath": "/store/products/evolve-gtr-series-2-carbon-street",
-            "toPath": "/store/products/gtr-series-2-bamboo-at",
-            "actions": [
-              {
-                "type": "keypress",
-                "keys": [
-                  "ALT",
-                  "LEFT"
-                ]
-              },
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Evolve GTR Series 2 Bamboo All Terrain product card"
-              }
-            ]
+            "step": 3,
+            "path": "/store/products/evolve-gtr-series-2-carbon-street",
+            "action": "keypress",
+            "keys": [
+              "ALT",
+              "LEFT"
+            ],
+            "toPath": "/store/collections/evolve-skateboards"
           },
           {
-            "fromPath": "/store/products/gtr-series-2-bamboo-at",
-            "toPath": "/store/products/evolve-gtr-series-2-carbon-street",
-            "actions": [
-              {
-                "type": "keypress",
-                "keys": [
-                  "ALT",
-                  "LEFT"
-                ]
-              },
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Evolve GTR Series 2 Carbon Street product card"
-              }
-            ]
+            "step": 4,
+            "path": "/store/collections/evolve-skateboards",
+            "action": "click",
+            "target": "Evolve GTR Series 2 Bamboo All Terrain product card",
+            "button": "left",
+            "toPath": "/store/products/gtr-series-2-bamboo-at"
+          },
+          {
+            "step": 5,
+            "path": "/store/products/gtr-series-2-bamboo-at",
+            "action": "keypress",
+            "keys": [
+              "ALT",
+              "LEFT"
+            ],
+            "toPath": "/store/collections/evolve-skateboards"
+          },
+          {
+            "step": 6,
+            "path": "/store/collections/evolve-skateboards",
+            "action": "click",
+            "target": "Evolve GTR Series 2 Carbon Street product card",
+            "button": "left",
+            "toPath": "/store/products/evolve-gtr-series-2-carbon-street"
           }
         ]
       }
@@ -457,43 +352,26 @@
       "status": "open",
       "priority": "high",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store/search?q=Boosted+2nd+Gen+Wheels",
-        "routes": [
-          "/store/search?q=Boosted+2nd+Gen+Wheels",
-          "/store/products/2nd-gen-wheels",
-          "/store/products/2nd-gen-wheels"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store/search?q=Boosted+2nd+Gen+Wheels",
-            "toPath": "/store/products/2nd-gen-wheels",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted 2nd Gen Wheels product result"
-              }
-            ]
+            "step": 1,
+            "path": "/store/search?q=Boosted+2nd+Gen+Wheels",
+            "action": "click",
+            "target": "Boosted 2nd Gen Wheels product result",
+            "button": "left",
+            "toPath": "/store/products/2nd-gen-wheels"
           },
           {
-            "fromPath": "/store/products/2nd-gen-wheels",
-            "toPath": "/store/products/2nd-gen-wheels",
-            "actions": [
-              {
-                "type": "scroll",
-                "targetHint": "Wheel compatibility and included pulley details",
-                "scrollYHint": 600
-              }
-            ]
+            "step": 2,
+            "path": "/store/products/2nd-gen-wheels",
+            "action": "scroll",
+            "target": "Wheel compatibility and included pulley details",
+            "scrollY": 600,
+            "toPath": "/store/products/2nd-gen-wheels"
           }
         ]
       }
@@ -510,55 +388,34 @@
       "status": "open",
       "priority": "medium",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/protective-gear",
-          "/store/products/boosted-helmets",
-          "/store/products/boosted-helmets"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/protective-gear",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Protective Gear collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Protective Gear collection link",
+            "button": "left",
+            "toPath": "/store/collections/protective-gear"
           },
           {
-            "fromPath": "/store/collections/protective-gear",
-            "toPath": "/store/products/boosted-helmets",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Helmet product card"
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/protective-gear",
+            "action": "click",
+            "target": "Boosted Helmet product card",
+            "button": "left",
+            "toPath": "/store/products/boosted-helmets"
           },
           {
-            "fromPath": "/store/products/boosted-helmets",
-            "toPath": "/store/products/boosted-helmets",
-            "actions": [
-              {
-                "type": "scroll",
-                "targetHint": "Helmet sizing information",
-                "scrollYHint": 600
-              }
-            ]
+            "step": 3,
+            "path": "/store/products/boosted-helmets",
+            "action": "scroll",
+            "target": "Helmet sizing information",
+            "scrollY": 600,
+            "toPath": "/store/products/boosted-helmets"
           }
         ]
       }
@@ -575,55 +432,34 @@
       "status": "open",
       "priority": "high",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/pages/returns",
-          "/store/pages/shipping",
-          "/store/pages/contact-us"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/pages/returns",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Returns page link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Returns page link",
+            "button": "left",
+            "toPath": "/store/pages/returns"
           },
           {
-            "fromPath": "/store/pages/returns",
-            "toPath": "/store/pages/shipping",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Shipping page link"
-              }
-            ]
+            "step": 2,
+            "path": "/store/pages/returns",
+            "action": "click",
+            "target": "Shipping page link",
+            "button": "left",
+            "toPath": "/store/pages/shipping"
           },
           {
-            "fromPath": "/store/pages/shipping",
-            "toPath": "/store/pages/contact-us",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Contact Us page link"
-              }
-            ]
+            "step": 3,
+            "path": "/store/pages/shipping",
+            "action": "click",
+            "target": "Contact Us page link",
+            "button": "left",
+            "toPath": "/store/pages/contact-us"
           }
         ]
       }
@@ -640,65 +476,50 @@
       "status": "open",
       "priority": "high",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/search?q=Boosted+Rev+battery",
-          "/store/products/boosted-rev-battery-pack",
-          "/store/products/boosted-rev-battery-pack"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/search?q=Boosted+Rev+battery",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Search products link"
-              },
-              {
-                "type": "type",
-                "text": "Boosted Rev battery"
-              },
-              {
-                "type": "keypress",
-                "keys": [
-                  "ENTER"
-                ]
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Search products link",
+            "button": "left",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/search?q=Boosted+Rev+battery",
-            "toPath": "/store/products/boosted-rev-battery-pack",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Replacement Battery Pack for Rev Scooter product result"
-              }
-            ]
+            "step": 2,
+            "path": "/store/search",
+            "action": "type",
+            "text": "Boosted Rev battery",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/products/boosted-rev-battery-pack",
-            "toPath": "/store/products/boosted-rev-battery-pack",
-            "actions": [
-              {
-                "type": "scroll",
-                "targetHint": "Stock status and restock information",
-                "scrollYHint": 600
-              }
-            ]
+            "step": 3,
+            "path": "/store/search",
+            "action": "keypress",
+            "keys": [
+              "ENTER"
+            ],
+            "toPath": "/store/search?q=Boosted+Rev+battery"
+          },
+          {
+            "step": 4,
+            "path": "/store/search?q=Boosted+Rev+battery",
+            "action": "click",
+            "target": "Boosted Replacement Battery Pack for Rev Scooter product result",
+            "button": "left",
+            "toPath": "/store/products/boosted-rev-battery-pack"
+          },
+          {
+            "step": 5,
+            "path": "/store/products/boosted-rev-battery-pack",
+            "action": "scroll",
+            "target": "Stock status and restock information",
+            "scrollY": 600,
+            "toPath": "/store/products/boosted-rev-battery-pack"
           }
         ]
       }
@@ -715,55 +536,34 @@
       "status": "open",
       "priority": "medium",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "mobile",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/electric-scooters",
-          "/store/products/dualtron-thunder-3-electric-scooter",
-          "/store/products/dualtron-thunder-3-electric-scooter"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/electric-scooters",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Electric Scooters collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Electric Scooters collection link",
+            "button": "left",
+            "toPath": "/store/collections/electric-scooters"
           },
           {
-            "fromPath": "/store/collections/electric-scooters",
-            "toPath": "/store/products/dualtron-thunder-3-electric-scooter",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Dualtron Thunder 3 Electric Scooter product card"
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/electric-scooters",
+            "action": "click",
+            "target": "Dualtron Thunder 3 Electric Scooter product card",
+            "button": "left",
+            "toPath": "/store/products/dualtron-thunder-3-electric-scooter"
           },
           {
-            "fromPath": "/store/products/dualtron-thunder-3-electric-scooter",
-            "toPath": "/store/products/dualtron-thunder-3-electric-scooter",
-            "actions": [
-              {
-                "type": "drag",
-                "targetHint": "Product gallery thumbnails",
-                "directionHint": "left"
-              }
-            ]
+            "step": 3,
+            "path": "/store/products/dualtron-thunder-3-electric-scooter",
+            "action": "drag",
+            "target": "Product gallery thumbnails",
+            "direction": "left",
+            "toPath": "/store/products/dualtron-thunder-3-electric-scooter"
           }
         ]
       }
@@ -780,43 +580,26 @@
       "status": "open",
       "priority": "high",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store/search?q=Boosted+Rev+frame",
-        "routes": [
-          "/store/search?q=Boosted+Rev+frame",
-          "/store/products/boosted-rev-frame",
-          "/store/products/boosted-rev-frame"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store/search?q=Boosted+Rev+frame",
-            "toPath": "/store/products/boosted-rev-frame",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Replacement Used Frame for Rev Scooter product result"
-              }
-            ]
+            "step": 1,
+            "path": "/store/search?q=Boosted+Rev+frame",
+            "action": "click",
+            "target": "Boosted Replacement Used Frame for Rev Scooter product result",
+            "button": "left",
+            "toPath": "/store/products/boosted-rev-frame"
           },
           {
-            "fromPath": "/store/products/boosted-rev-frame",
-            "toPath": "/store/products/boosted-rev-frame",
-            "actions": [
-              {
-                "type": "scroll",
-                "targetHint": "Used condition photos and description",
-                "scrollYHint": 600
-              }
-            ]
+            "step": 2,
+            "path": "/store/products/boosted-rev-frame",
+            "action": "scroll",
+            "target": "Used condition photos and description",
+            "scrollY": 600,
+            "toPath": "/store/products/boosted-rev-frame"
           }
         ]
       }
@@ -833,83 +616,57 @@
       "status": "open",
       "priority": "medium",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/boosted-accessories",
-          "/store/products/boosted-motor-guards",
-          "/store/products/boosted-motor-guards",
-          "/store/products/boosted-motor-guards",
-          "/store/cart"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/boosted-accessories",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Accessories collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Boosted Accessories collection link",
+            "button": "left",
+            "toPath": "/store/collections/boosted-accessories"
           },
           {
-            "fromPath": "/store/collections/boosted-accessories",
-            "toPath": "/store/products/boosted-motor-guards",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Motor Guards x2 product card"
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/boosted-accessories",
+            "action": "click",
+            "target": "Boosted Motor Guards x2 product card",
+            "button": "left",
+            "toPath": "/store/products/boosted-motor-guards"
           },
           {
-            "fromPath": "/store/products/boosted-motor-guards",
-            "toPath": "/store/products/boosted-motor-guards",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Quantity input"
-              },
-              {
-                "type": "type",
-                "text": "2"
-              }
-            ]
+            "step": 3,
+            "path": "/store/products/boosted-motor-guards",
+            "action": "click",
+            "target": "Quantity input",
+            "button": "left",
+            "toPath": "/store/products/boosted-motor-guards"
           },
           {
-            "fromPath": "/store/products/boosted-motor-guards",
-            "toPath": "/store/products/boosted-motor-guards",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Add to cart button"
-              }
-            ]
+            "step": 4,
+            "path": "/store/products/boosted-motor-guards",
+            "action": "type",
+            "text": "2",
+            "toPath": "/store/products/boosted-motor-guards"
           },
           {
-            "fromPath": "/store/products/boosted-motor-guards",
-            "toPath": "/store/cart",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Cart link"
-              }
-            ]
+            "step": 5,
+            "path": "/store/products/boosted-motor-guards",
+            "action": "click",
+            "target": "Add to cart button",
+            "button": "left",
+            "toPath": "/store/products/boosted-motor-guards"
+          },
+          {
+            "step": 6,
+            "path": "/store/products/boosted-motor-guards",
+            "action": "click",
+            "target": "Cart link",
+            "button": "left",
+            "toPath": "/store/cart"
           }
         ]
       }
@@ -926,55 +683,34 @@
       "status": "open",
       "priority": "high",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/evolve-skateboard-accessories",
-          "/store/products/evolve-skateboards-battery-charger-400013-ss20",
-          "/store/products/evolve-skateboards-battery-charger-400013-ss20"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/evolve-skateboard-accessories",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Evolve Skateboard Accessories collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Evolve Skateboard Accessories collection link",
+            "button": "left",
+            "toPath": "/store/collections/evolve-skateboard-accessories"
           },
           {
-            "fromPath": "/store/collections/evolve-skateboard-accessories",
-            "toPath": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Evolve Battery Chargers product card"
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/evolve-skateboard-accessories",
+            "action": "click",
+            "target": "Evolve Battery Chargers product card",
+            "button": "left",
+            "toPath": "/store/products/evolve-skateboards-battery-charger-400013-ss20"
           },
           {
-            "fromPath": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
-            "toPath": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
-            "actions": [
-              {
-                "type": "scroll",
-                "targetHint": "Charger compatibility section",
-                "scrollYHint": 600
-              }
-            ]
+            "step": 3,
+            "path": "/store/products/evolve-skateboards-battery-charger-400013-ss20",
+            "action": "scroll",
+            "target": "Charger compatibility section",
+            "scrollY": 600,
+            "toPath": "/store/products/evolve-skateboards-battery-charger-400013-ss20"
           }
         ]
       }
@@ -991,55 +727,34 @@
       "status": "open",
       "priority": "low",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/pages/what-should-i-buy",
-          "/store/collections/all",
-          "/store/pages/contact-us"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/pages/what-should-i-buy",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "What should I buy? page link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "What should I buy? page link",
+            "button": "left",
+            "toPath": "/store/pages/what-should-i-buy"
           },
           {
-            "fromPath": "/store/pages/what-should-i-buy",
-            "toPath": "/store/collections/all",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Browse all products link"
-              }
-            ]
+            "step": 2,
+            "path": "/store/pages/what-should-i-buy",
+            "action": "click",
+            "target": "Browse all products link",
+            "button": "left",
+            "toPath": "/store/collections/all"
           },
           {
-            "fromPath": "/store/collections/all",
-            "toPath": "/store/pages/contact-us",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Contact Us page link"
-              }
-            ]
+            "step": 3,
+            "path": "/store/collections/all",
+            "action": "click",
+            "target": "Contact Us page link",
+            "button": "left",
+            "toPath": "/store/pages/contact-us"
           }
         ]
       }
@@ -1056,67 +771,42 @@
       "status": "open",
       "priority": "low",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store/products/boosted-daypack",
-        "routes": [
-          "/store/products/boosted-daypack",
-          "/store/products/boosted-daypack",
-          "/store/cart",
-          "/store/checkout",
-          "/store/checkout"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store/products/boosted-daypack",
-            "toPath": "/store/products/boosted-daypack",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Add to cart button"
-              }
-            ]
+            "step": 1,
+            "path": "/store/products/boosted-daypack",
+            "action": "click",
+            "target": "Add to cart button",
+            "button": "left",
+            "toPath": "/store/products/boosted-daypack"
           },
           {
-            "fromPath": "/store/products/boosted-daypack",
-            "toPath": "/store/cart",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Cart link"
-              }
-            ]
+            "step": 2,
+            "path": "/store/products/boosted-daypack",
+            "action": "click",
+            "target": "Cart link",
+            "button": "left",
+            "toPath": "/store/cart"
           },
           {
-            "fromPath": "/store/cart",
-            "toPath": "/store/checkout",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Continue to demo checkout button"
-              }
-            ]
+            "step": 3,
+            "path": "/store/cart",
+            "action": "click",
+            "target": "Continue to demo checkout button",
+            "button": "left",
+            "toPath": "/store/checkout"
           },
           {
-            "fromPath": "/store/checkout",
-            "toPath": "/store/checkout",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Complete demo order button"
-              }
-            ]
+            "step": 4,
+            "path": "/store/checkout",
+            "action": "click",
+            "target": "Complete demo order button",
+            "button": "left",
+            "toPath": "/store/checkout"
           }
         ]
       }
@@ -1133,43 +823,26 @@
       "status": "open",
       "priority": "high",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store/products/boosted-charger",
-        "routes": [
-          "/store/products/boosted-charger",
-          "/store/products/boosted-charger",
-          "/store/products/boosted-charger"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store/products/boosted-charger",
-            "toPath": "/store/products/boosted-charger",
-            "actions": [
-              {
-                "type": "scroll",
-                "targetHint": "Discontinued charger notice and replacement link",
-                "scrollYHint": 600
-              }
-            ]
+            "step": 1,
+            "path": "/store/products/boosted-charger",
+            "action": "scroll",
+            "target": "Discontinued charger notice and replacement link",
+            "scrollY": 600,
+            "toPath": "/store/products/boosted-charger"
           },
           {
-            "fromPath": "/store/products/boosted-charger",
-            "toPath": "/store/products/boosted-charger",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Replacement charger link in product description"
-              }
-            ]
+            "step": 2,
+            "path": "/store/products/boosted-charger",
+            "action": "click",
+            "target": "Replacement charger link in product description",
+            "button": "left",
+            "toPath": "/store/products/boosted-charger"
           }
         ]
       }
@@ -1186,55 +859,34 @@
       "status": "open",
       "priority": "medium",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/electric-bikes",
-          "/store/products/super73-rx",
-          "/store/products/super73-rx"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/electric-bikes",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Electric Bikes collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Electric Bikes collection link",
+            "button": "left",
+            "toPath": "/store/collections/electric-bikes"
           },
           {
-            "fromPath": "/store/collections/electric-bikes",
-            "toPath": "/store/products/super73-rx",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Super73 R Adventure Series product card"
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/electric-bikes",
+            "action": "click",
+            "target": "Super73 R Adventure Series product card",
+            "button": "left",
+            "toPath": "/store/products/super73-rx"
           },
           {
-            "fromPath": "/store/products/super73-rx",
-            "toPath": "/store/products/super73-rx",
-            "actions": [
-              {
-                "type": "scroll",
-                "targetHint": "Assembly requirements and setup information",
-                "scrollYHint": 600
-              }
-            ]
+            "step": 3,
+            "path": "/store/products/super73-rx",
+            "action": "scroll",
+            "target": "Assembly requirements and setup information",
+            "scrollY": 600,
+            "toPath": "/store/products/super73-rx"
           }
         ]
       }
@@ -1251,53 +903,42 @@
       "status": "open",
       "priority": "medium",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/search?q=Boosted+Mini+replacement+deck",
-          "/store/products/mini-x-deck"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/search?q=Boosted+Mini+replacement+deck",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Search products link"
-              },
-              {
-                "type": "type",
-                "text": "Boosted Mini replacement deck"
-              },
-              {
-                "type": "keypress",
-                "keys": [
-                  "ENTER"
-                ]
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Search products link",
+            "button": "left",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/search?q=Boosted+Mini+replacement+deck",
-            "toPath": "/store/products/mini-x-deck",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Mini-X Deck Only product result"
-              }
-            ]
+            "step": 2,
+            "path": "/store/search",
+            "action": "type",
+            "text": "Boosted Mini replacement deck",
+            "toPath": "/store/search"
+          },
+          {
+            "step": 3,
+            "path": "/store/search",
+            "action": "keypress",
+            "keys": [
+              "ENTER"
+            ],
+            "toPath": "/store/search?q=Boosted+Mini+replacement+deck"
+          },
+          {
+            "step": 4,
+            "path": "/store/search?q=Boosted+Mini+replacement+deck",
+            "action": "click",
+            "target": "Boosted Mini-X Deck Only product result",
+            "button": "left",
+            "toPath": "/store/products/mini-x-deck"
           }
         ]
       }
@@ -1314,67 +955,42 @@
       "status": "open",
       "priority": "low",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/collections/boosted-accessories",
-          "/store/products/boosted-skate-tool",
-          "/store/products/boosted-skate-tool",
-          "/store/cart"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/collections/boosted-accessories",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Accessories collection link"
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Boosted Accessories collection link",
+            "button": "left",
+            "toPath": "/store/collections/boosted-accessories"
           },
           {
-            "fromPath": "/store/collections/boosted-accessories",
-            "toPath": "/store/products/boosted-skate-tool",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted Skate Tool product card"
-              }
-            ]
+            "step": 2,
+            "path": "/store/collections/boosted-accessories",
+            "action": "click",
+            "target": "Boosted Skate Tool product card",
+            "button": "left",
+            "toPath": "/store/products/boosted-skate-tool"
           },
           {
-            "fromPath": "/store/products/boosted-skate-tool",
-            "toPath": "/store/products/boosted-skate-tool",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Add to cart button"
-              }
-            ]
+            "step": 3,
+            "path": "/store/products/boosted-skate-tool",
+            "action": "click",
+            "target": "Add to cart button",
+            "button": "left",
+            "toPath": "/store/products/boosted-skate-tool"
           },
           {
-            "fromPath": "/store/products/boosted-skate-tool",
-            "toPath": "/store/cart",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Cart link"
-              }
-            ]
+            "step": 4,
+            "path": "/store/products/boosted-skate-tool",
+            "action": "click",
+            "target": "Cart link",
+            "button": "left",
+            "toPath": "/store/cart"
           }
         ]
       }
@@ -1391,115 +1007,69 @@
       "status": "open",
       "priority": "medium",
       "journey": {
-        "status": "planned",
+        "source": "synthetic",
+        "status": "recorded",
         "viewport": "desktop",
         "startPath": "/store",
-        "routes": [
-          "/store",
-          "/store/search?q=Boosted+USA+Gift+Card",
-          "/store/products/boosted-usa-gift-card",
-          "/store/products/boosted-usa-gift-card",
-          "/store/cart",
-          "/store/checkout"
-        ]
-      },
-      "computerUseTrace": {
-        "status": "not_captured",
-        "actions": null
-      },
-      "computerUsePlan": {
-        "status": "synthetic",
         "steps": [
           {
-            "fromPath": "/store",
-            "toPath": "/store/search?q=Boosted+USA+Gift+Card",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Search products link"
-              },
-              {
-                "type": "type",
-                "text": "Boosted USA Gift Card"
-              },
-              {
-                "type": "keypress",
-                "keys": [
-                  "ENTER"
-                ]
-              }
-            ]
+            "step": 1,
+            "path": "/store",
+            "action": "click",
+            "target": "Search products link",
+            "button": "left",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/search?q=Boosted+USA+Gift+Card",
-            "toPath": "/store/products/boosted-usa-gift-card",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Boosted USA Gift Card product result"
-              }
-            ]
+            "step": 2,
+            "path": "/store/search",
+            "action": "type",
+            "text": "Boosted USA Gift Card",
+            "toPath": "/store/search"
           },
           {
-            "fromPath": "/store/products/boosted-usa-gift-card",
-            "toPath": "/store/products/boosted-usa-gift-card",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Add to cart button"
-              }
-            ]
+            "step": 3,
+            "path": "/store/search",
+            "action": "keypress",
+            "keys": [
+              "ENTER"
+            ],
+            "toPath": "/store/search?q=Boosted+USA+Gift+Card"
           },
           {
-            "fromPath": "/store/products/boosted-usa-gift-card",
-            "toPath": "/store/cart",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Cart link"
-              }
-            ]
+            "step": 4,
+            "path": "/store/search?q=Boosted+USA+Gift+Card",
+            "action": "click",
+            "target": "Boosted USA Gift Card product result",
+            "button": "left",
+            "toPath": "/store/products/boosted-usa-gift-card"
           },
           {
-            "fromPath": "/store/cart",
-            "toPath": "/store/checkout",
-            "actions": [
-              {
-                "type": "click",
-                "button": "left",
-                "targetHint": "Continue to demo checkout button"
-              }
-            ]
+            "step": 5,
+            "path": "/store/products/boosted-usa-gift-card",
+            "action": "click",
+            "target": "Add to cart button",
+            "button": "left",
+            "toPath": "/store/products/boosted-usa-gift-card"
+          },
+          {
+            "step": 6,
+            "path": "/store/products/boosted-usa-gift-card",
+            "action": "click",
+            "target": "Cart link",
+            "button": "left",
+            "toPath": "/store/cart"
+          },
+          {
+            "step": 7,
+            "path": "/store/cart",
+            "action": "click",
+            "target": "Continue to demo checkout button",
+            "button": "left",
+            "toPath": "/store/checkout"
           }
         ]
       }
     }
-  ],
-  "journeyReplay": {
-    "pathsAreRelative": true,
-    "requiresFreshBrowserContext": true,
-    "cartState": "empty",
-    "routeField": "journey.routes",
-    "computerUsePlanField": "computerUsePlan",
-    "planStatus": "synthetic",
-    "planNote": "Action types follow Computer Use, but targetHint and directionHint are synthetic planning hints, not raw API output. Resolve them from a screenshot before execution.",
-    "computerUseTraceField": "computerUseTrace",
-    "traceStatus": "not_captured",
-    "traceNote": "Capture raw actions from the actual Computer Use call. Do not infer coordinates, targets, or outcomes from the synthetic route plan.",
-    "computerUseActionTypes": [
-      "click",
-      "double_click",
-      "drag",
-      "keypress",
-      "move",
-      "screenshot",
-      "scroll",
-      "type",
-      "wait"
-    ]
-  }
+  ]
 }
