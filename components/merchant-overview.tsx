@@ -224,8 +224,7 @@ export function MerchantOverview({
         >
           <div className="mo-panel-head">
             <div>
-              <span className="mo-kicker">01 / LISTEN</span>
-              <h2 id="signals-title">Shopper signals</h2>
+              <h2 id="signals-title"><small className="mo-step-number">01</small>Shopper signals</h2>
             </div>
           </div>
           <div className="mo-scope-note">
@@ -258,8 +257,7 @@ export function MerchantOverview({
         <section className="mo-panel mo-fleet" aria-labelledby="fleet-title">
           <div className="mo-panel-head">
             <div>
-              <span className="mo-kicker">02 / INVESTIGATE</span>
-              <h2 id="fleet-title">Computer-use fleet</h2>
+              <h2 id="fleet-title"><small className="mo-step-number">02</small>Computer-use fleet</h2>
             </div>
             <button
               className="mo-play-control"
@@ -319,8 +317,7 @@ export function MerchantOverview({
           >
             <div className="mo-panel-head">
               <div>
-                <span className="mo-kicker">03 / IMPROVE</span>
-                <h2 id="diagnosis-title">Diagnosis & improvement</h2>
+                <h2 id="diagnosis-title"><small className="mo-step-number">03</small>Diagnosis & improvement</h2>
               </div>
             </div>
             <div className="mo-outcome-body">
@@ -352,8 +349,7 @@ export function MerchantOverview({
           >
             <div className="mo-panel-head">
               <div>
-                <span className="mo-kicker">04 / SHARE</span>
-                <h2 id="value-title">Value shared back</h2>
+                <h2 id="value-title"><small className="mo-step-number">04</small>Value shared back</h2>
               </div>
             </div>
             <h3>Rewards pending</h3>
