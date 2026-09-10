@@ -212,6 +212,11 @@ export function MerchantOverview({
   const replays = records.filter(
     (record) => record.strategyMatch && record.replayUrl,
   );
+  const completed = Object.entries(run.deadlines)
+    .filter(([, deadline]) => elapsed >= deadline)
+    .sort((a, b) => a[1] - b[1])
+    .map(([id]) => replays.find((record) => record.feedback.id === id))
+    .filter((record): record is AdminOverviewRecord => Boolean(record));
   const selectSignal = (record: AdminOverviewRecord) => {
     if (!record.strategyMatch) {
       setInspecting(record);
@@ -377,6 +382,63 @@ export function MerchantOverview({
             onChange={setReplayPage}
             label="replays"
           />
+          <section
+            className="mo-analysis-feed"
+            aria-labelledby="analysis-feed-title"
+          >
+            <div className="mo-analysis-feed-head">
+              <h3 id="analysis-feed-title">Journey analysis</h3>
+              <span>
+                {completed.length} / {replays.length} complete
+              </span>
+            </div>
+            <p className="mo-analysis-feed-note">
+              Saved findings linked to each journey
+            </p>
+            {!completed.length && (
+              <p className="mo-analysis-empty">
+                {run.id
+                  ? 'Analyzing journeys. Findings will appear here as each session finishes.'
+                  : 'Press Play to start. Completed analyses will collect here.'}
+              </p>
+            )}
+            <div className="mo-analysis-results">
+              {completed.map((record) => (
+                <article
+                  className="mo-analysis-result"
+                  key={`${run.id}-${record.feedback.id}`}
+                >
+                  <div className="mo-analysis-result-head">
+                    <button
+                      onClick={() => {
+                        setSelectedId(record.feedback.id);
+                        setInspecting(record);
+                      }}
+                    >
+                      {record.shortId}
+                    </button>
+                    <span>
+                      <Check size={12} /> Done
+                    </span>
+                  </div>
+                  <h4>
+                    {record.analysis?.title || 'Journey ready for review'}
+                  </h4>
+                  <p>
+                    {record.analysis?.problem ||
+                      'No saved finding is available for this journey.'}
+                  </p>
+                  <details>
+                    <summary>Shopper context</summary>
+                    <p>
+                      {record.feedback.feedback.summary ||
+                        record.feedback.feedback.message}
+                    </p>
+                  </details>
+                </article>
+              ))}
+            </div>
+          </section>
         </section>
         <aside className="mo-outcomes">
           <section

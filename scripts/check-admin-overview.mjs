@@ -73,3 +73,10 @@ assert.deepEqual(analysisSchedule(['only']), { only: DEMO_ANALYSIS_MS });
 console.log(
   'OK demo analysis: randomized completion waves, 1–2 second spacing, eight-second completion, and restart progress reset',
 );
+
+for (const record of records.filter((item) => item.strategyMatch)) {
+  assert.equal(record.analysis?.source, 'cached');
+  assert(record.analysis.title && record.analysis.problem);
+  assert(record.analysis.generatedAt);
+}
+console.log('OK completed journey feed uses saved findings with explicit provenance');
