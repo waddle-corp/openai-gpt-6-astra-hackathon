@@ -148,11 +148,20 @@
   align-items: center;
   gap: 10px;
   width: 100%;
-  border: 1px solid #d6d6d6;
-  border-radius: 6px;
-  padding: 13px 12px;
+  border: 2px solid #e83d26;
+  border-radius: 10px;
+  padding: 18px 14px;
   text-align: left;
-  background: #fff;
+  background: #fff3ef;
+  color: #a52616;
+  box-shadow: 0 3px 12px #e83d2614;
+}
+.pf-checkout-toggle:hover {
+  background: #ffe6df;
+}
+.pf-checkout-toggle:focus-visible {
+  outline: 3px solid #202020;
+  outline-offset: 3px;
 }
 .pf-checkout-toggle-label {
   flex: 1;
@@ -160,12 +169,12 @@
 }
 .pf-checkout-toggle-label strong {
   display: block;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 700;
 }
 .pf-checkout-toggle-icon {
   display: flex;
-  color: #555;
+  color: #e83d26;
 }
 .pf-checkout-toggle > svg {
   flex-shrink: 0;

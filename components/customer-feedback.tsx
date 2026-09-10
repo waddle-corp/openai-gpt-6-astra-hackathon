@@ -368,7 +368,7 @@ export function FeedbackCheckout({
                   ? receipt.rewardPreference === 'coupon'
                     ? 'Next-purchase coupon selected'
                     : 'Card cashback selected'
-                  : 'Optional · about 30 seconds'}
+                  : 'Up to 10% off next time or 5% cashback'}
               </small>
             </span>
             <ArrowRight size={17} />

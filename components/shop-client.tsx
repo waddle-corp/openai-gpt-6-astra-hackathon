@@ -481,7 +481,19 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
     );
   return (
     <main id="main" className="container">
-      <h1>{checkout ? 'Demo checkout' : 'Your cart'}</h1>
+      {checkout && (
+        <nav className="checkout-progress" aria-label="Checkout progress">
+          <a href="/store/cart">Cart</a>
+          <span aria-hidden="true">/</span>
+          <strong aria-current="step">Checkout</strong>
+        </nav>
+      )}
+      <h1>{checkout ? 'Checkout' : 'Your cart'}</h1>
+      {checkout && (
+        <p className="checkout-intro">
+          Review your order, share your experience, and you’re all set.
+        </p>
+      )}
       {!items.length ? (
         <>
           <p>Your cart is empty.</p>
@@ -490,8 +502,13 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
           </a>
         </>
       ) : (
-        <div className="cart-layout">
+        <div className={`cart-layout ${checkout ? 'checkout-layout' : ''}`}>
           <div>
+            {checkout && (
+              <h2 className="checkout-section-title">
+                1. Review your items <a href="/store/cart">Edit cart</a>
+              </h2>
+            )}
             {items.map((item) => {
               const variant = variants[item.variantId];
               return (
@@ -554,6 +571,25 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
                 </article>
               );
             })}
+            {checkout && (
+              <div className="checkout-details">
+                <section>
+                  <h2>2. Delivery</h2>
+                  <strong>Standard delivery</strong>
+                  <p>
+                    This demo skips address entry. No shipment will be created.
+                  </p>
+                </section>
+                <section>
+                  <h2>3. Payment</h2>
+                  <strong>Demo payment</strong>
+                  <p>
+                    No card details needed. Place your order to complete the
+                    simulated checkout.
+                  </p>
+                </section>
+              </div>
+            )}
           </div>
           <aside className="cart-summary">
             <h2>{checkout ? 'Order summary' : 'Subtotal'}</h2>
