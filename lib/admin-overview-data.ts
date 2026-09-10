@@ -3,11 +3,13 @@ import {
   type FeedbackRecord,
 } from '@/contracts/feedback';
 import { readFeedbackFixtures } from '@/lib/feedback-datasets';
+import collective from '@/data/collective-cache.json';
 
 export type AdminOverviewRecord = {
   feedback: FeedbackRecord;
   replayUrl: string | null;
   shortId: string;
+  strategyMatch?: string;
 };
 
 // Recorded fixture replays present in public/media/journeys, not live agent runs.
@@ -61,4 +63,30 @@ export function getAdminOverviewRecords(): AdminOverviewRecord[] {
       : null,
     shortId: feedback.id.replace(/^shopper-feedback-/, '#'),
   }));
+}
+
+// Merchant-selected AOV focus. Membership comes from the saved prioritization,
+// not from rewriting the shopper evidence or claiming a new agent diagnosis.
+const aovFocus: Record<string, string> = {
+  'model-compatibility': 'Compatible parts',
+  'complete-installation': 'Complete setups',
+  'maintenance-companions': 'Accessory attachment',
+};
+
+export function getStrategyOverview() {
+  const allRecords = getAdminOverviewRecords();
+  const matches = new Map<string, string>();
+  for (const opportunity of collective.prioritization.opportunities) {
+    const focus = aovFocus[opportunity.id];
+    if (focus) for (const id of opportunity.feedbackIds) matches.set(id, focus);
+  }
+  return {
+    totalSignals: allRecords.length,
+    records: allRecords
+      .filter((record) => matches.has(record.feedback.id))
+      .map((record) => ({
+        ...record,
+        strategyMatch: matches.get(record.feedback.id),
+      })),
+  };
 }

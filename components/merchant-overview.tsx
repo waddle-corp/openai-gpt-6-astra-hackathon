@@ -147,6 +147,12 @@ function Inspection({
             <span>Journey</span>
             <strong>{feedback.journey.events.length} recorded steps</strong>
           </div>
+          {record.strategyMatch && (
+            <div className="mo-detail-row">
+              <span>Strategy fit</span>
+              <strong>{record.strategyMatch}</strong>
+            </div>
+          )}
           <div className="mo-detail-row">
             <span>Analysis</span>
             <strong>Awaiting agent output</strong>
@@ -173,8 +179,10 @@ function Inspection({
 
 export function MerchantOverview({
   records,
+  totalSignals,
 }: {
   records: AdminOverviewRecord[];
+  totalSignals: number;
 }) {
   const [selectedId, setSelectedId] = useState(records[0]?.feedback.id);
   const [signalPage, setSignalPage] = useState(0);
@@ -217,14 +225,18 @@ export function MerchantOverview({
           </a>
         </div>
       </header>
-      <div className="mo-heading">
-        <div>
-          <span className="mo-kicker">FEEDBACK → BETTER COMMERCE</span>
-          <h1>Turn shopper feedback into store growth.</h1>
+      <div className="mo-heading mo-direction">
+        <div className="mo-revenue-goal">
+          <span className="mo-kicker">GOAL</span>
+          <h1>Increase average order value</h1>
         </div>
-        <div className="mo-goal">
-          <span className="mo-kicker">STORE GOAL</span>
-          <span>Increase average order value</span>
+        <div className="mo-active-strategy">
+          <span className="mo-kicker">STRATEGY</span>
+          <h2>Sell compatible parts</h2>
+          <p>
+            Focus on compatible parts, complete setups, and accessory
+            attachment.
+          </p>
         </div>
       </div>
       <div className="mo-workspace">
@@ -235,11 +247,13 @@ export function MerchantOverview({
           <div className="mo-panel-head">
             <div>
               <span className="mo-kicker">01 / LISTEN</span>
-              <h2 id="signals-title">
-                Shopper signals <span>{records.length}</span>
-              </h2>
+              <h2 id="signals-title">Shopper signals</h2>
             </div>
           </div>
+          <p className="mo-scope-note">
+            {records.length} of {totalSignals} signals relevant to the AOV
+            strategy
+          </p>
           <div className="mo-signals-list">
             {records
               .slice(
@@ -268,9 +282,13 @@ export function MerchantOverview({
                         .map((item) => item.answer)
                         .join(' · ')}
                   </p>
-                  <span className="mo-signal-page">
-                    {record.feedback.context.selectedPage?.title ||
-                      'Store journey'}
+                  <span
+                    className="mo-signal-page mo-match-reason"
+                    title={
+                      record.feedback.context.selectedPage?.title || undefined
+                    }
+                  >
+                    {record.strategyMatch}
                   </span>
                 </button>
               ))}
@@ -359,28 +377,20 @@ export function MerchantOverview({
               </div>
             </div>
             <div className="mo-outcome-body">
-              <span className="mo-wait-label">AWAITING AGENT OUTPUT</span>
-              <h3>
-                The next step starts
-                <br />
-                with the evidence.
-              </h3>
-              <p>
-                Diagnosis, a proposed change, and its expected impact will
-                appear here after investigation.
-              </p>
+              <h3>Analysis pending</h3>
+              <p>No diagnosis or proposal has been generated yet.</p>
               <div className="mo-result-fields">
                 <div>
                   <span>Diagnosis</span>
-                  <small>Finding & supporting evidence</small>
+                  <small>—</small>
                 </div>
                 <div>
                   <span>Proposed improvement</span>
-                  <small>What to change and why</small>
+                  <small>—</small>
                 </div>
                 <div>
                   <span>Expected impact</span>
-                  <small>Forecast & assumptions</small>
+                  <small>—</small>
                 </div>
               </div>
             </div>
@@ -399,25 +409,13 @@ export function MerchantOverview({
                 <h2 id="value-title">Value shared back</h2>
               </div>
             </div>
-            <div className="mo-value-track">
-              <span>Improvement</span>
-              <span aria-hidden="true">→</span>
-              <span>Value</span>
-              <span aria-hidden="true">→</span>
-              <span>Shopper</span>
-            </div>
-            <p>
-              Share the value with the shoppers whose feedback helped create it.
-            </p>
-            <div className="mo-value-pending">Pending validated impact</div>
+            <h3>Rewards pending</h3>
+            <p>Allocation follows the improvement’s validated impact.</p>
           </section>
         </aside>
       </div>
       <footer className="mo-footer">
         <span>Demo feedback & recorded journeys</span>
-        <span>
-          Diagnosis, impact estimates, and rewards are awaiting agent output.
-        </span>
       </footer>
       {inspecting && (
         <Inspection record={inspecting} onClose={() => setInspecting(null)} />
