@@ -4,9 +4,9 @@
 
 1. Run the storefront and accept **Count me in** on `/store`.
 2. Browse a collection and a product, change an option if available, and add it to the cart.
-3. Continue to `/store/checkout` and expand **Pay with your feedback** inside the order summary.
+3. Continue to `/store/checkout` and select **Pay with your feedback** inside the order summary to open the feedback modal.
 4. Pick an actual visited screen, a pain category, and answer one or two multiple-choice questions.
-5. Review the literal answer summary, select coupon or card cashback, and choose **Apply feedback**. The section collapses to **Feedback added**.
+5. Review the literal answer summary, select coupon or card cashback, and choose **Apply feedback**. The modal closes and the order summary shows **Feedback added**.
 6. Choose **Place demo order** directly below the feedback section. Its reference is attached to the feedback.
 
 Use **Restart feedback demo** in the footer for a fresh opt-in and journey. This preserves submitted feedback and the existing cart. **Feedback preferences** permits withdrawing consent and clears unsubmitted journey/draft data. A late opt-in never invents earlier visits; browse again to create a journey.
@@ -23,7 +23,7 @@ Use **Restart feedback demo** in the footer for a fresh opt-in and journey. This
 
 Copy `.dev.vars.example` to ignored `.dev.vars`, set `OPENAI_API_KEY` and `OPENAI_FEEDBACK_MODEL` to the **exact Astra API model identifier provided by the hackathon**, then restart the development server. No model identifier is guessed or substituted. Keep secrets server-side.
 
-`POST /api/feedback/questions` uses the OpenAI Responses API with structured output and `store: false`. It receives only the selected page path/title, category, optional note, the current cart snapshot, and up to 30 allowed journey events. Body size and output shape are bounded. The server times out after eight seconds; the client falls back after ten. Unconfigured, invalid, failed, or late responses use prepared questions. Collapsing the feedback section cancels the client request and prevents stale changes to the draft.
+`POST /api/feedback/questions` uses the OpenAI Responses API with structured output and `store: false`. It receives only the selected page path/title, category, optional note, the current cart snapshot, and up to 30 allowed journey events. Body size and output shape are bounded. The server times out after eight seconds; the client falls back after ten. Unconfigured, invalid, failed, or late responses use prepared questions. Closing the feedback modal cancels the client request and prevents stale changes to the draft.
 
 The live path requires account access and has not been verified without supplied credentials. This unauthenticated endpoint is for the local hackathon demo; add access control and rate limiting before exposing a key-backed deployment.
 

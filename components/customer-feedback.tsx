@@ -9,13 +9,14 @@ import {
   MessageSquare,
   ShieldCheck,
   Sparkles,
-  ChevronDown,
 } from 'lucide-react';
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   categories,
@@ -188,7 +189,6 @@ export function FeedbackCheckout({
   const [error, setError] = useState('');
   const [questionIndex, setQuestionIndex] = useState(0);
   const request = useRef<AbortController | null>(null);
-  const trigger = useRef<HTMLButtonElement | null>(null);
   useEffect(() => () => request.current?.abort(), []);
   if (!state) return null;
   const { session } = state;
@@ -259,7 +259,6 @@ export function FeedbackCheckout({
       submitFeedback(orderTotalCents, cartSnapshot);
       setError('');
       close(false);
-      trigger.current?.focus();
     } catch {
       setError(
         'We could not save your feedback. Allow browser storage and try again. Your answers are still here.',
@@ -272,8 +271,8 @@ export function FeedbackCheckout({
         className="pf-checkout-entry"
         aria-label="Optional order feedback"
       >
-        <Collapsible open={open} onOpenChange={close}>
-          <CollapsibleTrigger ref={trigger} className="pf-checkout-toggle">
+        <Dialog open={open} onOpenChange={close}>
+          <DialogTrigger className="pf-checkout-toggle">
             <span className="pf-checkout-toggle-icon">
               {receipt ? <Check size={18} /> : <Gift size={18} />}
             </span>
@@ -289,354 +288,387 @@ export function FeedbackCheckout({
                   : 'Optional · about 30 seconds'}
               </small>
             </span>
-            <ChevronDown size={17} className={open ? 'is-open' : ''} />
-          </CollapsibleTrigger>
+            <ArrowRight size={17} />
+          </DialogTrigger>
           <p className="pf-checkout-hint" aria-live="polite">
             {receipt
               ? 'We’ll review your contribution within 72 hours. You can place your order below.'
               : 'Share a shopping moment for a chance to earn a coupon or card cashback.'}
           </p>
-          <CollapsibleContent className="pf-inline-body">
-            {receipt ? (
-              <div className="pf-applied-feedback">
-                <p>{receipt.summary}</p>
-                <small>
-                  Reward eligibility and amount depend on your contribution. No
-                  discount is applied to today’s total. Card refund processing
-                  may take longer after confirmation.
-                </small>
-              </div>
-            ) : session.consent !== 'accepted' ? (
-              <>
-                <h3 className="pf-title">Your experience, on your terms.</h3>
-                <p className="pf-description">
-                  To share feedback, allow us to record the store pages you
-                  visit and product choices. Recording starts only after you
-                  agree. Your feedback and journey may be processed by AI;
-                  payment details are never recorded.
-                </p>
-                <button
-                  className="pf-primary"
-                  onClick={() => setFeedbackConsent('accepted')}
-                >
-                  Allow and continue
-                </button>
-                <button className="pf-text" onClick={() => close(false)}>
-                  Maybe later
-                </button>
-              </>
-            ) : session.skipped ? (
-              <>
-                <h3 className="pf-title">Glad your shopping went smoothly.</h3>
-                <p className="pf-description">
-                  No feedback is needed. You can continue with checkout.
-                </p>
-                <button className="pf-primary" onClick={() => close(false)}>
-                  Done
-                </button>
-              </>
-            ) : (
-              <>
-                <div
-                  className="pf-progress"
-                  aria-label={`Step ${stepNumber} of 3`}
-                >
-                  <span className={stepNumber >= 1 ? 'active' : ''}>
-                    01 Journey
-                  </span>
-                  <span className={stepNumber >= 2 ? 'active' : ''}>
-                    02 Question
-                  </span>
-                  <span className={stepNumber >= 3 ? 'active' : ''}>
-                    03 Reward
-                  </span>
+          <DialogContent className="pf-dialog">
+            <header className="pf-dialog-header">
+              <span className="pf-brand">
+                <MessageSquare size={19} /> pay with your feedback
+              </span>
+              <span className="pf-demo-label">Demo</span>
+            </header>
+            <div className="pf-dialog-body">
+              {receipt ? (
+                <div className="pf-applied-feedback">
+                  <DialogTitle className="pf-title">Feedback added</DialogTitle>
+                  <DialogDescription className="pf-description">
+                    Your contribution will be reviewed within 72 hours. You can
+                    place your order after closing this window.
+                  </DialogDescription>
+                  <p>{receipt.summary}</p>
+                  <small>
+                    Reward eligibility and amount depend on your contribution.
+                    No discount is applied to today’s total. Card refund
+                    processing may take longer after confirmation.
+                  </small>
                 </div>
-                {!state.persistent && (
-                  <output className="pf-warning">
-                    Browser storage is unavailable. Keep this page open to
-                    retain your answers.
-                  </output>
-                )}
-                {draft.step === 'journey' && (
-                  <>
-                    <h3 className="pf-title">
-                      Where could shopping feel easier?
-                    </h3>
-                    <p className="pf-description">
-                      Pick one moment from your visit. A few taps can help us
-                      make it better.
-                    </p>
-                    {screens.length ? (
-                      <>
-                        <div className="pf-journey">
-                          {screens.map((screen, index) => (
-                            <button
-                              key={screen.id}
-                              className={`pf-screen ${draft.selected?.id === screen.id ? 'is-selected' : ''}`}
-                              aria-pressed={draft.selected?.id === screen.id}
-                              onClick={() =>
-                                updateFeedbackDraft({
-                                  ...emptyDraft(),
-                                  selected: screen,
-                                })
-                              }
-                            >
-                              <div className="pf-screen-image">
-                                {screen.image ? (
-                                  <img src={screen.image} alt="" />
-                                ) : (
-                                  <MessageSquare size={36} />
-                                )}
-                                <span>
-                                  {String(index + 1).padStart(2, '0')}
-                                </span>
-                              </div>
-                              <div className="pf-screen-caption">
-                                <small>
-                                  {screen.path.includes('/products/')
-                                    ? 'Product details'
-                                    : screen.path.includes('/collections/')
-                                      ? 'Collection'
-                                      : screen.path.endsWith('/cart')
-                                        ? 'Your cart'
-                                        : 'Store page'}
-                                </small>
-                                <strong>{screen.title}</strong>
-                                <span>
-                                  {session.events.filter(
-                                    (event) =>
-                                      event.path === screen.path &&
-                                      event.kind !== 'page_view',
-                                  ).length
-                                    ? 'You interacted here'
-                                    : 'You visited this page'}
-                                </span>
-                              </div>
-                            </button>
-                          ))}
+              ) : session.consent !== 'accepted' ? (
+                <>
+                  <DialogTitle className="pf-title">
+                    Your experience, on your terms.
+                  </DialogTitle>
+                  <DialogDescription className="pf-description">
+                    To share feedback, allow us to record the store pages you
+                    visit and product choices. Recording starts only after you
+                    agree. Your feedback and journey may be processed by AI;
+                    payment details are never recorded.
+                  </DialogDescription>
+                  <button
+                    className="pf-primary"
+                    onClick={() => setFeedbackConsent('accepted')}
+                  >
+                    Allow and continue
+                  </button>
+                  <button className="pf-text" onClick={() => close(false)}>
+                    Maybe later
+                  </button>
+                </>
+              ) : session.skipped ? (
+                <>
+                  <DialogTitle className="pf-title">
+                    Glad your shopping went smoothly.
+                  </DialogTitle>
+                  <DialogDescription className="pf-description">
+                    No feedback is needed. You can continue with checkout.
+                  </DialogDescription>
+                  <button className="pf-primary" onClick={() => close(false)}>
+                    Done
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div
+                    className="pf-progress"
+                    aria-label={`Step ${stepNumber} of 3`}
+                  >
+                    <span className={stepNumber >= 1 ? 'active' : ''}>
+                      01 Journey
+                    </span>
+                    <span className={stepNumber >= 2 ? 'active' : ''}>
+                      02 Question
+                    </span>
+                    <span className={stepNumber >= 3 ? 'active' : ''}>
+                      03 Reward
+                    </span>
+                  </div>
+                  {!state.persistent && (
+                    <output className="pf-warning">
+                      Browser storage is unavailable. Keep this page open to
+                      retain your answers.
+                    </output>
+                  )}
+                  {draft.step === 'journey' && (
+                    <>
+                      <DialogTitle className="pf-title">
+                        Where could shopping feel easier?
+                      </DialogTitle>
+                      <DialogDescription className="pf-description">
+                        Pick one moment from your visit. A few taps can help us
+                        make it better.
+                      </DialogDescription>
+                      {screens.length ? (
+                        <>
+                          <div className="pf-journey">
+                            {screens.map((screen, index) => (
+                              <button
+                                key={screen.id}
+                                className={`pf-screen ${draft.selected?.id === screen.id ? 'is-selected' : ''}`}
+                                aria-pressed={draft.selected?.id === screen.id}
+                                onClick={() =>
+                                  updateFeedbackDraft({
+                                    ...emptyDraft(),
+                                    selected: screen,
+                                  })
+                                }
+                              >
+                                <div className="pf-screen-image">
+                                  {screen.image ? (
+                                    <img src={screen.image} alt="" />
+                                  ) : (
+                                    <MessageSquare size={36} />
+                                  )}
+                                  <span>
+                                    {String(index + 1).padStart(2, '0')}
+                                  </span>
+                                </div>
+                                <div className="pf-screen-caption">
+                                  <small>
+                                    {screen.path.includes('/products/')
+                                      ? 'Product details'
+                                      : screen.path.includes('/collections/')
+                                        ? 'Collection'
+                                        : screen.path.endsWith('/cart')
+                                          ? 'Your cart'
+                                          : 'Store page'}
+                                  </small>
+                                  <strong>{screen.title}</strong>
+                                  <span>
+                                    {session.events.filter(
+                                      (event) =>
+                                        event.path === screen.path &&
+                                        event.kind !== 'page_view',
+                                    ).length
+                                      ? 'You interacted here'
+                                      : 'You visited this page'}
+                                  </span>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                          <p className="pf-footnote">
+                            Highlights from your recorded visits ·
+                            representative page imagery
+                          </p>
+                        </>
+                      ) : (
+                        <div className="pf-empty">
+                          <strong>No shopping moments saved yet.</strong>
+                          <p>
+                            Visit a product or collection after opting in, then
+                            return here. We never reconstruct visits from before
+                            your consent.
+                          </p>
+                          <a
+                            className="pf-primary"
+                            href="/store/collections/all"
+                          >
+                            Explore the store <ArrowRight size={16} />
+                          </a>
                         </div>
-                        <p className="pf-footnote">
-                          Highlights from your recorded visits · representative
-                          page imagery
-                        </p>
-                      </>
-                    ) : (
-                      <div className="pf-empty">
-                        <strong>No shopping moments saved yet.</strong>
-                        <p>
-                          Visit a product or collection after opting in, then
-                          return here. We never reconstruct visits from before
-                          your consent.
-                        </p>
-                        <a className="pf-primary" href="/store/collections/all">
-                          Explore the store <ArrowRight size={16} />
-                        </a>
+                      )}
+                      <div className="pf-actions">
+                        <button
+                          className="pf-text"
+                          onClick={() => {
+                            skipFeedback();
+                          }}
+                        >
+                          Nothing felt difficult
+                        </button>
+                        <button
+                          className="pf-primary"
+                          disabled={!draft.selected}
+                          onClick={() => updateFeedbackDraft({ step: 'pain' })}
+                        >
+                          This moment <ArrowRight size={16} />
+                        </button>
                       </div>
-                    )}
-                    <div className="pf-actions">
-                      <button
-                        className="pf-text"
-                        onClick={() => {
-                          skipFeedback();
-                        }}
-                      >
-                        Nothing felt difficult
-                      </button>
-                      <button
-                        className="pf-primary"
-                        disabled={!draft.selected}
-                        onClick={() => updateFeedbackDraft({ step: 'pain' })}
-                      >
-                        This moment <ArrowRight size={16} />
-                      </button>
-                    </div>
-                  </>
-                )}
-                {draft.step === 'pain' && (
-                  <>
-                    <h3 className="pf-title">What got in your way?</h3>
-                    <p className="pf-description">
-                      Thinking about {draft.selected?.title}. Pick the closest
-                      match.
-                    </p>
-                    <Choices
-                      label="Type of difficulty"
-                      options={categories}
-                      value={draft.category}
-                      onChange={(category) => updateFeedbackDraft({ category })}
-                    />
-                    <label className="pf-note">
-                      Anything you want to add? <span>Optional</span>
-                      <textarea
-                        maxLength={500}
-                        rows={2}
-                        placeholder="A few words are plenty…"
-                        value={draft.note}
-                        onChange={(event) =>
-                          updateFeedbackDraft({ note: event.target.value })
+                    </>
+                  )}
+                  {draft.step === 'pain' && (
+                    <>
+                      <DialogTitle className="pf-title">
+                        What got in your way?
+                      </DialogTitle>
+                      <DialogDescription className="pf-description">
+                        Thinking about {draft.selected?.title}. Pick the closest
+                        match.
+                      </DialogDescription>
+                      <Choices
+                        label="Type of difficulty"
+                        options={categories}
+                        value={draft.category}
+                        onChange={(category) =>
+                          updateFeedbackDraft({ category })
                         }
                       />
-                    </label>
-                    <div className="pf-actions">
-                      <button
-                        className="pf-text"
-                        disabled={loading}
-                        onClick={() => updateFeedbackDraft({ step: 'journey' })}
-                      >
-                        Back
-                      </button>
-                      <button
-                        className="pf-primary"
-                        disabled={!draft.category || loading}
-                        onClick={() => void questions()}
-                      >
-                        {loading ? 'Preparing your questions…' : 'Continue'}{' '}
-                        {!loading && <ArrowRight size={16} />}
-                      </button>
-                    </div>
-                    <output className="pf-footnote">
-                      {loading
-                        ? 'Finding the details that will help us understand.'
-                        : 'One or two quick follow-ups. No long review needed.'}
-                    </output>
-                  </>
-                )}
-                {draft.step === 'questions' && question && (
-                  <>
-                    <div className="pf-question-context">
-                      <Sparkles size={16} />{' '}
-                      {draft.questionSource === 'astra'
-                        ? 'Astra follow-up'
-                        : 'Quick follow-up'}
-                      <span>
-                        {questionIndex + 1} of {draft.questions.length}
-                      </span>
-                    </div>
-                    <h3 className="pf-title">{question.prompt}</h3>
-                    <p className="pf-description">
-                      {draft.selected?.title} · {draft.category}
-                    </p>
-                    <Choices
-                      label={question.prompt}
-                      options={question.options}
-                      value={draft.answers[question.id]}
-                      onChange={(answer) =>
-                        updateFeedbackDraft({
-                          answers: { ...draft.answers, [question.id]: answer },
-                        })
-                      }
-                    />
-                    <div className="pf-actions">
-                      <button
-                        className="pf-text"
-                        onClick={() =>
-                          questionIndex
-                            ? setQuestionIndex(questionIndex - 1)
-                            : updateFeedbackDraft({ step: 'pain' })
+                      <label className="pf-note">
+                        Anything you want to add? <span>Optional</span>
+                        <textarea
+                          maxLength={500}
+                          rows={2}
+                          placeholder="A few words are plenty…"
+                          value={draft.note}
+                          onChange={(event) =>
+                            updateFeedbackDraft({ note: event.target.value })
+                          }
+                        />
+                      </label>
+                      <div className="pf-actions">
+                        <button
+                          className="pf-text"
+                          disabled={loading}
+                          onClick={() =>
+                            updateFeedbackDraft({ step: 'journey' })
+                          }
+                        >
+                          Back
+                        </button>
+                        <button
+                          className="pf-primary"
+                          disabled={!draft.category || loading}
+                          onClick={() => void questions()}
+                        >
+                          {loading ? 'Preparing your questions…' : 'Continue'}{' '}
+                          {!loading && <ArrowRight size={16} />}
+                        </button>
+                      </div>
+                      <output className="pf-footnote">
+                        {loading
+                          ? 'Finding the details that will help us understand.'
+                          : 'One or two quick follow-ups. No long review needed.'}
+                      </output>
+                    </>
+                  )}
+                  {draft.step === 'questions' && question && (
+                    <>
+                      <div className="pf-question-context">
+                        <Sparkles size={16} />{' '}
+                        {draft.questionSource === 'astra'
+                          ? 'Astra follow-up'
+                          : 'Quick follow-up'}
+                        <span>
+                          {questionIndex + 1} of {draft.questions.length}
+                        </span>
+                      </div>
+                      <DialogTitle className="pf-title">
+                        {question.prompt}
+                      </DialogTitle>
+                      <DialogDescription className="pf-description">
+                        {draft.selected?.title} · {draft.category}
+                      </DialogDescription>
+                      <Choices
+                        label={question.prompt}
+                        options={question.options}
+                        value={draft.answers[question.id]}
+                        onChange={(answer) =>
+                          updateFeedbackDraft({
+                            answers: {
+                              ...draft.answers,
+                              [question.id]: answer,
+                            },
+                          })
                         }
-                      >
-                        Back
-                      </button>
-                      <button
-                        className="pf-primary"
-                        disabled={!draft.answers[question.id]}
-                        onClick={() =>
-                          questionIndex + 1 < draft.questions.length
-                            ? setQuestionIndex(questionIndex + 1)
-                            : updateFeedbackDraft({ step: 'review' })
+                      />
+                      <div className="pf-actions">
+                        <button
+                          className="pf-text"
+                          onClick={() =>
+                            questionIndex
+                              ? setQuestionIndex(questionIndex - 1)
+                              : updateFeedbackDraft({ step: 'pain' })
+                          }
+                        >
+                          Back
+                        </button>
+                        <button
+                          className="pf-primary"
+                          disabled={!draft.answers[question.id]}
+                          onClick={() =>
+                            questionIndex + 1 < draft.questions.length
+                              ? setQuestionIndex(questionIndex + 1)
+                              : updateFeedbackDraft({ step: 'review' })
+                          }
+                        >
+                          {questionIndex + 1 < draft.questions.length
+                            ? 'Next question'
+                            : 'Review feedback'}{' '}
+                          <ArrowRight size={16} />
+                        </button>
+                      </div>
+                    </>
+                  )}
+                  {draft.step === 'review' && (
+                    <>
+                      <DialogTitle className="pf-title">
+                        A better store starts here.
+                      </DialogTitle>
+                      <DialogDescription className="pf-description">
+                        Check your feedback and choose how you’d like to be
+                        rewarded if it contributes to an improvement.
+                      </DialogDescription>
+                      <div className="pf-summary">
+                        <span>Your feedback</span>
+                        <p>{feedbackSummary(draft)}</p>
+                        <button
+                          className="pf-text"
+                          onClick={() => updateFeedbackDraft({ step: 'pain' })}
+                        >
+                          Edit feedback
+                        </button>
+                      </div>
+                      <Choices
+                        label="Preferred reward"
+                        options={[
+                          'A coupon for my next purchase',
+                          'Cashback to my payment card',
+                        ]}
+                        value={
+                          draft.reward === 'coupon'
+                            ? 'A coupon for my next purchase'
+                            : draft.reward === 'card_cashback'
+                              ? 'Cashback to my payment card'
+                              : undefined
                         }
-                      >
-                        {questionIndex + 1 < draft.questions.length
-                          ? 'Next question'
-                          : 'Review feedback'}{' '}
-                        <ArrowRight size={16} />
-                      </button>
-                    </div>
-                  </>
-                )}
-                {draft.step === 'review' && (
-                  <>
-                    <h3 className="pf-title">A better store starts here.</h3>
-                    <p className="pf-description">
-                      Check your feedback and choose how you’d like to be
-                      rewarded if it contributes to an improvement.
-                    </p>
-                    <div className="pf-summary">
-                      <span>Your feedback</span>
-                      <p>{feedbackSummary(draft)}</p>
-                      <button
-                        className="pf-text"
-                        onClick={() => updateFeedbackDraft({ step: 'pain' })}
-                      >
-                        Edit feedback
-                      </button>
-                    </div>
-                    <Choices
-                      label="Preferred reward"
-                      options={[
-                        'A coupon for my next purchase',
-                        'Cashback to my payment card',
-                      ]}
-                      value={
-                        draft.reward === 'coupon'
-                          ? 'A coupon for my next purchase'
-                          : draft.reward === 'card_cashback'
-                            ? 'Cashback to my payment card'
-                            : undefined
-                      }
-                      onChange={(value) =>
-                        updateFeedbackDraft({
-                          reward: (value.startsWith('A coupon')
-                            ? 'coupon'
-                            : 'card_cashback') as Reward,
-                        })
-                      }
-                    />
-                    <p className="pf-reward-explainer">
-                      Coupons apply to a future order. Card cashback is a
-                      partial refund of this purchase. Amounts depend on your
-                      actual contribution; no reward is guaranteed.
-                    </p>
-                    <div className="pf-review-time">
-                      <Clock3 size={17} />
-                      <span>
-                        Reviewed within <strong>72 hours</strong>. Card refund
-                        processing may take longer.
-                      </span>
-                    </div>
-                    {error && (
-                      <p role="alert" className="pf-warning">
-                        {error}
+                        onChange={(value) =>
+                          updateFeedbackDraft({
+                            reward: (value.startsWith('A coupon')
+                              ? 'coupon'
+                              : 'card_cashback') as Reward,
+                          })
+                        }
+                      />
+                      <p className="pf-reward-explainer">
+                        Coupons apply to a future order. Card cashback is a
+                        partial refund of this purchase. Amounts depend on your
+                        actual contribution; no reward is guaranteed.
                       </p>
-                    )}
-                    <div className="pf-actions">
-                      <button
-                        className="pf-text"
-                        onClick={() => {
-                          setQuestionIndex(draft.questions.length - 1);
-                          updateFeedbackDraft({ step: 'questions' });
-                        }}
-                      >
-                        Back
-                      </button>
-                      <button
-                        className="pf-primary"
-                        disabled={!draft.reward}
-                        onClick={submit}
-                      >
-                        Apply feedback <ArrowRight size={16} />
-                      </button>
-                    </div>
-                    <p className="pf-footnote">
-                      Your order total stays the same. Any reward is confirmed
-                      after review.
-                    </p>
-                  </>
-                )}
-              </>
-            )}
-          </CollapsibleContent>
-        </Collapsible>
+                      <div className="pf-review-time">
+                        <Clock3 size={17} />
+                        <span>
+                          Reviewed within <strong>72 hours</strong>. Card refund
+                          processing may take longer.
+                        </span>
+                      </div>
+                      {error && (
+                        <p role="alert" className="pf-warning">
+                          {error}
+                        </p>
+                      )}
+                      <div className="pf-actions">
+                        <button
+                          className="pf-text"
+                          onClick={() => {
+                            setQuestionIndex(draft.questions.length - 1);
+                            updateFeedbackDraft({ step: 'questions' });
+                          }}
+                        >
+                          Back
+                        </button>
+                        <button
+                          className="pf-primary"
+                          disabled={!draft.reward}
+                          onClick={submit}
+                        >
+                          Apply feedback <ArrowRight size={16} />
+                        </button>
+                      </div>
+                      <p className="pf-footnote">
+                        Your order total stays the same. Any reward is confirmed
+                        after review.
+                      </p>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
       </section>
     </>
   );

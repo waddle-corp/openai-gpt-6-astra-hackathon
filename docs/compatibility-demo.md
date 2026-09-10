@@ -12,7 +12,7 @@ Start a new feedback demo from the storefront footer, empty any previous demo ca
 6. Select **Pay with your feedback**, choose the charger moment, and choose **Understanding details**.
 7. Enter: **I wanted a second charger for the office, but I could not tell which charger would fit the board I added. I left the charger out.**
 8. In prepared-question mode, choose **I was unsure it would work with the board**, then **Consider adding it to this order**. Live Astra wording may vary; answer honestly according to the scenario rather than requiring an exact sentence.
-9. Choose a reward preference and **Apply feedback**. The inline section collapses; select **Place demo order** below it to finish.
+9. Choose a reward preference and **Apply feedback**. The feedback modal closes; select **Place demo order** below it to finish.
 
 The charger description already names compatibility with GTR/Stoke Series 1 & 2. The available GTR charger option is $99.99. The investigation is whether the store clearly connects the shopper's selected board to that option, not whether compatibility text is entirely missing. Existing information is evidence for Astra to inspect; a final recommendation still needs validation. Do not imply that an extra charger is necessary for the board to work.
 
